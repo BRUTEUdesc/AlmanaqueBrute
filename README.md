@@ -2,4 +2,4 @@
 Repositório  tanto de códigos de competição quanto códigos para estudo
 
 # Upload de Códigos
-Os códigos de competição devem ter o nome do arquivo terminando em comp 
+Juntamente com o código deve haver um README.md dando uma breve descrição sobre o algoritmo
