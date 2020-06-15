@@ -1,2 +1,2 @@
 # Exponenciação modular rápida
-Tempo em O(log(n)) e espaço em O(1).
+Computa (base^exp) % mod em tempo O(log(n)) e espaço O(1).
