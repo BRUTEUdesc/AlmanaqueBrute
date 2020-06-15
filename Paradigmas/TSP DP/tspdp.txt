@@ -1,0 +1,2 @@
+Resolve Problemas O(n!) em O(n²*2^n) de tempo.
+Para rodar a função basta setar a matriz de adjacência 'dist' e chamar solve(0,0,n).
