@@ -24,13 +24,13 @@ void build(int n, int esq, int dir, vi &v) {
     }
 }
 
-int sum(int n, int esq, int dir, int l, int r) {
+int query(int n, int esq, int dir, int l, int r) {
     push(n, esq, dir);
     if (esq > r || dir < l) return 0;
     if (l <= esq && dir <= r) return tree[n];
     int mid = (esq + dir) / 2;
-    return sum(le(n), esq, mid, l, r)
-           + sum(ri(n), mid+1, dir, l, r);
+    return query(le(n), esq, mid, l, r)
+           + query(ri(n), mid+1, dir, l, r);
 }
 
 void update(int n, int esq, int dir, int l, int r, int v) {
