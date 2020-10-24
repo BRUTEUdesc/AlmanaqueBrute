@@ -2,8 +2,8 @@ typedef vector <int> vi;
 
 vi tree;
 
-int le(n) {return 2*n;}
-int ri(n) {return 2*n+1;}
+int le(int n) {return 2*n;}
+int ri(int n) {return 2*n+1;}
 
 void build(int n, int esq, int dir, vi &v) {
     if (esq == dir) tree[n] = v[esq];
