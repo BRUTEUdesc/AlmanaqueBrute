@@ -38,5 +38,5 @@ void update(int n, int esq, int dir, int x, int v) {
 int main() {
     int n;
     cin >> n;
-    tree.assign(n, 0);
+    tree.assign(4*n, 0);
 }
