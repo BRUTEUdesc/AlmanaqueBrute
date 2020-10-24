@@ -24,6 +24,7 @@ int sum(int n, int esq, int dir, int l, int r) {
 }
 
 void update(int n, int esq, int dir, int x, int v) {
+    if (esq > x || dir < x) return;
     if (esq == dir) tree[n] = v;
     else {
         int mid = (esq + dir) / 2;
