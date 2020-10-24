@@ -1,66 +1,81 @@
-#define INF 1e9
+struct FlowEdge {
+    int v, u;
+    long long cap, flow = 0;
+    FlowEdge(int v, int u, long long cap) : v(v), u(u), cap(cap) {}
+};
 
-typedef vector <int> vi;
+struct Dinic {
+    const long long flow_inf = 1e18;
+    vector<FlowEdge> edges;
+    vector<vector<int>> adj;
+    int n, m = 0;
+    int s, t;
+    vector<int> level, ptr;
+    queue<int> q;
 
-int n, s, t;
+    Dinic(int n, int s, int t) : n(n), s(s), t(t) {
+        adj.resize(n);
+        level.resize(n);
+        ptr.resize(n);
+    }
 
-vector <vi> adj, cap;
-vi level, prox;
+    void add_edge(int v, int u, long long cap) {
+        edges.emplace_back(v, u, cap);
+        edges.emplace_back(u, v, 0);
+        adj[v].push_back(m);
+        adj[u].push_back(m + 1);
+        m += 2;
+    }
 
-bool bfs() {
-    level.assign(n, -1);
-    queue <int> fila;
-    fila.push(s);
-    level[s] = 0;
-
-    while (!fila.empty()) {
-        int n = fila.front();
-        fila.pop();
-
-        for (int i : adj[n]) {
-            if (level[i] == -1 && cap[n][i] > 0) {
-                level[i] = level[n] + 1;
-                fila.push(i);
+    bool bfs() {
+        while (!q.empty()) {
+            int v = q.front();
+            q.pop();
+            for (int id : adj[v]) {
+                if (edges[id].cap - edges[id].flow < 1)
+                    continue;
+                if (level[edges[id].u] != -1)
+                    continue;
+                level[edges[id].u] = level[v] + 1;
+                q.push(edges[id].u);
             }
         }
+        return level[t] != -1;
     }
-    return level[t] != -1;
-}
 
-int dfs(int n, int mi) {
-    if (n == t) return mi;
-    for (; prox[n] < adj[n].size(); prox[n]++) {
-        int i = adj[n][prox[n]];
-        if (level[i] == level[n]+1 && cap[n][i] > 0) {
-            int f = dfs(i, min(mi, cap[n][i]));
+    long long dfs(int v, long long pushed) {
+        if (pushed == 0)
+            return 0;
+        if (v == t)
+            return pushed;
+        for (int& cid = ptr[v]; cid < (int)adj[v].size(); cid++) {
+            int id = adj[v][cid];
+            int u = edges[id].u;
+            if (level[v] + 1 != level[u] || edges[id].cap - edges[id].flow < 1)
+                continue;
+            long long tr = dfs(u, min(pushed, edges[id].cap - edges[id].flow));
+            if (tr == 0)
+                continue;
+            edges[id].flow += tr;
+            edges[id ^ 1].flow -= tr;
+            return tr;
+        }
+        return 0;
+    }
 
-            if (f != 0) {
-                cap[n][i] -= f;
-                cap[i][n] += f;
-                return f;
+    long long flow() {
+        long long f = 0;
+        while (true) {
+            fill(level.begin(), level.end(), -1);
+            level[s] = 0;
+            q.push(s);
+            if (!bfs())
+                break;
+            fill(ptr.begin(), ptr.end(), 0);
+            while (long long pushed = dfs(s, flow_inf)) {
+                f += pushed;
             }
         }
+        return f;
     }
-    return 0;
-}
-
-// Dinic
-// runs on O(V²E) and O(sqrt(V)*E) on bipartite graphs
-int main() {
-    // Variables to inicialize
-    // n = Number of nodes
-    // s = Start Node
-    // t = Sink Node
-
-    adj.assign(n, vi(0));
-    cap.assign(n, vi(n, 0));
-
-    int maxflow = 0;
-    while (bfs()) {
-        prox.assign(n, 0);
-        for (int f = dfs(s, INF); f != 0; f = dfs(s, INF)) maxflow += f;
-    }
-
-    cout << maxflow << endl;
-
-}
+};
