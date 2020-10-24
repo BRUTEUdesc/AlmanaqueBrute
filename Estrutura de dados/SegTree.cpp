@@ -6,8 +6,8 @@ typedef vector <int> vi;
 int n;
 vi tree;
 
-int le(int n) {return 2*n;}
-int ri(int n) {return 2*n+1;}
+int le(int n) {return 2*n+1;}
+int ri(int n) {return 2*n+2;}
 
 void build(int n, int esq, int dir, vi &v) {
     if (esq == dir) tree[n] = v[esq];
