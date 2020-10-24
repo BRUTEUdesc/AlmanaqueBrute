@@ -6,8 +6,8 @@ typedef vector <int> vi;
 int n;
 vi tree, lazy;
 
-int le(int n) {return 2*n;}
-int ri(int n) {return 2*n+1;}
+int le(int n) {return 2*n+1;}
+int ri(int n) {return 2*n+2;}
 
 void push(int n, int esq, int dir) {
     tree[n] += lazy[n] * (dir - esq + 1);
