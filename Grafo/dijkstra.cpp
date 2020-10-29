@@ -1,10 +1,12 @@
+#define INF 1e9+9
+#define MAX 500
+
 typedef pair <int,int> ii;
 typedef vector <ii> vii;
 typedef vector<int> vi;
 
 vii adj[MAX];
 
-#define INF 1e9+9
 int dist[MAX];
 
 int dijkstra(int s, int f){
