@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct hash {
+struct hash{
     static const long long LIM = 1000006;
     long long p, m, pw[LIM], hsh[LIM];
     hashing(long long p, long long m) : p(p), m(m) {
