@@ -13,7 +13,7 @@ vector <vi> adj;
 vector <ii> prof;
 vector <vector <ii> > st;
 
-int n, me, timer;
+int n, timer;
 
 void SparseTable(vector <ii> &v) {
     int n = v.size();
@@ -40,7 +40,6 @@ void build(int root=0) {
     tout.assign(n, 0);
     prof.clear();
     timer = 0;
-    me = floor(log2(n));
     et_dfs(root, root, 0);
     SparseTable(prof);
 }
