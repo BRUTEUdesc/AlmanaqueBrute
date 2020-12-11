@@ -1,10 +1,13 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct hash{
-    static const long long LIM = 1000006;
-    long long p, m, pw[LIM], hsh[LIM];
-    hashing(long long p, long long m) : p(p), m(m) {
+struct hashing{
+    const long long LIM = 1000006;
+    long long p, m;
+    vector<long long> pw, hsh;
+    hashing(long long _p, long long _m) : p(_p), m(_m) {
+        pw.resize(LIM);
+        hsh.resize(LIM);
         pw[0] = 1;
         for(int i = 1; i < LIM; i++) pw[i] = (pw[i-1] * p) % m;
     }
