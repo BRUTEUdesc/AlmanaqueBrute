@@ -12,7 +12,7 @@ struct rollback_dsu{
     rollback_dsu(int n){
         size.resize(n+5, 1);
         number_of_sets = n;
-        loop(i, 0, n+5) parent.push_back(i);
+        for(int i = 0; i < n+5; ++i) parent.push_back(i);
     }
     
     int get(int a){
