@@ -1,4 +1,5 @@
 // DSU com rollback, retorna as últimas K operações em O(K);
+// O rollback não altera a complexidade, uma vez K <= querys.
 // Só funciona sem compressão de caminho!! 
 // Join, Get e Same em O(log(N))
 
