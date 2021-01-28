@@ -37,13 +37,10 @@ struct rollback_dsu{
     void rollback(int qnt){
         for(int i = 0; i < qnt; ++i){
             auto ch = changes.top();
-            if(ch.node == -1) {
-                changes.pop();
-                continue;
-            }
+            changes.pop();
+            if(ch.node == -1) continue;
             size[parent[ch.node]] = ch.old_size;
             parent[ch.node] = ch.node;
-            changes.pop();
             ++number_of_sets;
         }
     }
