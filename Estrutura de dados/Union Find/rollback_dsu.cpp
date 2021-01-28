@@ -8,6 +8,7 @@ struct rollback_dsu{
     stack<change> changes;
     vector<int> parent, size;
     int number_of_sets;
+    
     rollback_dsu(int n){
         size.resize(n+5, 1);
         number_of_sets = n;
