@@ -8,7 +8,6 @@ struct rollback_dsu{
     stack<change> changes;
     vector<int> parent, size;
     int number_of_sets;
-    
     rollback_dsu(int n){
         size.resize(n+5, 1);
         number_of_sets = n;
@@ -24,7 +23,10 @@ struct rollback_dsu{
     
     void join(int a, int b){
         a = get(a); b = get(b);
-        if(a == b) return;
+        if(a == b) {
+            changes.push({-1, -1});
+            return;   
+        }
         if(size[a] > size[b]) swap(a, b);
         changes.push({a, size[b]});
         parent[a] = b;
@@ -33,13 +35,16 @@ struct rollback_dsu{
     }
     
     void rollback(int qnt){
-        loop(i, 0, qnt){
+        for(int i = 0; i < qnt; ++i){
             auto ch = changes.top();
+            if(ch.node == -1) {
+                changes.pop();
+                continue;
+            }
             size[parent[ch.node]] = ch.old_size;
             parent[ch.node] = ch.node;
             changes.pop();
             ++number_of_sets;
         }
     }
-    
 };
