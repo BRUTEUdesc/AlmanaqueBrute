@@ -52,7 +52,7 @@ struct full_dsu{
     // void question(int u, int v){ ord(u, v); queries.push_back({time, time, u, v, 1}); ++time;} // consulta com nodo 
     void question(){queries.push_back({time, time, 0, 0, 1}); ++time;} // consulta sem nodo
     
-    vector<int> run(){
+    vector<int> run(){ // essa é a função que retorna as respostas
         for(auto [p, q]: edges) queries.push_back(q);
         vector<int> vec(time, -1), ans;
         work(queries, 0, time, vec);
