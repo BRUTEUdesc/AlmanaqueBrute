@@ -69,9 +69,9 @@ struct full_dsu{
         checkpoint();
         vector<query> qrs_aux;
         for(auto q: qrs){
-            if(q.type == 0 && l >= q.l && r <= q.r) join(q.u, q.v);
-            if((q.type == 1 && l <= q.l && r >= q.l) || (q.type == 0 && ((l <= q.l && r >= q.l) || (l <= q.r && r >= q.r))))
-                qrs_aux.push_back(q);
+            if(q.type == 0 && q.l <= l && r <= q.r) join(q.u, q.v);
+            else if(q.type == 1 && l <= q.l && q.l <= r) qrs_aux.push_back(q);
+            else if(q.type == 0 && ((l <= q.l && q.l <= r) || (l <= q.r && q.r <= r) || (q.l <= l && r <= q.r)) ) qrs_aux.push_back(q);  
         }
         int m = (l+r)/2;
         work(qrs_aux, l, m, vec);
