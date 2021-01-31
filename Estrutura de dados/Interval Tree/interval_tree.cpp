@@ -20,17 +20,16 @@ struct intervals_node_update{
     virtual CNI node_end() const = 0;
     
     inline vector<int> overlaps(const ll l, const ll r){
-        const interval inter = {l, r, 0};
         queue<CNI> q; q.push(node_begin());
         vector<int> vec;
         while(!q.empty()){
             CNI it = q.front(); q.pop();
             if (it == node_end()) continue;
-            if (inter.hi >= (*it)->lo && inter.lo <= (*it)->hi) vec.push_back((*it)->id);
+            if (r >= (*it)->lo && l <= (*it)->hi) vec.push_back((*it)->id);
             CNI l_it = it.get_l_child();
             ll l_max = (l_it == node_end())? -INF: l_it.get_metadata();
-            if (l_max >= inter.lo) q.push(l_it);
-            if ((*it)->lo <= inter.hi) q.push(it.get_r_child());    
+            if (l_max >= l) q.push(l_it);
+            if ((*it)->lo <= r) q.push(it.get_r_child());    
         }
         return vec;
     }
