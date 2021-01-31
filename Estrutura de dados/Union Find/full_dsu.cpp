@@ -2,13 +2,13 @@
 // EXTREMAMENTE PODEROSO
 // Funciona de maneira off-line, vá adicionando as operações e receba as respostas das consultas no retorno da função run
 // O(m*log(m)*log(n)) onde m é o  número de queries e n é o número de nodos
+// ***** POSSIVELMETE INSTAVEL!! *****  (WA em alguns exercícios porém AC em outros)
 
 struct full_dsu{
-    #define LIM (int)1e6+5
     struct change{ int node, old_size;};
-    struct query{ int l, r, u, v, type;};
+    struct query { int l, r, u, v, type;};
     stack<change> changes;
-    map<pair<int,int>, query> edges;
+    map<pair<int,int>, vector<query>> edges;
     vector<query> queries;
     vector<int> parent, size;
     int number_of_sets, time;
@@ -17,8 +17,7 @@ struct full_dsu{
         time = 0;
         size.resize(n+5, 1);
         number_of_sets = n;
-        changes.push({-2, 0});
-        for(int i = 0; i < n+5; ++i) parent.push_back(i);
+        loop(i, 0, n+5) parent.push_back(i);
     }
     
     int get(int a){ return (parent[a] == a? a: get(parent[a]));}
@@ -36,46 +35,46 @@ struct full_dsu{
     }
     
     void rollback(){
-        while(1){
+        while(!changes.empty()){
             auto ch = changes.top();
             changes.pop();
             if(ch.node == -2) break;
             size[parent[ch.node]] = ch.old_size;
-            parent[ch.node] = ch.node;
+            parent[ch.node] = ch.node;  
             ++number_of_sets;
         }
     }
     
     void ord(int& a, int& b){if(a > b) swap(a, b);}
-    void add(int u, int v){ ord(u, v); edges[{u, v}] = {time++, LIM, u, v, 0};}
-    void remove(int u, int v){ ord(u, v); edges[{u, v}].r = time++;}
-    // void question(int u, int v){ ord(u, v); queries.push_back({time, time, u, v, 1}); ++time;} // consulta com nodo 
-    void question(){queries.push_back({time, time, 0, 0, 1}); ++time;} // consulta sem nodo
+    void add(int u, int v){ ord(u, v); edges[{u, v}].push_back({time++, (int)1e9, u, v, 0});}
+    void remove(int u, int v){ ord(u, v); edges[{u, v}].back().r = time++;}
+    void question(int u, int v){ ord(u, v); queries.push_back({time, time, u, v, 1}); ++time;} // consulta com nodo 
+    void question(){ queries.push_back({time, time, 0, 0, 1}); ++time;} // consulta sem nodo
     
-    vector<int> run(){ // essa é a função que retorna as respostas
-        for(auto [p, q]: edges) queries.push_back(q);
+    vector<int> solve(){
+        for(auto [p, v]: edges) for(auto q: v) queries.push_back(q);
         vector<int> vec(time, -1), ans;
-        work(queries, 0, time, vec);
+        run(queries, 0, time, vec);
         for(int i: vec) if(i != -1) ans.push_back(i);
         return ans;
     }
     
-    void work(vector<query>& qrs, int l, int r, vector<int>& vec){
+    void run(vector<query>& qrs, int l, int r, vector<int>& ans){
         if(l > r) return;
         if(l == r){
-            for(auto q: qrs) if(q.type == 1 && q.l == l) vec[l] = number_of_sets; // escolher qual função chamar para responder
+            for(auto q: qrs) if(q.type && q.l == l) ans[l] = same(q.u, q.v); // ou ans[l] = number_of_sets; 
             return;
         }
         checkpoint();
         vector<query> qrs_aux;
         for(auto q: qrs){
-            if(q.type == 0 && q.l <= l && r <= q.r) join(q.u, q.v);
-            else if(q.type == 1 && l <= q.l && q.l <= r) qrs_aux.push_back(q);
-            else if(q.type == 0 && ((l <= q.l && q.l <= r) || (l <= q.r && q.r <= r) || (q.l <= l && r <= q.r)) ) qrs_aux.push_back(q);  
+            if (!q.type && q.l <= l && r <= q.r) join(q.u, q.v);
+            else if (r < q.l || l > q.r) continue;
+            else qrs_aux.push_back(q);
         }
         int m = (l+r)/2;
-        work(qrs_aux, l, m, vec);
-        work(qrs_aux, m+1, r, vec);
+        run(qrs_aux, l, m, ans);
+        run(qrs_aux, m+1, r, ans);
         rollback();
     }
 };
