@@ -2,6 +2,7 @@
 // EXTREMAMENTE PODEROSO
 // Funciona de maneira off-line, vá adicionando as operações e receba as respostas das consultas no retorno da função run
 // O(m*log(m)*log(n)) onde m é o  número de queries e n é o número de nodos
+// Roda em 0,6 ms para 3e5 queries e nodos
 
 struct full_dsu{
     struct change{ int node, old_size;};
