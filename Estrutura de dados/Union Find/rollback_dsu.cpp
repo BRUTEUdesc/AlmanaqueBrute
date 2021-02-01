@@ -1,4 +1,5 @@
 // DSU com rollback, desfaz as últimas K uniões em O(K);
+// É possivel usar um checkpoint e daí basta chamar rollback() para ir até o último checkpoint
 // O rollback não altera a complexidade, uma vez K <= queries.
 // Só funciona sem compressão de caminho!! 
 // Join, Get e Same em O(log(N))
