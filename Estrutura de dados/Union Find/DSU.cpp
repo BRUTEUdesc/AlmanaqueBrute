@@ -1,3 +1,4 @@
+// foi o machado quem fez
 struct DSU {
     vector <int> pai, tam;
 
