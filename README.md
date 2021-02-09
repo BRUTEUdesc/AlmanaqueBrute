@@ -1,4 +1,4 @@
-# Almanaque de códigos do BRUTE
+# Almanaque do BRUTE
 Repositório para códigos de competição.\
 Assuntos abordados:
 * **Estruturas de Dados**
