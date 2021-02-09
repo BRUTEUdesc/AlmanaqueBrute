@@ -1,4 +1,4 @@
-# Macacário BRUTE
+# Almanaque de códigos do BRUTE
 Repositório para códigos de competição.\
 Assuntos abordados:
 * **Estruturas de Dados**
