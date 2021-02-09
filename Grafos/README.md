@@ -1,17 +1,17 @@
 # Grafos
 Temas:
-* Binary Lifting  
+* **Binary Lifting**  
 Busca por antepassados em uma árvore.
-* Dijkstra  
+* **Dijkstra**  
 Caminho mínimo de 1 para todos. **SEM PESOS NEGATIVOS**
-* Fluxo  
-**VER PASTA**
-* Graph Center  
+* **Fluxo**  
+Problemas sobre fluxo
+* **Graph Center**  
 Encontra o centro do grafo.
-* HLD (Heavy Light Decomposition)  
+* **HLD (Heavy Light Decomposition)**  
 Quebra uma árvore em cadeias e facilita consultas.
-* LCA (Lowets Common Ancestor)  
+* **LCA (Lowets Common Ancestor)**  
 Encontra ancetral comum de dois vétices em uma árvore. 
-* Tarjan  
+* **Tarjan**  
 Detecta a quantidade de pontes que não estão contidas em qualquer ciclo.
 
