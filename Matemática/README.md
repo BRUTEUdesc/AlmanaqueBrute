@@ -1,6 +1,6 @@
 # Matemática
 Temas:
-* **Crivo de Erastótenes**  
+* **Crivo de Eratóstenes**  
 Computa os primos de 1 a N.
 * **Eliminação Gaussiana**  
 Resolve sistema linear de equações.
