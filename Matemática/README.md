@@ -12,7 +12,7 @@ Multiplica dois polinômios. **double**
 Encontra o maior divisor comum. 
 * **NTT (Numeric Theoric Transform)**  
 Multiplica polinômios.**long long**
-* **Primoss**  
+* **Primos**  
 Testes de Primalidade.
 * **Sum of floor(x|n)**  
 Encontra a soma de x dividido de 1 a x
