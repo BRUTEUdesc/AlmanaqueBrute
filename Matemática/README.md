@@ -1,7 +1,7 @@
 # Matemática
 Temas:
-* **Crivo**  
-Computar primos, totiente e Möbius.
+* **Crivo de Erastótenes**  
+Computa os primos de 1 a N.
 * **Eliminação Gaussiana**  
 Resolve sistema linear de equações.
 * **Exponenciação Modular Rápida**  
@@ -14,3 +14,5 @@ Encontra o maior divisor comum.
 Multiplica polinômios.**long long**
 * **Sum of floor(x|n)**  
 Encontra a soma de x dividido de 1 a x
+* **Totiente de Euler**  
+Computa o totiente.
