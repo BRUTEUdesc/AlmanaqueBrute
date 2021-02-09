@@ -1,4 +1,4 @@
-struct GraphCenter{
+struct graph_center{
     const int inf = 1e9;
     int n, diam = 0;
     vector<int> centros, dist, pai;

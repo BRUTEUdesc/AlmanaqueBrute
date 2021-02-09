@@ -1,3 +1,0 @@
-# Máximo divisor comum
-
-Computada o GCD em O(log(n)), mais demorado que usar a função de compilador __gcd(a,b).

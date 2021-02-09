@@ -1,7 +1,3 @@
-/*
-* Detectar a quantidade de pontes que não estão contidas em qualquer ciclo.
-*/
-
 typedef vector<int> vi;
 typedef vector<vi> mat;
 #define MAX 2000
