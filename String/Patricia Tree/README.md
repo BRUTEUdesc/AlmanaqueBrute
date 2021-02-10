@@ -8,3 +8,4 @@ Implementação PB-DS, extremamente curta e confusa.\
 **Percorrer *match***: for(auto it = match.first; it != match.second; ++it)];\
 **Pegar menor elemento lexicográfico *maior ou igual* ao prefixo**: *pat.lower_bound("sei");\
 **Pegar menor elemento lexicográfico *maior* ao prefixo**: *pat.upper_bound("sei");\
+**NÃO ACEITA ELEMENTOS REPETIDOS**
