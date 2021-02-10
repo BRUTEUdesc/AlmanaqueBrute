@@ -5,5 +5,6 @@ Assuntos abordados:
 * **Grafos**
 * **Matemática**
 * **Paradigmas**
-* **String**\
+* **String**
+
 *Juntamente com o código deve haver um README.md dando uma breve descrição sobre o algoritmo*
