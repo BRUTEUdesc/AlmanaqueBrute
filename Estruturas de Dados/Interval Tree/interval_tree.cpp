@@ -1,7 +1,3 @@
-// Capaz de retornar todos os intervalos que intersectam overlaps(l, r) [l, r]
-// insert({l, r, id}), erase({l, r, id}) , overlap(l, r) e find({l, r, id}) em O(log(n))
-// é necessário inserir e apagar indicando tanto os limites quanto o id do intervalo
-
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
