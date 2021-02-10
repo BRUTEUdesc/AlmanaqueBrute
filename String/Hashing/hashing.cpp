@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 struct hashing{
     const long long LIM = 1000006;
     long long p, m;
