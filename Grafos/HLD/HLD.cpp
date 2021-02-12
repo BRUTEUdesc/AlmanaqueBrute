@@ -1,4 +1,4 @@
-int n, t, sz[MAX], pos[MAX], pai[MAX], head[MAX], v[MAX];
+int n, t, sz[MAX], pos[MAX], pai[MAX], head[MAX];
 vector <vi> adj;
 
 void dfs_sz(int u, int p=-1) {
