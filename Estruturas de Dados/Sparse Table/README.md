@@ -1,7 +1,10 @@
-#Sparse Table
+# Sparse Table
 
-O(Nlog(N)) Space\
-O(Nlog(N)) Pre-processing\
-O(NLog(N)) Query for non overlap friendly operations\
-O(1) Query for overlap friendly operations\
-     ex: max(), min(), gcd(), f(x, y) = x
+**O( N log(N) )** Space\
+**O( N log(N) )** Pre-processing\
+**O( N log(N) )** Query for non overlap friendly operations\
+**O(1)** Query for overlap friendly operations ex: \
+* max()
+* min()
+* gcd()
+* f(x, y) = x
