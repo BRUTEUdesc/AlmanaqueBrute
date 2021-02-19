@@ -1,6 +1,6 @@
 # DSU Comum
 Estrutura que trata conjuntos\
-Verifica se dois itens pertencem à um mesmo grupo em **O(1)** amortizado\
+Verifica se dois itens pertencem a um mesmo grupo em **O(1)** amortizado\
 Une grupos em **O(1)** amortizado
 
 
