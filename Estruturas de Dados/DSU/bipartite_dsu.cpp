@@ -1,6 +1,3 @@
-// DSU para grafo bipartido, é possível verificar se uma aresta é possível antes de adicioná-la
-// Todas as operações em O(1) amortizado
-
 struct bipartite_dsu{
     vector<int>  parent;
     vector<int> color;
