@@ -14,7 +14,7 @@ Resolve o caxeiro viajante 'rápido'.
 # Paradigms
 Topics:
 * **All Submasks**  
-Iterates through all submasks of a bitmask.
+Iterates over all submasks of a bitmask.
 * **Mo**  
 Solves offline simulations.
 * **TSP DP (Travelling Salesman DP)**  
