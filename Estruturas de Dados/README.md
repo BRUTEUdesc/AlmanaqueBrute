@@ -19,15 +19,15 @@ Consultas diversas em intervalo. **SEM ATUALIZAÇÂO**
 
 # Data Structure
 Topics:
-* **DSU (Disjoint Set Union)**
+* **DSU (Disjoint Set Union)**  
 Queries and updates in groups of objects.
-* **Fenwick Tree**
+* **Fenwick Tree**  
 Queries and updates of sum in interval.
-* **Interval Tree (Hard to find implementation)**
+* **Interval Tree (Hard to find implementation)**  
 Answers how many intervals intersect with another interval. **WITH UPDATE**
-* **LiChao Tree**
+* **LiChao Tree**  
 Returns the maximum or minimun value from a set of lines in an interval. **WITH UPDATE**
-* **Segment Tree**
+* **Segment Tree**  
 Multiple queries and updates in an interval.
-* **Sparse Table**
+* **Sparse Table**  
 Multiple queries in an interval. **WITHOUT UPDATE**
