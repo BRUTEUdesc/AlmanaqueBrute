@@ -54,5 +54,5 @@ poly convolution(poly &a, poly &b){
     poly answer(n);
     for(ll i = 0; i < n; i++) answer[i] = (a[i] * b[i]);
     ntt(answer, 1);
-    return poly;
+    return answer;
 }
