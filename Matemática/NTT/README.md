@@ -1,7 +1,7 @@
 ### PT-BR
 
 # Numeric Theoric Transformation
-Computa multiplicação de polinômino; **Somente para inteiros**.\
+Computa multiplicação de polinômino; **Somente para inteiros**.
 * Complexidade de tempo: O(N * log(N))
 
 Constantes finais devem ser menor do que 10⁹.
