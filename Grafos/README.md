@@ -13,7 +13,7 @@ Encontra o centro do grafo.
 * **HLD (Heavy Light Decomposition)**  
 Quebra uma árvore em cadeias e facilita consultas.
 * **LCA (Lowest Common Ancestor)**  
-Encontra ancetral comum de dois vétices em uma árvore. 
+Encontra o menor ancetral comum de dois vétices em uma árvore. 
 * **Tarjan**  
 Detecta a quantidade de pontes que não estão contidas em qualquer ciclo.
 
@@ -32,6 +32,6 @@ Finds the center of the graph.
 * **HLD (Heavy Light Decomposition)**  
 Breaks a tree into chains and ease queries.  
 * **LCA (Lowest Common Ancestor)**  
-Finds common ancestor for two vertices in a tree.  
+Finds the lowest common ancestor for two vertices in a tree.  
 * **Tarjan**  
 Quantifies the number of bridges that don't belong to any cycle.  
