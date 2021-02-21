@@ -14,7 +14,7 @@ Contém funções insert({L, R, ID}), erase({L, R, ID}) , overlaps(L, R) e find(
 
 # Interval Tree (Rare)
 
-Able to return all intervals that intersect [L, R]. ** L and R included ** \
+Able to return all intervals that intersect [L, R]. **L and R included** \
 Contains insert ({L, R, ID}), erase ({L, R, ID}), overlaps (L, R) and find ({L, R, ID}) functions.
 It is necessary to insert and delete indicating both the limits and the interval ID
 
