@@ -1,4 +1,17 @@
+### PT-BR
+
 # Máximo divisor comum
 
-Computada o GCD (MDC em português) em **O( log(n) )**\
-Mais demorado que usar a função de compilador __gcd(a, b).
+Computa o Máximo Divisor Comum (MDC em português; GCD em inglês).
+* Complexidade de tempo: O(log(n))
+
+Mais demorado que usar a função do compilador C++ __gcd(a,b).
+
+### EN-US
+
+# Greatest Common Divisor
+
+Computes the Greatest Common Divisor (GCD).
+* Time Complexity: O(log(n))
+
+Slower than C++ compiler function __gcd(a,b).
