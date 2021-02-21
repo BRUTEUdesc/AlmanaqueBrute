@@ -9,11 +9,10 @@ ll root_pw = 1 << 23;
 ll modInv(ll b){
     ll e = mod - 2;
     ll res = 1;
-    ll pot = b;
     while(e){
-        if(e & 1) res = (res * pot) % mod;
+        if(e & 1) res = (res * b) % mod;
         e /= 2;
-        pot = (pot * pot) % mod;
+        b = (b * b) % mod;
     }
     return res;
 }
@@ -42,16 +41,18 @@ void ntt(poly &a, bool invert = 0){
     }
     if(invert){
         ll inv = modInv(n);
-        for(ll i = 0; i < n; i++){
+        for(ll i = 0; i < n; i++)
             a[i] = (a[i] * inv) % mod;
-        }
     }
 }
-void convolution(poly &a, poly &b, poly &answer){
+
+poly convolution(poly &a, poly &b){
     ll n = 1LL, len = (1LL + a.size() + b.size());
     while(n < len) n *= 2;
-    a.resize(n); b.resize(n); res.resize(n);
+    a.resize(n); b.resize(n);
     ntt(a); ntt(b);
+    poly answer(n);
     for(ll i = 0; i < n; i++) answer[i] = (a[i] * b[i]);
     ntt(answer, 1);
+    return poly;
 }
