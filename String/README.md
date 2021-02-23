@@ -1,5 +1,5 @@
 # String
-*Read in [English](https://github.com/BRUTEUdesc/AlmanaqueBrute/blob/master/String/README.en.md)*
+*Read in [English](README.en.md)*
 
 Temas:
 * **Hashing**  
