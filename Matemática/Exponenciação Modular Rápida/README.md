@@ -1,13 +1,7 @@
-### PT-BR
-
 # Exponenciação modular rápida
+
+*Read in [English](https://github.com/joao-frohlich/AlmanaqueBrute/blob/readme-translation/Matem%C3%A1tica/Exponencia%C3%A7%C3%A3o%20Modular%20R%C3%A1pida/Readme.en.md)*
+
 Computa (base^exp) % mod.
 * Complexidade de tempo: O(log(n)).
 * Complexidade de espaço: O(1).
-
-### EN-US
-
-# Fast modular exponentiation
-Computes b to the power of e (mod m) or (b^e) % m.
-* Time complexity: O(log(n)).
-* Space complexity: O(1).
