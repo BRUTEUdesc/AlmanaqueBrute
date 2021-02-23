@@ -1,6 +1,6 @@
 # Almanaque do BRUTE
 
-*Read in [English](https://github.com/BRUTEUdesc/AlmanaqueBrute/blob/master/README.en.md)*
+*Read in [English](README.en.md)*
 
 Códigos preparados para uso específico em competição.\
 Todos os códigos têm uma breve descrição para o modo de uso\
