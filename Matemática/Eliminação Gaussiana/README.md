@@ -1,6 +1,6 @@
 # Eliminação Gaussiana
 
-*Read in [English](https://github.com/joao-frohlich/AlmanaqueBrute/blob/readme-translation/Matem%C3%A1tica/Elimina%C3%A7%C3%A3o%20Gaussiana/README.en.md)*
+*Read in [English](README.en.md)*
 
 Método de eliminação gaussiana para resolução de sistemas lineares.
 * Complexidade de tempo: O(n³).
