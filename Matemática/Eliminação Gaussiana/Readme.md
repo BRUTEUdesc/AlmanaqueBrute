@@ -1,18 +1,9 @@
-### PT-BR
-
 # Eliminação Gaussiana
+
+*Read in [English](https://github.com/joao-frohlich/AlmanaqueBrute/blob/readme-translation/Matem%C3%A1tica/Elimina%C3%A7%C3%A3o%20Gaussiana/Readme.en.md)*
 
 Método de eliminação gaussiana para resolução de sistemas lineares.
 * Complexidade de tempo: O(n³).
 
 
 Dica: Se os valores forem apenas 0 e 1 o algoritmo gauss_mod2 é muito mais rápido. 
-
-### EN-US
-
-# Gaussian Elimination
-
-Gaussian Elimination Method for solving linear systems with time complexity of O(n³).
-* Time complexity: O(n³).
-
-Hint: If the values are only 0 and 1, the algorithm gauss_mod2 is much faster.
