@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 const int MOD = 1e9 + 7 ;
 
 long long sumoffloor(long long n){
@@ -15,10 +12,4 @@ long long sumoffloor(long long n){
         answer %= MOD;
     }
     return  answer;
-}
-
-int main() {
-    long long n;
-    scanf("%lld", &n);
-    printf("%lld\n", sumoffloor(n));
 }

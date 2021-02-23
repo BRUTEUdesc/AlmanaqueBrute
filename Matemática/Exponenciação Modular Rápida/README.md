@@ -1,2 +1,7 @@
 # Exponenciação modular rápida
-Computa (base^exp) % mod em tempo O(log(n)) e espaço O(1).
+
+*Read in [English](README.en.md)*
+
+Computa (base^exp) % mod.
+* Complexidade de tempo: O(log(n)).
+* Complexidade de espaço: O(1).
