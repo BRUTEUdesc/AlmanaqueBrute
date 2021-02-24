@@ -1,4 +1,6 @@
-### PT-BR
+# Segment Tree
+
+*Read in [English](README.en.md)*
 
 # Seg Tree
 Implementação padrão de seg_tree
