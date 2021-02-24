@@ -3,8 +3,9 @@ using namespace std;
 
 typedef vector <int> vi;
 
-int n;
-vi tree;
+const int MAX = 1e5+5;
+
+int n, tree[4*MAX];
 
 int le(int n) {return 2*n+1;}
 int ri(int n) {return 2*n+2;}
@@ -45,5 +46,4 @@ void update(int x, int v) {update(0, 0, n-1, x, v);}
 
 int main() {
     cin >> n;
-    tree.assign(4*n, 0);
 }
