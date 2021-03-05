@@ -1,33 +1,17 @@
-### PT-BR
-
 # Estruturas de Dados
+
+*Read in [English](README.en.md)*
+
 Temas:
-* **DSU (Disjoint Set Union)**  
+* **[DSU (Disjoint Set Union)](DSU/)**  
 Consultas e atualizações em grupos de objetos.
-* **Fenwick Tree**  
+* **[Fenwick Tree](Fenwick%20Tree)**  
 Consultas e atualizações de soma em intervalo.
-* **Interval Tree (RARO)**  
+* **[Interval Tree](Interval%20Tree) (RARO)**  
 Responde quantos intervalos intersectam com outro. **COM ATUALIZAÇÂO**
-* **LiChao Tree**  
+* **[LiChao Tree](LiChao%20Tree)**  
 Retorna valor máximo ou mínimo de um conjunto de retas em um intervalo. **COM ATUALIZAÇÂO**
-* **Segment Tree**  
+* **[Segment Tree](Segment%20Tree)**  
 Consultas e atualizações diversos em intervalo.
-* **Sparse Table**  
+* **[Sparse Table](Sparse%20Table/)**  
 Consultas diversas em intervalo. **SEM ATUALIZAÇÂO**
-
-### EN-US
-
-# Data Structure
-Topics:
-* **DSU (Disjoint Set Union)**  
-Queries and updates in groups of objects.
-* **Fenwick Tree**  
-Queries and updates of sum in interval.
-* **Interval Tree (Hard to find implementation)**  
-Answers how many intervals intersect with another interval. **WITH UPDATE**
-* **LiChao Tree**  
-Returns the maximum or minimun value from a set of lines in an interval. **WITH UPDATE**
-* **Segment Tree**  
-Multiple queries and updates in an interval.
-* **Sparse Table**  
-Multiple queries in an interval. **WITHOUT UPDATE**
