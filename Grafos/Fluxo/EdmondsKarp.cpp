@@ -1,67 +1,58 @@
-#define INF 1e9
+struct EdmondsKarp {
+    const int INF = 1e9;
+    int n, s, t;
+    vector <vector <int> > adj, cap;
 
-typedef vector <int> vi;
+    int vistoken = 1;
+    vector<int> visto;
 
-int n, s, t;
+    EdmondsKarp(int n, int s, int t) : n(n), s(s), t(t) {
+        adj.assign(n, vector<int>(0));
+        cap.assign(n, vector<int>(n, -1));
+    } 
 
-vector <vi> adj, cap;
+    void addEdge(int a, int b, int c) {
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+        cap[a][b] = c;
+        cap[b][a] = 0;
+    }
 
-int vistoken = 1;
-vi visto;
-
-int bfs() {
-    queue <int> fila;
-    fila.push(s);
-
-    vector <int> pai(n, -1);
-
-    while (!fila.empty()) {
-        int n = fila.front();
-        if (n == t) break;
-        fila.pop();
-        visto[n] = vistoken;
-
-        for (int i : adj[n]) {
-            if (visto[i] != vistoken && cap[n][i] > 0) {
-                fila.push(i);
-                pai[i] = n;
+    int bfs() {
+        queue <int> fila;
+        fila.push(s);
+        vector <int> pai(n, -1);
+        while (!fila.empty()) {
+            int n = fila.front();
+            if (n == t) break;
+            fila.pop();
+            visto[n] = vistoken;
+            for (int i : adj[n]) {
+                if (visto[i] != vistoken && cap[n][i] > 0) {
+                    fila.push(i);
+                    pai[i] = n;
+                }
             }
         }
+        if (pai[t] == -1) return 0;
+        int f = INF;
+        for (int i = t; i != s; i = pai[i]) {
+            f = min(f, cap[pai[i]][i]);
+        }
+        for (int i = t; i != s; i = pai[i]) {
+            cap[pai[i]][i] -= f;
+            cap[i][pai[i]] += f;
+        }
+        return f;
     }
 
-    if (pai[t] == -1) return 0;
-
-    int f = INF;
-    for (int i = t; i != s; i = pai[i]) {
-        f = min(f, cap[pai[i]][i]);
+    int flow() {
+        visto.assign(n, 0);
+        int maxflow = 0;
+        for (int f = bfs(); f != 0; f = bfs()) {
+            maxflow += f;
+            vistoken++;
+        }
+        return maxflow;
     }
-
-    for (int i = t; i != s; i = pai[i]) {
-        cap[pai[i]][i] -= f;
-        cap[i][pai[i]] += f;
-    }
-
-    return f;
-}
-
-// EdmondsKarp
-// Runs in O(V*E²)
-int main() {
-    // Variables to inicialize
-    // n = Number of nodes
-    // s = Start Node
-    // t = Sink Node
-
-    adj.assign(n, vi(0));
-    cap.assign(n, vi(n, -1));
-
-    visto.assign(n, 0);
-
-    int maxflow = 0;
-    for (int f = bfs(); f != 0; f = bfs()) {
-        maxflow += f;
-        vistoken++;
-    }
-
-    cout << maxflow << endl;
-}
+};
