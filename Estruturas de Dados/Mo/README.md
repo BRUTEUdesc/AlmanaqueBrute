@@ -4,4 +4,4 @@
 
 # [Mo](mo.cpp)
 Implementação padrão do algoritmo de Mo
-* Complexidade de tempo (Query offline): O(sqrt(N))
+* Complexidade de tempo (Query offline): O(N * sqrt(N))
