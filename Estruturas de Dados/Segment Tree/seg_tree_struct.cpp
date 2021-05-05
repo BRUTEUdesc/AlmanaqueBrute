@@ -28,4 +28,4 @@ struct SegTree{
         }
     }
     void update(int x, int v) {update(0, 0, n-1, x, v);}
-}
+};
