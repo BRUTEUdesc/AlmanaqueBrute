@@ -83,7 +83,7 @@ void update(int l, int r, int mi) {update(0, 0, n-1, l, r, mi);}
 int query(int n, int esq, int dir, int l, int r) {
     push(n, esq, dir);
     if (esq > r || dir < l) return 0;
-    if (l <= esq && dir <= r) return tree[n];
+    if (l <= esq && dir <= r) return tree[n].soma;
     int mid = (esq + dir) / 2;
     return query(le(n), esq, mid, l, r)
            + query(ri(n), mid+1, dir, l, r);
