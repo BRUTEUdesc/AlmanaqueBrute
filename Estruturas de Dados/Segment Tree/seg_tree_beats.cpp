@@ -64,12 +64,8 @@ void update(int n, int esq, int dir, int l, int r, int mi) {
     push(n, esq, dir);
     if (esq > r || dir < l || mi <= tree[n].m1) return;
     if (l <= esq && dir <= r && mi < tree[n].m2) {
-        tree[n].soma += (ll) abs(tree[n].m1-mi) * tree[n].cont;
-        tree[n].m1 = mi;
-        if (esq != dir) {
-            tree[le(n)].lazy = max(tree[le(n)].lazy, mi);
-            tree[ri(n)].lazy = max(tree[ri(n)].lazy, mi);
-        }
+        tree[n].lazy = mi;
+        push(n, esq, dir);
     } else {
         int mid = (esq + dir) / 2;
         update(le(n), esq, mid, l, r, mi);
