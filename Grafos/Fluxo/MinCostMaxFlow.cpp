@@ -1,66 +1,71 @@
-# define INF 1e9
+const long long INF = 1e18;
 
-typedef vector <int> vi;
+struct FlowEdge {
+    int u, v;
+    long long cap, cost, flow = 0;
+    FlowEdge(int u, int v, long long cap, long long cost) : u(u), v(v), cap(cap), cost(cost) {}
+};
 
-int n, s, t;
+struct MinCostMaxFlow {
+    int n, s, t, m = 0;
+    long long maxflow = 0, mincost = 0;
+    vector<FlowEdge> edges;
+    vector<vector<int>> adj;
 
-vector <vi> adj, cap, cost;
-vi pai, dis;
+    MinCostMaxFlow(int n, int s, int t) : n(n), s(s), t(t) {
+        adj.resize(n);
+    }
 
-bool spfa() {
-    pai.assign(n, -1);
-    dis.assign(n, INF);
+    void add_edge(int u, int v, long long cap, long long cost) {
+        edges.emplace_back(u, v, cap, cost);
+        edges.emplace_back(v, u, 0, -cost);
+        adj[u].push_back(m);
+        adj[v].push_back(m + 1);
+        m += 2;
+    }
 
-    vector <bool> inq(n, 0);
-    queue <int> fila;
-
-    fila.push(s);
-    dis[s] = 0;
-    inq[s] = 1;
-
-    while (!fila.empty()) {
-        int n = fila.front();
-        fila.pop();
-
-        inq[n] = false;
-        for (int i : adj[n]) {
-            if (cap[n][i] > 0 && dis[n] + cost[n][i] < dis[i]) {
-                dis[i] = dis[n] + cost[n][i];
-                pai[i] = n;
-                if (!inq[i]) {
-                    inq[i] = true;
-                    fila.push(i);
+    bool spfa() {
+        vector <int> pego(n, -1);
+        vector <long long> dis(n, INF);
+        vector <bool> inq(n, false);
+        queue <int> fila;
+        fila.push(s);
+        dis[s] = 0;
+        inq[s] = 1;
+        while (!fila.empty()) {
+            int u = fila.front();
+            fila.pop();
+            inq[u] = false;
+            for (int id : adj[u]) {
+                if (edges[id].cap - edges[id].flow < 1) continue;
+                int v = edges[id].v;
+                if (dis[v] > dis[u] + edges[id].cost) {
+                    dis[v] = dis[u] + edges[id].cost;
+                    pego[v] = id;
+                    if (!inq[v]) {
+                        inq[v] = true;
+                        fila.push(v);
+                    }
                 }
             }
         }
-    }
-    return pai[t] != -1;
-}
 
-int main() {
-    // Variables to inicialize
-    // n = Number of nodes
-    // s = Start Node
-    // t = Sink Node
-
-    adj.assign(n, vi(0));
-    cap.assign(n, vi(n, -1));
-    cost.assign(n, vd(n, -1));
-
-    int maxflow = 0, mincost = 0;
-    while (spfa()) {
-        int f = INF;
-        for (int i = t; i != s; i = pai[i]) {
-            f = min(f, cap[pai[i]][i]);
-            mincost += cost[pai[i]][i];
+        if (pego[t] == -1) return 0;
+        long long f = INF;
+        for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
+            f = min(f, edges[id].cap - edges[id].flow);
+            mincost += edges[id].cost;
+        }
+        for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
+            edges[id].flow += f;
+            edges[id ^ 1].flow -= f;
         }
         maxflow += f;
-
-        for (int i = t; i != s; i = pai[i]) {
-            cap[pai[i]][i] -= f;
-            cap[i][pai[i]] += f;
-        }
+        return 1;
     }
 
-    cout << mincost << endl;
-}
+    long long flow() {
+        while (spfa());
+        return maxflow;
+    }
+};
