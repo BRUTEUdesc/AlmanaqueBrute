@@ -48,8 +48,8 @@ struct EdmondsKarp {
         for (int id = pego[t]; id != -1; id = pego[edges[id].u])
             f = min(f, edges[id].cap - edges[id].flow);
         for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
-            edges[id].flow += tr;
-            edges[id ^ 1].flow -= tr;
+            edges[id].flow += f;
+            edges[id ^ 1].flow -= f;
         }
         return f;
     }
