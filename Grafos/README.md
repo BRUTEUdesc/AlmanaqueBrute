@@ -2,6 +2,8 @@
 
 # Grafos
 Temas:
+* **2-SAT**  
+Resolve o problema do 2-SAT.
 * **Binary Lifting**  
 Busca por antepassados em uma árvore.
 * **Dijkstra**  
@@ -21,6 +23,8 @@ Detecta a quantidade de pontes que não estão contidas em qualquer ciclo.
 
 # Graphs
 Topics:
+* **2-SAT**  
+Solves the 2-SAT problem.
 * **Binary Lifting**  
 Search for ancestors in a tree.  
 * **Dijkstra**  
