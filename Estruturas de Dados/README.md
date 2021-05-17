@@ -15,3 +15,5 @@ Retorna valor máximo ou mínimo de um conjunto de retas em um intervalo. **COM 
 Consultas e atualizações diversos em intervalo.
 * **[Sparse Table](Sparse%20Table/)**  
 Consultas diversas em intervalo. **SEM ATUALIZAÇÂO**
+* **[MO](MO/)**  
+Resolve operações em range Offline.
