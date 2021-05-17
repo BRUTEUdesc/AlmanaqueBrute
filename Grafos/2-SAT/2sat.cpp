@@ -5,14 +5,18 @@ struct sat2{
     vector<int> order, comp;
     vector<bool> assignment;
     
-    sat2(int n) : n(n){
-        g.assign(2*n+5, vector<int>());
-        gt.assign(2*n+5, vector<int>());
+    //number of clauses
+    sat2(int _n) {
+        n = 2*(_n+5); 
+        g.assign(n, vector<int>());
+        gt.assign(n, vector<int>());
     }
     
     void add_edge(int v, int u, bool v_is_positive, bool u_is_positive){
-        g[2*v + v_is_positive].push_back(2*u + u_is_positive);
-        gt[2*u + u_is_positive].push_back(2*v + v_is_positive);
+        g[2*v + v_is_positive].push_back(2*u + !u_is_positive);
+        g[2*u + !u_is_positive].push_back(2*v + v_is_positive); 
+        gt[2*u + !u_is_positive ].push_back(2*v + v_is_positive);
+        gt[2*v + v_is_positive].push_back(2*u + !u_is_positive); 
     }
     
     void dfs1(int v) {
@@ -28,7 +32,7 @@ struct sat2{
             dfs2(u, cl);
     }
 
-    bool solve_2SAT() {
+    bool solve(){
         order.clear();
         used.assign(n, false);
         for (int i = 0; i < n; ++i) if (!used[i])
