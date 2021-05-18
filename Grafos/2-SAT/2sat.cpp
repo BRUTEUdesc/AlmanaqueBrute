@@ -5,7 +5,7 @@ struct sat2{
     vector<int> order, comp;
     vector<bool> assignment;
     
-    //number of clauses
+    //number of variables
     sat2(int _n) {
         n = 2*(_n+5); 
         g.assign(n, vector<int>());
