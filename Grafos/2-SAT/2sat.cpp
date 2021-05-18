@@ -10,28 +10,24 @@ struct sat2{
         n = 2*(_n+5); 
         g.assign(n, vector<int>());
         gt.assign(n, vector<int>());
+    }  
+    void add_edge(int v, int u, bool v_sign, bool u_sign){
+        g[2*v + v_sign].push_back(2*u + !u_sign);
+        g[2*u + u_sign].push_back(2*v + !v_sign);
+        gt[2*u + !u_sign].push_back(2*v + v_sign);
+        gt[2*v + !v_sign].push_back(2*u + u_sign); 
     }
-    
-    void add_edge(int v, int u, bool v_is_positive, bool u_is_positive){
-        g[2*v + v_is_positive].push_back(2*u + !u_is_positive);
-        g[2*u + !u_is_positive].push_back(2*v + v_is_positive); 
-        gt[2*u + !u_is_positive ].push_back(2*v + v_is_positive);
-        gt[2*v + v_is_positive].push_back(2*u + !u_is_positive); 
-    }
-    
     void dfs1(int v) {
         used[v] = true;
         for (int u : g[v]) if (!used[u])
             dfs1(u);
         order.push_back(v);
     }
-
     void dfs2(int v, int cl) {
         comp[v] = cl;
         for (int u : gt[v]) if (comp[u] == -1)
             dfs2(u, cl);
     }
-
     bool solve(){
         order.clear();
         used.assign(n, false);
