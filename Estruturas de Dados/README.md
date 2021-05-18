@@ -11,6 +11,8 @@ Consultas e atualizações de soma em intervalo.
 Responde quantos intervalos intersectam com outro. **COM ATUALIZAÇÂO**
 * **[LiChao Tree](LiChao%20Tree)**  
 Retorna valor máximo ou mínimo de um conjunto de retas em um intervalo. **COM ATUALIZAÇÂO**
+* **[Operation Stack](Operation%20Stack)/[Queue](Operation%20Queue)**  
+Pilha/Fila que armazena o resultado do operatório dos itens.
 * **[Segment Tree](Segment%20Tree)**  
 Consultas e atualizações diversos em intervalo.
 * **[Sparse Table](Sparse%20Table/)**  
