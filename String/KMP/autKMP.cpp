@@ -21,4 +21,13 @@ struct AutKMP {
             for (int c = 0; c < 26; c++)
                 nxt[i][c] = ('a' + c == s[i])? i+1 : nxt[p[i-1]][c];
     }
+
+    vector <int> kmp(string &s, string &t) {
+        vector match;
+        for (char c : s) {
+            j = aut.nxt[j][c-'a'];
+            if (j == t.size()) match.push_back(i-j+1); 
+        }
+        return match;
+    }
 } aut;
