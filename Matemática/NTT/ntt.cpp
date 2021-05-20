@@ -46,7 +46,7 @@ void ntt(poly &a, bool invert, int id){
     }
 }
 
-poly convolution(poly &a, poly &b, int id = 0){
+poly convolution(poly a, poly b, int id = 0){
     ll n = 1LL, len = (1LL + a.size() + b.size());
     while(n < len) n *= 2;
     a.resize(n); b.resize(n);
