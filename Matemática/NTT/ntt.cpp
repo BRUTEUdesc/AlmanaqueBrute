@@ -2,7 +2,7 @@ typedef long long ll;
 typedef vector<ll> poly;
 
 ll mod[2] = {1004535809LL, 1092616193LL};
-ll root[2] = {12289LL, 23757LL};
+ll root[2] = {12289LL, 23747LL};
 ll root_1[2] = {313564925LL, 642907570LL};
 ll root_pw[2] = {1LL << 21, 1LL << 21};
 
