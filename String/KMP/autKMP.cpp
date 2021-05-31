@@ -23,9 +23,9 @@ struct AutKMP {
     }
 
     vector <int> kmp(string &s, string &t) {
-        vector match;
-        for (char c : s) {
-            j = aut.nxt[j][c-'a'];
+        vector <int> match;
+        for (int i = 0, j = 0; i < s.size(); i++) {
+            j = nxt[j][s[i]-'a'];
             if (j == t.size()) match.push_back(i-j+1); 
         }
         return match;
