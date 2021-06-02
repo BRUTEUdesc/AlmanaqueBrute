@@ -1,8 +1,8 @@
 
 # [Interval Tree](interval_tree.cpp) (Autoral)
-
-*Read in [English](README.en.md)*
 *Por Rafael Granza de Mello*
+
+*Read in [English](README.en.md)* 
 
 Capaz de retornar todos os intervalos que intersectam [L, R]. **L e R inclusos**\
 Contém funções insert({L, R, ID}), erase({L, R, ID}) , overlaps(L, R) e find({L, R, ID}).\
