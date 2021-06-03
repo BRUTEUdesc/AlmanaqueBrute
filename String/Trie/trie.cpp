@@ -1,5 +1,4 @@
 struct trie{
- 
     map<char, int> trie[100005];
     int value[100005];
     int n_nodes = 0;
