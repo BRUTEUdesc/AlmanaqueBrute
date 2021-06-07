@@ -44,11 +44,8 @@ void update(int n, int esq, int dir, int l, int r, int v) {
     push(n, esq, dir);
     if (esq > r || dir < l) return;
     if (l <= esq && dir <= r) {
-        tree[n] += v * (dir - esq + 1);
-        if (esq != dir) {
-            lazy[le(n)] += v;
-            lazy[ri(n)] += v;
-        }
+        lazy[n] += v;
+        push(n, esq, dir);
     } else {
         int mid = (esq + dir) / 2;
         update(le(n), esq, mid, l, r, v);
