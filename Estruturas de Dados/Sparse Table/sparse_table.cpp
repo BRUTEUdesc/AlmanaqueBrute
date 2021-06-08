@@ -28,7 +28,7 @@ struct SparseTable {
     // O(1) Query for overlab friendly operations
     // ex: max(), min(), gcd(), f(x, y) = x
     int query(int l, int r) {
-        int i = floor(log2(r-l+1));
+        int i = ilogb(r-l+1);
         return min(st[i][l], st[i][r - (1 << i) + 1]);
     }
 };
