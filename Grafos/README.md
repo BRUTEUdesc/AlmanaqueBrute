@@ -1,41 +1,22 @@
-### PT-BR
-
 # Grafos
+
+*Read in [English](README.en.md)*
+
 Temas:
-* **2-SAT**  
+* [**2-SAT**](2-SAT)  
 Resolve o problema do 2-SAT.
-* **Binary Lifting**  
+* [**Binary Lifting**](Binary%20Lifting)  
 Busca por antepassados em uma árvore.
-* **Dijkstra**  
+* [**Dijkstra**](Dijkstra)  
 Caminho mínimo de 1 para todos. **SEM PESOS NEGATIVOS**
-* **Fluxo**  
+* [**Fluxo**](Fluxo)  
 Problemas sobre fluxo
-* **Graph Center**  
+* [**Graph Center**](Graph%20Center)  
 Encontra o centro do grafo.
-* **HLD (Heavy Light Decomposition)**  
+* [**HLD (Heavy Light Decomposition)**](HLD)  
 Quebra uma árvore em cadeias e facilita consultas.
-* **LCA (Lowest Common Ancestor)**  
+* [**LCA (Lowest Common Ancestor)**](LCA)  
 Encontra o menor ancetral comum de dois vétices em uma árvore. 
-* **Tarjan**  
+* [**Tarjan**](Tarjan)  
 Detecta a quantidade de pontes que não estão contidas em qualquer ciclo.
 
-### EN-US
-
-# Graphs
-Topics:
-* **2-SAT**  
-Solves the 2-SAT problem.
-* **Binary Lifting**  
-Search for ancestors in a tree.  
-* **Dijkstra**  
-Minimal path problem from 1 to all. **NO NEGATIVE WEIGHTS**  
-* **Flow**  
-Problems about flow.  
-* **Graph Center**  
-Finds the center of the graph.  
-* **HLD (Heavy Light Decomposition)**  
-Breaks a tree into chains and ease queries.  
-* **LCA (Lowest Common Ancestor)**  
-Finds the lowest common ancestor for two vertices in a tree.  
-* **Tarjan**  
-Quantifies the number of bridges that don't belong to any cycle.  
