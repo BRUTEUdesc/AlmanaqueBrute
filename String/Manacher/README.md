@@ -1,5 +1,7 @@
-# [Manacher's Algorithm](manacher.cpp)
+# [Algoritmo de Manacher](manacher.cpp)
 
-Given string s with length n. Find all the pairs (i,j) such that substring s[i…j] is a palindrome.
+*Read in [English](README.en.md)*
+
+Dada uma string s de tamanho n, encontra todos os pares (i,j) tal que a substring s\[i...j\] seja um palindromo.
 
 * Complexidade de tempo: O(N)
