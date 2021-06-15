@@ -1,4 +1,4 @@
-# All Submask
+# [All Submask](all_submasks.cpp)
 
 *Read in [English](README.en.md)*
 
