@@ -1,4 +1,4 @@
-# Exponenciação modular rápida
+# [Exponenciação modular rápida](exp_mod.cpp)
 
 *Read in [English](README.en.md)*
 
