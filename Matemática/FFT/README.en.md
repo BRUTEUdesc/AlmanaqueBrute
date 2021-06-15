@@ -1,4 +1,4 @@
-# Fast Fourier transform
+# [Fast Fourier transform](fft.cpp)
 Computes polynomials multiplication.
 * Time complexity (average case): O(N * log(N))
 * Time complexity (due to high overhead rate): O(N * log(N) * log(log(N)))
