@@ -1,6 +1,7 @@
 # [Prefix Function](PrefixFunction.cpp)
 
 Dada uma string s, para cada prefixo k de s, calculo o maior prefixo que tambem é sufixo de k.
+
 Seja n o tamanho da texto e m o tamanho do padrão.
 
 * **[KMP](KMP.cpp)**
