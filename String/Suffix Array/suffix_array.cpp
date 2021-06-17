@@ -24,6 +24,6 @@ struct suffix_array {
         n = s.size();
         for (int i = 0; i < n; i++) ra[i] = s[i], sa[i] = i;
         build_sa();
-        // for (int i = 0; i < n; i++) printf("%2d %2d: %s\n", i, sa[i], s.c_str() + sa[i]);
+        // for (int i = 0; i < n; i++) printf("%2d: %s\n", sa[i], s.c_str() + sa[i]);
     }
 };
