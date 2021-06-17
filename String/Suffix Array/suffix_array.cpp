@@ -26,4 +26,5 @@ struct suffix_array {
         build_sa();
         // for (int i = 0; i < n; i++) printf("%2d: %s\n", sa[i], s.c_str() + sa[i]);
     }
+    int operator[](int i){return sa[i];}
 };
