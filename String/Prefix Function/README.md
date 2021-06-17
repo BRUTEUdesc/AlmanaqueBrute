@@ -4,11 +4,11 @@ Dada uma string s, para cada prefixo k de s, calculo o maior prefixo que tambem 
 
 * **[KMP](KMP.cpp)**
 
-string matching em O(n + m)
+String matching em O(n + m)
 
 * **[Autômato de KMP](AutKMP.cpp)**
 
-string matching em O(n) com o(m) de pré-processamento
+String matching em O(n) com O(m) de pré-processamento
 
 * **[Prefix Count](PrefixCount.cpp)**
 
