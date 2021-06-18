@@ -15,3 +15,12 @@ pair<int, int> busca(char c, pair<int, int> &range, int delta) {
     }
     return {L, R};
 }
+
+bool busca_string(string &s) {
+    ii range = {0, sa.n-1};
+    for (int i = 0; i < s.size(); i++) {
+        range = busca(s[i], range, i);
+        if (range.first == -1) return false;
+    }
+    return true;
+}
