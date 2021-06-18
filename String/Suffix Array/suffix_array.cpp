@@ -19,7 +19,7 @@ struct suffix_array {
             if (ra[sa[n-1]] == n-1) break;
         }
     }
-    suffix_array(string s) {
+    void set_string(string s) {
         s += '$';
         n = s.size();
         for (int i = 0; i < n; i++) ra[i] = s[i], sa[i] = i;
@@ -27,4 +27,4 @@ struct suffix_array {
         // for (int i = 0; i < n; i++) printf("%2d: %s\n", sa[i], s.c_str() + sa[i]);
     }
     int operator[](int i){return sa[i];}
-};
+} sa;
