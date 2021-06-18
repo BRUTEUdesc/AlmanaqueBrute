@@ -1,4 +1,4 @@
-const int MAX_N = 1e5+5;
+const int MAX_N = 5e5+5;
 
 struct suffix_array {
     int n, sum, r, ra[MAX_N], sa[MAX_N], auxra[MAX_N], auxsa[MAX_N], c[MAX_N];
