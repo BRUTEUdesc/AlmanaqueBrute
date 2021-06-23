@@ -28,10 +28,10 @@ void SparseTable(vector <ii> &v) {
 void et_dfs(int u, int p, int h) {
     tin[u] = timer++;
     prof.emplace_back(h, u);
-    for (int v : adj[u]) 
-        if (v != p)
-            et_dfs(v, u, h+1);
-    prof.emplace_back(h, u);
+    for (int v : adj[u]) if (v != p) {
+        et_dfs(v, u, h+1);
+        prof.emplace_back(h, u);
+    }
     tout[u] = timer++;
 }
 
