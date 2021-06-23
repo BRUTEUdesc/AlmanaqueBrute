@@ -57,9 +57,11 @@ struct suffix_array {
         return range.second - range.first + 1;
     }
     void build_lcp() {
-        for (int i = 0, p = ra[0]-1; i < n-1; p = ra[++i]-1) {
-            lcp[p] = (i==0? 0:max(0, lcp[ra[i-1]-1]-1));
-            while (s[sa[p+1]+lcp[p]]==s[sa[p]+lcp[p]]) lcp[p]++;
+        for (int i = 0, k = 0; i < n-1; i++) {
+            int j = sa[ra[i]-1];
+            while (s[i+k]==s[j+k]) k++;
+            lcp[ra[i]-1] = k;
+            if (k) k--;
         }
     }
 } sa;
