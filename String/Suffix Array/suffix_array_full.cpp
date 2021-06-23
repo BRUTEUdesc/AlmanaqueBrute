@@ -1,8 +1,8 @@
-const int MAX_N = 3e5+5;
+const int MAX_N = 5e5+5;
 
 struct suffix_array {
     string s;
-    int n, sum, r, ra[MAX_N], sa[MAX_N], auxra[MAX_N], auxsa[MAX_N], c[MAX_N];
+    int n, sum, r, ra[MAX_N], sa[MAX_N], auxra[MAX_N], auxsa[MAX_N], c[MAX_N], lcp[MAX_N];
     void counting_sort(int k) {
         memset(c, 0, sizeof(c));
         for (int i = 0; i < n; i++) c[(i + k < n)? ra[i + k] : 0]++;
@@ -25,6 +25,7 @@ struct suffix_array {
         n = s.size();
         for (int i = 0; i < n; i++) ra[i] = s[i], sa[i] = i;
         build_sa();
+        build_lcp();
         // for (int i = 0; i < n; i++) printf("%2d: %s\n", sa[i], s.c_str() + sa[i]);
     }
     int operator[](int i){return sa[i];}
@@ -48,11 +49,17 @@ struct suffix_array {
     }
     // count ocurences of s on t
     int busca_string(string &t) {
-        ii range = {0, n-1};
+        pair<int, int> range = {0, n-1};
         for (int i = 0; i < t.size(); i++) {
             range = busca(t, i, range);
             if (range.first == -1) return 0;
         }
         return range.second - range.first + 1;
+    }
+    void build_lcp() {
+        for (int i = 0, p = ra[0]-1; i < n-1; p = ra[++i]-1) {
+            lcp[p] = (i==0? 0:max(0, lcp[ra[i-1]-1]-1));
+            while (s[sa[p+1]+lcp[p]]==s[sa[p]+lcp[p]]) lcp[p]++;
+        }
     }
 } sa;
