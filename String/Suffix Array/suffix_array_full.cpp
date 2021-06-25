@@ -60,7 +60,7 @@ struct suffix_array {
         for (int i = 0, k = 0; i < n-1; i++) {
             int j = sa[ra[i]-1];
             while (s[i+k]==s[j+k]) k++;
-            lcp[ra[i]-1] = k;
+            lcp[ra[i]] = k;
             if (k) k--;
         }
     }
