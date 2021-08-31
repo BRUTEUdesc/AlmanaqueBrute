@@ -2,10 +2,10 @@
 *Read in [English](README.en.md)*
 
 Temas:
-* **[Aho-Corasick](Aho-Corasick)**
+* **[Aho-Corasick](Aho-Corasick)**  
 Constrói uma estrutura de dados semelhante a um trie com links adicionais e, em seguida, constrói uma máquina de estados finitos (autômato). Útil para pattern matching de um set de strings em um texto.
 
-* **[Manacher](Manacher)**
+* **[Manacher](Manacher)**  
 Dado string s com tamanho n. Encontre todos os pares (i, j) tal que a substring s [i...j] seja um palíndromo.
 
 * **[Hashing](Hashing)**  
