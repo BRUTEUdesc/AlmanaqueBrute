@@ -19,4 +19,6 @@ Quebra uma árvore em cadeias e facilita consultas.
 Encontra o menor ancetral comum de dois vétices em uma árvore. 
 * [**Tarjan**](Tarjan)  
 Detecta a quantidade de pontes que não estão contidas em qualquer ciclo.
+* [**Stoer-Wagner minimum cut**](stoer-wagner%20minimum%20cut)  
+Rsolver o problema de corte mínimo em gráficos não direcionados com pesos não negativos
 
