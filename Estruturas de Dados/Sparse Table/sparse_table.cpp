@@ -1,8 +1,6 @@
 struct SparseTable {
-    const int INF = 1e9;
     int n, e;
     vector <vi> st;
-
     SparseTable(vector <int> &v) : n(v.size()), e(floor(log2(n))) {
         st.assign(e+1, vi(n);
         for (int i = 0; i < n; i++) st[0][i] = v[i];
@@ -12,10 +10,9 @@ struct SparseTable {
             }
         }
     }
-
     // O(NLog(N)) Query for non overlab friendly operations
     int logquery(int l, int r) {
-        int res = INF;
+        int res = 1123456789;
         for (int i = e; i >= 0; i--) {
             if ((1 << i) <= r-l+1) {
                 res = min(res, st[i][l]);
@@ -24,7 +21,6 @@ struct SparseTable {
         }
         return res;
     }
-
     // O(1) Query for overlab friendly operations
     // ex: max(), min(), gcd(), f(x, y) = x
     int query(int l, int r) {
