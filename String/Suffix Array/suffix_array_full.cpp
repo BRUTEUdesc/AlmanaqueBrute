@@ -20,6 +20,14 @@ struct suffix_array {
             if (ra[sa[n-1]] == n-1) break;
         }
     }
+    void build_lcp() {
+        for (int i = 0, k = 0; i < n-1; i++) {
+            int j = sa[ra[i]-1];
+            while (s[i+k]==s[j+k]) k++;
+            lcp[ra[i]] = k;
+            if (k) k--;
+        }
+    }
     void set_string(string _s) {
         s = _s + '$';
         n = s.size();
@@ -55,13 +63,5 @@ struct suffix_array {
             if (range.first == -1) return 0;
         }
         return range.second - range.first + 1;
-    }
-    void build_lcp() {
-        for (int i = 0, k = 0; i < n-1; i++) {
-            int j = sa[ra[i]-1];
-            while (s[i+k]==s[j+k]) k++;
-            lcp[ra[i]] = k;
-            if (k) k--;
-        }
     }
 } sa;
