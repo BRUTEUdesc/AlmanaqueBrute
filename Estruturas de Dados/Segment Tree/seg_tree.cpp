@@ -35,10 +35,8 @@ void update(int n, int esq, int dir, int x, int v) {
     if (esq == dir) tree[n] = v;
     else {
         int mid = (esq + dir) / 2;
-        if (x <= mid)
-            update(le(n), esq, mid, x, v);
-        else
-            update(ri(n), mid+1, dir, x, v);
+        if (x <= mid) update(le(n), esq, mid, x, v);
+        else update(ri(n), mid+1, dir, x, v);
         tree[n] = tree[le(n)] + tree[ri(n)];
     }
 }
