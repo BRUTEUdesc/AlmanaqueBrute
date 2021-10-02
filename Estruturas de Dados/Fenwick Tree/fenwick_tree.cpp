@@ -8,7 +8,7 @@ struct FenwickTree {
     int lsONE(int x) { return x & (-x); }
     int query(int x) {
         int soma = 0;
-        for (; x >= 0; x -= lsONE(x)) soma += tree[x];
+        for (; x > 0; x -= lsONE(x)) soma += tree[x];
         return soma;
     }
     int query(int l, int r) {
