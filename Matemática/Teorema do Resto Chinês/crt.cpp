@@ -1,13 +1,11 @@
-ll extended_gcd(ll a, ll b, ll& x, ll& y) {
-    x = 1, y = 0;
-    ll x1 = 0, y1 = 1;
-    while (b) {
-        ll q = a / b;
-        tie(x, x1) = make_tuple(x1, x - q * x1);
-        tie(y, y1) = make_tuple(y1, y - q * y1);
-        tie(a, b) = make_tuple(b, a - q * b);
+ll extended_gcd(ll a , ll b , ll& x , ll& y ) {
+    if(b == 0){
+        x = 1; y = 0; return a;
+    }else{
+        ll g = extended_gcd(b, a % b, y, x);
+        y -= a / b * x;
+        return g;
     }
-    return a;
 }
 
 ll crt (vector<ll> rem , vector<ll> mod ) {
