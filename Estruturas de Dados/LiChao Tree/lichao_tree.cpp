@@ -19,7 +19,7 @@ void update(int n, int esq, int dir, Line &l){
         update(ri(n), mid+1, dir, aux);
     }
 }
-void update(int esq, int dir, Line &l){update(0, esq, dir, l);}
+void update(Line &l){ update(0, 0, MAX, l);}
 
 ll query(int u, int esq, int dir, int x){
     ll res = tree[u].get(x);
@@ -28,4 +28,4 @@ ll query(int u, int esq, int dir, int x){
     if(x <= mid) return min(res, query(le(u), esq, mid, x));
     else           return min(res, query(ri(u), mid+1, dir, x));
 }
-ll query(int esq, int dir, int x){query(0, esq, dir, x);}
+ll query(int x){query(0, 0, MAX, x);}
