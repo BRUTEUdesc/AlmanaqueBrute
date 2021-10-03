@@ -5,6 +5,8 @@
 Temas:
 * **[DSU (Disjoint Set Union)](DSU/)**  
 Consultas e atualizações em grupos de objetos.
+* **[DST (Disjoint Sparse Table)](Disjoint%20Sparse%20Table)**  
+Consultas diversas em intervalo em **O(1)**. **SEM ATUALIZAÇÂO**
 * **[Fenwick Tree](Fenwick%20Tree)**  
 Consultas e atualizações de soma em intervalo.
 * **[Interval Tree](Interval%20Tree) (Autoral)**  
