@@ -4,9 +4,7 @@ struct SegTree {
 		nodo *l = NULL, *r = NULL;
         nodo() {}
         nodo(long long v) : v(v) {}
-        nodo(nodo* l, nodo* r) : l(l), r(r) {
-            v = l->v + r->v;
-        }
+        nodo(nodo* l, nodo* r) : l(l), r(r) { v = l->v + r->v; }
 		void apply() {
 			if(l == NULL) l = new nodo();
 			if(r == NULL) r = new nodo();
