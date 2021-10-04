@@ -1,44 +1,40 @@
-// Seg Operation
-ll op(ll a, ll b){ return a+b;}
-ll neutral = 0;
-#define mid ((L+R)/2)
-
 struct SegTree{
-        
+    #define op(a, b) (a+b) 
+    #define neutral 0
     struct node{
-        ll value;
-        node *L, *R;
-        node(){value = neutral; L = R = 0;}
-        node(ll x){value = x; L = R = 0;}
-        node(node* l, node* r): L(l), R(r){ value = op(l->value, r->value);}
+        ll v = neutral;
+        node *l = NULL, *r = NULL;
+        node() {}
+        node(ll v) : v(v) {}
+        node(node* l, node* r): l(l), r(r) { v = op(l->v, r->v); }
         void apply(){
-            if(L == 0) L = new node(), R = new node();
+            if(l == NULL) l = new node();
+			if(r == NULL) r = new node();
         }
     };
- 
-    ll l, r;
+    ll ESQ, DIR;
     vector<node*> roots;
-    SegTree(int _l, int _r): l(_l), r(_r){ roots.push_back(new node());}
-    void push(node* &u, int L, int R){ if(L != R) u->apply();}
- 
-    node* update(node* &u, int L, int R, int pos, int x){
-        push(u, L, R);
-        if(L == R) return new node(op(u->value, x));
-        if(L <= pos && pos <= mid) return new node(update(u->L, L, mid, pos, x), u->R);
-        else return new node(u->L, update(u->R, mid+1, R, pos, x));
+    SegTree(int ESQ, int DIR): ESQ(ESQ), DIR(DIR){ roots.push_back(new node()); }
+    void push(node* u, int esq, int dir){ if(esq != dir) u->apply(); }
+    node* update(node* u, int esq, int dir, int x, int v) {
+        push(u, esq, dir);
+        if(esq == dir) return new node(op(u->v, v));
+        int mid = (esq + dir)/2;
+        if(esq <= x && x <= mid) return new node(update(u->l, esq, mid, x, v), u->r);
+        else return new node(u->l, update(u->r, mid+1, dir, x, v));
     }
-    void update(int pos, int x, bool new_node = 1){
-        if(new_node) roots.push_back(update(roots.back(), l, r, pos, x));
-        else roots.back() = update(roots.back(), l, r, pos, x);
+    void update(int x, int v, bool new_node=true) {
+        if(new_node) roots.push_back(update(roots.back(), ESQ, DIR, x, v));
+        else roots.back() = update(roots.back(), ESQ, DIR, x, v);
     }
-
-    int query(node* &u, int L, int R, int i, int j){
-        push(u, L, R);
-        if(R < i || j < L) return neutral;
-        if(i <= L && R <= j) return u->value;
-        int r1 = query(u->L, L, mid, i, j);
-        int r2 = query(u->R, mid+1, R, i, j);
+    int query(node* &u, int esq, int dir, int i, int j) {
+        push(u, esq, dir);
+        if(dir < i || j < esq) return neutral;
+        if(i <= esq && dir <= j) return u->v;
+        int mid = (esq + dir)/2;
+        int r1 = query(u->l, esq, mid, i, j);
+        int r2 = query(u->r, mid+1, dir, i, j);
         return op(r1, r2);
     }
-    int query(int cur, int i, int j){ return query(roots[cur], l, r, i, j);}
+    int query(int root, int l, int r){ return query(roots[root], ESQ, DIR, l, r); }
 };
