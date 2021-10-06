@@ -23,5 +23,5 @@ Pilha/Fila que armazena o resultado do operatório dos itens.
 Consultas e atualizações diversos em intervalo.
 * **[Sparse Table](Sparse%20Table/)**  
 Consultas diversas em intervalo. **SEM ATUALIZAÇÂO**
-* **[MO](MO/)**  
+* **[Mo](Mo/)**  
 Resolve operações em range Offline.
