@@ -1,6 +1,6 @@
 # [MergeSort Tree](mergesort_tree.cpp)
 
-Resolve Queries que envolvam ordenação em Range.(**SEM UPDATE**)
+Resolve Queries que envolvam ordenação em Range. (**SEM UPDATE**)
 * Complexidade de construção : O(N * log(N))
 * Complexidade de consulta : O(log²(N))
 
