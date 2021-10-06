@@ -9,6 +9,10 @@ Pode ser usado como um set normal, a principal diferença são duas novas opera�
 
 ## Exemplo
 ```c++
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/trie_policy.hpp>
+
+using namespace __gnu_pbds;
 typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
 
 ordered_set X;
