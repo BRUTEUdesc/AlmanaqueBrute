@@ -13,7 +13,7 @@ namespace DC{
         compute(mid + 1, r, opt, optr);
     }
 
-    int solve(int n, int k) {
+    ll solve(int n, int k) {
         dp_before.assign(n+5, 0);
         dp_cur.assign(n+5, 0);
         for (int i = 0; i < n; i++)
