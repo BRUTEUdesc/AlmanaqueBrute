@@ -1,4 +1,4 @@
-# Teorema do Resto Chinês
+# [Teorema do Resto Chinês](crt.cpp)
 
 Resolve em O(n * log(n)) o sistema **(x = rem\[i\] % mod\[i\])** para i entre *0* e *n*
 
