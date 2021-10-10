@@ -12,8 +12,8 @@ Otimização para DP de prefixo quando o valor atual está em função dos últi
 
 ## Uso Comum
 
-DP:
-$$dp[n] = \sum_{n=1}^{k} c_{k} * dp[n-k]$$
+DP:   
+![image](https://bit.ly/3uYCDuM)
 
 Mapeamento:
 $$
