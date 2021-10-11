@@ -1,4 +1,4 @@
-# Disjoint Sparse Table
+# [Disjoint Sparse Table](dst.cpp)
 
 Resolve Query de range para qualquer operação associativa¹ em **O(1)**.
 
