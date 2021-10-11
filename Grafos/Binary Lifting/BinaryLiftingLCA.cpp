@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-typedef vector <int> vi;
-
 vi tin, tout;
 vector <vi> adj, st;
 
@@ -50,19 +45,4 @@ int ancestor(int u, int k) {
         if ((1 << i) & k)
             u = st[u][i];
     return u;
-}
-
-int main() {
-    cin >> n;
-
-    adj.assign(n, vi(0));
-
-    for (int i = 0; i < n-1; i++) {
-        int a, b;
-        cin >> a >> b;
-        adj[a].push_back(b);
-        adj[b].push_back(a);
-    }
-
-    build();
 }
