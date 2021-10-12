@@ -1,0 +1,29 @@
+name: Generate Almanaque Html
+
+on:
+  pull_request:
+    branches:
+      - main
+
+    types: [ closed ]
+
+jobs:
+  branch_main_pull_request_accepted:
+    # this job will only run if the PR has been merged
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        python3 -m pip install markdown
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run a python script
+      run: |
+        python3 ./.github/scripts/pdfer.py > Almanaque.html
