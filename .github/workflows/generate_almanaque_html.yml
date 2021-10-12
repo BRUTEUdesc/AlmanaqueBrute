@@ -1,14 +1,14 @@
-name: post-pull-request-main-branch
+name: Generate Almanaque Html
 
 on:
   pull_request:
     branches:
-      - main
+      - master
 
     types: [ closed ]
 
 jobs:
-  branch_main_pull_request_accepted:
+  generate_almanaque_html:
     # this job will only run if the PR has been merged
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
