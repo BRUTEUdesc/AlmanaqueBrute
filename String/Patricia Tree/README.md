@@ -1,4 +1,4 @@
-# Patricia Tree ou Patricia Trie
+# [Patricia Tree ou Patricia Trie](patricia_tree.cpp)
 Implementação PB-DS, extremamente curta e confusa:
 * **Criar**: patricia_tree pat; 
 * **Inserir**: pat.insert("sei la"); 
