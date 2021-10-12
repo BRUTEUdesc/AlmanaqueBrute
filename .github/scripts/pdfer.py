@@ -31,5 +31,6 @@ if __name__ == "__main__":
     with open("Almanaque.html", "w") as f:
         f.write(html)
         f.close()
+    print("Created Almanaque.html")
 else:
     print("Function not called correctly, please try again.")
