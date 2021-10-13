@@ -6,8 +6,7 @@ struct SparseTable {
         for (int i = 0; i < n; i++) st[0][i] = v[i];
         for (int i = 1; i <= e; i++) {
             for (int j = 0; j + (1 << i) <= n; j++) {
-                st[i][j] = min(st[i-1][j], st[i-1][j+(1 << (i-1))]); // query de range
-                // st[i][j] = min(st[i-1][j], st[i-1][st[i-1][j]]); // query de caminho
+                st[i][j] = min(st[i-1][j], st[i-1][j+(1 << (i-1))]);
             }
         }
     }
