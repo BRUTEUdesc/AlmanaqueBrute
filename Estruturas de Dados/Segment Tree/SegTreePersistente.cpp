@@ -1,14 +1,14 @@
 struct SegTree {
 	struct nodo {
-		long long v = 0;
-		nodo *l = NULL, *r = NULL;
+        long long v = 0;
+        nodo *l = NULL, *r = NULL;
         nodo() {}
         nodo(long long v) : v(v) {}
         nodo(nodo* l, nodo* r) : l(l), r(r) { v = l->v + r->v; }
-		void apply() {
-			if(l == NULL) l = new nodo();
-			if(r == NULL) r = new nodo();
-		}
+        void apply() {
+            if(l == NULL) l = new nodo();
+            if(r == NULL) r = new nodo();
+        }
 	};
     long long ESQ, DIR;
     vector <nodo*> roots;
