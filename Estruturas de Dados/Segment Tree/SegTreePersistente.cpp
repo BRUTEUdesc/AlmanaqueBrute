@@ -42,14 +42,14 @@ struct SegTree {
         return query(roots[root], ESQ, DIR, l, r);
     }
     // kth max number in [L, R]
-    int kth(nodo* n, nodo* old, int esq, int dir, int k) {
-        push(n, esq, dir);
-        push(old, esq, dir);
+    int kth(nodo* L, nodo* R, int esq, int dir, int k) {
+        push(L, esq, dir);
+        push(R, esq, dir);
         if (esq == dir) return esq;
         int mid = (esq + dir)/2;
-        int cont = n->l->v - old->l->v;
-        if (cont >= k) return kth(n->l, old->l, esq, mid, k);
-        else return kth(n->r, old->r, mid+1, dir, k-cont);
+        int cont = L->l->v - R->l->v;
+        if (cont >= k) return kth(L->l, R->l, esq, mid, k);
+        else return kth(L->r, R->r, mid+1, dir, k-cont);
     }
     int kth(int l_root, int r_root, int k) {
         return kth(roots[r_root], roots[l_root], ESQ, DIR, k);
