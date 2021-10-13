@@ -1,6 +1,6 @@
 Using sparse table to calculate de k-th ancestor of u.
 
-Can be used with the EulerTour algorithm for calculating the LCA in O(log(N))
+Can be used with the EulerTour algorithm for calculating the LCA
 
 O(Nlog(N)) Space
 
