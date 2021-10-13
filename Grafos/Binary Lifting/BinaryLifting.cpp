@@ -1,6 +1,6 @@
 namespace st {
     int n, me;
-    vector <vi> st;
+    vector <vector<int>> st;
     void bl_dfs(int u, int p) {
         st[u][0] = p;
         for (int i = 1; i <= me; i++)
@@ -12,7 +12,7 @@ namespace st {
     void build(int _n, int root=0) {
         n = _n;
         me = floor(log2(n));
-        st.assign(n, vi(me+1, 0));
+        st.assign(n, vector<int>(me+1, 0));
         bl_dfs(root, root);
     }
     int ancestor(int u, int k) { // k-th ancestor of u 
