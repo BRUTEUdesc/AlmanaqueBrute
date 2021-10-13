@@ -2,7 +2,7 @@ struct SparseTable {
     int n, e;
     vector <vi> st;
     SparseTable(vi &v) : n(v.size()), e(floor(log2(n))) {
-        st.assign(e+1, vi(n);
+        st.assign(e+1, vi(n));
         for (int i = 0; i < n; i++) st[0][i] = v[i];
         for (int i = 1; i <= e; i++) {
             for (int j = 0; j + (1 << i) <= n; j++) {
