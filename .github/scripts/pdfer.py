@@ -9,7 +9,7 @@ def output_readme(file: Path):
 
 
 def output_code(file: Path):
-    formated_text = "``` python3\n" + file.open().read() + "```\n"
+    formated_text = "``` c++\n" + file.open().read() + "```\n"
     return formated_text
 
 
@@ -27,7 +27,7 @@ def output_dir(dir_path: Path):
 
 if __name__ == "__main__":
     md = output_dir(Path('.'))
-    html = markdown("\n".join(md))
+    html = markdown("\n".join(md), extensions=["fenced_code"])
     with open("Almanaque.html", "w") as f:
         f.write(html)
         f.close()
