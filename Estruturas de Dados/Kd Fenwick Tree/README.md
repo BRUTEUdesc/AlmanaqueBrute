@@ -1,7 +1,7 @@
 
 # [KD Fenwick Tree](kd_fenwick_tree.cpp)
 
-<!-- *Read in [English](README.en.md)*  -->
+*Read in [English](README.en.md)* 
 
 Fenwick Tree em K dimensões.
 

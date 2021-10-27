@@ -1,5 +1,7 @@
 # [LiChao Tree](lichao_tree.cpp)
 
+*Read in [English](README.en.md)* 
+
 Uma árvore de Funções. Retorna o F(x) máximo em um ponto X.  
 Está pronta para usar função linear do tipo F(x) = mx + b. Mas pode funcionar para qualquer função monotônica!!
 * Complexidade de construção : O(N)

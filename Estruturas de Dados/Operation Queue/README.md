@@ -1,6 +1,6 @@
 # [Operation Queue](op_queue.cpp)
 
-<!-- *Read in [English](README.en.md)* -->
+*Read in [English](README.en.md)*
 
 Fila que armazena o resultado do operatório dos itens.
 
