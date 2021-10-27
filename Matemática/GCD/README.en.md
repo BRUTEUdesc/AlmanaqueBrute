@@ -2,6 +2,8 @@
 
 # [Euclidean Algorithm](gcd.cpp)
 
+#### [python code](gcd.py)
+
 Computes the Greatest Common Divisor (GCD).
 * Time Complexity: O(log(n))
 
