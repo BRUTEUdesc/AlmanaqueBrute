@@ -4,6 +4,8 @@
 
 # [Algoritmo de Euclides](gcd.cpp)
 
+#### [código em python](gcd.py) 
+
 Computa o Máximo Divisor Comum (MDC em português; GCD em inglês).
 * Complexidade de tempo: O(log(n))
 
