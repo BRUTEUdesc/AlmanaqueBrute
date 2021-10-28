@@ -5,7 +5,9 @@ namespace mo{
     struct query {
         int l, r, idx;
         bool operator<(query q) const {
-            return ii(l / block_sz, r) < ii(q.l / block_sz, q.r);
+            int _l  = l/block_sz;
+            int _ql = q.l/block_sz;
+            return ii(_l, (_l&1? -r: r)) < ii(_ql, (_ql&1? -q.r: q.r));
         }
     };
     vector<query> queries;    
