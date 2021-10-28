@@ -1,16 +1,13 @@
 # [Ordered Set](oredered_set.cpp)
 
-*Read in [English](README.en.md)*
+<!-- *Read in [English](README.en.md)* -->
 
-Can be used as a ordinary set, the key difference is the two new operations:
+Pode ser usado como um set normal, a principal diferença são duas novas operações possíveis:
 
+* find_by_order(x): retorna o item na posição x.
+* order_of_key(k): retorna o número de elementos menores que k. (o índice de k)
 
-* find_by_order(x): returns the item in position x.
-* order_of_key(k): returns the number of elements less then k. (the one that the indice is k)
-
-
-## Exemple
-
+## Exemplo
 ```c++
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/trie_policy.hpp>

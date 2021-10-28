@@ -1,7 +1,7 @@
 
 # [Fenwick Tree](fenwick_tree.cpp)
 
-<!-- *Read in [English](README.en.md)*  -->
+*Read in [English](README.en.md)* 
 
 Consultas e atualizações de soma em intervalo
 
