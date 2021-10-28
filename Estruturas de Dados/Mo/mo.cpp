@@ -1,13 +1,12 @@
 int block_sz; // Better if 'const';
 
-struct query {
-    int l, r, idx;
-    bool operator<(query q) const {
-        return make_pair(l / block_sz, r) < make_pair(q.l / block_sz, q.r);
-    }
-};
-
-struct mo{
+namespace mo{
+    struct query {
+        int l, r, idx;
+        bool operator<(query q) const {
+            return make_pair(l / block_sz, r) < make_pair(q.l / block_sz, q.r);
+        }
+    };
     vector<query> queries;    
     
     mo(int n){
