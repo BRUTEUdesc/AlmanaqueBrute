@@ -16,7 +16,7 @@ Fenwick Tree em K dimensões. **COM ATUALIZAÇÂO**
 * **[LiChao Tree](LiChao%20Tree)**  
 Retorna valor máximo ou mínimo de um conjunto de retas em um intervalo. **COM ATUALIZAÇÂO**
 * **[MergeSort Tree](MergeSort%20Tree)**  
-Retorna quantidade de valores em um range que são menores que K. **SEM ATUALIZAÇÃO && COM ATUALIZAÇÂO**
+Retorna quantidade de valores em um range que são menores que K. **COM E SEM ATUALIZAÇÂO**
 * **[Odered Set](Ordered%20Set)**  
 Set com possibilidade de retornar a ordem da chave, e o item em uma posição específica.
 * **[Operation Stack](Operation%20Stack)/[Queue](Operation%20Queue)**  
@@ -26,4 +26,4 @@ Consultas e atualizações diversos em intervalo.
 * **[Sparse Table](Sparse%20Table/)**  
 Consultas diversas em intervalo. **SEM ATUALIZAÇÂO**
 * **[Mo](Mo/)**  
-Resolve operações em range Offline.
+Resolve operações em range Offline. **COM E SEM ATUALIZAÇÂO**
