@@ -9,34 +9,34 @@ namespace mo{
     };
     vector<query> queries;    
     
-    mo(int n){
+    void build(int n){
         block_sz = (int) sqrt(n);
         // TODO: initialize data structure        
     }
-    void add_query(int l, int r){
+    inline void add_query(int l, int r){
         queries.push_back({l, r, (int) queries.size()});
     }
-    void remove(int idx){
+    inline void remove(int idx){
         // TODO: remove value at idx from data structure
     }
-    void add(int idx){
+    inline void add(int idx){
         // TODO: add value at idx from data structure
     }
-    int get_answer(){
+    inline int get_answer(){
         // TODO: extract the current answer of the data structure
         return 0;
     }
 
-    vector<int> mo_s_algorithm() {
+    vector<int> run() {
         vector<int> answers(queries.size());
         sort(queries.begin(), queries.end());
         int L = 0;
         int R = -1;
         for (query q : queries) {
-            while (L > q.l) L--, add(L);
-            while (R < q.r) R++, add(R);
-            while (L < q.l) remove(L), L++;
-            while (R > q.r) remove(R), R--;
+            while (L > q.l) add(--L);
+            while (R < q.r) add(++R);
+            while (L < q.l) remove(L++);
+            while (R > q.r) remove(R--);
             answers[q.idx] = get_answer();
         }
         return answers;
