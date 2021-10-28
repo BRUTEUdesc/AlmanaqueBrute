@@ -1,10 +1,11 @@
+typedef pair<int, int> ii;
 int block_sz; // Better if 'const';
 
 namespace mo{
     struct query {
         int l, r, idx;
         bool operator<(query q) const {
-            return make_pair(l / block_sz, r) < make_pair(q.l / block_sz, q.r);
+            return ii(l / block_sz, r) < ii(q.l / block_sz, q.r);
         }
     };
     vector<query> queries;    
