@@ -15,8 +15,8 @@ void update(int n, int esq, int dir, Line &l){
     if(a <= c and b <= d) tree[n] = l;
     else {
         int mid = (esq+dir)/2;
-        update(le(n), esq, mid, aux);
-        update(ri(n), mid+1, dir, aux);
+        update(le(n), esq, mid, l);
+        update(ri(n), mid+1, dir, l);
     }
 }
 void update(Line &l){ update(0, 0, MAX, l);}
@@ -28,4 +28,4 @@ ll query(int u, int esq, int dir, int x){
     if(x <= mid) return min(res, query(le(u), esq, mid, x));
     else           return min(res, query(ri(u), mid+1, dir, x));
 }
-ll query(int x){query(0, 0, MAX, x);}
+ll query(int x){return query(0, 0, MAX, x);}
