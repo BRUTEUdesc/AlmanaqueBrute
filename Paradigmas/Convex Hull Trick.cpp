@@ -30,6 +30,7 @@ ll get_binary_search(ll x) {
     }
     return fila[r].first.get(x);
 }
+// O(1), use only when QUERIES are monotonic!
 ll get(ll x) {
     while (fila.size() >= 2 && op(x, fila[1].second)) fila.pop_front();
     return fila.front().first.get(x);
