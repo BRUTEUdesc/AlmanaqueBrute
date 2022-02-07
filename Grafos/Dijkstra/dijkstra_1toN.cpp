@@ -1,3 +1,5 @@
+const int MAX = 505, INF = 1e9+9;
+
 vector <ii> adj[MAX];
 int dist[MAX];
 
