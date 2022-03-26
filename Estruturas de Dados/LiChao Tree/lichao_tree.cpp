@@ -1,31 +1,30 @@
-struct Line{
-    long long a, b;
-    long long get(long long v) {return a*v + b;}
-};
+typedef long long ll;
 
-Line tree[4*MAX];
+const ll MAXN = 1e5+5, INF = 1e18+9;
 
-int le(int n) {return 2*n+1;}
-int ri(int n) {return 2*n+2;}
-
-void update(int n, int esq, int dir, Line &l){
-    ll a = l.get(esq), b = l.get(dir);
-    ll c = tree[n].get(esq), d = tree[n].get(dir);
-    if(a >= c and b >= d) return;
-    if(a <= c and b <= d) tree[n] = l;
-    else {
-        int mid = (esq+dir)/2;
-        update(le(n), esq, mid, l);
-        update(ri(n), mid+1, dir, l);
+struct Line {
+    ll a, b = -INF;
+    ll operator()(ll x) {
+        return a * x + b;
     }
-}
-void update(Line &l){ update(0, 0, MAX, l);}
+} tree[4 * MAXN];
 
-ll query(int u, int esq, int dir, int x){
-    ll res = tree[u].get(x);
-    if(esq == dir) return res;
-    int mid = (esq+dir)/2;
-    if(x <= mid) return min(res, query(le(u), esq, mid, x));
-    else           return min(res, query(ri(u), mid+1, dir, x));
+int le(int n) { return 2*n+1; }
+int ri(int n) { return 2*n+2; }
+
+void insert(Line line, int n=0, int l=0, int r=MAXN) {
+    int mid = (l + r) / 2;
+    bool bl = line(l) < tree[n](l);
+    bool bm = line(mid) < tree[n](mid);
+    if(!bm) swap(tree[n], line);
+    if(l == r) return;
+    if(bl != bm) insert(line, le(n), l, mid);
+    else insert(line, ri(n), mid+1, r);
 }
-ll query(int x){return query(0, 0, MAX, x);}
+
+ll query(int x, int n=0, int l=0, int r=MAXN) {
+    if(l == r) return tree[n](x);
+    int mid = (l + r) / 2;
+    if(x < mid) return max(tree[n](x), query(x, le(n), l, mid));
+    else return max(tree[n](x), query(x, ri(n), mid+1, r));
+}
