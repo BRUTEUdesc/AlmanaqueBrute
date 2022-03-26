@@ -40,23 +40,6 @@ Mapeamento:
 ⎝ c[k] c[k-1]   c[k-2]   c[k-3]    .    .   c[1] ⎠    ⎝dp[k-1]⎠
 ```
 
-<!-- $$
-\begin{pmatrix}
-    0 & 1 & 0 & 0 & . & . \\
-    0 & 0 & 1 & 0 & . & . \\
-    0 & 0 & 0 & 1 & . & . \\
-    . & . & . & . & . & . \\
-    c_k & c_{k-1} & c_{k — 2} & . & . & c_1
-\end{pmatrix}^n
-\times
-\begin{pmatrix} 
-    dp[0] \\
-    dp[1] \\
-    dp[2] \\
-    \vdots \\
-    dp[k — 1] \end
-{pmatrix}
-$$
 ---
 ## Variação que dependa de **constantes** e do **índice**
 
@@ -64,7 +47,6 @@ Exemplo de DP:
 ```
 dp[i] = dp[i-1] + 2i² + 3i + 5
 ```
-<!-- $$dp[i] = dp[i - 1] + 2 * i^2 + 3 * i + 5$$ -->
 Nesses casos é preciso fazer uma linha para manter cada constante e potência do índice.
 
 Mapeamento:
