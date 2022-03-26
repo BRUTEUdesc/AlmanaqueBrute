@@ -97,7 +97,7 @@ Nesses casos é preciso trabalhar com o logarítmo e temos o caso padrão:
                         k                 
                        ___                
                        ╲                  
-log(dp[n]) = log(c) +  ╱    log(dp[i-k])
+log(dp[n]) = log(c) +  ╱    log(dp[n-i])
                        ‾‾‾                
                       i = 1               
 ```
