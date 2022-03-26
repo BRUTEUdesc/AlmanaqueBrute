@@ -1,5 +1,5 @@
 # Tarjan
 
-Algoritmo para verificar se um grafo é fortmente conexo
+Algoritmo para encontrar componentes fortemente conexos
 
 Complexidade de tempo: O(V + E)
