@@ -22,7 +22,5 @@ Temas:
   Encontra o menor ancetral comum de dois vétices em uma árvore.
 - [**Kruskal**](Kruskal)  
   Monta a Minimum Spanning Tree.
-- [**Tarjan**](Tarjan)  
-  Detecta a quantidade de pontes que não estão contidas em qualquer ciclo.
 - [**Stoer-Wagner minimum cut**](Stoer–Wagner%20minimum%20cut)  
   Resolver o problema de corte mínimo em gráficos não direcionados com pesos não negativos
