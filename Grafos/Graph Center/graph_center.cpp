@@ -1,8 +1,7 @@
 struct GraphCenter{
-    const int inf = 1e9;
+    const int inf = 1e9+9;
     int n, diam = 0;
     vector<int> centros, dist, pai;
-    vector<vector<int>> adj;
     
     int bfs(int s){
         queue<int> q; q.push(s);
@@ -26,8 +25,8 @@ struct GraphCenter{
         return maxinode;
     }
  
-    GraphCenter(vector<vector<int>> adj, int s=0) : n(adj.size()), adj(adj) {
-        int d1 = bfs(s);
+    GraphCenter(int st=0) : n(adj.size()) {
+        int d1 = bfs(st);
         int d2 = bfs(d1);
         vector<int> path;
         for (int u = d2; u != -1; u = pai[u]) path.push_back(u);
