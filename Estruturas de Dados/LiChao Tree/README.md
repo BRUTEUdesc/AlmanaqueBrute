@@ -11,3 +11,7 @@ ou seja f(x) e g(x) se intersectam apenas uma vez.
 
 * Complexidade de consulta : O(log(N))
 * Complexidade de update: O(log(N))
+
+# [LiChao Tree Sparse](lichao_tree_sparse.cpp)
+
+O mesmo que a superior, no entanto suporta consultas com |x| <= 1e18.
