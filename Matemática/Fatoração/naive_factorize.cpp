@@ -1,6 +1,6 @@
 vector<int> factorize(int n) {
      vector<int> factors;    
-     for (int d = 2; d * d <= n; d++)
+     for (long long d = 2; d * d <= n; d++)
           while (n % d == 0){
                factors.push_back(d);
                n /= d;
