@@ -18,9 +18,9 @@ DP:
           k               
          ___              
          ╲                
-dp[n] =  ╱    c[k] ⋅ dp[n - k]
+dp[n] =  ╱    c[i] ⋅ dp[n - i]
          ‾‾‾              
-        n = 1                    
+        i = 1                    
 ```
 
 <!-- $$dp[n] = \sum_{n=1}^{k} c_{k} * dp[n-k]$$ -->
@@ -84,8 +84,8 @@ DP:
 ```
               k            
             ━┳━┳━           
-dp[n] = c *  ┃ ┃   dp[n-k]
-            n = 1          
+dp[n] = c *  ┃ ┃   dp[n-i]
+            i = 1          
 ```
 <!-- $$dp[n] =  c\times \prod_{n=1}^{k} dp[n-k]$$ -->
 
@@ -97,9 +97,9 @@ Nesses casos é preciso trabalhar com o logarítmo e temos o caso padrão:
                         k                 
                        ___                
                        ╲                  
-log(dp[n]) = log(c) +  ╱    log(dp[n-k])
+log(dp[n]) = log(c) +  ╱    log(dp[i-k])
                        ‾‾‾                
-                      n = 1               
+                      i = 1               
 ```
 
 Se a resposta precisar ser inteira, deve-se fatorar a constante e os valores inicias e então fazer uma exponenciação para cada fator primo. Depois é só juntar a resposta no final.
