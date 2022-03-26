@@ -1,13 +1,13 @@
+const int INF = 1e9+9;
+
 vector<vector<int>> adj;
 
 struct GraphCenter{
-    const int inf = 1e9+9;
     int n, diam = 0;
     vector<int> centros, dist, pai;
-    
     int bfs(int s){
         queue<int> q; q.push(s);
-        dist.assign(n+5, inf);
+        dist.assign(n+5, INF);
         pai.assign(n+5, -1);
         dist[s] = 0;
         int maxidist = 0, maxinode = 0;
@@ -26,7 +26,6 @@ struct GraphCenter{
         diam = max(diam, maxidist);
         return maxinode;
     }
- 
     GraphCenter(int st=0) : n(adj.size()) {
         int d1 = bfs(st);
         int d2 = bfs(d1);
