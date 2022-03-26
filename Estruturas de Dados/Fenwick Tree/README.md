@@ -3,7 +3,9 @@
 
 *Read in [English](README.en.md)* 
 
-Consultas e atualizações de soma em intervalo
+Consultas e atualizações de soma em intervalo.
+
+O vetor precisa obrigatoriamente estar indexado em 1.
 
 * Complexidade de tempo (Pré-processamento): O(N * log(N))
 * Complexidade de tempo (Consulta em intervalo): O(log(N))
