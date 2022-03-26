@@ -2,7 +2,9 @@
 # [Fenwick Tree](fenwick_tree.cpp)
 
 
-Queries and updates the sum of a interval
+Queries and updates the sum of a interval.
+
+The array must be 1-indexed.
 
 
 * Time complexity (Pré-processamento): O(N * log(N))
