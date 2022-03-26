@@ -1,7 +1,10 @@
-LCA algorithm using EulerTour and SparseTable
+# LCA
 
-O(Nlog(N)) Space
+Algoritmo de Lowest Common Ancestor usando EulerTour e Sparse Table
 
-O(Nlog(N)) Preprocessing
+Complexidade de tempo:
 
-O(1) Quey LCA
+- O(Nlog(N)) Preprocessing
+- O(1) Quey LCA
+
+Complexidade de espaço: O(Nlog(N))
