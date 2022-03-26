@@ -1,11 +1,11 @@
-Using sparse table to calculate de k-th ancestor of u.
+# Binary Lifting
 
-Can be used with the EulerTour algorithm for calculating the LCA
+Usa uma sparse table para calcular o k-ésimo ancestral de u.
+Pode ser usada com o algoritmo de EulerTour para calcular o LCA.
 
-O(Nlog(N)) Space
+Complexidade de tempo:
+- Pré-processamento: O(N * log(N))
+- Consulta do k-ésimo ancestral de u: O(log(N))
+- LCA: O(log(N))
 
-O(Nlog(N)) Pre-processing
-
-O(log(N)) Query the k-th ancestor of u
-
-O(log(N)) LCA
+Complexidade de espaço: O(Nlog(N))
