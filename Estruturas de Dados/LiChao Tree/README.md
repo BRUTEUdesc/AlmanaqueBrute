@@ -15,3 +15,6 @@ ou seja f(x) e g(x) se intersectam apenas uma vez.
 # [LiChao Tree Sparse](lichao_tree_sparse.cpp)
 
 O mesmo que a superior, no entanto suporta consultas com |x| <= 1e18.
+
+* Complexidade de consulta : O(log(tamanho do intervalo))
+* Complexidade de update: O(log(tamanho do intervalo))
