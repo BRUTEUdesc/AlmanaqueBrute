@@ -1,3 +1,5 @@
+vector<vector<int>> adj;
+
 struct GraphCenter{
     const int inf = 1e9+9;
     int n, diam = 0;
