@@ -6,7 +6,7 @@ Temas:
 
 - [**2-SAT**](2-SAT)  
   Resolve o problema do 2-SAT.
-- [**Bridge**](Bridge)
+- [**Bridge**](Bridge)  
   Algoritimo que acha pontes.
 - [**Binary Lifting**](Binary%20Lifting)  
   Busca por antepassados em uma árvore.
