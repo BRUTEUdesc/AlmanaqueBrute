@@ -3,6 +3,7 @@
 *Read in [English](README.en.md)*
 
 Temas:
+
 + **[DSU (Disjoint Set Union)](DSU/)**  
 Consultas e atualizações em grupos de objetos.
 + **[DST (Disjoint Sparse Table)](Disjoint%20Sparse%20Table)**  
