@@ -1,3 +1,5 @@
+<div style=\"page-break-after: always;\"></div>
+
 # Estruturas de Dados
 
 *Read in [English](README.en.md)*
