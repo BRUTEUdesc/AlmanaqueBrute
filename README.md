@@ -18,4 +18,4 @@ Todas as implementações já foram **testadas e aprovadas**.
 
 *Juntamente com o código deve haver um README.md dando uma breve descrição sobre o algoritmo*
 
-![dark logo](https://user-images.githubusercontent.com/37052163/160264163-85f1f166-c637-4cc3-a667-c531367d02a6.png)
+![Webp net-resizeimage](https://user-images.githubusercontent.com/37052163/160264288-906816b3-95dc-42fb-a11a-255bfa10e2f2.png)
