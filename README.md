@@ -18,5 +18,4 @@ Todas as implementações já foram **testadas e aprovadas**.
 
 *Juntamente com o código deve haver um README.md dando uma breve descrição sobre o algoritmo*
 
-<div style=\"page-break-after: always;\"></div>
 ![dark logo](https://user-images.githubusercontent.com/37052163/160264163-85f1f166-c637-4cc3-a667-c531367d02a6.png)
