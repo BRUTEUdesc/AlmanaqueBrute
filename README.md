@@ -19,3 +19,5 @@ Todas as implementações já foram **testadas e aprovadas**.
 - **[String](String)**
 
 *Juntamente com o código deve haver um README.md dando uma breve descrição sobre o algoritmo*
+
+<div style=\"page-break-after: always;\"></div>
