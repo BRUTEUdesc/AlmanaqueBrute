@@ -9,7 +9,7 @@ def output_readme(file: Path):
 
 
 def output_code(file: Path):
-    formated_text = "``` c++\n" + file.open().read() + "```\n"
+    formated_text = "```c++\n" + file.open().read() + "\n```\n"
     return formated_text
 
 
@@ -22,6 +22,7 @@ def output_dir(dir_path: Path):
         if path.is_dir():
             yield from output_dir(path)
         elif path.name.endswith('.cpp'):
+            yield f"## {path.stem}"
             yield output_code(path)
                 
 
