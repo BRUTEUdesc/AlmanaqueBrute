@@ -2,8 +2,6 @@
 
 _Read in [English](README.en.md)_
 
-Temas:
-
 - [**2-SAT**](2-SAT)  
   Resolve o problema do 2-SAT.
 - [**Bridge**](Bridge)  
