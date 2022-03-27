@@ -11,7 +11,7 @@ Otimização para DP de prefixo quando o valor atual está em função dos últi
 ---
 
 
-## Uso Comum
+### Uso Comum
 
 DP:   
 ```
@@ -41,7 +41,7 @@ Mapeamento:
 ```
 
 ---
-## Variação que dependa de **constantes** e do **índice**
+### Variação que dependa de **constantes** e do **índice**
 
 Exemplo de DP:   
 ```
@@ -78,7 +78,7 @@ $$ -->
 ```
 
 ---
-## Variação Multiplicativa
+### Variação Multiplicativa
 
 DP:
 ```
