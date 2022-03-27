@@ -1,4 +1,4 @@
-# [2-SAT](2sat.cpp)  
+# [2-SAT](2_sat.cpp)  
 
 *Read in [English](README.en.md)*
 
