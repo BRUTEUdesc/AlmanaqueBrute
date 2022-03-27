@@ -1,4 +1,4 @@
-# ALMANAQUE DO  **BRUTE**
+# ALMANAQUE **BRUTE**
 
 *Read in [English](README.en.md)*
 
