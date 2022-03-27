@@ -2,11 +2,9 @@
 
 *Read in [English](README.en.md)*
 
-Códigos preparados para uso específico em competição.
-
-Todos os códigos têm uma breve descrição para o modo de uso.
-
-Todas as implementações já foram **testadas e aprovadas**.
+Códigos preparados para uso específico em competição.  
+Todos os códigos têm uma breve descrição para o modo de uso.  
+Todas as implementações já foram **testadas e aprovadas**.  
 
 
 **É só copiar e colar!!**
