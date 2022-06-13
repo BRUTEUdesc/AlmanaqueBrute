@@ -35,7 +35,7 @@ int query(int a, int b) { // query max on path
 }
 void update(int a, int b, int k) { // sum k on path
     if (pos[a] > pos[b]) swap(a, b);
-    if (head[a] == head[b]) seg_update(0, 0, n-1, pos[a], pos[b]);
+    if (head[a] == head[b]) seg_update(0, 0, n-1, pos[a], pos[b], k);
     else {
         seg_update(0, 0, n-1, pos[head[b]], pos[b], k);
         update(a, pai[head[b]], k);
