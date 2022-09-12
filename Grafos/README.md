@@ -18,6 +18,8 @@ _Read in [English](README.en.md)_
   Quebra uma árvore em cadeias e facilita consultas.
 - [**LCA (Lowest Common Ancestor)**](LCA)  
   Encontra o menor ancetral comum de dois vétices em uma árvore.
+- [**Matching**](Matching)  
+  Encontra os pares com o minmax custo em um grafo bipartido.
 - [**Kruskal**](Kruskal)  
   Monta a Minimum Spanning Tree.
 - [**Stoer-Wagner minimum cut**](Stoer–Wagner%20minimum%20cut)  
