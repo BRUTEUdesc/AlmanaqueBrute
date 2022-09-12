@@ -6,6 +6,6 @@ A implementação minimiza os custos, para maximizar basta multiplicar os pesos 
 
 **A matriz de entrada precisa ser indexada em 1 !!!**
 
-O vetor `result` retorna os pares do matching.
+O vetor `result` guarda os pares do matching.
 
 Complexidade de tempo: O(N^2 * M)
