@@ -1,9 +1,11 @@
-const long long INF = 1e18;
+typedef long long ll;
+
+const ll INF = 1e18;
 
 struct FlowEdge {
     int u, v;
-    long long cap, flow = 0;
-    FlowEdge(int u, int v, long long cap) : u(u), v(v), cap(cap) {}
+    ll cap, flow = 0;
+    FlowEdge(int u, int v, ll cap) : u(u), v(v), cap(cap) {}
 };
 
 struct Dinic {
@@ -19,7 +21,7 @@ struct Dinic {
         ptr.resize(n);
     }
 
-    void add_edge(int u, int v, long long cap) {
+    void add_edge(int u, int v, ll cap) {
         edges.emplace_back(u, v, cap);
         edges.emplace_back(v, u, 0);
         adj[u].push_back(m);
@@ -42,14 +44,14 @@ struct Dinic {
         return level[t] != -1;
     }
 
-    long long dfs(int u, long long f) {
+    ll dfs(int u, ll f) {
         if (f == 0) return 0;
         if (u == t) return f;
         for (int& cid = ptr[u]; cid < (int)adj[u].size(); cid++) {
             int id = adj[u][cid];
             int v = edges[id].v;
             if (level[u] + 1 != level[v] || edges[id].cap - edges[id].flow < 1) continue;
-            long long tr = dfs(v, min(f, edges[id].cap - edges[id].flow));
+            ll tr = dfs(v, min(f, edges[id].cap - edges[id].flow));
             if (tr == 0) continue;
             edges[id].flow += tr;
             edges[id ^ 1].flow -= tr;
@@ -58,15 +60,15 @@ struct Dinic {
         return 0;
     }
 
-    long long flow() {
-        long long maxflow = 0;
+    ll flow() {
+        ll maxflow = 0;
         while (true) {
             fill(level.begin(), level.end(), -1);
             level[s] = 0;
             q.push(s);
             if (!bfs()) break;
             fill(ptr.begin(), ptr.end(), 0);
-            while (long long f = dfs(s, INF)) maxflow += f;
+            while (ll f = dfs(s, INF)) maxflow += f;
         }
         return maxflow;
     }
