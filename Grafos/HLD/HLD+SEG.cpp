@@ -1,7 +1,7 @@
 int n, t, sz[MAX], pos[MAX], pai[MAX], head[MAX], v[MAX], tree[4*MAX], lazy[4*MAX];
 vector <vi> adj;
 
-void dfs_sz(int u, int p=-1) {
+void dfs_sz(int u, int p) {
     sz[u] = 1;
     for (int &v : adj[u]) if (v != p) {
         dfs_sz(v, u);
@@ -9,7 +9,7 @@ void dfs_sz(int u, int p=-1) {
         if (sz[v] > sz[adj[u][0]] || adj[u][0] == p) swap(v, adj[u][0]);
     }
 }
-void dfs_hld(int u, int p=-1) {
+void dfs_hld(int u, int p) {
     pos[u] = t++;
     for (int v : adj[u]) if (v != p) {
         pai[v] = u;
@@ -18,8 +18,8 @@ void dfs_hld(int u, int p=-1) {
     }
 }
 
-int le(int n) {return 2*n+1;}
-int ri(int n) {return 2*n+2;}
+int le(int n) { return 2*n+1; }
+int ri(int n) { return 2*n+2; }
 
 void build(int n, int esq, int dir) {
     if (esq == dir) tree[n] = v[esq];
@@ -31,11 +31,11 @@ void build(int n, int esq, int dir) {
     }
 }
 void build(int root=0) {
-    dfs_sz(root);
+    dfs_sz(root, root);
     t = 0;
     pai[root] = root;
     head[root] = root;
-    dfs_hld(root);
+    dfs_hld(root, root);
     build(0, 0, n-1);
 }
 
@@ -86,7 +86,7 @@ void update(int n, int esq, int dir, int l, int r, int v) {
     push(n, esq, dir);
     if (esq > r || dir < l) return;
     if (l <= esq && dir <= r) {
-        lazy[n] += k;
+        lazy[n] += v;
         push(n, esq, dir);
         return;
     }
