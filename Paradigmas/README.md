@@ -4,6 +4,8 @@
 
 + **[All Submasks](All%20Submasks)**  
 Percorre todas as sub-máscaras de uma mascara de bits.
++ **[Busca Binária Paralela](Busca%20Binaria%20Paralela)**  
+Faz a busca binária para multiplas consultas quando a busca binaria é muito pesada.
 + **[Busca Ternária](Busca%20Ternaria)**  
 Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
 + **[Convex Hull Trick](Convex%20Hull%20Trick)**  
