@@ -1,6 +1,6 @@
 
 namespace parallel_binary_search{
-    typedef tuple<int, int, long long, long long> query; //{value, id, ans, l, r}
+    typedef tuple<int, int, long long, long long> query; //{value, id, l, r}
     vector<query> queries[1123456]; // pode ser um mapa se for muito esparso
     long long ans[1123456]; // definir pro tamanho das queries
     long long l, r, mid;
