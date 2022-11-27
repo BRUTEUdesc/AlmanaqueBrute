@@ -1,4 +1,4 @@
-# [DP do Caixeiro Viajante](tsp_dp.cpp)
+# [DP de Permutação](tsp_dp.cpp)
 
 *Read in [English](README.en.md)*
 

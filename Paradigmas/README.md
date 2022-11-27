@@ -10,5 +10,7 @@ Otimização para DP utilizando retas monotônicas que formam um Convex Hull.
 Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupos.
 + **[Exponeciação de Matriz](Exponencia%C3%A7%C3%A3o%20de%20Matriz)**   
 Otimização para DP de prefixo quando o valor atual está em função dos últimos K valores já calculados.
-+ **[TSP DP (Travelling Salesman DP)](TSP%20DP)**  
-Resolve o caxeiro viajante 'rápido'.
++ **[Mo](Mo/)**  
+Resolve operações em range Offline. **COM E SEM ATUALIZAÇÂO**
++ **[DP de Permutação](DP%20de%20Permutacao)**  
+Simula todas as permutações de um grupo. Resolve o caxeiro viajante 'rápido'.
