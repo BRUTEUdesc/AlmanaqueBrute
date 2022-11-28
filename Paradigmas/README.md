@@ -3,7 +3,7 @@
 *Read in [English](README.en.md)*
 
 + **[All Submasks](All%20Submasks)**  
-Percorre todas as sub-máscaras de uma mascara de bits.
+Percorre todas as submáscaras de uma mascara de bits.
 + **[Busca Binária Paralela](Busca%20Binaria%20Paralela)**  
 Faz a busca binária para multiplas consultas quando a busca binaria é muito pesada.
 + **[Busca Ternária](Busca%20Ternaria)**  
