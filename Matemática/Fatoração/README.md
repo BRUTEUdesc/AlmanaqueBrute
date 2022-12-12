@@ -7,6 +7,16 @@ Fatora um número N.
 
 - Complexidade de tempo: O(N^(1/2))
 
+# [Fatoração Simples](naive_factorize.cpp)
+Pré-computa todos os fatores primos até MAX.
+Utilizado para fatorar um número N menor que MAX.
+
+- Complexidade de tempo: Pré-processamento O(MAX)
+- Complexidade de tempo: Fatoraração O(quantidade de fatores de N)
+- Complexidade de espaço: O(MAX)
+
+- Complexidade de tempo: O(N^(1/2))
+
 # [Fatoração Rápida](fast_factorize.cpp)
 Utiliza Pollar-Rho e Miller-Rabin (ver em Primos) para fatorar um número N.
 
