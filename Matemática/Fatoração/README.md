@@ -7,7 +7,7 @@ Fatora um número N.
 
 - Complexidade de tempo: O(N^(1/2))
 
-# [Fatoração Simples](naive_factorize.cpp)
+# [Fatoração Simples](linear_sieve_factorize.cpp)
 Pré-computa todos os fatores primos até MAX.
 Utilizado para fatorar um número N menor que MAX.
 
