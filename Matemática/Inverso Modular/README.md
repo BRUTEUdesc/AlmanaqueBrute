@@ -1,6 +1,6 @@
 # Modular Inverse
 
-The modular inverse of an integer `a` another integer `x` such that `a * x` is congruent to `1 (mod MOD)`.
+The modular inverse of an integer `a` is another integer `x` such that `a * x` is congruent to `1 (mod MOD)`.
 
 # [Modular Inverse](modular_inverse.cpp)
 
