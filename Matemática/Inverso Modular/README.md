@@ -20,10 +20,18 @@ Returns `-1` if this assumption is broken;
 * Time Complexity: O(log(MOD)).
 * Space Complexity: O(1).
 
-# [Linear Modular Inverse](modular_inverse_linear.cpp)
+# [Modular Inverse for 1 to MAX](modular_inverse_linear.cpp)
 
 Calculates the modular inverse for all numbers between `1` and `MAX`.
 expects `MOD` to be prime.
+
+* Time Complexity: O(MAX).
+* Space Complexity: O(MAX).
+
+# [Modular Inverse for all powers](modular_inverse_pow.cpp)
+
+Calculates the modular inverse for all powers of base between `base^0` and `base^MAX`.
+Needs you calculate beforehand the modular inverse of base, for 2 it is always `(MOD + 1)/2`.
 
 * Time Complexity: O(MAX).
 * Space Complexity: O(MAX).
