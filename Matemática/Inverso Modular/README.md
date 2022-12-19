@@ -15,7 +15,7 @@ Uses the [exp_mod](/Matemática/Exponenciação%20Modular%20Rápida/exp_mod.cpp)
 
 Calculates the modular inverse of `a`.
 
-Uses the [extended_gcd](/Matemática/GCD/extended_gcd.cpp) algorithm, thus expects `MOD` to be coprime if `a`.
+Uses the [extended_gcd](/Matemática/GCD/extended_gcd.cpp) algorithm, thus expects `MOD` to be coprime with `a`.
 
 Returns `-1` if this assumption is broken.
 
@@ -33,9 +33,13 @@ expects `MOD` to be prime.
 
 # [Modular Inverse for all powers](modular_inverse_pow.cpp)
 
-Calculates the modular inverse for all powers of base between `base^0` and `base^MAX`.
-Needs you calculate beforehand the modular inverse of base, for 2 it is always `(MOD + 1)/2`.
+Let `b` be any integer.
+
+Calculates the modular inverse for all powers of `b` between `b^0` and `b^MAX`.
+
+Needs you calculate beforehand the modular inverse of `b`, for 2 it is always `(MOD+1)/2`.
+
+expects `MOD` to be coprime with `b`.
 
 * Time Complexity: O(MAX).
 * Space Complexity: O(MAX).
-
