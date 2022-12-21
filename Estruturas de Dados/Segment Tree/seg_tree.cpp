@@ -15,7 +15,10 @@ namespace seg {
             tree[n] = tree[le(n)] + tree[ri(n)];
         }
     }
-    void build(vector<long long> &v) : n(v.size()) { build(0, 0, n-1, v); }
+    void build(vector<long long> &v) { 
+        n = v.size();
+        build(0, 0, n-1, v);
+    }
 
     int query(int n, int esq, int dir, int l, int r) {
         if (esq > r || dir < l) return 0;
