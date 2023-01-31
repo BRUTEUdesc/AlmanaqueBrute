@@ -27,7 +27,7 @@ struct SegTree{
         if(new_node) roots.push_back(update(roots.back(), ESQ, DIR, x, v));
         else roots.back() = update(roots.back(), ESQ, DIR, x, v);
     }
-    int query(node* &u, int esq, int dir, int i, int j) {
+    int query(node* u, int esq, int dir, int i, int j) {
         push(u, esq, dir);
         if(dir < i || j < esq) return neutral;
         if(i <= esq && dir <= j) return u->v;
