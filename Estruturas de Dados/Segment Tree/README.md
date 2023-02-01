@@ -2,13 +2,20 @@
 
 *Read in [English](README.en.md)*
 
-# [Persistent Seg Tree](persistent_seg_tree.cpp)
-Seg Tree com histórico de Updates:
+# [Persistent Seg Tree](seg_tree_persistent.cpp)
+Seg Tree Esparsa com histórico de Updates:
 
 - Complexidade de tempo (Pré-processamento): O(N *log(N))
 - Complexidade de tempo (Consulta em intervalo): O(log(N))
 - Complexidade de tempo (Update em ponto): O(log(N))
 - **Para fazer consulta em um tempo específico basta indicar o tempo na query**
+
+# [Sparse Seg Tree](seg_tree_sparse.cpp)
+Seg Tree Esparsa:
+
+- Complexidade de tempo (Pré-processamento): O(1)
+- Complexidade de tempo (Consulta em intervalo): O(log(N))
+- Complexidade de tempo (Update em ponto): O(log(N))
 
 # [Seg Tree](seg_tree.cpp)
 Implementação padrão de Seg Tree
