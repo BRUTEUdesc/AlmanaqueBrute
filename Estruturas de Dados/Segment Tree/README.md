@@ -2,14 +2,6 @@
 
 *Read in [English](README.en.md)*
 
-# [Persistent Seg Tree](persistent_seg_tree.cpp)
-Seg Tree com histórico de Updates:
-
-- Complexidade de tempo (Pré-processamento): O(N *log(N))
-- Complexidade de tempo (Consulta em intervalo): O(log(N))
-- Complexidade de tempo (Update em ponto): O(log(N))
-- **Para fazer consulta em um tempo específico basta indicar o tempo na query**
-
 # [Seg Tree](seg_tree.cpp)
 Implementação padrão de Seg Tree
 
@@ -26,6 +18,21 @@ Implementação padrão de Seg Tree com lazy update
 - Complexidade de tempo (Update em ponto): O(log(N))
 - Complexidade de tempo (Update em intervalo): O(log(N))
 - Complexidade de espaço: 2 *4 *N = O(N)
+
+# [Sparse Seg Tree](seg_tree_sparse.cpp)
+Seg Tree Esparsa:
+
+- Complexidade de tempo (Pré-processamento): O(1)
+- Complexidade de tempo (Consulta em intervalo): O(log(N))
+- Complexidade de tempo (Update em ponto): O(log(N))
+
+# [Persistent Seg Tree](seg_tree_persistent.cpp)
+Seg Tree Esparsa com histórico de Updates:
+
+- Complexidade de tempo (Pré-processamento): O(N *log(N))
+- Complexidade de tempo (Consulta em intervalo): O(log(N))
+- Complexidade de tempo (Update em ponto): O(log(N))
+- **Para fazer consulta em um tempo específico basta indicar o tempo na query**
 
 # [Seg Tree Beats](seg_tree_beats.cpp)
 Seg Tree que suporta update de maximo e query de soma

@@ -5,13 +5,12 @@ namespace st {
     void et_dfs(int u, int p) {
         tin[u] = ++timer;
         st[u][0] = p;
-        for (int i = 1; i <= me; i++)
+        for (int i = 1; i <= me; i++) {
             st[u][i] = st[st[u][i-1]][i-1];
-
-        for (int v : adj[u]) 
-            if (v != p)
-                et_dfs(v, u);
-
+        }
+        for (int v : adj[u]) if (v != p) {
+            et_dfs(v, u);
+        }
         tout[u] = ++timer;
     }
     void build(int _n, int root=0) {
