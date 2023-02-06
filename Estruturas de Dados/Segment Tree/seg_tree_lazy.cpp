@@ -7,6 +7,7 @@ namespace seg {
     int le(int n) { return 2*n+1; }
     int ri(int n) { return 2*n+2; }
     void push(int n, int esq, int dir) {
+        if (lazy[n] == 0) return;
         tree[n] += lazy[n] * (dir - esq + 1);
         if (esq != dir) {
             lazy[le(n)] += lazy[n];
