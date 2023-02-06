@@ -2,7 +2,7 @@ namespace seg {
     const int MAX = 2e5+5;
     const ll NEUTRAL = 0; // merge(a, neutral) = a
     ll merge(ll a, ll b) { return a + b; }
-    ll sz; // size of the array
+    int sz; // size of the array
     ll tree[4*MAX], lazy[4*MAX];
     int le(int n) { return 2*n+1; }
     int ri(int n) { return 2*n+2; }
