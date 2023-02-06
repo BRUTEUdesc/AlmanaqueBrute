@@ -1,5 +1,5 @@
 namespace seg {
-    const ll MAX = 2e5+5;
+    const int MAX = 2e5+5;
     const ll NEUTRAL = 0; // merge(a, neutral) = a
     ll merge(ll a, ll b) { return a + b; }
     ll sz; // size of the array
