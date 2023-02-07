@@ -32,7 +32,7 @@ namespace hld {
         for (int i = 0; i < (int)v.size(); i++) aux[pos[i]] = v[i];
         seg::build(aux);
     }
-    void build(int root, vector<i3>& edges) {
+    void build(int root, vector<i3>& edges) { // use this if weighted edges
         build(root);
         e = 1;
         vector<ll> aux(edges.size()+1);
