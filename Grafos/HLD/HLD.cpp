@@ -48,7 +48,7 @@ namespace hld {
         else {
             ll qv = seg::query(pos[head[v]], pos[v]);
             ll qu = query(u, pai[head[v]]);
-            return max(qu, qv);
+            return merge(qu, qv);
         }
     }
     void update(int u, int v, ll k) {
