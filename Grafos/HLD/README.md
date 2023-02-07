@@ -1,13 +1,11 @@
-# Heavy-Light Decomposition
+# Heavy-Light Decomposition (hld.cpp)
 
-HLD.cpp -> template padrao de hld  
-HLD+SEG.cpp -> template de hld com seg tree  
+Técnica usada para otimizar a execução de operações em árvores.
 
-Os outros arquivos sao funcões extras possiveis de serem realizadas com HLD.  
-Como LCA e Query em Subtree.
+- Pré-Processamento: O(N)
+- Range Query/Update: O(Log(N)) * O(Complexidade de query da estrutura)
+- Point Query/Update: O(Complexidade de query da estrutura)
+- LCA: O(Log(N))
+- Subtree Query: O(Complexidade de query da estrutura)
+- Complexidade de espaço: O(N)
 
-- O(N) Pré-processamento
-- O(Log(N)) * O(Complexidade de query da estrutura) Range Query/Update
-- O(Complexidade de query da estrutura) Point Query/Update
-- O(Log(N)) LCA
-- O(Complexidade de query da estrutura) SubtreeQuery
