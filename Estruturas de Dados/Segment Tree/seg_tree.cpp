@@ -1,5 +1,5 @@
 namespace seg {
-    const int MAX = 1e5+5;
+    const int MAX = 2e5+5;
     int n;
     ll tree[4*MAX];
     ll merge(ll a, ll b) { return a + b; }
