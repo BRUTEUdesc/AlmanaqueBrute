@@ -22,3 +22,7 @@ Trabalha com todos os sufixos sem precisar criá-los.
 
 - **[Trie](Trie)**  
 Estrutura para trabalhar com Strings e encontrar prefixos. Pode servir para converter uma String em outro valor em O(|S|)
+
+- **[Lyndon Factorization](Lyndon%20Factorization)**  
+Strings em decomposição única em subcadeias que são ordenadas lexicograficamente e não podem ser mais reduzidas.
+
