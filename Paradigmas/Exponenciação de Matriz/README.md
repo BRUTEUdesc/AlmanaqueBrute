@@ -89,7 +89,7 @@ dp[n] = c *  ┃ ┃   dp[n-i]
 ```
 <!-- $$dp[n] =  c\times \prod_{n=1}^{k} dp[n-k]$$ -->
 
-Nesses casos é preciso trabalhar com o logarítmo e temos o caso padrão:
+Nesses casos é preciso trabalhar com o logaritmo e temos o caso padrão:
 
 
 <!-- $$\log(dp[n]) =  log(c) + \sum_{n=1}^{k} log(dp[n-k])$$ -->
