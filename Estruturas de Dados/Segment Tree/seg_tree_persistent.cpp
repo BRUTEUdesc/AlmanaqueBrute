@@ -14,10 +14,10 @@ namespace seg {
     vector <node*> roots;
     void build() { roots.push_back(new node()); }
     void push(node* n, int esq, int dir) { if (esq != dir) n->apply(); }
-    // change x value to v
+    // sum v on x
     node* update(node* n, int esq, int dir, int x, int v) {
         push(n, esq, dir);
-        if (esq == dir) return new node(v);
+        if (esq == dir) return new node(n->v+v);
         int mid = (esq + dir)/2;
         if (x <= mid) return new node(update(n->l, esq, mid, x, v), n->r);
         else return new node(n->l, update(n->r, mid+1, dir, x, v));
@@ -27,7 +27,7 @@ namespace seg {
         roots.push_back(novo);
         return roots.size() - 1;
     }
-    // sum in [L, R]
+    // sum in [L, R] (0-Indexed)
     ll query(node* n, int esq, int dir, int l, int r) {
         push(n, esq, dir);
         if (esq > r || dir < l) return 0;
@@ -38,17 +38,17 @@ namespace seg {
     ll query(int root, int l, int r) {
         return query(roots[root], ESQ, DIR, l, r);
     }
-    // kth max number in [L, R]
+    // kth min number in [L, R] (1-Indexed)
     int kth(node* L, node* R, int esq, int dir, int k) {
         push(L, esq, dir);
         push(R, esq, dir);
         if (esq == dir) return esq;
         int mid = (esq + dir)/2;
-        int cont = L->l->v - R->l->v;
+        int cont = R->l->v - L->l->v;
         if (cont >= k) return kth(L->l, R->l, esq, mid, k);
         else return kth(L->r, R->r, mid+1, dir, k-cont);
     }
     int kth(int l_root, int r_root, int k) {
-        return kth(roots[r_root], roots[l_root], ESQ, DIR, k);
+        return kth(roots[l_root-1], roots[r_root], ESQ, DIR, k);
     }
 };
