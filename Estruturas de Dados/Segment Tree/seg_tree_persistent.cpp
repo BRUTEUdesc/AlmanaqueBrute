@@ -17,7 +17,7 @@ namespace seg {
     // sum v on x
     node* update(node* n, int esq, int dir, int x, int v) {
         push(n, esq, dir);
-        if (esq == dir) return new node(n->v+v);
+        if (esq == dir) return new node(n->v + v);
         int mid = (esq + dir)/2;
         if (x <= mid) return new node(update(n->l, esq, mid, x, v), n->r);
         else return new node(n->l, update(n->r, mid+1, dir, x, v));
@@ -27,7 +27,7 @@ namespace seg {
         roots.push_back(novo);
         return roots.size() - 1;
     }
-    // sum in [L, R] (0-Indexed)
+    // sum in [L, R]
     ll query(node* n, int esq, int dir, int l, int r) {
         push(n, esq, dir);
         if (esq > r || dir < l) return 0;
@@ -38,7 +38,7 @@ namespace seg {
     ll query(int root, int l, int r) {
         return query(roots[root], ESQ, DIR, l, r);
     }
-    // kth min number in [L, R] (1-Indexed)
+    // kth min number in [L, R] (l_root can not be 0)
     int kth(node* L, node* R, int esq, int dir, int k) {
         push(L, esq, dir);
         push(R, esq, dir);
