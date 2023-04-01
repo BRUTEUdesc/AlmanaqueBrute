@@ -1,6 +1,6 @@
 struct DSU {
     vector<int> pa, sz;
-    DSU(int n) : pa(n), sz(n, 1) {
+    DSU(int n) : pa(n + 1), sz(n + 1, 1) {
         iota(pa.begin(), pa.end(), 0);
     }
     int root(int a) { return pa[a] = (a == pa[a] ? a : root(pa[a])); }
