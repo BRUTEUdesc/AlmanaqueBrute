@@ -9,7 +9,9 @@ _Read in [English](README.en.md)_
 - [**Binary Lifting**](Binary%20Lifting)  
   Busca por antepassados em uma árvore.
 - [**Dijkstra**](Dijkstra)  
-  Caminho mínimo de 1 para todos. **SEM PESOS NEGATIVOS**
+  Caminho mínimo de 1 para todos.
+- [**SPFA**](SPFA)  
+  Caminho mínimo de 1 para todos. Detecta ciclos negativos.
 - [**Fluxo**](Fluxo)  
   Problemas sobre fluxo
 - [**Graph Center**](Graph%20Center)  
