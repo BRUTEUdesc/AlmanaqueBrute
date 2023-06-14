@@ -19,13 +19,3 @@ Complexidade de tempo: O((E + V) * log(E))
 Computa o menor caminho de todos os nós para todos os nós
 
 Complexidade de tempo: O(V * ((E + V) * log(E)))
-
-## Dijkstra Dense
-
-Dado um nó u, computa o menor caminho de u para todos os nós.
-
-Usa uma matriz de adjacência para representar o grafo.
-
-Complexidade ótima para grafos densos.
-
-Complexidade de tempo: O(V^2)
