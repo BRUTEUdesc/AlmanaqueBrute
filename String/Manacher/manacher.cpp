@@ -2,7 +2,7 @@ struct manacher {
     long long n, count = 0;
     vector<int> d1, d2;
     long long solve(string &s) {
-        n = s.size();
+        n = s.size(), count = 0;
         solve_odd(s);
         solve_even(s);
         return count;
