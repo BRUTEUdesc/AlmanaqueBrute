@@ -4,7 +4,7 @@ Para cada prefixo k de uma dada string s, calcula o maior prefixo que tambem é 
 
 Seja n o tamanho do texto e m o tamanho do padrão.
 
-* **[KMP](kmp.cpp)**
+* **[KMP](KMP.cpp)**
 
 String matching em O(n + m).
 
