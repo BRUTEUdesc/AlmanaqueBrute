@@ -11,5 +11,4 @@ jobs:
       with:
         clang-format-version: '13'
         check-path: 'Codigos'
-        clang-format-style-path: '.clang-format'
         fallback-style: 'Google' # optional
