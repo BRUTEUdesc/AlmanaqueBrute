@@ -6,3 +6,4 @@ venv
 *.pdf
 Almanaque.html
 .idea
+.DS_Store
