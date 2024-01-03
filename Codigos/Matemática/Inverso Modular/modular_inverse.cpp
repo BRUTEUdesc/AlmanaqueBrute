@@ -1,1 +1,1 @@
-ll inv(ll a) { return exp_mod(a, MOD-2); }
+ll inv(ll a) { return exp_mod(a, MOD - 2); }

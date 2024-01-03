@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  3 JAN 2024 11:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  3 JAN 2024 11:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -730,127 +730,74 @@ lo)) * Com-ple-xi-dade de up-date: O(log(tamanho
  []
 
 [26] [27] [28] [29] [30]
-
-! LaTeX Error: Invalid UTF-8 byte sequence (√\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1718     // consulta se os v√©rtices 
-                                       est√£o no mesmo grupo
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A9.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1718     // consulta se os v√©rtices 
-                                       est√£o no mesmo grupo
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (√\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1718     // consulta se os v√©rtices est√£o 
-                                              no mesmo grupo
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A3.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.1718     // consulta se os v√©rtices est√£o 
-                                              no mesmo grupo
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [31]
-[32] [33] [34] [35] [36]
+[32] [33] [34]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [35]
+[36]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [37]
-[38] [39] [40] [41] [42] [43] [44] [45]
-Overfull \hbox (0.11633pt too wide) in paragraph at lines 2664--2666
+[38]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [39]
+[40] [41] [42] [43] [44] [45]
+Overfull \hbox (0.11633pt too wide) in paragraph at lines 2646--2648
 \T1/cmr/m/n/10.95 Responde con-sul-tas de ma-neira efi-ci-ente em um con-junto 
 de da-dos es-t·-ti-cos. Re-a-liza um prÈ-processamento
  []
 
-[46] [47] [48] [49]
+[46] [47] [48]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [50]
-[51] [52] [53] [54] [55] [56] [57] [58] [59] [60]
+ [49]
+[50] [51] [52] [53] [54] [55] [56] [57] [58] [59]
 
-LaTeX Warning: Command \' invalid in math mode on input line 3532.
-
-Missing character: There is no È in font cmr10!
-
-LaTeX Warning: Command \' invalid in math mode on input line 3533.
+LaTeX Warning: Command \' invalid in math mode on input line 3514.
 
 Missing character: There is no È in font cmr10!
 
-LaTeX Warning: Command \' invalid in math mode on input line 3534.
+LaTeX Warning: Command \' invalid in math mode on input line 3515.
 
 Missing character: There is no È in font cmr10!
 
-LaTeX Warning: Command \' invalid in math mode on input line 3535.
+LaTeX Warning: Command \' invalid in math mode on input line 3516.
+
+Missing character: There is no È in font cmr10!
+
+LaTeX Warning: Command \' invalid in math mode on input line 3517.
 
 
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3535
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3517
 .
 
 
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3535
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3517
 .
 
 Missing character: There is no È in font cmr10!
 Missing character: There is no ≤ in font cmr10!
-[61] [62] [63]
+[60] [61] [62]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [64]
-[65]
+ [63]
+[64]
 Underfull \vbox (badness 4441) has occurred while \output is active []
 
- [66]
-[67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] (./Almanaque.aux)
+ [65]
+[66] [67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
 (rerunfilecheck)             Checksum: 86A52E443C08FD4A29DAFB0C5EF6FF3B;21712.
  ) 
 Here is how much of TeX's memory you used:
- 22253 strings out of 479382
- 326321 string characters out of 5869399
- 1054958 words of memory out of 5000000
- 36412 multiletter control sequences out of 15000+600000
+ 22234 strings out of 479382
+ 326009 string characters out of 5869399
+ 1056958 words of memory out of 5000000
+ 36411 multiletter control sequences out of 15000+600000
  486049 words of font info for 74 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  74i,7n,100p,3262b,1940s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -869,10 +816,10 @@ fbx1440.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm100
 0.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1095.pfb>
 </opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1200.pfb></opt/
 local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on Almanaque.pdf (78 pages, 538219 bytes).
+Output written on Almanaque.pdf (77 pages, 537753 bytes).
 PDF statistics:
- 5312 PDF objects out of 6186 (max. 8388607)
- 5150 compressed objects within 52 object streams
- 3589 named destinations out of 4296 (max. 500000)
+ 5288 PDF objects out of 6186 (max. 8388607)
+ 5127 compressed objects within 52 object streams
+ 3571 named destinations out of 3580 (max. 500000)
  1233 words of extra memory for PDF output out of 10000 (max. 10000000)
 
