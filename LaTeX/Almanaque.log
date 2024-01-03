@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  3 JAN 2024 01:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  3 JAN 2024 11:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -718,78 +718,142 @@ e
 \tf@toc=\write6
 \openout6 = `Almanaque.toc'.
 
- [5] [6]
-Underfull \vbox (badness 3029) has occurred while \output is active []
+ [5]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7]
-[8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22]
-[23] [24] [25]
-Overfull \hbox (3.97983pt too wide) in paragraph at lines 1403--1405
+ [6]
+[7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
+[22] [23] [24] [25]
+Overfull \hbox (3.97983pt too wide) in paragraph at lines 1421--1423
 []\T1/cmr/m/n/10.95 * Com-ple-xi-dade de con-sulta : O(log(tamanho do in-ter-va
 lo)) * Com-ple-xi-dade de up-date: O(log(tamanho
  []
 
-[26]
+[26] [27] [28] [29] [30]
+
+! LaTeX Error: Invalid UTF-8 byte sequence (√\expandafter).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1718     // consulta se os v√©rtices 
+                                       est√£o no mesmo grupo
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+! LaTeX Error: Invalid UTF-8 byte "A9.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1718     // consulta se os v√©rtices 
+                                       est√£o no mesmo grupo
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+! LaTeX Error: Invalid UTF-8 byte sequence (√\expandafter).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1718     // consulta se os v√©rtices est√£o 
+                                              no mesmo grupo
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+! LaTeX Error: Invalid UTF-8 byte "A3.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1718     // consulta se os v√©rtices est√£o 
+                                              no mesmo grupo
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [27]
-[28] [29] [30] [31] [32] [33]
+ [31]
+[32] [33] [34] [35] [36]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [34]
-[35]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [36]
-[37] [38] [39] [40] [41] [42] [43]
-Overfull \hbox (0.11633pt too wide) in paragraph at lines 2543--2545
+ [37]
+[38] [39] [40] [41] [42] [43] [44] [45]
+Overfull \hbox (0.11633pt too wide) in paragraph at lines 2664--2666
 \T1/cmr/m/n/10.95 Responde con-sul-tas de ma-neira efi-ci-ente em um con-junto 
 de da-dos es-t·-ti-cos. Re-a-liza um prÈ-processamento
  []
 
-[44] [45] [46] [47] [48] [49] [50] [51] [52] [53] [54]
-Underfull \vbox (badness 1888) has occurred while \output is active []
+[46] [47] [48] [49]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [55]
-[56] [57] [58]
+ [50]
+[51] [52] [53] [54] [55] [56] [57] [58] [59] [60]
 
-LaTeX Warning: Command \' invalid in math mode on input line 3398.
-
-Missing character: There is no È in font cmr10!
-
-LaTeX Warning: Command \' invalid in math mode on input line 3399.
+LaTeX Warning: Command \' invalid in math mode on input line 3532.
 
 Missing character: There is no È in font cmr10!
 
-LaTeX Warning: Command \' invalid in math mode on input line 3400.
+LaTeX Warning: Command \' invalid in math mode on input line 3533.
 
 Missing character: There is no È in font cmr10!
 
-LaTeX Warning: Command \' invalid in math mode on input line 3401.
+LaTeX Warning: Command \' invalid in math mode on input line 3534.
+
+Missing character: There is no È in font cmr10!
+
+LaTeX Warning: Command \' invalid in math mode on input line 3535.
 
 
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3401
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3535
 .
 
 
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3401
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 3535
 .
 
 Missing character: There is no È in font cmr10!
 Missing character: There is no ≤ in font cmr10!
-[59] [60] [61] [62] [63] [64] [65] [66] [67] [68] [69] [70] [71] [72] [73]
-[74] [75] (./Almanaque.aux)
+[61] [62] [63]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [64]
+[65]
+Underfull \vbox (badness 4441) has occurred while \output is active []
+
+ [66]
+[67] [68] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
-(rerunfilecheck)             Checksum: 9B12E90AD4B03752A7F127697C647C9A;21735.
+(rerunfilecheck)             Checksum: 86A52E443C08FD4A29DAFB0C5EF6FF3B;21712.
  ) 
 Here is how much of TeX's memory you used:
- 22110 strings out of 479382
- 324010 string characters out of 5869399
- 1039958 words of memory out of 5000000
- 36413 multiletter control sequences out of 15000+600000
+ 22253 strings out of 479382
+ 326321 string characters out of 5869399
+ 1054958 words of memory out of 5000000
+ 36412 multiletter control sequences out of 15000+600000
  486049 words of font info for 74 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 74i,7n,100p,3262b,2038s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,7n,100p,3262b,1940s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/o
 pt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}</opt/loc
 al/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/sh
@@ -805,10 +869,10 @@ fbx1440.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm100
 0.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1095.pfb>
 </opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1200.pfb></opt/
 local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb>
-Output written on Almanaque.pdf (75 pages, 531834 bytes).
+Output written on Almanaque.pdf (78 pages, 538219 bytes).
 PDF statistics:
- 5128 PDF objects out of 5155 (max. 8388607)
- 4971 compressed objects within 50 object streams
- 3445 named destinations out of 3580 (max. 500000)
+ 5312 PDF objects out of 6186 (max. 8388607)
+ 5150 compressed objects within 52 object streams
+ 3589 named destinations out of 4296 (max. 500000)
  1233 words of extra memory for PDF output out of 10000 (max. 10000000)
 
