@@ -1,0 +1,67 @@
+\documentclass[11pt, a4paper, twoside]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb,amsmath}
+\usepackage[portuguese]{babel}
+\usepackage{comment}
+\usepackage{datetime}
+\usepackage[pdfusetitle]{hyperref}
+\usepackage[all]{xy}
+\usepackage{graphicx}
+\addtolength{\parskip}{.5\baselineskip}
+
+\usepackage{xcolor}
+\usepackage{listings} %biblioteca pro codigo
+
+\usepackage{multicol} %biblioteca pra duas colunas
+\setlength{\columnseprule}{0.2pt}
+\setlength{\columnsep}{10pt} %distancia do texto ate a barra
+\def\columnseprulecolor{\color{black}}
+
+\usepackage{color}    %deixa o codigo colorido bonitinho
+\usepackage[portrait, left=2cm, right=1.5cm, top=2cm, bottom=2cm]{geometry} 
+
+\definecolor{gray}{rgb}{0.2, 0.2, 0.2} %cor pros comentarios
+\renewcommand{\footnotesize}{\small} %isso eh pra mudar o tamanho da fonte do codigo
+
+\lstset{ %opcoes pro codigo
+	language=C++,
+	breaklines=true,
+	keywordstyle=\color{black}\bfseries,
+	commentstyle=\color{darkgray},
+	breakatwhitespace=true,
+	%frame=single,
+	numbers=left,
+	rulecolor=\color{black},
+	showstringspaces=false
+	stringstyle=\color{purple},
+	tabsize=2,
+	basicstyle=\footnotesize,
+	% basicstyle=\ttfamily\footnotesize, % fonte pro codigo, nao sei qual dos dois eu prefiro
+}
+\lstset{literate=
+%   *{0}{{{\color{red!20!violet}0}}}1
+%    {1}{{{\color{red!20!violet}1}}}1
+%    {2}{{{\color{red!20!violet}2}}}1
+%    {3}{{{\color{red!20!violet}3}}}1
+%    {4}{{{\color{red!20!violet}4}}}1
+%    {5}{{{\color{red!20!violet}5}}}1
+%    {6}{{{\color{red!20!violet}6}}}1
+%    {7}{{{\color{red!20!violet}7}}}1
+%    {8}{{{\color{red!20!violet}8}}}1
+%    {9}{{{\color{red!20!violet}9}}}1
+%	 {l}{$\text{l}$}1
+	{~}{$\sim$}{1} % ~ bonitinho
+}
+
+\title{BRUTE \\ UDESC}
+\author{Eliton Machado da Silva, Enzo de Almeida Rodrigues, Eric Grochowicz, \\ João Vitor Frölich, João Marcos de Oliveira e Rafael Granza de Mello}	
+
+\begin{document}
+% \twocolumn
+\date{\today}
+\maketitle
+
+
+\renewcommand{\contentsname}{Índice} %troca o nome do indice para indice
+\tableofcontents

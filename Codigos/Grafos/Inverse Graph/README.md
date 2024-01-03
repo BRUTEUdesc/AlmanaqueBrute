@@ -1,4 +1,4 @@
-# [Inverse Graph](inverse_graph.cpp)
+# Inverse Graph
 
 _Read in [English](README.en.md)_
 

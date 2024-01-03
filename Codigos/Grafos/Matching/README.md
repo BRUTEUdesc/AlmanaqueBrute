@@ -1,6 +1,6 @@
 # Hungarian Algorithm for Bipartite Matching
 
-Resolve o problema de Matching para uma matriz A[1…n][1…m], onde n≤m.
+Resolve o problema de Matching para uma matriz `A[n][m]`, onde $n \leq m$.
 
 A implementação minimiza os custos, para maximizar basta multiplicar os pesos por -1.
 
@@ -8,4 +8,4 @@ A implementação minimiza os custos, para maximizar basta multiplicar os pesos 
 
 O vetor `result` guarda os pares do matching.
 
-Complexidade de tempo: O(N^2 * M)
+Complexidade de tempo: $O(n^2 * m)$

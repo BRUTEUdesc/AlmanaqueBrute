@@ -1,5 +1,5 @@
 const int MAX = 10;
-ll tree [MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade necessária de dimensões
+ll tree [MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade necessaria de dimensoes
  
 int lsONE(int x) { return x & (-x); } 
  

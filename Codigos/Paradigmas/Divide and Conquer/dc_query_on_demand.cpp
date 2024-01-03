@@ -1,5 +1,5 @@
 namespace DC{
-    struct range{  // É preciso definir a forma de calcular o range
+    struct range{  // eh preciso definir a forma de calcular o range
         vi freq; 
         ll sum = 0;
         int l = 0, r = -1;

@@ -1,5 +1,5 @@
 const int lim = 17 ; // setar para o maximo de itens
-long double dist[lim][lim]; // é preciso dar as distâncias de n para n
+long double dist[lim][lim]; // eh preciso dar as distancias de n para n
 long double dp[lim][1<<lim];
 
 int limMask = (1<<lim) - 1; // 2**(maximo de itens) - 1

@@ -34,7 +34,7 @@ int gauss (vector<bitset<N>>a, int n, int m, bitset<N>& ans) {
         for (int j = 0; j < m; j++){
             sum += ans[j] * a[i][j];
         }
-        if (abs(sum - a[i][m]) > 0) return 0; // Sem solução
+        if (abs(sum - a[i][m]) > 0) return 0; // Sem solucao
     }
 
     for (int i = 0; i < m; i++){
