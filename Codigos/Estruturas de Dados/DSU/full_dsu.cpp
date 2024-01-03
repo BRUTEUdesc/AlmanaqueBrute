@@ -63,13 +63,25 @@ struct full_dsu {
         ++time;
     }
 
-    void ord(int& a, int& b){if(a > b) swap(a, b);}
-    void add(int u, int v){ ord(u, v); edges[{u, v}].push_back({time++, (int)1e9, u, v, 0});}
-    void remove(int u, int v){ ord(u, v); edges[{u, v}].back().r = time++;}
-    
+    void ord(int &a, int &b) {
+        if (a > b) { swap(a, b); }
+    }
+    void add(int u, int v) {
+        ord(u, v);
+        edges[{u, v}].push_back({time++, (int)1e9, u, v, 0});
+    }
+    void remove(int u, int v) {
+        ord(u, v);
+        edges[{u, v}].back().r = time++;
+    }
+
     // consulta se dois vertices estao no mesmo grupo
-    void question(int u, int v){ ord(u, v); queries.push_back({time, time, u, v, 1}); ++time;}
-    
+    void question(int u, int v) {
+        ord(u, v);
+        queries.push_back({time, time, u, v, 1});
+        ++time;
+    }
+
     // consulta a quantidade de grupos distintos
     void question() {
         queries.push_back({time, time, 0, 0, 1});
