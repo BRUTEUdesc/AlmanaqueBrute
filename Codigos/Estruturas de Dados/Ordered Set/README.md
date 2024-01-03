@@ -4,8 +4,8 @@
 
 Pode ser usado como um set normal, a principal diferença são duas novas operações possíveis:
 
-- $find_by_order(x)$: retorna o item na posição x.
-- $order_of_key(k)$: retorna o número de elementos menores que k. (o índice de k)
+- `find_by_order(x)`: retorna o item na posição x.
+- `order_of_key(k)`: retorna o número de elementos menores que k. (o índice de k)
 
 ## Exemplo
 ```c++
