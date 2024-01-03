@@ -1,4 +1,4 @@
-int n; // number of nodes
+int n;                   // number of nodes
 vector<vector<int>> adj; // adjacency list of graph
 
 vector<bool> visited;
@@ -9,7 +9,7 @@ void dfs(int u, int p = -1) {
     visited[u] = true;
     tin[u] = low[u] = timer++;
     for (int v : adj[u]) {
-        if (v == p) continue;
+        if (v == p) { continue; }
         if (visited[v]) {
             low[u] = min(low[u], tin[v]);
         } else {
@@ -29,7 +29,6 @@ void find_bridges() {
     tin.assign(n, -1);
     low.assign(n, -1);
     for (int i = 0; i < n; ++i) {
-        if (!visited[i])
-            dfs(i);
+        if (!visited[i]) { dfs(i); }
     }
 }

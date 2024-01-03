@@ -13,12 +13,11 @@ void bfs(int s) {
         int x = f.front();
         f.pop();
         for (int y : nodes) {
-            if (adj[x].count(y) == 0) {
-                aux.insert(y);
-            }
+            if (adj[x].count(y) == 0) { aux.insert(y); }
         }
         for (int y : aux) {
-            f.push(y); nodes.erase(y);
+            f.push(y);
+            nodes.erase(y);
         }
         aux.clear();
     }

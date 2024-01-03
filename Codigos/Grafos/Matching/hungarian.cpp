@@ -1,26 +1,31 @@
-const ll INF = 1e18+18;
+const ll INF = 1e18 + 18;
 
 vector<pair<int, int>> result;
 
-ll hungarian(int n, int m, vector <vi> &A) {
-    vi u(n+1), v(m+1), p(m+1), way(m+1);
+ll hungarian(int n, int m, vector<vi> &A) {
+    vi u(n + 1), v(m + 1), p(m + 1), way(m + 1);
     for (int i = 1; i <= n; i++) {
         p[0] = i;
         int j0 = 0;
-        vi minv(m+1, INF);
-        vector<char> used(m+1, false);
+        vi minv(m + 1, INF);
+        vector<char> used(m + 1, false);
         do {
             used[j0] = true;
             ll i0 = p[j0], delta = INF, j1;
-            for (int j = 1; j <= m; j++)
+            for (int j = 1; j <= m; j++) {
                 if (!used[j]) {
-                    int cur = A[i0][j]-u[i0]-v[j];
-                    if (cur < minv[j]) minv[j] = cur, way[j] = j0;
-                    if (minv[j] < delta) delta = minv[j], j1 = j;
+                    int cur = A[i0][j] - u[i0] - v[j];
+                    if (cur < minv[j]) { minv[j] = cur, way[j] = j0; }
+                    if (minv[j] < delta) { delta = minv[j], j1 = j; }
                 }
-            for (int j = 0; j <= m; j++)
-                if (used[j]) u[p[j]] += delta, v[j] -= delta;
-                else minv[j] -= delta;
+            }
+            for (int j = 0; j <= m; j++) {
+                if (used[j]) {
+                    u[p[j]] += delta, v[j] -= delta;
+                } else {
+                    minv[j] -= delta;
+                }
+            }
             j0 = j1;
         } while (p[j0] != 0);
         do {
@@ -29,6 +34,6 @@ ll hungarian(int n, int m, vector <vi> &A) {
             j0 = j1;
         } while (j0);
     }
-    for (int i = 1; i <= m; i++) result.emplace_back(p[i], i);
+    for (int i = 1; i <= m; i++) { result.emplace_back(p[i], i); }
     return -v[0];
 }
