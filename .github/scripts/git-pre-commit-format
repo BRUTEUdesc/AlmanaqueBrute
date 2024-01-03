@@ -262,7 +262,7 @@ readonly style=$(cd "$top_dir" && git config hooks.clangFormatDiffStyle || echo 
 
 apply_format_opts=(
     "--style=$style"
-    -i
+    # -i
     --cached
     )
 
