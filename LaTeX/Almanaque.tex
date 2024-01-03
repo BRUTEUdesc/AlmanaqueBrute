@@ -76,8 +76,6 @@
 
 \section{Estruturas-de-Dados}
 
-\subsection{Operation-Queue}
-
 \subsection{Operation Queue}
 
 
@@ -122,8 +120,6 @@ template <typename T> struct op_queue {
     }
 };
 \end{lstlisting}
-
-\subsection{Interval-Tree}
 
 
 \subsection{Interval Tree}
@@ -187,14 +183,11 @@ template <class CNI, class NI, class Cmp_Fn, class Allocator> struct intervals_n
 typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update> interval_tree;
 \end{lstlisting}
 
-\subsection{Segment-Tree}
-
 \subsection{Segment Tree}
 
 
 
-\subsection{Seg Tree}
-
+\# [Seg Tree](seg\_tree.cpp)
 Implementação padrão de Seg Tree
 
 - Complexidade de tempo (Pré-processamento): O(N)
@@ -202,8 +195,7 @@ Implementação padrão de Seg Tree
 - Complexidade de tempo (Update em ponto): O(log(N))
 - Complexidade de espaço: 4 *N = O(N)
 
-\subsection{Seg Tree Lazy}
-
+\# [Seg Tree Lazy](seg\_tree\_lazy.cpp)
 Implementação padrão de Seg Tree com lazy update
 
 - Complexidade de tempo (Pré-processamento): O(N)
@@ -212,16 +204,14 @@ Implementação padrão de Seg Tree com lazy update
 - Complexidade de tempo (Update em intervalo): O(log(N))
 - Complexidade de espaço: 2 *4 *N = O(N)
 
-\subsection{Sparse Seg Tree}
-
+\# [Sparse Seg Tree](seg\_tree\_sparse.cpp)
 Seg Tree Esparsa:
 
 - Complexidade de tempo (Pré-processamento): O(1)
 - Complexidade de tempo (Consulta em intervalo): O(log(N))
 - Complexidade de tempo (Update em ponto): O(log(N))
 
-\subsection{Persistent Seg Tree}
-
+\# [Persistent Seg Tree](seg\_tree\_persistent.cpp)
 Seg Tree Esparsa com histórico de Updates:
 
 - Complexidade de tempo (Pré-processamento): O(N *log(N))
@@ -229,8 +219,7 @@ Seg Tree Esparsa com histórico de Updates:
 - Complexidade de tempo (Update em ponto): O(log(N))
 - **Para fazer consulta em um tempo específico basta indicar o tempo na query**
 
-\subsection{Seg Tree Beats}
-
+\# [Seg Tree Beats](seg\_tree\_beats.cpp)
 Seg Tree que suporta update de maximo e query de soma
 
 - Complexidade de tempo (Pré-processamento): O(N)
@@ -239,8 +228,7 @@ Seg Tree que suporta update de maximo e query de soma
 - Complexidade de tempo (Update em intervalo): O(log(N))
 - Complexidade de espaço: 2 *4 *N = O(N)
 
-\subsection{Seg Tree Beats Max and Sum update}
-
+\# [Seg Tree Beats Max and Sum update](seg\_tree\_beats\_max\_and\_sum\_update.cpp)
 Seg Tree que suporta update de maximo, update de soma e query de soma.
 Utiliza uma fila de lazy para diferenciar os updates
 
@@ -911,8 +899,6 @@ namespace seg {
 };
 \end{lstlisting}
 
-\subsection{Disjoint-Sparse-Table}
-
 \subsection{Disjoint Sparse Table}
 
 
@@ -950,8 +936,6 @@ struct dst {
 };
 \end{lstlisting}
 
-\subsection{Operation-Stack}
-
 \subsection{Operation Stack}
 
 
@@ -982,8 +966,6 @@ template <typename T> struct op_stack {
     }
 };
 \end{lstlisting}
-
-\subsection{Fenwick-Tree}
 
 
 \subsection{Fenwick Tree}
@@ -1020,14 +1002,11 @@ struct FenwickTree {
 };
 \end{lstlisting}
 
-\subsection{DSU}
-
 \subsection{Disjoint Set Union}
 
 
 
-\subsection{DSU Simples}
-
+\# [DSU Simples](dsu.cpp)
 Estrutura que trata conjuntos.  
 Verifica se dois itens pertencem a um mesmo grupo.
 
@@ -1037,15 +1016,13 @@ Une grupos.
 
 - Complexidade de tempo: O(1) amortizado.
 
-\subsection{DSU Bipartido}
-
+\# [DSU Bipartido](bipartite\_dsu.cpp)
 DSU para grafo bipartido, é possível verificar se uma aresta é possível antes de adicioná-la.  
 Para todas as operações:
 
 - Complexidade de tempo: O(1) amortizado.
 
-\subsection{DSU com Rollback}
-
+\# [DSU com Rollback](rollback\_dsu.cpp)
 Desfaz as últimas K uniões
 
 - Complexidade de tempo: O(K).
@@ -1056,8 +1033,7 @@ O rollback não altera a complexidade, uma vez que K <= queries.
 
 - Complexidade de tempo: O(log(N))
 
-\subsection{DSU Completo}
-
+\# [DSU Completo](full\_dsu.cpp)
 DSU com capacidade de adicionar e remover vértices.  
 **EXTREMAMENTE PODEROSO!**  
 Funciona de maneira off-line, recebendo as operações e dando as respostas das consultas no retorno da função **solve()**
@@ -1224,29 +1200,12 @@ struct full_dsu {
     void ord(int &a, int &b) {
         if (a > b) { swap(a, b); }
     }
+
     void add(int u, int v) {
         ord(u, v);
         edges[{u, v}].push_back({time++, (int)1e9, u, v, 0});
     }
-    void remove(int u, int v) {
-        ord(u, v);
-        edges[{u, v}].back().r = time++;
-    }
 
-    // consulta se os vértices estão no mesmo grupo
-    void question(int u, int v) {
-        ord(u, v);
-        queries.push_back({time, time, u, v, 1});
-        ++time;
-    }
-
-    void ord(int &a, int &b) {
-        if (a > b) { swap(a, b); }
-    }
-    void add(int u, int v) {
-        ord(u, v);
-        edges[{u, v}].push_back({time++, (int)1e9, u, v, 0});
-    }
     void remove(int u, int v) {
         ord(u, v);
         edges[{u, v}].back().r = time++;
@@ -1306,8 +1265,6 @@ struct full_dsu {
 };
 \end{lstlisting}
 
-\subsection{LiChao-Tree}
-
 \subsection{LiChao Tree}
 
 
@@ -1323,8 +1280,7 @@ ou seja f(x) e g(x) se intersectam apenas uma vez.
 * Complexidade de consulta : O(log(N))
 * Complexidade de update: O(log(N))
 
-\subsection{LiChao Tree Sparse}
-
+\# [LiChao Tree Sparse](lichao\_tree\_sparse.cpp)
 
 O mesmo que a superior, no entanto suporta consultas com |x| <= 1e18.
 
@@ -1412,8 +1368,6 @@ __int128 query(int x, int n = 0, ll l = -MAXR, ll r = MAXR) {
 }
 \end{lstlisting}
 
-\subsection{Kd-Fenwick-Tree}
-
 
 \subsection{KD Fenwick Tree}
 
@@ -1454,8 +1408,6 @@ void update(vector<int> s, int pos, int v) {
     }
 }\end{lstlisting}
 
-\subsection{Ordered-Set}
-
 \subsection{Ordered Set}
 
 
@@ -1465,8 +1417,7 @@ Pode ser usado como um set normal, a principal diferença são duas novas opera�
 - $find\_by\_order(x)$: retorna o item na posição x.
 - $order\_of\_key(k)$: retorna o número de elementos menores que k. (o índice de k)
 
-\subsection{Exemplo}
-
+\#\# Exemplo
 \begin{lstlisting}[language=C++]
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/trie_policy.hpp>
@@ -1503,8 +1454,6 @@ using namespace __gnu_pbds;
 
 template <typename T> typedef tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;\end{lstlisting}
 
-\subsection{MergeSort-Tree}
-
 \subsection{MergeSort Tree}
 
 
@@ -1514,8 +1463,7 @@ Resolve Queries que envolvam ordenação em Range. (**SEM UPDATE**)
 - Complexidade de construção : $O(N * log(N))$
 - Complexidade de consulta : $O(log^2(N))$
 
-\subsection{MergeSort Tree com Update Pontual}
-
+\# [MergeSort Tree com Update Pontual](mergesort\_tree\_update.cpp)
 
 Resolve Queries que envolvam ordenação em Range. (**COM UPDATE**)  
 **1 segundo para vetores de tamanho $3 * 10^5$**
@@ -1662,8 +1610,6 @@ namespace mergesort {
 };
 \end{lstlisting}
 
-\subsection{Sparse-Table}
-
 \subsection{Sparse Table}
 
 
@@ -1712,6 +1658,34 @@ struct SparseTable {
 };
 \end{lstlisting}
 
+<div style=\"page-break-after: always;\"></div>
+
+
+
++ **[DSU (Disjoint Set Union)](DSU/)**  
+Consultas e atualizações em grupos de objetos.
++ **[DST (Disjoint Sparse Table)](Disjoint\%20Sparse\%20Table)**  
+Consultas diversas em intervalo em **O(1)**. **SEM ATUALIZAÇÂO**
++ **[Fenwick Tree](Fenwick\%20Tree)**  
+Consultas e atualizações de soma em intervalo. **COM ATUALIZAÇÂO**
++ **[Interval Tree](Interval\%20Tree) (Autoral)**  
+Responde quantos intervalos intersectam com outro. **COM ATUALIZAÇÂO**
++ **[KD Fenwick Tree](KD\%20Fenwick\%20Tree)**  
+Fenwick Tree em K dimensões. **COM ATUALIZAÇÂO**
++ **[LiChao Tree](LiChao\%20Tree)**  
+Retorna valor máximo ou mínimo de um conjunto de retas em um intervalo. **COM ATUALIZAÇÂO**
++ **[MergeSort Tree](MergeSort\%20Tree)**  
+Retorna quantidade de valores em um range que são menores que K. **COM E SEM ATUALIZAÇÂO**
++ **[Odered Set](Ordered\%20Set)**  
+Set com possibilidade de retornar a ordem da chave, e o item em uma posição específica.
++ **[Operation Stack](Operation\%20Stack)/[Queue](Operation\%20Queue)**  
+Pilha/Fila que armazena o resultado do operatório dos itens.
++ **[Segment Tree](Segment\%20Tree)**  
+Consultas e atualizações diversos em intervalo.
++ **[Sparse Table](Sparse\%20Table/)**  
+Consultas diversas em intervalo. **SEM ATUALIZAÇÂO**
+
+
 \newpage
 %%%%%%
 %
@@ -1722,8 +1696,6 @@ struct SparseTable {
 %%%%%%
 
 \section{Grafos}
-
-\subsection{Matching}
 
 \subsection{Hungarian Algorithm for Bipartite Matching}
 
@@ -1780,8 +1752,6 @@ ll hungarian(int n, int m, vector<vector<int>> &A) {
 }
 \end{lstlisting}
 
-\subsection{Stoer–Wagner-minimum-cut}
-
 \subsection{Stoer-Wagner}
 
 
@@ -1828,8 +1798,6 @@ int mincut() {
     return bestCost;
 }
 \end{lstlisting}
-
-\subsection{LCA}
 
 \subsection{LCA}
 
@@ -1913,8 +1881,6 @@ int main() {
     build();
 }
 \end{lstlisting}
-
-\subsection{HLD}
 
 \subsection{Heavy-Light Decomposition (hld.cpp)}
 
@@ -2007,8 +1973,6 @@ namespace hld {
 
 \subsection{Kruskal}
 
-\subsection{Kruskal}
-
 
 
 Utiliza [DSU](../../Estruturas\%20de\%20Dados/DSU/dsu.cpp) - (disjoint set union) - para construir MST - (minimum spanning tree)
@@ -2056,8 +2020,6 @@ void kruskal(int m, int n) {
 }
 \end{lstlisting}
 
-\subsection{Bridge}
-
 Algoritmo que acha pontes utilizando uma dfs
 
 Complexidade de tempo: O(N + M)
@@ -2100,8 +2062,6 @@ void find_bridges() {
 }
 \end{lstlisting}
 \end{multicols}
-
-\subsection{Binary-Lifting}
 
 \subsection{Binary Lifting}
 
@@ -2186,27 +2146,22 @@ namespace st {
 
 \subsection{Dijkstra}
 
-\subsection{Dijkstra}
-
 
 Computa o menor caminho entre nós de um grafo.
 
-\subsection{Dijkstra 1:1}
-
+\#\# Dijkstra 1:1
 
 Dado dois nós u e v, computa o menor caminho de u para v.
 
 Complexidade de tempo: O((E + V) * log(E))
 
-\subsection{Dijkstra 1:N}
-
+\#\# Dijkstra 1:N
 
 Dado um nó u, computa o menor caminho de u para todos os nós.
 
 Complexidade de tempo: O((E + V) * log(E))
 
-\subsection{Dijkstra N:N}
-
+\#\# Dijkstra N:N
 
 Computa o menor caminho de todos os nós para todos os nós
 
@@ -2299,27 +2254,22 @@ int dk(int s, int t) {
 
 \subsection{Fluxo}
 
-\subsection{Fluxo}
-
 
 Conjunto de algoritmos para calcular o fluxo máximo em problemas relacionados de fluxo
 
-\subsection{Dinic}
-
+\#\# Dinic
 
 Muito útil para grafos bipartidos e para grafos com muitas arestas
 
 Complexidade de tempo: O(V² * E), mas em grafo bipartido a complexidade é O(sqrt(V) * E)
 
-\subsection{Edmonds Karp}
-
+\#\# Edmonds Karp
 
 Útil para grafos com poucas arestas
 
 Complexidade de tempo: O(V * E²)
 
-\subsection{Min Cost Max Flow}
-
+\#\# Min Cost Max Flow
 
 Computa o fluxo máximo com custo mínimo
 
@@ -2532,8 +2482,6 @@ struct Dinic {
 };
 \end{lstlisting}
 
-\subsection{Inverse-Graph}
-
 \subsection{Inverse Graph}
 
 
@@ -2568,8 +2516,6 @@ void bfs(int s) {
     }
 }
 \end{lstlisting}
-
-\subsection{2-SAT}
 
 \subsection{2-SAT  }
 
@@ -2640,8 +2586,6 @@ struct sat2 {
 };
 \end{lstlisting}
 
-\subsection{Graph-Center}
-
 \subsection{Graph Center}
 
 
@@ -2695,8 +2639,6 @@ struct GraphCenter {
 };
 \end{lstlisting}
 
-\subsection{SPFA}
-
 \subsection{Shortest Path Fast Algorithm (SPFA)}
 
 
@@ -2743,6 +2685,33 @@ void spfa(int s, int n) {
 }
 \end{lstlisting}
 
+
+
+- [**2-SAT**](2-SAT)  
+  Resolve o problema do 2-SAT.
+- [**Bridge**](Bridge)  
+  Algoritimo que acha pontes.
+- [**Binary Lifting**](Binary\%20Lifting)  
+  Busca por antepassados em uma árvore.
+- [**Dijkstra**](Dijkstra)  
+  Caminho mínimo de 1 para todos.
+- [**SPFA**](SPFA)  
+  Caminho mínimo de 1 para todos. Detecta ciclos negativos.
+- [**Fluxo**](Fluxo)  
+  Problemas sobre fluxo
+- [**Graph Center**](Graph\%20Center)  
+  Encontra o centro do grafo.
+- [**HLD (Heavy Light Decomposition)**](HLD)  
+  Quebra uma árvore em cadeias e facilita consultas.
+- [**LCA (Lowest Common Ancestor)**](LCA)  
+  Encontra o menor ancetral comum de dois vétices em uma árvore.
+- [**Matching**](Matching)  
+  Encontra o conjunto de pares com o min/max custo em um grafo bipartido.
+- [**Kruskal**](Kruskal)  
+  Monta a Minimum Spanning Tree.
+- [**Stoer-Wagner minimum cut**](Stoer–Wagner\%20minimum\%20cut)  
+  Resolver o problema de corte mínimo em gráficos não direcionados com pesos não negativos
+
 \newpage
 %%%%%%
 %
@@ -2753,8 +2722,6 @@ void spfa(int s, int n) {
 %%%%%%
 
 \section{String}
-
-\subsection{Aho-Corasick}
 
 \subsection{Aho-Corasick}
 
@@ -2834,8 +2801,6 @@ void process(const string &s) {
 }
 \end{lstlisting}
 
-\subsection{Patricia-Tree}
-
 \subsection{Patricia Tree ou Patricia Trie}
 
 Implementação PB-DS, extremamente curta e confusa:
@@ -2861,8 +2826,6 @@ typedef trie<string, null_type, trie_string_access_traits<>, pat_trie_tag, trie_
     patricia_tree;
 \end{lstlisting}
 
-\subsection{Prefix-Function}
-
 \subsection{Prefix Function}
 
 
@@ -2870,18 +2833,15 @@ Para cada prefixo k de uma dada string s, calcula o maior prefixo que tambem é 
 
 Seja n o tamanho do texto e m o tamanho do padrão.
 
-\subsection{KMP}
-
+\#\# [KMP](KMP.cpp)
 
 String matching em O(n + m).
 
-\subsection{Autômato de KMP}
-
+\#\# [Autômato de KMP](aut\_kmp.cpp)
 
 String matching em O(n) com O(m) de pré-processamento.
 
-\subsection{Prefix Count}
-
+\#\# [Prefix Count](prefix\_count.cpp)
 
 Dada uma string s, calcula quantas vezes cada prefixo de s aparece em s com complexidade de tempo de O(n).
 
@@ -2978,8 +2938,6 @@ struct AutKMP {
 
 \subsection{Hashing}
 
-\subsection{Hashing}
-
 
 
 Hashing para testar igualdade de duas strings   
@@ -3014,8 +2972,6 @@ struct hashing {
 
 \subsection{Trie}
 
-\subsection{Trie}
-
 
 
 Estrutura que guarda informações indexadas por palavra.   
@@ -3047,8 +3003,6 @@ struct trie {
     }
 };
 \end{lstlisting}
-
-\subsection{Manacher}
 
 \subsection{Algoritmo de Manacher}
 
@@ -3095,22 +3049,18 @@ struct manacher {
 } mana;
 \end{lstlisting}
 
-\subsection{Lyndon}
-
 \subsection{Lyndon Factorization}
 
 
 Strings em decomposição única em subcadeias que são ordenadas lexicograficamente e não podem ser mais reduzidas.
 
-\subsection{Duval}
-
+\#\# [Duval](duval.cpp)
 
 Gera a Lyndon Factorization de uma string
 
 * Complexidade de tempo: O(N)
 
-\subsection{Min Cyclic Shift}
-
+\#\# [Min Cyclic Shift](min\_cyclic\_shift.cpp)
 
 Gera a menor rotação circular da string original que pode ser obtida por meio de deslocamentos cíclicos dos caracteres.
 
@@ -3164,8 +3114,6 @@ vector<string> duval(string const &s) {
     return factorization;
 }
 \end{lstlisting}
-
-\subsection{Suffix-Array}
 
 \subsection{Suffix Array}
 
@@ -3256,6 +3204,33 @@ struct suffix_array {
 } sa;
 \end{lstlisting}
 
+
+
+- **[Aho-Corasick](Aho-Corasick)**  
+Constrói uma estrutura de dados semelhante a um trie com links adicionais e, em seguida, constrói uma máquina de estados finitos (autômato). Útil para pattern matching de um set de strings em um texto.
+
+- **[Manacher](Manacher)**  
+Dado string s com tamanho n. Encontre todos os pares (i, j) tal que a substring s [i...j] seja um palíndromo.
+
+- **[Hashing](Hashing)**  
+Hasha Strings e faz comparações em O(1).
+
+- **[Patricia Tree](Patricia\%20Tree)**  
+Trie Rápida. (Não guarda valores para cada string)
+
+- **[Prefix Function](Prefix\%20Function)**  
+Algoritmos usando a Prefix Function, como KMP e PrefixCount.
+
+- **[Suffix Array](Suffix\%20Array)**  
+Trabalha com todos os sufixos sem precisar criá-los.
+
+- **[Trie](Trie)**  
+Estrutura para trabalhar com Strings e encontrar prefixos. Pode servir para converter uma String em outro valor em O(|S|)
+
+- **[Lyndon Factorization](Lyndon\%20Factorization)**  
+Strings em decomposição única em subcadeias que são ordenadas lexicograficamente e não podem ser mais reduzidas.
+
+
 \newpage
 %%%%%%
 %
@@ -3269,8 +3244,6 @@ struct suffix_array {
 
 \subsection{Mo}
 
-\subsection{Mo}
-
 
 
 Resolve Queries Complicadas Offline de forma rápida.  
@@ -3278,8 +3251,7 @@ Resolve Queries Complicadas Offline de forma rápida.
 
 - Complexidade de tempo (Query offline): O(N * sqrt(N))
 
-\subsection{Mo com Update}
-
+\# [Mo com Update](mo\_update.cpp)
 
 Resolve Queries Complicadas Offline de forma rápida.   
 Permite que existam **UPDATES PONTUAIS!**  
@@ -3399,8 +3371,6 @@ namespace mo {
 };
 \end{lstlisting}
 
-\subsection{Exponenciação-de-Matriz}
-
 \subsection{Exponenciação de Matriz}
 
 
@@ -3413,8 +3383,7 @@ Otimização para DP de prefixo quando o valor atual está em função dos últi
 ---
 
 
-\subsection{Uso Comum}
-
+\#\#\# Uso Comum
 
 DP:   
 $$ dp[n] = \sum\_{i=1}^{k} c[i] \cdot dp[n - i]$$ 
@@ -3424,8 +3393,7 @@ Mapeamento:
 $$ \begin{pmatrix} 0&1&0&0&...&0 \\ 0&0&1&0&...&0 \\ 0&0&0&1&...&0 \\ ...&...&...&...&...&... \\ c[k]&c[k-1]&c[k-2]&...&c[1]&0 \end{pmatrix}^n \times \begin{pmatrix} dp[0] \\ dp[1] \\ dp[2] \\ ... \\ dp[k-1] \end{pmatrix} $$
 
 ---
-\subsection{Variação que dependa de **constantes** e do **índice**}
-
+\#\#\# Variação que dependa de **constantes** e do **índice**
 
 Exemplo de DP:   
 
@@ -3452,8 +3420,7 @@ $$
 {matrix}
 $$
 
-\subsection{Variação Multiplicativa}
-
+\#\#\# Variação Multiplicativa
 
 Exemplo de DP:
 
@@ -3519,8 +3486,6 @@ ll solve(ll exp, ll dim) {
     mat ans = mult(prod, vec);
     return ans[0][0];
 }\end{lstlisting}
-
-\subsection{Busca-Binaria-Paralela}
 
 \subsection{Busca Binária Paralela}
 
@@ -3588,8 +3553,6 @@ namespace parallel_binary_search {
 } // namespace name
 \end{lstlisting}
 
-\subsection{Divide-and-Conquer}
-
 \subsection{Divide and Conquer}
 
 
@@ -3598,8 +3561,7 @@ Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupo
 É preciso fazer a função query(i, j) que computa o custo do subgrupo \[i, j\].
 * Complexidade de tempo: O(n * k * log(n) *  O(query))
 
-\subsection{Divide and Conquer com Query on demand}
-
+\# [Divide and Conquer com Query on demand](dc\_query\_ondemand.cpp)
 
 
 Usado para evitar queries pesadas ou o custo de pré-processamento.  
@@ -3715,8 +3677,6 @@ namespace DC {
 };
 \end{lstlisting}
 
-\subsection{Busca-Ternaria}
-
 \subsection{Busca Ternária}
 
 
@@ -3724,8 +3684,7 @@ Encontra um ponto ótimo em uma função que pode ser separada em duas funções
 
 - Complexidade de tempo: O(log(N) * O(eval)). Onde N é o tamanho do espaço de busca e O(eval) o custo de avaliação da função.
 
-\subsection{Busca Ternária em Espaço Discreto}
-
+\# [Busca Ternária em Espaço Discreto](busca\_ternaria\_discreta.cpp)
 
 Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
 Versão para espaços discretos.
@@ -3781,8 +3740,6 @@ long long discrete_ternary_search(long long l, long long r) {
 }
 \end{lstlisting}
 
-\subsection{DP-de-Permutacao}
-
 \subsection{DP de Permutação}
 
 
@@ -3816,8 +3773,6 @@ long double solve(int atual, int mask, int n) {
     return dp[atual][mask] = res;
 }
 \end{lstlisting}
-
-\subsection{Convex-Hull-Trick}
 
 \subsection{Convex Hull Trick}
 
@@ -3872,8 +3827,6 @@ ll get(ll x) {
 }
 \end{lstlisting}
 
-\subsection{All-Submasks}
-
 \subsection{All Submask}
 
 
@@ -3889,6 +3842,25 @@ for (int sub = mask; sub; sub = (sub - 1) & mask) { }
 \end{lstlisting}
 \end{multicols}
 
+
+
++ **[All Submasks](All\%20Submasks)**  
+Percorre todas as submáscaras de uma máscara de bits.
++ **[Busca Binária Paralela](Busca\%20Binaria\%20Paralela)**  
+Faz a busca binária para múltiplas consultas quando a busca binaria é muito pesada.
++ **[Busca Ternária](Busca\%20Ternaria)**  
+Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
++ **[Convex Hull Trick](Convex\%20Hull\%20Trick)**  
+Otimização para DP utilizando retas monotônicas que formam um Convex Hull.
++ **[Divide and Conquer](Divide\%20and\%20Conquer)**   
+Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupos.
++ **[DP de Permutação](DP\%20de\%20Permutacao)**  
+Simula todas as permutações de um grupo. Resolve o caxeiro viajante 'rápido'.
++ **[Exponeciação de Matriz](Exponencia\%C3\%A7\%C3\%A3o\%20de\%20Matriz)**   
+Otimização para DP de prefixo quando o valor atual está em função dos últimos K valores já calculados.
++ **[Mo](Mo/)**  
+Resolve operações em range Offline. **COM E SEM ATUALIZAÇÂO**
+
 \newpage
 %%%%%%
 %
@@ -3899,8 +3871,6 @@ for (int sub = mask; sub; sub = (sub - 1) & mask) { }
 %%%%%%
 
 \section{Matemática}
-
-\subsection{Sum-of-floor(n-div-i)}
 
 
 \subsection{Soma do floor( n / i )}
@@ -3931,26 +3901,21 @@ long long sumoffloor(long long n) {
 
 \subsection{Primos}
 
-\subsection{Primos}
 
 
-
-\subsection{Crivo de Eratóstenes}
-
+\# [Crivo de Eratóstenes](sieve.cpp)
 Computa a primalidade de todos os números até N, quase tão rápido quanto o crivo linear.
 
 - Complexidade de tempo: O(N * log(log(N)))
 
 Demora 1 segundo para LIM igual a $3 * 10^7$.
 
-\subsection{Miller-Rabin}
-
+\# [Miller-Rabin](miller\_rabin.cpp)
 Teste de primalidade garantido para números menores do que $2^64$.
 
 - Complexidade de tempo: O(log(N))
 
-\subsection{Teste Ingênuo}
-
+\# [Teste Ingênuo](naive\_is\_prime.cpp)
 Computa a primalidade de um número N.
 
 - Complexidade de tempo: $O(N^(1/2))$
@@ -4015,8 +3980,6 @@ bool miller_rabin(long long n) {
     return true;
 }
 \end{lstlisting}
-
-\subsection{NTT}
 
 \subsection{Numeric Theoric Transformation}
 
@@ -4122,8 +4085,6 @@ poly big_convolution(poly a, poly b) {
 }
 \end{lstlisting}
 
-\subsection{Eliminação-Gaussiana}
-
 \subsection{Eliminação Gaussiana}
 
 
@@ -4226,14 +4187,11 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
 }
 \end{lstlisting}
 
-\subsection{GCD}
-
 \subsection{Máximo divisor comum}
 
 
 
-\subsection{Algoritmo de Euclides}
-
+\# [Algoritmo de Euclides](gcd.cpp)
 
 Computa o Máximo Divisor Comum (MDC em português; GCD em inglês).
 
@@ -4241,8 +4199,7 @@ Computa o Máximo Divisor Comum (MDC em português; GCD em inglês).
 
 Mais demorado que usar a função do compilador C++ \_\_gcd(a,b).
 
-\subsection{Algoritmo de Euclides Estendido}
-
+\# [Algoritmo de Euclides Estendido](extended\_gcd.cpp)
 
 Algoritmo extendido de euclides que computa o Máximo Divisor Comum e os valores x e y tal que a * x + b * y = gcd(a, b).
 
@@ -4286,18 +4243,14 @@ ll extended_gcd(ll a, ll b, ll &x, ll &y) {
 
 \subsection{Fatoração}
 
-\subsection{Fatoração}
 
 
-
-\subsection{Fatoração Simples}
-
+\# [Fatoração Simples](naive\_factorize.cpp)
 Fatora um número N.
 
 - Complexidade de tempo: $O(\sqrt n )$
 
-\subsection{Crivo Linear}
-
+\# [Crivo Linear](linear\_sieve\_factorize.cpp)
 Pré-computa todos os fatores primos até MAX.
 Utilizado para fatorar um número N menor que MAX.
 
@@ -4305,14 +4258,12 @@ Utilizado para fatorar um número N menor que MAX.
 - Complexidade de tempo: Fatoraração O(quantidade de fatores de N)
 - Complexidade de espaço: O(MAX)
 
-\subsection{Fatoração Rápida}
-
+\# [Fatoração Rápida](fast\_factorize.cpp)
 Utiliza Pollar-Rho e Miller-Rabin (ver em Primos) para fatorar um número N.
 
 - Complexidade de tempo: $O(N^{1/4} \cdot log(N))$
 
-\subsection{Pollard-Rho}
-
+\# [Pollard-Rho](pollard-rho.cpp)
 Descobre um divisor de um número N.
 
 - Complexidade de tempo: $O(N^{1/4} \cdot log(N))$
@@ -4394,15 +4345,12 @@ vector<long long> factorize(long long n) {
 \end{lstlisting}
 \end{multicols}
 
-\subsection{Teorema-do-Resto-Chinês}
-
 \subsection{Teorema do Resto Chinês}
 
 
 Resolve em O(n * log(n)) o sistema **(x = rem\[i\] \% mod\[i\])** para i entre *0* e *n*
 
-\subsection{Generalizado!!! Retorna -1 se a resposta não existir}
-
+\#\#\#\#\#\# Generalizado!!! Retorna -1 se a resposta não existir
 
 \begin{lstlisting}[language=C++]
 ll extended_gcd(ll a, ll b, ll &x, ll &y) {
@@ -4432,8 +4380,6 @@ ll crt(vector<ll> rem, vector<ll> mod) {
     return ans;
 }
 \end{lstlisting}
-
-\subsection{FFT}
 
 \subsection{Transformada rápida de Fourier}
 
@@ -4504,8 +4450,6 @@ vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
 }
 \end{lstlisting}
 
-\subsection{Exponenciação-Modular-Rápida}
-
 \subsection{Exponenciação modular rápida}
 
 
@@ -4528,20 +4472,16 @@ ll exp_mod(ll base, ll exp) {
 \end{lstlisting}
 \end{multicols}
 
-\subsection{Totiente-de-Euler}
-
 \subsection{Totiente de Euler}
 
 
 
-\subsection{Totiente de Euler (Phi) para um número}
-
+\# [Totiente de Euler (Phi) para um número](phi.cpp)
 Computa o totiente para um único número N.
 
 - Complexidade de tempo: $O(N^(1/2))$
 
-\subsection{Totiente de Euler (Phi) entre 1 e N}
-
+\# [Totiente de Euler (Phi) entre 1 e N](phi\_1\_to\_n.cpp)
 Computa o totiente entre 1 e N.
 
 - Complexidade de tempo: O(N * log(log(N)))
@@ -4575,15 +4515,12 @@ int phi(int n) {
 \end{lstlisting}
 \end{multicols}
 
-\subsection{Inverso-Modular}
-
 \subsection{Modular Inverse}
 
 
 The modular inverse of an integer \lstinline{a} is another integer \lstinline{x} such that \lstinline{a * x} is congruent to \lstinline{1 (mod MOD)}.
 
-\subsection{Modular Inverse}
-
+\# [Modular Inverse](modular\_inverse.cpp)
 
 Calculates the modular inverse of \lstinline{a}.
 
@@ -4592,8 +4529,7 @@ Uses the [exp\_mod](/Matemática/Exponenciação\%20Modular\%20Rápida/exp\_mod.
 * Time Complexity: O(log(MOD)).
 * Space Complexity: O(1).
 
-\subsection{Modular Inverse by Extended GDC}
-
+\# [Modular Inverse by Extended GDC](modular\_inverse\_coprime.cpp)
 
 Calculates the modular inverse of \lstinline{a}.
 
@@ -4604,8 +4540,7 @@ Returns \lstinline{-1} if this assumption is broken.
 * Time Complexity: O(log(MOD)).
 * Space Complexity: O(1).
 
-\subsection{Modular Inverse for 1 to MAX}
-
+\# [Modular Inverse for 1 to MAX](modular\_inverse\_linear.cpp)
 
 Calculates the modular inverse for all numbers between \lstinline{1} and \lstinline{MAX}.
 
@@ -4614,8 +4549,7 @@ expects \lstinline{MOD} to be prime.
 * Time Complexity: O(MAX).
 * Space Complexity: O(MAX).
 
-\subsection{Modular Inverse for all powers}
-
+\# [Modular Inverse for all powers](modular\_inverse\_pow.cpp)
 
 Let \lstinline{b} be any integer.
 
@@ -4664,5 +4598,30 @@ int inv(int a) {
 }
 \end{lstlisting}
 \end{multicols}
+
+
+
+- [**Eliminação Gaussiana**](Elimina\%C3\%A7\%C3\%A3o\%20Gaussiana)  
+Resolve sistema linear de equações.
+- [**Exponenciação Modular Rápida**](Exponencia\%C3\%A7\%C3\%A3o\%20Modular\%20R\%C3\%A1pida)  
+Computa potenciação rápido.
+- [**FFT (Fast Fourier Transform)**](FFT)  
+Multiplica dois polinômios. **double**
+- [**Fatoração**](Fatora\%C3\%A7\%C3\%A3o)  
+Fatora inteiros.
+- [**GCD (Greatest Common Divisor)**](GCD)  
+Encontra o maior divisor comum. 
+- [**Inverso Modular**](Inverso\%20Modular)  
+Calcula o inverso modular.
+- [**NTT (Numeric Theoric Transform)**](NTT)  
+Multiplica polinômios. **long long**
+- [**Primos**](Primos)  
+Testes de Primalidade.
+- [**Sum of floor(n / i)**](Sum\%20of\%20floor(n\%20div\%20i))  
+Encontra a soma de n dividido de 1 a n
+- [**Totiente de Euler**](Totiente\%20de\%20Euler)  
+Computa o totiente.
+- [**Teorema do resto Chines**](Teorema\%20do\%20resto\%20Chines)  
+Computa congruencias lineares usando o teorema do resto chines.
 
 \end{document}
