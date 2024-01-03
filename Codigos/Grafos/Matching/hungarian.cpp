@@ -2,12 +2,12 @@ const ll INF = 1e18 + 18;
 
 vector<pair<int, int>> result;
 
-ll hungarian(int n, int m, vector<vi> &A) {
-    vi u(n + 1), v(m + 1), p(m + 1), way(m + 1);
+ll hungarian(int n, int m, vector<vector<int>> &A) {
+    vector<int> u(n + 1), v(m + 1), p(m + 1), way(m + 1);
     for (int i = 1; i <= n; i++) {
         p[0] = i;
         int j0 = 0;
-        vi minv(m + 1, INF);
+        vector<int> minv(m + 1, INF);
         vector<char> used(m + 1, false);
         do {
             used[j0] = true;
