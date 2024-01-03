@@ -4,8 +4,6 @@ using namespace std;
 #define ll long long
 #define INF 1e9
 
-typedef vector<int> vi;
-
 struct Node {
     int m1 = INF, m2 = INF, cont = 0, lazy = 0;
     ll soma = 0;
@@ -46,7 +44,7 @@ void push(int n, int esq, int dir) {
     tree[n].lazy = 0;
 }
 
-void build(int n, int esq, int dir, vi &v) {
+void build(int n, int esq, int dir, vector<int> &v) {
     if (esq == dir) {
         tree[n].set(v[esq]);
     } else {
@@ -56,7 +54,7 @@ void build(int n, int esq, int dir, vi &v) {
         tree[n].merge(tree[le(n)], tree[ri(n)]);
     }
 }
-void build(vi &v) { build(0, 0, n - 1, v); }
+void build(vector<int> &v) { build(0, 0, n - 1, v); }
 
 // ai = max(ai, mi) em [l, r]
 void update(int n, int esq, int dir, int l, int r, int mi) {

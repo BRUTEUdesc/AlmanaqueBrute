@@ -6,7 +6,6 @@ using namespace std;
 #define fi first
 #define se second
 
-typedef vector<int> vi;
 typedef pair<int, int> ii;
 
 struct Node {
@@ -64,7 +63,7 @@ void push(int n, int esq, int dir) {
     }
 }
 
-void build(int n, int esq, int dir, vi &v) {
+void build(int n, int esq, int dir, vector<int> &v) {
     if (esq == dir) {
         tree[n].set(v[esq]);
     } else {
@@ -74,7 +73,7 @@ void build(int n, int esq, int dir, vi &v) {
         tree[n].merge(tree[le(n)], tree[ri(n)]);
     }
 }
-void build(vi &v) { build(0, 0, n - 1, v); }
+void build(vector<int> &v) { build(0, 0, n - 1, v); }
 
 // ai = max(ai, mi) em [l, r]
 void update(int n, int esq, int dir, int l, int r, int mi) {

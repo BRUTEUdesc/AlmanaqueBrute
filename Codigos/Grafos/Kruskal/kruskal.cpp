@@ -2,10 +2,8 @@ struct Edge {
     int u, v, w;
     bool operator<(Edge const &other) { return w < other.w; }
 };
-typedef vector<Edge> ve;
-typedef vector<int> vi;
 
-ve edges, result;
+vector<Edge> edges, result;
 int cost;
 
 struct DSU {

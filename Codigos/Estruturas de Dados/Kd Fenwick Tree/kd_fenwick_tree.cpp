@@ -3,7 +3,7 @@ ll tree[MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade necessar
 
 int lsONE(int x) { return x & (-x); }
 
-ll query(vi s, int pos) {
+ll query(vector<int> s, int pos) {
     ll sum = 0;
     while (s[pos] > 0) {
         if (pos < s.size() - 1) {
@@ -16,7 +16,7 @@ ll query(vi s, int pos) {
     return sum;
 }
 
-void update(vi s, int pos, int v) {
+void update(vector<int> s, int pos, int v) {
     while (s[pos] < MAX + 1) {
         if (pos < s.size() - 1) {
             update(s, pos + 1, v);

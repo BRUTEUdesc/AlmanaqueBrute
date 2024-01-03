@@ -2,7 +2,7 @@ struct dst {
     const int neutral = 1;
 #define comp(a, b) (a | b)
     vector<vector<int>> t;
-    dst(vi v) {
+    dst(vector<int> v) {
         int n, k, sz = v.size();
         for (n = 1, k = 0; n < sz; n <<= 1, k++)
             ;
