@@ -1,16 +1,16 @@
 const int MAXN = 555, INF = 1e9+7;
 
 int n, e, adj[MAXN][MAXN];
-vector <int> bestCut;
+vector<int> bestCut;
 
 int mincut() {
     int bestCost = INF;
-    vector <int> v[MAXN];
+    vector<int> v[MAXN];
     for (int i = 0; i < n; i++) v[i].assign(1, i);
     int w[MAXN], sel;
     bool exist[MAXN], added[MAXN];
     memset(exist, true, sizeof(exist));
-    for (int phase = 0; phase < n-1; phase++) {
+    for(int phase = 0; phase < n-1; phase++) {
         memset(added, false, sizeof(added));
         memset(w, 0, sizeof(w));
         for (int j = 0, prev; j < n-phase; j++) {
