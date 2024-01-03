@@ -1,0 +1,14 @@
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
+ColumnLimit: 120
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortLoopsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: true
+AllowShortLambdasOnASingleLine: Empty
+NamespaceIndentation: All
+FixNamespaceComments: false
+BinPackArguments: false
+AllowShortBlocksOnASingleLine: Always
+SpaceInEmptyBlock: true
+InsertBraces: true
