@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Clang Code Formatter
-      uses: joaomarcosth9/clang-format-action@1.3
+      uses: joaomarcosth9/clang-format-action@1.4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
