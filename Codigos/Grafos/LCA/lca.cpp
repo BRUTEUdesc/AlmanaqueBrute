@@ -5,11 +5,10 @@ using namespace std;
 #define fi first
 #define se second
 
-typedef vector<int> vi;
 typedef pair<int, int> ii;
 
-vi tin, tout;
-vector<vi> adj;
+vector<int> tin, tout;
+vector<vector<int>> adj;
 vector<ii> prof;
 vector<vector<ii>> st;
 
@@ -38,7 +37,7 @@ void et_dfs(int u, int p, int h) {
 }
 
 void build(int root = 0) {
-    tin.assign(n, 0);
+    tin.assign(n,0);
     tout.assign(n, 0);
     prof.clear();
     timer = 0;
@@ -56,7 +55,7 @@ int lca(int u, int v) {
 int main() {
     cin >> n;
 
-    adj.assign(n, vi(0));
+    adj.assign(n, vector<int>(0));
 
     for (int i = 0; i < n - 1; i++) {
         int a, b;
