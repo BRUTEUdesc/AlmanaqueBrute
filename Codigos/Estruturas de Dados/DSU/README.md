@@ -36,6 +36,6 @@ Funciona de maneira off-line, recebendo as operações e dando as respostas das 
 
 - Complexidade de tempo: O(Q * log(Q) * log(N)); Onde Q é o número de consultas e N o número de nodos
 
-Roda em 0,6ms para 3 * 10⁵ queries e nodos com printf e scanf.  
-Possivelmente aguenta 10⁶ em 3s
+Roda em 0,6ms para $3 * 10^5$ queries e nodos com printf e scanf.  
+Possivelmente aguenta $10^6$ em 3s
 

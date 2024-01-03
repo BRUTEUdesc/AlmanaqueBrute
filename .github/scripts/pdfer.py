@@ -1,53 +1,133 @@
+#!/usr/bin/env python3
+
+# this script will generate a latex file with all the cpp code in the repo
 
 import os
 from pathlib import Path
 
-from markdown import markdown
+def printa_arquivo(path: Path, FILE: Path):
+    with open(path, "r") as f:
+        FILE.write(f.read())
 
-def output_readme(file: Path):
-    s = file.open().read().replace("*Read in [English](README.en.md)*", "").replace("_Read in [English](README.en.md)_", "")
-    if str(file).count("/") == 2:
-        # print(s)
-        # while s.startswith("\n"):
-        #     s = s[1:]
-        # s = "#" + s
-        new_s = ''
-        for line in s.splitlines():
-            if line.startswith("# "):
-                line = "#" + line + '\n\n'
-                # print("132-   "+line)
-            new_s += line + '\n'
-        s = new_s
-    if str(file).count("/") == 1:
-        s = "<div style=\"page-break-after: always;\"></div>\n" + s
-    return s
+def printa_readme(path: Path, FILE: Path):
+    with open(path, "r") as f:
+        in_code = False
 
-def output_code(file: Path):
-    formated_text = "```c++\n" + file.open().read() + "\n```\n"
-    return formated_text
+        for line in f.readlines():
+            if line.startswith("```"):
+                if in_code:
+                    FILE.write("\\end{lstlisting}\n\n")
+                    in_code = False
+                else:  
+                    FILE.write("\\begin{lstlisting}[language=C++]\n")
+                    in_code = True
+
+            elif in_code: 
+                FILE.write(line)
+
+            elif (line.startswith("#")):
+                it = 0
+                while (line[it] == "#" or line[it] == " "):
+                    it += 1
+                name = line[it:-1]
+                if name[0] == '[':
+                    name = name[1:name.find(']')]
+                FILE.write(f"\\subsection{{{name}}}\n\n")
+
+            elif "English" in line:
+                pass
+
+            else:
+                in_inline_code = False
+                for i in range(len(line)):
+                    if line[i] == '`':
+                        if in_inline_code:
+                            FILE.write("}")
+                        else:
+                            FILE.write("\\lstinline{")
+                        in_inline_code = not in_inline_code
+                    else:
+                        # if line[i] in ['_', '&', '%', '#', '{', '}']:
+                        #     FILE.write('\\')
+                        if line[i] in ['_', '%']:
+                            FILE.write('\\')
+                        FILE.write(line[i])
+
+        FILE.write("\n")
+
+def printa_codigo(path: Path, FILE: Path):
+    max_width = 55
+    two_columns = True
+
+    with open(path, "r") as f:
+        lines = f.readlines()
+        for line in lines:
+            if len(line) > max_width:
+                two_columns = False
+                break
+
+    if two_columns:
+        FILE.write("\\begin{multicols}{2}\n")
+
+    FILE.write("\\begin{lstlisting}[language=C++]\n")
+    with open(path, "r") as f:
+        FILE.write(f.read())
+    FILE.write("\\end{lstlisting}\n")
+
+    if two_columns:
+        FILE.write("\\end{multicols}\n")
+    FILE.write("\n")
 
 
-def output_dir(dir_path: Path):
-    if (dir_path / "README.md").is_file():
-        yield "-----"
-        yield output_readme(dir_path / "README.md")
-    for path in dir_path.iterdir():
-        if path.name.startswith('.'):
-            pass
-        if path.is_dir():
-            yield from output_dir(path)
-        elif path.name.endswith('.cpp'):
-            yield f"### *Implementação {path.stem}*:".title().replace('_', " ")
-            yield output_code(path)
+def printa_section(section: str, FILE: Path):
+    FILE.write("\\newpage\n")
+
+    FILE.write("%%%%%%\n")
+    for i in range(2):
+        FILE.write("%\n")
+    FILE.write(f"% {section}\n")
+    for i in range(2):
+        FILE.write("%\n")
+    FILE.write("%%%%%%\n\n")
+
+    FILE.write(f"\\section{{{section}}}\n\n")
+
+def printa_subsection(subsection: str, FILE: Path):
+    FILE.write(f"\\subsection{{{subsection}}}\n\n")
+
+def dfs(path: Path, FILE: Path):
+    tem_codigo = True
+    for child in path.iterdir():
+        if child.is_dir():
+            dfs(child, FILE)
+            tem_codigo = False
+
+    if tem_codigo:
+        printa_subsection(path.name, FILE)
         
-                
+        READMES = [x for x in path.glob("*.md") if not "en" in x.name]
+        for readme in READMES:
+            printa_readme(readme, FILE)
+
+        CODIGOS = list(path.glob("*.cpp"))
+        for codigo in CODIGOS:
+            printa_codigo(codigo, FILE)
+
 
 if __name__ == "__main__":
-    md = output_dir(Path('.'))
-    html = markdown("\n".join(md), extensions=["fenced_code"])
-    with open("Almanaque.html", "w") as f:
-        f.write(html)
-        f.close()
-    print("Created Almanaque.html")
+
+    ALMANAQUE = Path("LaTeX/Almanaque.tex")
+    with open(ALMANAQUE, "w") as f:
+        INICIO = Path(".github/files/INICIO_LATEX.tex")
+        printa_arquivo(INICIO, f)
+
+        DIR = Path("Codigos")
+        for child in DIR.iterdir():
+            if child.is_dir():
+                printa_section(child.name, f)
+                dfs(child, f)
+        f.write("\\end{document}\n")
+
+
 else:
-    print("Function not called correctly, please try again.")
+    print("Esse script não deve ser importado, apenas executado.")

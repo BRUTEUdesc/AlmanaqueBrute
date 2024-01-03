@@ -1,44 +1,46 @@
-namespace DC{
-    struct range{  // É preciso definir a forma de calcular o range
-        vi freq; 
+namespace DC {
+    struct range { // eh preciso definir a forma de calcular o range
+        vi freq;
         ll sum = 0;
         int l = 0, r = -1;
-        void back_l(int v){  // Mover o 'l' do range para a esquerda
+        void back_l(int v) { // Mover o 'l' do range para a esquerda
             sum += freq[v];
             freq[v]++;
             l--;
         }
-        void advance_r(int v){ // Mover o 'r' do range para a direita
+        void advance_r(int v) { // Mover o 'r' do range para a direita
             sum += freq[v];
             freq[v]++;
             r++;
         }
-        void advance_l(int v){ // Mover o 'l' do range para a direita
+        void advance_l(int v) { // Mover o 'l' do range para a direita
             freq[v]--;
             sum -= freq[v];
             l++;
         }
-        void back_r(int v){ // Mover o 'r' do range para a esquerda
+        void back_r(int v) { // Mover o 'r' do range para a esquerda
             freq[v]--;
             sum -= freq[v];
             r--;
         }
-        void clear(int n){ // Limpar range
-            l = 0; r = -1; sum = 0;
-            freq.assign(n+5, 0);
+        void clear(int n) { // Limpar range
+            l = 0;
+            r = -1;
+            sum = 0;
+            freq.assign(n + 5, 0);
         }
-    }s;
+    } s;
 
     vi dp_before, dp_cur;
     void compute(int l, int r, int optl, int optr) {
-        if (l > r) return;
+        if (l > r) { return; }
         int mid = (l + r) >> 1;
         pair<ll, int> best = {0, -1}; // {INF, -1} se quiser minimizar
-        
-        while(s.l < optl) s.advance_l(v[s.l]);
-        while(s.l > optl) s.back_l(v[s.l-1]);
-        while(s.r < mid) s.advance_r(v[s.r+1]);
-        while(s.r > mid) s.back_r(v[s.r]);
+
+        while (s.l < optl) { s.advance_l(v[s.l]); }
+        while (s.l > optl) { s.back_l(v[s.l - 1]); }
+        while (s.r < mid) { s.advance_r(v[s.r + 1]); }
+        while (s.r > mid) { s.back_r(v[s.r]); }
 
         vi removed;
         for (int i = optl; i <= min(mid, optr); i++) {
@@ -46,7 +48,7 @@ namespace DC{
             removed.push_back(v[s.l]);
             s.advance_l(v[s.l]);
         }
-        for (int rem: removed)  s.back_l(v[s.l-1]);
+        for (int rem : removed) { s.back_l(v[s.l - 1]); }
 
         dp_cur[mid] = best.first;
         int opt = best.second;
@@ -58,7 +60,7 @@ namespace DC{
         dp_before.assign(n, 0);
         dp_cur.assign(n, 0);
         s.clear(n);
-        for (int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             s.advance_r(v[i]);
             dp_before[i] = s.sum;
         }
@@ -67,6 +69,6 @@ namespace DC{
             compute(0, n - 1, 0, n - 1);
             dp_before = dp_cur;
         }
-        return dp_before[n-1];
+        return dp_before[n - 1];
     }
 };

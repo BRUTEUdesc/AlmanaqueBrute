@@ -12,7 +12,7 @@ Contém funções insert({L, R, ID}), erase({L, R, ID}) , overlaps(L, R) e find(
 
 Podem ser usadas as operações em Set: 
 
-- insert() 
- - erase() 
- - upper_bound() 
- - etc 
+- $insert()$
+- $erase()$ 
+- $upper_bound()$
+- etc 

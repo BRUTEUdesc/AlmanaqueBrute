@@ -4,4 +4,4 @@
 
 Percorre todas as submáscaras de uma máscara de tamanho N
 
-* Complexidade de tempo: O(3^N).
+* Complexidade de tempo: $O(3^N)$
