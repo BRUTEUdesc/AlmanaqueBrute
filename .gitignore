@@ -3,7 +3,6 @@ out
 out.*
 *.out
 venv
-*.pdf
 Almanaque.html
 .idea
 .DS_Store
