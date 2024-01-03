@@ -1,6 +1,6 @@
 # Disjoint Set Union
 
-*Read in [English](README.en.md)*
+Consultas e atualizações em grupos de objetos.
 
 # [DSU Simples](dsu.cpp)
 Estrutura que trata conjuntos.  
@@ -38,4 +38,3 @@ Funciona de maneira off-line, recebendo as operações e dando as respostas das 
 
 Roda em 0,6ms para $3 * 10^5$ queries e nodos com printf e scanf.  
 Possivelmente aguenta $10^6$ em 3s
-

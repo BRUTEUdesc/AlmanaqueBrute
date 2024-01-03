@@ -1,8 +1,4 @@
-<div style=\"page-break-after: always;\"></div>
-
 # Estruturas de Dados
-
-*Read in [English](README.en.md)*
 
 + **[DSU (Disjoint Set Union)](DSU/)**  
 Consultas e atualizações em grupos de objetos.
