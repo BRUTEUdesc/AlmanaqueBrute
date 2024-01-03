@@ -8,8 +8,8 @@ struct GraphCenter {
     int bfs(int s) {
         queue<int> q;
         q.push(s);
-        dist.assign(n+5, INF);
-        pai.assign(n +5, -1);
+        dist.assign(n + 5, INF);
+        pai.assign(n + 5, -1);
         dist[s] = 0;
         int maxidist = 0, maxinode = 0;
         while (!q.empty()) {

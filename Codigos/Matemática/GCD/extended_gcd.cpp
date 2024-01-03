@@ -1,4 +1,4 @@
-int extended_gcd(int a, int b, int& x, int& y) {
+int extended_gcd(int a, int b, int &x, int &y) {
     x = 1, y = 0;
     int x1 = 0, y1 = 1;
     while (b) {

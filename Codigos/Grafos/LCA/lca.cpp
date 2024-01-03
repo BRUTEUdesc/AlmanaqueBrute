@@ -37,7 +37,7 @@ void et_dfs(int u, int p, int h) {
 }
 
 void build(int root = 0) {
-    tin.assign(n,0);
+    tin.assign(n, 0);
     tout.assign(n, 0);
     prof.clear();
     timer = 0;
