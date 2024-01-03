@@ -4,9 +4,7 @@ struct MinCostMaxFlow {
     vector<FlowEdge> edges;
     vector<vector<int>> adj;
 
-    MinCostMaxFlow(int n, int s, int t) : n(n), s(s), t(t) {
-        adj.resize(n);
-    }
+    MinCostMaxFlow(int n, int s, int t) : n(n), s(s), t(t) { adj.resize(n); }
 
     void add_edge(int u, int v, ll cap, ll cost) {
         edges.emplace_back(u, v, cap, cost);
@@ -17,10 +15,10 @@ struct MinCostMaxFlow {
     }
 
     bool spfa() {
-        vector <int> pego(n, -1);
-        vector <ll> dis(n, INF);
-        vector <bool> inq(n, false);
-        queue <int> fila;
+        vector<int> pego(n, -1);
+        vector<ll> dis(n, INF);
+        vector<bool> inq(n, false);
+        queue<int> fila;
         fila.push(s);
         dis[s] = 0;
         inq[s] = 1;
@@ -29,7 +27,7 @@ struct MinCostMaxFlow {
             fila.pop();
             inq[u] = false;
             for (int id : adj[u]) {
-                if (edges[id].cap - edges[id].flow < 1) continue;
+                if (edges[id].cap - edges[id].flow < 1) { continue; }
                 int v = edges[id].v;
                 if (dis[v] > dis[u] + edges[id].cost) {
                     dis[v] = dis[u] + edges[id].cost;
@@ -42,7 +40,7 @@ struct MinCostMaxFlow {
             }
         }
 
-        if (pego[t] == -1) return 0;
+        if (pego[t] == -1) { return 0; }
         ll f = INF;
         for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
             f = min(f, edges[id].cap - edges[id].flow);
@@ -57,7 +55,8 @@ struct MinCostMaxFlow {
     }
 
     ll flow() {
-        while (spfa());
+        while (spfa())
+            ;
         return maxflow;
     }
 };

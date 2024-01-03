@@ -6,11 +6,14 @@ string min_cyclic_shift(string s) {
         ans = i;
         int j = i + 1, k = i;
         while (j < n && s[k] <= s[j]) {
-            if (s[k] < s[j]) k = i;
-            else k++;
+            if (s[k] < s[j]) {
+                k = i;
+            } else {
+                k++;
+            }
             j++;
         }
-        while (i <= k) i += j - k;
+        while (i <= k) { i += j - k; }
     }
     return s.substr(ans, n / 2);
 }

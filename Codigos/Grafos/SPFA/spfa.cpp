@@ -16,7 +16,7 @@ void spfa(int s, int n) {
         int u = fila.front();
         fila.pop();
         inq[u] = false;
-        for (auto [w, v]: adj[u]) {
+        for (auto [w, v] : adj[u]) {
             ll newd = (dist[u] == -INF ? -INF : max(w + dist[u], -INF));
             if (newd < dist[v]) {
                 dist[v] = newd;
