@@ -6,6 +6,9 @@ on:
       - master
 
     types: [ closed ]
+  push:
+    branches:
+      - master
 
 jobs:
   generate_almanaque_html:
