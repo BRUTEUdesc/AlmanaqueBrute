@@ -322,10 +322,10 @@ else # Diff-only.
 
     "${git_args[@]}" "$@" \
         | "${format_diff_args[@]}" \
-            -p1 \
-            -style="$style" \
-            -iregex="$exclusions_regex"'.*\.(c|cpp|cxx|cc|h|hpp|m|mm|js|java)' \
-            > /tmp/out1 \
+        -p1 \
+        -style="$style" \
+        -iregex="$exclusions_regex.*\.(c|cpp|h|hpp)" \
+        > $patch_dest \
         || exit 1
 
     if [ "$apply_to_staged" = true ]; then
