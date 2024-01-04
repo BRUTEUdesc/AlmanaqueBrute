@@ -18,15 +18,25 @@ struct full_dsu {
         loop(i, 0, n + 5) parent.push_back(i);
     }
 
-    int get(int a) { return (parent[a] == a ? a : get(parent[a])); }
-    bool same(int a, int b) { return get(a) == get(b); }
-    void checkpoint() { changes.push({-2, 0}); }
+    int get(int a) {
+        return (parent[a] == a ? a : get(parent[a]));
+    }
+    bool same(int a, int b) {
+        return get(a) == get(b);
+    }
+    void checkpoint() {
+        changes.push({-2, 0});
+    }
 
     void join(int a, int b) {
         a = get(a);
         b = get(b);
-        if (a == b) { return; }
-        if (size[a] > size[b]) { swap(a, b); }
+        if (a == b) {
+            return;
+        }
+        if (size[a] > size[b]) {
+            swap(a, b);
+        }
         changes.push({a, size[b]});
         parent[a] = b;
         size[b] += size[a];
@@ -37,7 +47,9 @@ struct full_dsu {
         while (!changes.empty()) {
             auto ch = changes.top();
             changes.pop();
-            if (ch.node == -2) { break; }
+            if (ch.node == -2) {
+                break;
+            }
             size[parent[ch.node]] = ch.old_size;
             parent[ch.node] = ch.node;
             ++number_of_sets;
@@ -45,7 +57,9 @@ struct full_dsu {
     }
 
     void ord(int &a, int &b) {
-        if (a > b) { swap(a, b); }
+        if (a > b) {
+            swap(a, b);
+        }
     }
 
     void add(int u, int v) {
@@ -72,17 +86,23 @@ struct full_dsu {
     }
 
     vector<int> solve() {
-        for (auto [p, v] : edges) { queries.insert(queries.end(), all(v)); }
+        for (auto [p, v] : edges) {
+            queries.insert(queries.end(), all(v));
+        }
         vector<int> vec(time, -1), ans;
         run(queries, 0, time, vec);
         for (int i : vec) {
-            if (i != -1) { ans.push_back(i); }
+            if (i != -1) {
+                ans.push_back(i);
+            }
         }
         return ans;
     }
 
     void run(const vector<query> &qrs, int l, int r, vector<int> &ans) {
-        if (l > r) { return; }
+        if (l > r) {
+            return;
+        }
         checkpoint();
         vector<query> qrs_aux;
         for (auto &q : qrs) {

@@ -11,7 +11,9 @@ void dk(int s) {
     while (!fila.empty()) {
         auto [d, u] = fila.top();
         fila.pop();
-        if (d != dist[u]) { continue; }
+        if (d != dist[u]) {
+            continue;
+        }
         for (auto [w, v] : adj[u]) {
             if (dist[v] > d + w) {
                 dist[v] = d + w;

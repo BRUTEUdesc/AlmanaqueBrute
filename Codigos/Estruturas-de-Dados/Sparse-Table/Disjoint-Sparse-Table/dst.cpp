@@ -7,7 +7,9 @@ struct dst {
         for (n = 1, k = 0; n < sz; n <<= 1, k++)
             ;
         t.assign(k, vector<int>(n));
-        for (int i = 0; i < n; i++) { t[0][i] = i < sz ? v[i] : neutral; }
+        for (int i = 0; i < n; i++) {
+            t[0][i] = i < sz ? v[i] : neutral;
+        }
         for (int j = 0, len = 1; j <= k; j++, len <<= 1) {
             for (int s = len; s < n; s += (len << 1)) {
                 t[j][s] = v[s];
@@ -20,7 +22,9 @@ struct dst {
         }
     }
     int query(int l, int r) {
-        if (l == r) { return t[0][r]; }
+        if (l == r) {
+            return t[0][r];
+        }
         int i = 31 - __builtin_clz(l ^ r);
         return comp(t[i][l], t[i][r]);
     }

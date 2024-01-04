@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  3 JAN 2024 22:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  3 JAN 2024 22:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -735,97 +735,90 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [15]
-[16]
+[16] [17]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [17]
-[18] [19] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30]
+ [18]
+[19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [20]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [21]
+[22]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [23]
+[24] [25] [26] [27] [28] [29]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [30]
+Underfull \vbox (badness 1424) has occurred while \output is active []
 
  [31]
-[32] [33] [34]
-Cap\'{\i }tulo 2.
-[35
-
-]
-Underfull \vbox (badness 2608) has occurred while \output is active []
-
- [36]
-[37] [38] [39] [40] [41] [42] [43] [44]
+[32] [33] [34] [35] [36]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [45]
-[46] [47] [48] [49] [50] [51] [52]
-Cap\'{\i }tulo 3.
-[53
+ [37]
+[38]
+Underfull \vbox (badness 6204) has occurred while \output is active []
+
+ [39]
+[40] [41] [42
 
 ]
+Cap\'{\i }tulo 2.
+[43] [44] [45] [46] [47]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [48]
+[49] [50] [51] [52] [53] [54] [55] [56] [57] [58]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [59]
+[60] [61] [62] [63] [64
+
+]
+Cap\'{\i }tulo 3.
+[65]
 Underfull \vbox (badness 2005) has occurred while \output is active []
 
- [54]
-[55] [56] [57] [58] [59] [60] [61] [62]
+ [66]
+[67] [68] [69] [70] [71] [72] [73] [74] [75] [76
+
+]
 Cap\'{\i }tulo 4.
-[63
+[77] [78] [79] [80] [81] [82]
+Underfull \vbox (badness 2680) has occurred while \output is active []
 
-] [64]
-Underfull \vbox (badness 1484) has occurred while \output is active []
-
- [65]
-
-LaTeX Warning: Command \' invalid in math mode on input line 4332.
-
-Missing character: There is no é in font cmr10!
-
-LaTeX Warning: Command \' invalid in math mode on input line 4332.
-
-Missing character: There is no é in font cmr10!
-
-LaTeX Warning: Command \' invalid in math mode on input line 4332.
-
-Missing character: There is no é in font cmr10!
-
-LaTeX Warning: Command \' invalid in math mode on input line 4332.
-
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 4332
-.
-
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 4332
-.
-
-Missing character: There is no é in font cmr10!
-Missing character: There is no ² in font cmr10!
-[66]
+ [83]
+[84]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [67]
-[68] [69]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+ [85]
+[86] [87] [88] [89] [90
 
- [70]
-[71] [72] [73] [74]
+]
 Cap\'{\i }tulo 5.
-[75
-
-] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85]
-Overfull \hbox (2.72551pt too wide) in paragraph at lines 5804--5805
+[91] [92] [93] [94] [95] [96] [97] [98] [99] [100] [101] [102] [103] [104]
+Overfull \hbox (2.72551pt too wide) in paragraph at lines 6569--6570
 []\T1/cmr/m/n/10.95 Uses the [exp_mod](/Matemática/Exponenciação%20Modular%20Rá
 pida/exp_mod.cpp) al-go-rithm, thus
  []
 
-[86] [87] (./Almanaque.aux)
+[105] [106] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
 (rerunfilecheck)             Checksum: C15CBFF1821701C743038FCEAB34E1B4;8530.
  ) 
 Here is how much of TeX's memory you used:
- 22082 strings out of 479382
- 323177 string characters out of 5869399
- 1102606 words of memory out of 5000000
- 36326 multiletter control sequences out of 15000+600000
- 488441 words of font info for 77 fonts, out of 8000000 for 9000
+ 22884 strings out of 479382
+ 335651 string characters out of 5869399
+ 1061606 words of memory out of 5000000
+ 36346 multiletter control sequences out of 15000+600000
+ 489971 words of font info for 79 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 74i,7n,100p,3262b,2055s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,8n,100p,3262b,2055s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/o
 pt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}</opt/loc
 al/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/sh
@@ -844,10 +837,10 @@ local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1095.pfb></opt/local/
 share/texmf-texlive/fonts/type1/public/cm-super/sfrm1200.pfb></opt/local/share/
 texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb></opt/local/share/texmf-
 texlive/fonts/type1/public/cm-super/sfsl1095.pfb>
-Output written on Almanaque.pdf (87 pages, 653345 bytes).
+Output written on Almanaque.pdf (106 pages, 702872 bytes).
 PDF statistics:
- 4883 PDF objects out of 5155 (max. 8388607)
- 4710 compressed objects within 48 object streams
- 3501 named destinations out of 3580 (max. 500000)
+ 5887 PDF objects out of 6186 (max. 8388607)
+ 5686 compressed objects within 57 object streams
+ 4281 named destinations out of 4296 (max. 500000)
  505 words of extra memory for PDF output out of 10000 (max. 10000000)
 

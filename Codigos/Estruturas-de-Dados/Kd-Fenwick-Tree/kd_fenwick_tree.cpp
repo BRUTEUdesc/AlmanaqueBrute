@@ -1,7 +1,10 @@
 const int MAX = 10;
-ll tree[MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade necessaria de dimensoes
+ll tree[MAX][MAX][MAX][MAX][MAX][MAX][MAX]
+       [MAX]; // insira a quantidade necessaria de dimensoes
 
-int lsONE(int x) { return x & (-x); }
+int lsONE(int x) {
+    return x & (-x);
+}
 
 ll query(vector<int> s, int pos) {
     ll sum = 0;

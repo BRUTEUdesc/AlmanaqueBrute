@@ -18,10 +18,14 @@ mat mult(mat a, mat b) {
 
 mat exp_mod(mat b, ll exp) {
     mat res(b.size(), vi(b.size()));
-    for (int i = 0; i < b.size(); i++) { res[i][i] = 1; }
+    for (int i = 0; i < b.size(); i++) {
+        res[i][i] = 1;
+    }
 
     while (exp) {
-        if (exp & 1) { res = mult(res, b); }
+        if (exp & 1) {
+            res = mult(res, b);
+        }
         b = mult(b, b);
         exp /= 2;
     }
@@ -31,7 +35,9 @@ mat exp_mod(mat b, ll exp) {
 // MUDA MUITO DE ACORDO COM O PROBLEMA
 // LEIA COMO FAZER O MAPEAMENTO NO README
 ll solve(ll exp, ll dim) {
-    if (exp < dim) { return dp[exp]; }
+    if (exp < dim) {
+        return dp[exp];
+    }
 
     T.assign(dim, vi(dim));
     // TO DO: Preencher a Matriz que vai ser exponenciada

@@ -4,8 +4,12 @@ namespace mergesort {
     int n;
     vi mgtree[4 * MAX];
 
-    int le(int n) { return 2 * n + 1; }
-    int ri(int n) { return 2 * n + 2; }
+    int le(int n) {
+        return 2 * n + 1;
+    }
+    int ri(int n) {
+        return 2 * n + 2;
+    }
 
     void build(int n, int esq, int dir, vi &v) {
         mgtree[n] = vi(dir - esq + 1, 0);
@@ -28,12 +32,20 @@ namespace mergesort {
     }
 
     int less(int n, int esq, int dir, int l, int r, int k) {
-        if (esq > r || dir < l) { return 0; }
-        if (l <= esq && dir <= r) { return lower_bound(mgtree[n].begin(), mgtree[n].end(), k) - mgtree[n].begin(); }
+        if (esq > r || dir < l) {
+            return 0;
+        }
+        if (l <= esq && dir <= r) {
+            return lower_bound(mgtree[n].begin(), mgtree[n].end(), k) -
+                   mgtree[n].begin();
+        }
         int mid = (esq + dir) / 2;
-        return less(le(n), esq, mid, l, r, k) + less(ri(n), mid + 1, dir, l, r, k);
+        return less(le(n), esq, mid, l, r, k) +
+               less(ri(n), mid + 1, dir, l, r, k);
     }
-    int less(int l, int r, int k) { return less(0, 0, n - 1, l, r, k); }
+    int less(int l, int r, int k) {
+        return less(0, 0, n - 1, l, r, k);
+    }
 
     // vi debug_query(int n, int esq, int dir, int l, int r) {
     //     if (esq > r || dir < l) return vi();

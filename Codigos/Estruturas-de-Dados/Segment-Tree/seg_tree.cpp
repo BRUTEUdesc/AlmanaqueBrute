@@ -2,9 +2,15 @@ namespace seg {
     const int MAX = 2e5 + 5;
     int n;
     ll tree[4 * MAX];
-    ll merge(ll a, ll b) { return a + b; }
-    int le(int n) { return 2 * n + 1; }
-    int ri(int n) { return 2 * n + 2; }
+    ll merge(ll a, ll b) {
+        return a + b;
+    }
+    int le(int n) {
+        return 2 * n + 1;
+    }
+    int ri(int n) {
+        return 2 * n + 2;
+    }
     void build(int n, int esq, int dir, const vector<ll> &v) {
         if (esq == dir) {
             tree[n] = v[esq];
@@ -20,14 +26,23 @@ namespace seg {
         build(0, 0, n - 1, v);
     }
     ll query(int n, int esq, int dir, int l, int r) {
-        if (esq > r || dir < l) { return 0; }
-        if (l <= esq && dir <= r) { return tree[n]; }
+        if (esq > r || dir < l) {
+            return 0;
+        }
+        if (l <= esq && dir <= r) {
+            return tree[n];
+        }
         int mid = (esq + dir) / 2;
-        return merge(query(le(n), esq, mid, l, r), query(ri(n), mid + 1, dir, l, r));
+        return merge(query(le(n), esq, mid, l, r),
+                     query(ri(n), mid + 1, dir, l, r));
     }
-    ll query(int l, int r) { return query(0, 0, n - 1, l, r); }
+    ll query(int l, int r) {
+        return query(0, 0, n - 1, l, r);
+    }
     void update(int n, int esq, int dir, int x, ll v) {
-        if (esq > x || dir < x) { return; }
+        if (esq > x || dir < x) {
+            return;
+        }
         if (esq == dir) {
             tree[n] = v;
         } else {
@@ -40,5 +55,7 @@ namespace seg {
             tree[n] = merge(tree[le(n)], tree[ri(n)]);
         }
     }
-    void update(int x, ll v) { update(0, 0, n - 1, x, v); }
+    void update(int x, ll v) {
+        update(0, 0, n - 1, x, v);
+    }
 }

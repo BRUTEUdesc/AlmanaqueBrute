@@ -3,9 +3,13 @@ namespace st {
     vector<vector<int>> st;
     void bl_dfs(int u, int p) {
         st[u][0] = p;
-        for (int i = 1; i <= me; i++) { st[u][i] = st[st[u][i - 1]][i - 1]; }
+        for (int i = 1; i <= me; i++) {
+            st[u][i] = st[st[u][i - 1]][i - 1];
+        }
         for (int v : adj[u]) {
-            if (v != p) { bl_dfs(v, u); }
+            if (v != p) {
+                bl_dfs(v, u);
+            }
         }
     }
     void build(int _n, int root = 0) {
@@ -16,7 +20,9 @@ namespace st {
     }
     int ancestor(int u, int k) { // k-th ancestor of u
         for (int i = me; i >= 0; i--) {
-            if ((1 << i) & k) { u = st[u][i]; }
+            if ((1 << i) & k) {
+                u = st[u][i];
+            }
         }
         return u;
     }

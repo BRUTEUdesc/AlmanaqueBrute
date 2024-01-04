@@ -88,11 +88,11 @@ def printa_readme(path: Path, FILE: Path, level: int):
             FILE.write("%%%%%%\n\n")
             FILE.write(f"\\chapter{{{name}}}\n\n")
         elif level == 1:
-            FILE.write(f"\\section{{{name}}}\n\n")
+            FILE.write(f"\\section{{{name}}}\n")
         elif level == 2:
-            FILE.write(f"\\subsection{{{name}}}\n\n")
+            FILE.write(f"\\subsection{{{name}}}\n")
         elif level == 3:
-            FILE.write(f"\\subsubsection{{{name}}}\n\n")
+            FILE.write(f"\\subsubsection{{{name}}}\n")
 
         lines.pop(0)
 
@@ -113,11 +113,12 @@ def printa_readme(path: Path, FILE: Path, level: int):
                 FILE.write(line)
 
             elif line.startswith("-") or line.startswith("+"):
-                # if not in_list:
-                # item = line[1:].strip()
-                # FILE.write("\\item ")
-                # print_linha(item, FILE)
-                pass
+                if not in_list:
+                    FILE.write("\\begin{itemize}\n")
+                    in_list = True
+                item = line[1:].strip()
+                FILE.write("\\item ")
+                print_linha(item, FILE)
 
             else:
                 if in_list:
@@ -125,31 +126,19 @@ def printa_readme(path: Path, FILE: Path, level: int):
                     in_list = False
                 print_linha(line, FILE)
 
-        FILE.write("\n\\hfill\n\n")
+        if in_list:
+            FILE.write("\\end{itemize}\n\n")
+            in_list = False
+
+        FILE.write("\\hfill\n\n")
 
 def printa_codigo(path: Path, FILE: Path):
-    max_width = 55
-    two_columns = True
-
-    with open(path, "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            if len(line) > max_width:
-                two_columns = False
-                break
-
-    if two_columns:
-        FILE.write("\\begin{multicols}{2}\n")
-
     FILE.write("\\begin{lstlisting}[language=C++]\n")
     with open(path, "r") as f:
         FILE.write(f.read())
     FILE.write("\\end{lstlisting}\n")
 
-    if two_columns:
-        FILE.write("\\end{multicols}\n")
-
-    FILE.write("\n\\hfill\n\n")
+    FILE.write("\\hfill\n\n")
 
 
 def dfs(path: Path, FILE: Path, level: int = 0):

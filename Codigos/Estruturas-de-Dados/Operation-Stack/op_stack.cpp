@@ -7,7 +7,9 @@ template <typename T> struct op_stack {
         // gcd(a, b);
         // lca(a, b);
     }
-    T get() { return result = st.top().second; }
+    T get() {
+        return result = st.top().second;
+    }
     void add(T element) {
         result = st.empty() ? element : op(element, st.top().second);
         st.push({element, result});

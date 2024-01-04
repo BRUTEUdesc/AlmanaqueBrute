@@ -31,7 +31,7 @@ Nesses casos é preciso fazer uma linha para manter cada constante e potência d
 
 Mapeamento:
 
-$$ \begin{pmatrix} 1&5&3&2 \\ 0&1&0&0 \\ 0&1&1&0 \\ 0&1&2&1 \end{pmatrix}^n \times \begin{pmatrix} dp[0]   \\ 1       \\ 1       \\ 1\end {pmatrix} \begin{matrix} mantém\ dp[i]   \\ mantém\ 1       \\ mantém\ i       \\ mantém\ i²      \end {matrix} $$
+$$ \begin{pmatrix} 1&5&3&2 \\ 0&1&0&0 \\ 0&1&1&0 \\ 0&1&2&1 \end{pmatrix}^n \times \begin{pmatrix} dp[0]   \\ 1       \\ 1       \\ 1\end {pmatrix} \begin{matrix} \text{mantém } dp[i]   \\ \text{mantém }1       \\ \text{mantém }i       \\ \text{mantém }i^2      \end {matrix} $$
 
 ### Variação Multiplicativa
 

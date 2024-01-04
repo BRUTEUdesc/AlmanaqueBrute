@@ -5,11 +5,15 @@ struct bipartite_dsu {
     bipartite_dsu(int n) {
         size = n;
         color.resize(n + 5, 0);
-        for (int i = 0; i < n + 5; ++i) { parent.push_back(i); }
+        for (int i = 0; i < n + 5; ++i) {
+            parent.push_back(i);
+        }
     }
 
     pair<int, bool> get(int a) {
-        if (parent[a] == a) { return {a, 0}; }
+        if (parent[a] == a) {
+            return {a, 0};
+        }
         auto val = get(parent[a]);
         parent[a] = val.fi;
         color[a] = (color[a] + val.se) % 2;
@@ -26,7 +30,9 @@ struct bipartite_dsu {
         get(b);
         return parent[a] == parent[b];
     }
-    bool possible_edge(int a, int b) { return !same_color(a, b) || !same_group(a, b); }
+    bool possible_edge(int a, int b) {
+        return !same_color(a, b) || !same_group(a, b);
+    }
 
     void join(int a, int b) {
         auto val_a = get(a), val_b = get(b);

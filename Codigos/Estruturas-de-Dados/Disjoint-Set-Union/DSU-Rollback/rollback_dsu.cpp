@@ -9,12 +9,20 @@ struct rollback_dsu {
     rollback_dsu(int n) {
         size.resize(n + 5, 1);
         number_of_sets = n;
-        for (int i = 0; i < n + 5; ++i) { parent.push_back(i); }
+        for (int i = 0; i < n + 5; ++i) {
+            parent.push_back(i);
+        }
     }
 
-    int get(int a) { return (a == parent[a]) ? a : get(parent[a]); }
-    bool same(int a, int b) { return get(a) == get(b); }
-    void checkpoint() { changes.push({-2, 0}); }
+    int get(int a) {
+        return (a == parent[a]) ? a : get(parent[a]);
+    }
+    bool same(int a, int b) {
+        return get(a) == get(b);
+    }
+    void checkpoint() {
+        changes.push({-2, 0});
+    }
 
     void join(int a, int b) {
         a = get(a);
@@ -23,7 +31,9 @@ struct rollback_dsu {
             changes.push({-1, -1});
             return;
         }
-        if (size[a] > size[b]) { swap(a, b); }
+        if (size[a] > size[b]) {
+            swap(a, b);
+        }
         changes.push({a, size[b]});
         parent[a] = b;
         size[b] += size[a];
@@ -34,9 +44,13 @@ struct rollback_dsu {
         for (int i = 0; i < qnt; ++i) {
             auto ch = changes.top();
             changes.pop();
-            if (ch.node == -1) { continue; }
+            if (ch.node == -1) {
+                continue;
+            }
             if (ch.node == -2) {
-                if (qnt == 1 << 31) { break; }
+                if (qnt == 1 << 31) {
+                    break;
+                }
                 --i;
                 continue;
             }
