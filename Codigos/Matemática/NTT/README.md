@@ -1,6 +1,8 @@
 # [Numeric Theoric Transformation](ntt.cpp)
 
-*Read in [English](README.en.md)*
+<!-- DESCRIPTION -->
+Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo.
+<!-- DESCRIPTION -->
 
 Computa multiplicação de polinômino; **Somente para inteiros**.
 

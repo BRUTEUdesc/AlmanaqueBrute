@@ -1,5 +1,9 @@
 # Máximo divisor comum
 
+<!-- DESCRIPTION -->
+Algoritmo Euclides para computar o Máximo Divisor Comum (MDC em português; GCD em inglês), e variações.
+<!-- DESCRIPTION -->
+
 *Read in [English](README.en.md)*
 
 # [Algoritmo de Euclides](gcd.cpp)

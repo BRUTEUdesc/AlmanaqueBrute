@@ -1,4 +1,9 @@
 # [Patricia Tree ou Patricia Trie](patricia_tree.cpp)
+
+<!-- DESCRIPTION -->
+Estrutura de dados que armazena strings e permite consultas por prefixo.
+<!-- DESCRIPTION -->
+
 Implementação PB-DS, extremamente curta e confusa:
 
 - Criar: `patricia_tree pat;`

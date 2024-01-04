@@ -1,6 +1,8 @@
 # [LiChao Tree](lichao_tree.cpp)
 
+<!-- DESCRIPTION -->
 Uma árvore de Funções. Retorna o F(x) máximo em um ponto X.
+<!-- DESCRIPTION -->
 
 Para retornar o minimo deve-se inserir o negativo da função e pegar o negativo do resultado.
 

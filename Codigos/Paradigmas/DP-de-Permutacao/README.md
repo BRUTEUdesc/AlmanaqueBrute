@@ -1,8 +1,8 @@
 # [DP de Permutação](tsp_dp.cpp)
 
-*Read in [English](README.en.md)*
-
+<!-- DESCRIPTION -->
 Otimização do problema do Caixeiro Viajante
+<!-- DESCRIPTION -->
 
 * Complexidade de tempo: $O(n^2 * 2^n)$
 

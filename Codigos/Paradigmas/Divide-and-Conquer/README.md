@@ -1,8 +1,9 @@
 # [Divide and Conquer](dc.cpp)
 
-<!-- *Read in [English](README.en.md)* -->
-
+<!-- DESCRIPTION -->
 Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupos.    
+<!-- DESCRIPTION -->
+
 É preciso fazer a função query(i, j) que computa o custo do subgrupo \[i, j\].
 * Complexidade de tempo: O(n * k * log(n) *  O(query))
 

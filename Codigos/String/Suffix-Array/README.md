@@ -1,8 +1,8 @@
 # [Suffix Array](suffix_array.cpp)
 
-<!-- *Read in [English](README.en.md)* -->
-
+<!-- DESCRIPTION -->
 Estrutura que conterá inteiros que representam os índices iniciais de todos os sufixos ordenados de uma determinada string.
+<!-- DESCRIPTION -->
 
 Tambem Constroi a tabela LCP(Longest common prefix).
 

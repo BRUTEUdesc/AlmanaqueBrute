@@ -1,8 +1,9 @@
 # [Exponenciação de Matriz](matrix_exp.cpp)
 
-<!-- *Read in [English](README.en.md)* -->
-
+<!-- DESCRIPTION -->
 Otimização para DP de prefixo quando o valor atual está em função dos últimos $K$ valores já calculados.   
+<!-- DESCRIPTION -->
+
 * Complexidade de tempo: $O(log(n)*k^3)$
 
 É preciso mapear a DP para uma exponenciação de matriz.
@@ -30,22 +31,7 @@ Nesses casos é preciso fazer uma linha para manter cada constante e potência d
 
 Mapeamento:
 
-$$
-\begin{pmatrix} 1&5&3&2 \\ 0&1&0&0 \\ 0&1&1&0 \\ 0&1&2&1 \end{pmatrix}^n
-\times
-\begin{pmatrix} 
-    dp[0]   \\
-    1       \\
-    1       \\
-    1\end
-{pmatrix} 
-\begin{matrix} 
-    mantém\ dp[i]   \\
-    mantém\ 1       \\
-    mantém\ i       \\
-    mantém\ i²      \end
-{matrix}
-$$
+$$ \begin{pmatrix} 1&5&3&2 \\ 0&1&0&0 \\ 0&1&1&0 \\ 0&1&2&1 \end{pmatrix}^n \times \begin{pmatrix} dp[0]   \\ 1       \\ 1       \\ 1\end {pmatrix} \begin{matrix} mantém\ dp[i]   \\ mantém\ 1       \\ mantém\ i       \\ mantém\ i²      \end {matrix} $$
 
 ### Variação Multiplicativa
 

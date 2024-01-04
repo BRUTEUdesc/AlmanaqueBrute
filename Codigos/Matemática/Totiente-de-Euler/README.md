@@ -1,6 +1,8 @@
 # Totiente de Euler
 
-*Read in [English](README.en.md)*
+<!-- DESCRIPTION -->
+Código para computar o totiente de Euler.
+<!-- DESCRIPTION -->
 
 # [Totiente de Euler (Phi) para um número](phi.cpp)
 Computa o totiente para um único número N.

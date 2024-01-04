@@ -1,6 +1,9 @@
 # Binary Lifting
 
+<!-- DESCRIPTION -->
 Usa uma sparse table para calcular o k-ésimo ancestral de u.
+<!-- DESCRIPTION -->
+
 Pode ser usada com o algoritmo de EulerTour para calcular o LCA.
 
 Complexidade de tempo:

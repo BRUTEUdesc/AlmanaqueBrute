@@ -1,4 +1,8 @@
-# Hungarian Algorithm for Bipartite Matching
+# Matching
+
+<!-- DESCRIPTION -->
+Algoritmos de Matching em grafos.
+<!-- DESCRIPTION -->
 
 Resolve o problema de Matching para uma matriz `A[n][m]`, onde $n \leq m$.
 

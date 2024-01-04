@@ -1,8 +1,9 @@
-
 # [Interval Tree](interval_tree.cpp) (Autoral)
-*Por Rafael Granza de Mello*
+**Por Rafael Granza de Mello**
 
-*Read in [English](README.en.md)* 
+<!-- DESCRIPTION -->
+Estrutura que trata intersecções de intervalos.
+<!-- DESCRIPTION -->
 
 Capaz de retornar todos os intervalos que intersectam [L, R]. **L e R inclusos**  
 Contém funções insert({L, R, ID}), erase({L, R, ID}) , overlaps(L, R) e find({L, R, ID}).  
@@ -12,7 +13,7 @@ Contém funções insert({L, R, ID}), erase({L, R, ID}) , overlaps(L, R) e find(
 
 Podem ser usadas as operações em Set: 
 
-- $insert()$
-- $erase()$ 
-- $upper_bound()$
+- `insert()`
+- `erase()` 
+- `upper_bound()`
 - etc 

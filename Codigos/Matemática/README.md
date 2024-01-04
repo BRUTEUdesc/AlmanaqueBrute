@@ -1,26 +1,57 @@
 # Matemática
 
-*Read in [English](README.en.md)*
+## [Sum of floor(n div i)](./Sum-of-floor(n-div-i))
 
-- [**Eliminação Gaussiana**](Elimina%C3%A7%C3%A3o%20Gaussiana)  
-Resolve sistema linear de equações.
-- [**Exponenciação Modular Rápida**](Exponencia%C3%A7%C3%A3o%20Modular%20R%C3%A1pida)  
-Computa potenciação rápido.
-- [**FFT (Fast Fourier Transform)**](FFT)  
-Multiplica dois polinômios. **double**
-- [**Fatoração**](Fatora%C3%A7%C3%A3o)  
-Fatora inteiros.
-- [**GCD (Greatest Common Divisor)**](GCD)  
-Encontra o maior divisor comum. 
-- [**Inverso Modular**](Inverso%20Modular)  
-Calcula o inverso modular.
-- [**NTT (Numeric Theoric Transform)**](NTT)  
-Multiplica polinômios. **long long**
-- [**Primos**](Primos)  
-Testes de Primalidade.
-- [**Sum of floor(n / i)**](Sum%20of%20floor(n%20div%20i))  
-Encontra a soma de n dividido de 1 a n
-- [**Totiente de Euler**](Totiente%20de%20Euler)  
-Computa o totiente.
-- [**Teorema do resto Chines**](Teorema%20do%20resto%20Chines)  
-Computa congruencias lineares usando o teorema do resto chines.
+Computa $\sum_{i=1}^{n} \lfloor\frac{n}{i}\rfloor $
+
+
+## [Primos](./Primos)
+
+Algortimos relacionados a números primos.
+
+
+## [NTT](./NTT)
+
+Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo.
+
+
+## [Eliminação Gaussiana](./Eliminação-Gaussiana)
+
+Método de eliminação gaussiana para resolução de sistemas lineares.
+
+
+## [GCD](./GCD)
+
+Algoritmo Euclides para computar o Máximo Divisor Comum (MDC em português; GCD em inglês), e variações.
+
+
+## [Fatoração](./Fatoração)
+
+Algortimos para fatorar um número.
+
+
+## [Teorema do Resto Chinês](./Teorema-do-Resto-Chinês)
+
+Algoritmo que resolve o sistema $x \equiv a_i \pmod{m_i}$, onde $m_i$ são primos entre si.
+
+
+## [FFT](./FFT)
+
+Algoritmo que computa a transformada rápida de fourier para convolução de polinômios.
+
+
+## [Exponenciação Modular Rápida](./Exponenciação-Modular-Rápida)
+
+Computa $(base^{exp}) \% mod$.
+
+
+## [Totiente de Euler](./Totiente-de-Euler)
+
+Código para computar o totiente de Euler.
+
+
+## [Inverso Modular](./Inverso-Modular)
+
+Algoritmos para calcular o inverso modular de um número. O inverso modular de um inteiro $a$ é outro inteiro $x$ tal que $a \cdot x \equiv 1 \pmod{MOD}$
+
+

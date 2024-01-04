@@ -1,6 +1,8 @@
 # [Ordered Set](oredered_set.cpp)
 
-<!-- *Read in [English](README.en.md)* -->
+<!-- DESCRIPTION -->
+Set com operações de busca por ordem e índice.
+<!-- DESCRIPTION -->
 
 Pode ser usado como um set normal, a principal diferença são duas novas operações possíveis:
 

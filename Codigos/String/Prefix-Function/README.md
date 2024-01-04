@@ -1,6 +1,8 @@
 # [Prefix Function](prefix_function.cpp)
 
+<!-- DESCRIPTION -->
 Para cada prefixo k de uma dada string s, calcula o maior prefixo que tambem é sufixo de k.
+<!-- DESCRIPTION -->
 
 Seja n o tamanho do texto e m o tamanho do padrão.
 

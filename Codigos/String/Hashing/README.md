@@ -1,8 +1,9 @@
 # [Hashing](hashing.cpp)
 
-<!-- *Read in [English](README.en.md)* -->
+<!-- DESCRIPTION -->
+Hashing para testar igualdade de duas strings.
+<!-- DESCRIPTION -->
 
-Hashing para testar igualdade de duas strings   
 A função ***range(i, j)*** retorna o hash da substring nesse range.   
 Pode ser necessário usar pares de hash para evitar colisões.
 

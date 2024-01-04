@@ -1,8 +1,8 @@
 # 2-SAT  
 
-*Read in [English](README.en.md)*
-
+<!-- DESCRIPTION -->
 Resolve problema do 2-SAT.
+<!-- DESCRIPTION -->
 
 - Complexidade de tempo (caso médio): O(N + M)  
 

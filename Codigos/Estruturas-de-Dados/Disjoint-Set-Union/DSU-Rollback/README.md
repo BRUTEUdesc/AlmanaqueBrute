@@ -1,4 +1,5 @@
 # [DSU com Rollback](rollback_dsu.cpp)
+
 Desfaz as últimas K uniões
 
 - Complexidade de tempo: O(K).

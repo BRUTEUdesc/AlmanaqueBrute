@@ -1,10 +1,10 @@
 UseTab: Never
 IndentWidth: 4
 TabWidth: 4
-ColumnLimit: 120
-AllowShortIfStatementsOnASingleLine: AllIfsAndElse
-AllowShortLoopsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: true
+ColumnLimit: 80
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
 AllowShortLambdasOnASingleLine: Empty
 NamespaceIndentation: All
 FixNamespaceComments: false

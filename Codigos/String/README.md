@@ -1,28 +1,42 @@
 # String
-*Read in [English](README.en.md)*
 
+## [Aho Corasick](./Aho-Corasick)
 
-- **[Aho-Corasick](Aho-Corasick)**  
 Constrói uma estrutura de dados semelhante a um trie com links adicionais e, em seguida, constrói uma máquina de estados finitos (autômato). Útil para pattern matching de um set de strings em um texto.
 
-- **[Manacher](Manacher)**  
-Dado string s com tamanho n. Encontre todos os pares (i, j) tal que a substring s [i...j] seja um palíndromo.
 
-- **[Hashing](Hashing)**  
-Hasha Strings e faz comparações em O(1).
+## [Patricia Tree](./Patricia-Tree)
 
-- **[Patricia Tree](Patricia%20Tree)**  
-Trie Rápida. (Não guarda valores para cada string)
+Estrutura de dados que armazena strings e permite consultas por prefixo.
 
-- **[Prefix Function](Prefix%20Function)**  
-Algoritmos usando a Prefix Function, como KMP e PrefixCount.
 
-- **[Suffix Array](Suffix%20Array)**  
-Trabalha com todos os sufixos sem precisar criá-los.
+## [Prefix Function](./Prefix-Function)
 
-- **[Trie](Trie)**  
-Estrutura para trabalhar com Strings e encontrar prefixos. Pode servir para converter uma String em outro valor em O(|S|)
+Para cada prefixo k de uma dada string s, calcula o maior prefixo que tambem é sufixo de k.
 
-- **[Lyndon Factorization](Lyndon%20Factorization)**  
+
+## [Hashing](./Hashing)
+
+Hashing para testar igualdade de duas strings.
+
+
+## [Trie](./Trie)
+
+Estrutura que guarda informações indexadas por palavra.   
+
+
+## [Manacher](./Manacher)
+
+Encontra todos os palindromos de uma string.
+
+
+## [Lyndon](./Lyndon)
+
 Strings em decomposição única em subcadeias que são ordenadas lexicograficamente e não podem ser mais reduzidas.
+
+
+## [Suffix Array](./Suffix-Array)
+
+Estrutura que conterá inteiros que representam os índices iniciais de todos os sufixos ordenados de uma determinada string.
+
 

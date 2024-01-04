@@ -1,6 +1,8 @@
 # [Fenwick Tree](fenwick_tree.cpp)
 
+<!-- DESCRIPTION -->
 Consultas e atualizações de soma em intervalo.
+<!-- DESCRIPTION -->
 
 O vetor precisa obrigatoriamente estar indexado em 1.
 

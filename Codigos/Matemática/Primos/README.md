@@ -1,6 +1,8 @@
 # Primos
 
-*Read in [English](README.en.md)*
+<!-- DESCRIPTION -->
+Algortimos relacionados a números primos.
+<!-- DESCRIPTION -->
 
 # [Crivo de Eratóstenes](sieve.cpp)
 Computa a primalidade de todos os números até N, quase tão rápido quanto o crivo linear.

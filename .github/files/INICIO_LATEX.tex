@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper, twoside]{article}
+\documentclass[11pt, a4paper, twoside]{book}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb,amsmath}
@@ -9,6 +9,7 @@
 \usepackage[all]{xy}
 \usepackage{graphicx}
 \addtolength{\parskip}{.5\baselineskip}
+\setlength{\parindent}{0pt}
 
 \usepackage{xcolor}
 \usepackage{listings} %biblioteca pro codigo
@@ -30,8 +31,9 @@
 	keywordstyle=\color{black}\bfseries,
 	commentstyle=\color{darkgray},
 	breakatwhitespace=true,
-	%frame=single,
+	frame=single,
 	numbers=left,
+	% xleftmargin=0.50cm,
 	rulecolor=\color{black},
 	showstringspaces=false
 	stringstyle=\color{purple},

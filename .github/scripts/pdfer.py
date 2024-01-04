@@ -11,55 +11,121 @@ def printa_arquivo(path: Path, FILE: Path):
 
 def printa_readme(path: Path, FILE: Path, level: int):
     with open(path, "r") as f:
+        def print_linha(line, dest):
+            in_math = False
+            in_inline_code = False
+            in_bold = False
+            i = 0
+            while i < len(line):
+                if line[i] == '`':
+                    if in_inline_code:
+                        dest.write("}")
+                    else:
+                        dest.write("\\lstinline{")
+                    in_inline_code = not in_inline_code
+                elif line[i] == '$' and i + 1 < len(line) and line[i + 1] == '$':
+                    in_math = not in_math
+                    dest.write(line[i])
+                    dest.write(line[i + 1])
+                    i += 1
+                elif line[i] == '$':
+                    in_math = not in_math
+                    dest.write(line[i])
+                elif line[i] == '*' and i + 1 < len(line) and line[i + 1] == '*':
+                    if in_bold:
+                        dest.write("}")
+                    else:
+                        dest.write("\\textbf{")
+                    in_bold = not in_bold
+                    i += 1
+                elif line[i] == '#':
+
+                    it = i
+                    now = ""
+                    while it < len(line) and line[it] != '[':
+                        it += 1
+                    if it + 1 < len(line) and line[it] == '[':
+                        now = line[it + 1:line.find(']')]   
+                        it = line.find(']')
+
+                    if it + 1 < len(line) and line[it + 1] == '(':
+                        while it < len(line) and line[it] != ')':
+                            it += 1
+
+                    dest.write("\\textbf{" + now + "} ")
+                    i = it
+
+                else:
+                    if line[i] in ['%', '&', '~', '_'] and not in_math:
+                        dest.write('\\')
+                    dest.write(line[i])
+                i += 1
+            dest.write("\n")
+
         in_code = False
+        in_list = False
         first_line = True
-        for line in f.readlines():
-            if line.startswith("```"):
+
+        lines = f.readlines()
+
+        while not lines[0].startswith("#"):
+            lines.pop(0)
+        
+        name = lines[0][1:].strip()
+
+        if name.find('[') != -1:
+            name = name[name.find('[') + 1:name.find(']')]
+        name = name.strip()
+
+        if level == 0:
+            FILE.write("\\newpage\n\n")
+            FILE.write("%%%%%%\n")
+            for i in range(2):
+                FILE.write("%\n")
+            FILE.write(f"% {name}\n")
+            for i in range(2):
+                FILE.write("%\n")
+            FILE.write("%%%%%%\n\n")
+            FILE.write(f"\\chapter{{{name}}}\n\n")
+        elif level == 1:
+            FILE.write(f"\\section{{{name}}}\n\n")
+        elif level == 2:
+            FILE.write(f"\\subsection{{{name}}}\n\n")
+        elif level == 3:
+            FILE.write(f"\\subsubsection{{{name}}}\n\n")
+
+        lines.pop(0)
+
+        for line in lines:
+            if "<!-- DESCRIPTION -->" in line:
+                FILE.write("")
+            elif line.startswith("```"):
+                if in_list:
+                    FILE.write("\\end{itemize}\n\n")
+                    in_list = False
                 if in_code:
                     FILE.write("\\end{lstlisting}\n\n")
-                    in_code = False
                 else:  
                     FILE.write("\\begin{lstlisting}[language=C++]\n")
-                    in_code = True
+                in_code = not in_code
 
             elif in_code: 
                 FILE.write(line)
 
-            elif (line.startswith("#")) and first_line:
-                it = 0
-                while (line[it] == "#" or line[it] == " "):
-                    it += 1
-                name = line[it:-1]
-                if name[0] == '[':
-                    name = name[1:name.find(']')]
-
-                if level == 1:
-                    FILE.write(f"\\subsection{{{name}}}\n\n")
-                elif level == 2:
-                    FILE.write(f"\\subsubsection{{{name}}}\n\n")
-
-                first_line = False
-
-            elif "English" in line:
+            elif line.startswith("-") or line.startswith("+"):
+                # if not in_list:
+                # item = line[1:].strip()
+                # FILE.write("\\item ")
+                # print_linha(item, FILE)
                 pass
 
             else:
-                in_inline_code = False
-                for i in range(len(line)):
-                    if line[i] == '`':
-                        if in_inline_code:
-                            FILE.write("}")
-                        else:
-                            FILE.write("\\lstinline{")
-                        in_inline_code = not in_inline_code
-                    else:
-                        # if line[i] in ['_', '&', '%', '#', '{', '}']:
-                        #     FILE.write('\\')
-                        if line[i] in ['_', '%', '#']:
-                            FILE.write('\\')
-                        FILE.write(line[i])
+                if in_list:
+                    FILE.write("\\end{itemize}\n\n")
+                    in_list = False
+                print_linha(line, FILE)
 
-        FILE.write("\n")
+        FILE.write("\n\\hfill\n\n")
 
 def printa_codigo(path: Path, FILE: Path):
     max_width = 55
@@ -82,46 +148,43 @@ def printa_codigo(path: Path, FILE: Path):
 
     if two_columns:
         FILE.write("\\end{multicols}\n")
-    FILE.write("\n")
 
+    FILE.write("\n\\hfill\n\n")
 
-def printa_section(section: str, FILE: Path):
-    FILE.write("\\newpage\n")
-
-    FILE.write("%%%%%%\n")
-    for i in range(2):
-        FILE.write("%\n")
-    FILE.write(f"% {section}\n")
-    for i in range(2):
-        FILE.write("%\n")
-    FILE.write("%%%%%%\n\n")
-
-    FILE.write(f"\\section{{{section}}}\n\n")
-
-def printa_subsection(subsection: str, FILE: Path, level: int):
-    if level == 1:
-        FILE.write(f"\\subsection{{{subsection}}}\n\n")
-    elif level == 2:
-        FILE.write(f"\\subsubsection{{{subsection}}}\n\n")
 
 def dfs(path: Path, FILE: Path, level: int = 0):
     tem_readme = False
     for child in path.iterdir():
-        if child.is_dir():
-            dfs(child, FILE, level + 1)
-        elif child.name.endswith(".md"):
+        if child.name == "README.md":
             tem_readme = True
 
     if tem_readme:
-        # printa_subsection(path.name, FILE, level)
-        
-        READMES = [x for x in path.glob("*.md") if not "en" in x.name]
-        for readme in READMES:
-            printa_readme(readme, FILE, level)
+        readme = path / "README.md"
+
+        printa_readme(readme, FILE, level)
 
         CODIGOS = list(path.glob("*.cpp"))
         for codigo in CODIGOS:
             printa_codigo(codigo, FILE)
+        FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
+
+    for child in path.iterdir():
+        if child.is_dir():
+            dfs(child, FILE, level + 1)
+
+
+def get_description(path: Path):
+    ret_lines = []
+    with open(path, "r") as f:
+        append = False
+        for line in f.readlines():
+            if line.startswith("<!-- DESCRIPTION -->"):
+                if append:
+                    break
+                append = True
+            elif append:
+                ret_lines.append(line)
+    return "".join(ret_lines)
 
 
 if __name__ == "__main__":
@@ -137,8 +200,20 @@ if __name__ == "__main__":
 
         for child in DIR.iterdir():
             if child.is_dir():
-                printa_section(child.name, f)
-                dfs(child, f)
+                README = child / "README.md"
+
+                with open(README, "w") as readme:
+                    name = child.name.replace("-", " ")
+                    readme.write(f"# {name}\n\n")
+                    for subdir in child.iterdir():
+                        if subdir.is_dir():
+                            name = subdir.name.replace("-", " ")
+                            readme.write(f"## [{name}](./{subdir.name})\n\n")
+                            readme.write(get_description(subdir / "README.md") + "\n\n")
+        
+        for child in DIR.iterdir():
+            if child.is_dir():
+                dfs(child, f, 0)
 
         f.write("\\end{document}\n")
 

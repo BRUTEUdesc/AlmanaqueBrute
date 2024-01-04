@@ -1,8 +1,8 @@
 # [Eliminação Gaussiana](gauss.cpp)
 
-*Read in [English](README.en.md)*
-
+<!-- DESCRIPTION -->
 Método de eliminação gaussiana para resolução de sistemas lineares.
+<!-- DESCRIPTION -->
 
 - Complexidade de tempo: O(n³).
 

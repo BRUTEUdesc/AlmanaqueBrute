@@ -1,20 +1,42 @@
 # Paradigmas
 
-*Read in [English](README.en.md)*
+## [Mo](./Mo)
 
-+ **[All Submasks](All%20Submasks)**  
-Percorre todas as submáscaras de uma máscara de bits.
-+ **[Busca Binária Paralela](Busca%20Binaria%20Paralela)**  
-Faz a busca binária para múltiplas consultas quando a busca binaria é muito pesada.
-+ **[Busca Ternária](Busca%20Ternaria)**  
+Resolve Queries Complicadas Offline de forma rápida.  
+
+
+## [Exponenciação de Matriz](./Exponenciação-de-Matriz)
+
+Otimização para DP de prefixo quando o valor atual está em função dos últimos $K$ valores já calculados.   
+
+
+## [Busca Binaria Paralela](./Busca-Binaria-Paralela)
+
+Faz a busca binária para múltiplas consultas quando a busca binária é muito pesada.
+
+
+## [Divide and Conquer](./Divide-and-Conquer)
+
+Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupos.    
+
+
+## [Busca Ternaria](./Busca-Ternaria)
+
 Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
-+ **[Convex Hull Trick](Convex%20Hull%20Trick)**  
-Otimização para DP utilizando retas monotônicas que formam um Convex Hull.
-+ **[Divide and Conquer](Divide%20and%20Conquer)**   
-Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupos.
-+ **[DP de Permutação](DP%20de%20Permutacao)**  
-Simula todas as permutações de um grupo. Resolve o caxeiro viajante 'rápido'.
-+ **[Exponeciação de Matriz](Exponencia%C3%A7%C3%A3o%20de%20Matriz)**   
-Otimização para DP de prefixo quando o valor atual está em função dos últimos K valores já calculados.
-+ **[Mo](Mo/)**  
-Resolve operações em range Offline. **COM E SEM ATUALIZAÇÂO**
+
+
+## [DP de Permutacao](./DP-de-Permutacao)
+
+Otimização do problema do Caixeiro Viajante
+
+
+## [Convex Hull Trick](./Convex-Hull-Trick)
+
+Otimização de DP onde se mantém as retas que formam um Convex Hull em uma estrutura que permite consultar qual o melhor valor para um determinado x.
+
+
+## [All Submasks](./All-Submasks)
+
+Percorre todas as submáscaras de uma máscara.
+
+

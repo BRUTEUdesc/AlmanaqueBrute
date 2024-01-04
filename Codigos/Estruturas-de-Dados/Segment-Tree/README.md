@@ -1,6 +1,8 @@
 # Segment Tree
 
-*Read in [English](README.en.md)*
+<!-- DESCRIPTION -->
+Consultas e atualizações em intervalos.
+<!-- DESCRIPTION -->
 
 # [Seg Tree](seg_tree.cpp)
 Implementação padrão de Seg Tree

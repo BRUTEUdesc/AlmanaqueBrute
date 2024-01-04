@@ -1,5 +1,9 @@
 # Modular Inverse
 
+<!-- DESCRIPTION -->
+Algoritmos para calcular o inverso modular de um número. O inverso modular de um inteiro $a$ é outro inteiro $x$ tal que $a \cdot x \equiv 1 \pmod{MOD}$
+<!-- DESCRIPTION -->
+
 The modular inverse of an integer `a` is another integer `x` such that `a * x` is congruent to `1 (mod MOD)`.
 
 # [Modular Inverse](modular_inverse.cpp)
