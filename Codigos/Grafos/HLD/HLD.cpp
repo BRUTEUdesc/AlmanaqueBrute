@@ -42,7 +42,9 @@ namespace hld {
         }
         seg::build(aux);
     }
-    void build(int root, vector<i3> &edges) { // use this if weighted edges
+    void build(int root,
+               vector<i3> &edges) { // use this if
+                                    // weighted edges
         build(root);
         e = 1;
         vector<ll> aux(edges.size() + 1);

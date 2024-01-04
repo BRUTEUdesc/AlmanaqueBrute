@@ -41,7 +41,8 @@ namespace st {
         }
         return st[u][0];
     }
-    int ancestor(int u, int k) { // k-th ancestor of u
+    int ancestor(int u,
+                 int k) { // k-th ancestor of u
         for (int i = me; i >= 0; i--) {
             if ((1 << i) & k) {
                 u = st[u][i];

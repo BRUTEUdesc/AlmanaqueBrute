@@ -1,10 +1,12 @@
 const int N = 105;
 const int INF = 2; // tanto faz
 
-// n -> numero de equacoes, m -> numero de variaveis
-// a[i][j] para j em [0, m - 1] -> coeficiente da variavel j na iesima equacao
-// a[i][j] para j == m -> resultado da equacao da iesima linha
-// ans -> bitset vazio, que retornara a solucao do sistema (caso exista)
+// n -> numero de equacoes, m -> numero de
+// variaveis a[i][j] para j em [0, m - 1] ->
+// coeficiente da variavel j na iesima equacao
+// a[i][j] para j == m -> resultado da equacao da
+// iesima linha ans -> bitset vazio, que retornara
+// a solucao do sistema (caso exista)
 int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
     vector<int> where(m, -1);
 
@@ -48,5 +50,6 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
             return INF; // Infinitas solucoes
         }
     }
-    return 1; // Unica solucao (retornada no bitset ans)
+    return 1; // Unica solucao (retornada no
+              // bitset ans)
 }

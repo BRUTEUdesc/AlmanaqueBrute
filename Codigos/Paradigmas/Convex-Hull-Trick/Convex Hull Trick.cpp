@@ -8,7 +8,8 @@ struct line {
         return a * x + b;
     }
     ll intersect(line l) {
-        return (l.b - b + a - l.a) / (a - l.a); // rounds up for integer only
+        return (l.b - b + a - l.a) / (a - l.a); // rounds up for integer
+                                                // only
     }
 };
 deque<pair<line, ll>> fila;
@@ -17,8 +18,7 @@ void add_line(ll a, ll b) {
     if (!fila.empty() && fila.back().first.a == a && fila.back().first.b == b) {
         return;
     }
-    while (!fila.empty() &&
-           op(fila.back().second, nova.intersect(fila.back().first))) {
+    while (!fila.empty() && op(fila.back().second, nova.intersect(fila.back().first))) {
         fila.pop_back();
     }
     ll x = fila.empty() ? -INF : nova.intersect(fila.back().first);

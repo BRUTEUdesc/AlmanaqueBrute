@@ -1,5 +1,6 @@
-// usa miller_rabin.cpp!! olhar em matematica/primos
-// usa pollar_rho.cpp!! olhar em matematica/fatoracao
+// usa miller_rabin.cpp!! olhar em
+// matematica/primos usa pollar_rho.cpp!! olhar em
+// matematica/fatoracao
 
 vector<long long> factorize(long long n) {
     if (n == 1) {

@@ -3,7 +3,8 @@ const ll ESQ = 0, DIR = 1e9 + 7;
 
 struct seg {
     ll tree[SEGMAX];
-    int R[SEGMAX], L[SEGMAX], ptr = 2; // 0 is NULL; 1 is First Root
+    int R[SEGMAX], L[SEGMAX],
+        ptr = 2; // 0 is NULL; 1 is First Root
     ll op(ll a, ll b) {
         return (a + b) % MOD;
     }
@@ -27,8 +28,7 @@ struct seg {
             return tree[n];
         }
         ll mid = (esq + dir) / 2;
-        return op(query(l, r, le(n), esq, mid),
-                  query(l, r, ri(n), mid + 1, dir));
+        return op(query(l, r, le(n), esq, mid), query(l, r, ri(n), mid + 1, dir));
     }
     void update(ll x, ll v, int n = 1, ll esq = ESQ, ll dir = DIR) {
         if (esq == dir) {

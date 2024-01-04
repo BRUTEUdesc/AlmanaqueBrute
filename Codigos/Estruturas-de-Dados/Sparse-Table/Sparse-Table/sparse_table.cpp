@@ -12,7 +12,8 @@ struct SparseTable {
             }
         }
     }
-    // O(log(N)) Query for non overlap friendly operations
+    // O(log(N)) Query for non overlap friendly
+    // operations
     int logquery(int l, int r) {
         int res = 2e9;
         for (int i = e; i >= 0; i--) {

@@ -4,8 +4,7 @@
 using namespace __gnu_pbds;
 
 namespace mergesort {
-    typedef tree<ii, null_type, less<ii>, rb_tree_tag,
-                 tree_order_statistics_node_update>
+    typedef tree<ii, null_type, less<ii>, rb_tree_tag, tree_order_statistics_node_update>
         ordered_set;
     const int MAX = 1e5 + 5;
 
@@ -51,8 +50,7 @@ namespace mergesort {
             return mgtree[n].order_of_key({k, -1});
         }
         int mid = (esq + dir) / 2;
-        return less(le(n), esq, mid, l, r, k) +
-               less(ri(n), mid + 1, dir, l, r, k);
+        return less(le(n), esq, mid, l, r, k) + less(ri(n), mid + 1, dir, l, r, k);
     }
     int less(int l, int r, int k) {
         return less(0, 0, n - 1, l, r, k);
@@ -80,21 +78,29 @@ namespace mergesort {
         values[x] = v;
     }
 
-    // ordered_set debug_query(int n, int esq, int dir, int l, int r) {
-    //     if (esq > r || dir < l) return ordered_set();
-    //     if (l <= esq && dir <= r) return mgtree[n];
-    //     int mid = (esq + dir) / 2;
-    //     return join(debug_query(le(n), esq, mid, l, r), debug_query(ri(n),
-    //     mid+1, dir, l, r));
+    // ordered_set debug_query(int n, int esq, int
+    // dir, int l, int r) {
+    //     if (esq > r || dir < l) return
+    //     ordered_set(); if (l <= esq && dir <=
+    //     r) return mgtree[n]; int mid = (esq +
+    //     dir) / 2; return
+    //     join(debug_query(le(n), esq, mid, l,
+    //     r), debug_query(ri(n), mid+1, dir, l,
+    //     r));
     // }
-    // ordered_set debug_query(int l, int r) {return debug_query(0, 0, n-1, l,
-    // r);}
+    // ordered_set debug_query(int l, int r)
+    // {return debug_query(0, 0, n-1, l, r);}
 
-    // int greater(int n, int esq, int dir, int l, int r, int k) {
+    // int greater(int n, int esq, int dir, int l,
+    // int r, int k) {
     //     if (esq > r || dir < l) return 0;
-    //     if (l <= esq && dir <= r) return (r-l+1) - mgtree[n].order_of_key({k,
-    //     1e8}); int mid = (esq + dir) / 2; return greater(le(n), esq, mid, l,
-    //     r, k) + greater(ri(n), mid+1, dir, l, r, k);
+    //     if (l <= esq && dir <= r) return
+    //     (r-l+1) - mgtree[n].order_of_key({k,
+    //     1e8}); int mid = (esq + dir) / 2;
+    //     return greater(le(n), esq, mid, l, r,
+    //     k) + greater(ri(n), mid+1, dir, l, r,
+    //     k);
     // }
-    // int greater(int l, int r, int k) {return greater(0, 0, n-1, l, r, k);}
+    // int greater(int l, int r, int k) {return
+    // greater(0, 0, n-1, l, r, k);}
 };

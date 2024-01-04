@@ -40,9 +40,8 @@ ll solve(ll exp, ll dim) {
     }
 
     T.assign(dim, vi(dim));
-    // TO DO: Preencher a Matriz que vai ser exponenciada
-    // T[0][1] = 1;
-    // T[1][0] = 1;
+    // TO DO: Preencher a Matriz que vai ser
+    // exponenciada T[0][1] = 1; T[1][0] = 1;
     // T[1][1] = 1;
 
     mat prod = exp_mod(T, exp);

@@ -20,13 +20,16 @@ namespace mo {
         queries.push_back({l, r, (int)queries.size()});
     }
     inline void remove(int idx) {
-        // TODO: remove value at idx from data structure
+        // TODO: remove value at idx from data
+        // structure
     }
     inline void add(int idx) {
-        // TODO: add value at idx from data structure
+        // TODO: add value at idx from data
+        // structure
     }
     inline int get_answer() {
-        // TODO: extract the current answer of the data structure
+        // TODO: extract the current answer of the
+        // data structure
         return 0;
     }
 

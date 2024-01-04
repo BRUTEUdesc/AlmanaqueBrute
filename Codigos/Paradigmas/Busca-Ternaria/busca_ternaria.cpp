@@ -10,7 +10,8 @@ double ternary_search(double l, double r) {
         double mid_1 = l + step;
         double mid_2 = r - step;
 
-        // minimizing. To maximize use >= to compare
+        // minimizing. To maximize use >= to
+        // compare
         if (eval(mid_1) <= eval(mid_2)) {
             r = mid_2;
         } else {

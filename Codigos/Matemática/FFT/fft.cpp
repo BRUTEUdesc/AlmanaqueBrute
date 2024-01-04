@@ -63,10 +63,12 @@ vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
 
     vector<long long> res(n);
     for (int i = 0; i < n; ++i) {
-        res[i] =
-            round(c[i].real()); //  res = c[i].real(); se for vector de double
+        res[i] = round(c[i].real()); //  res = c[i].real();
+                                     //  se for vector de
+                                     //  double
     }
-    // while(size(res) > 1 && res.back() == 0) res.pop_back(); // apenas para
-    // quando os zeros direita nao importarem
+    // while(size(res) > 1 && res.back() == 0)
+    // res.pop_back(); // apenas para quando os
+    // zeros direita nao importarem
     return res;
 }

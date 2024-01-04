@@ -1,5 +1,5 @@
-const ll INVB =
-    (MOD + 1) / 2; // Modular inverse of the base, for 2 it is (MOD+1)/2
+const ll INVB = (MOD + 1) / 2; // Modular inverse of the base,
+                               // for 2 it is (MOD+1)/2
 
 ll inv[MAX]; // Modular inverse of b^i
 

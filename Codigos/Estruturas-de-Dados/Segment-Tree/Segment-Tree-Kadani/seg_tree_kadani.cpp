@@ -1,10 +1,22 @@
 namespace seg {
-    const int MAX = 2e5 + 5;
-    int n;
-    ll tree[4 * MAX];
-    ll merge(ll a, ll b) {
-        return a + b;
+    const int MAX = 1e5 + 5;
+    struct node {
+        ll pref, suff, sum, best;
+    };
+    node new_node(ll v) {
+        return node{v, v, v, v};
     }
+    const node NEUTRAL = {0, 0, 0, 0};
+    node tree[4 * MAX];
+    node merge(node a, node b) {
+        ll pref = max(a.pref, a.sum + b.pref);
+        ll suff = max(b.suff, b.sum + a.suff);
+        ll sum = a.sum + b.sum;
+        ll best = max(a.suff + b.pref, max(a.best, b.best));
+        return node{pref, suff, sum, best};
+    }
+
+    int n;
     int le(int n) {
         return 2 * n + 1;
     }
@@ -13,7 +25,7 @@ namespace seg {
     }
     void build(int n, int esq, int dir, const vector<ll> &v) {
         if (esq == dir) {
-            tree[n] = v[esq];
+            tree[n] = new_node(v[esq]);
         } else {
             int mid = (esq + dir) / 2;
             build(le(n), esq, mid, v);
@@ -25,26 +37,25 @@ namespace seg {
         n = v.size();
         build(0, 0, n - 1, v);
     }
-    ll query(int n, int esq, int dir, int l, int r) {
+    node query(int n, int esq, int dir, int l, int r) {
         if (esq > r || dir < l) {
-            return 0;
+            return NEUTRAL;
         }
         if (l <= esq && dir <= r) {
             return tree[n];
         }
         int mid = (esq + dir) / 2;
-        return merge(query(le(n), esq, mid, l, r),
-                     query(ri(n), mid + 1, dir, l, r));
+        return merge(query(le(n), esq, mid, l, r), query(ri(n), mid + 1, dir, l, r));
     }
     ll query(int l, int r) {
-        return query(0, 0, n - 1, l, r);
+        return query(0, 0, n - 1, l, r).best;
     }
     void update(int n, int esq, int dir, int x, ll v) {
         if (esq > x || dir < x) {
             return;
         }
         if (esq == dir) {
-            tree[n] = v;
+            tree[n] = new_node(v);
         } else {
             int mid = (esq + dir) / 2;
             if (x <= mid) {

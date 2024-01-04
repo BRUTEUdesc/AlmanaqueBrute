@@ -28,10 +28,12 @@ namespace mo {
         updates.push_back({x, v});
     }
     inline void remove(int idx) {
-        // TODO: remove value at idx from data structure
+        // TODO: remove value at idx from data
+        // structure
     }
     inline void add(int idx) {
-        // TODO: add value at idx from data structure
+        // TODO: add value at idx from data
+        // structure
     }
     inline void update(int l, int r, int t) {
         auto &[x, v] = updates[t];
@@ -44,7 +46,8 @@ namespace mo {
         }
     }
     inline int get_answer() {
-        // TODO: extract the current answer from the data structure
+        // TODO: extract the current answer from
+        // the data structure
         return 0;
     }
 

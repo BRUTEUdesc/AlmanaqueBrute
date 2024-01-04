@@ -1,8 +1,10 @@
 
 namespace parallel_binary_search {
     typedef tuple<int, int, long long, long long> query; //{value, id, l, r}
-    vector<query> queries[1123456]; // pode ser um mapa se for muito esparso
-    long long ans[1123456];         // definir pro tamanho das queries
+    vector<query> queries[1123456];                      // pode ser um mapa se
+                                                         // for muito esparso
+    long long ans[1123456];                              // definir pro tamanho
+                                                         // das queries
     long long l, r, mid;
     int id = 0;
     void set_lim_search(long long n) {
@@ -32,7 +34,8 @@ namespace parallel_binary_search {
         bool go = 1;
         while (go) {
             go = 0;
-            int i = 0; // outra logica se for usar um mapa
+            int i = 0; // outra logica se for usar
+                       // um mapa
             for (auto &vec : queries) {
                 advance_search(i++);
                 for (auto q : vec) {

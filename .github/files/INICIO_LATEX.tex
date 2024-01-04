@@ -1,8 +1,9 @@
-\documentclass[11pt, a4paper, twoside]{book}
+\documentclass[10pt, a4paper, oneside]{book}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb,amsmath}
-\usepackage[portuguese]{babel}
+\usepackage[brazil]{babel}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
 \usepackage{comment}
 \usepackage{datetime}
 \usepackage[pdfusetitle]{hyperref}
@@ -15,15 +16,21 @@
 \usepackage{listings} %biblioteca pro codigo
 
 \usepackage{multicol} %biblioteca pra duas colunas
-\setlength{\columnseprule}{0.2pt}
+\setlength{\columnseprule}{0.5pt}
 \setlength{\columnsep}{10pt} %distancia do texto ate a barra
 \def\columnseprulecolor{\color{black}}
 
-\usepackage{color}    %deixa o codigo colorido bonitinho
-\usepackage[portrait, left=2cm, right=1.5cm, top=2cm, bottom=2cm]{geometry} 
+% \usepackage{color}    %deixa o codigo colorido bonitinho
+\geometry{
+	a4paper,
+	left=10mm,
+	right=10mm,
+	top=1in,
+	bottom=1in,
+}
 
 \definecolor{gray}{rgb}{0.2, 0.2, 0.2} %cor pros comentarios
-\renewcommand{\footnotesize}{\small} %isso eh pra mudar o tamanho da fonte do codigo
+% \renewcommand{\footnotesize}{\small} %isso eh pra mudar o tamanho da fonte do codigo
 
 \lstset{ %opcoes pro codigo
 	language=C++,
@@ -31,8 +38,8 @@
 	keywordstyle=\color{black}\bfseries,
 	commentstyle=\color{darkgray},
 	breakatwhitespace=true,
-	frame=single,
-	numbers=left,
+	% frame=single,
+	% numbers=left,
 	% xleftmargin=0.50cm,
 	rulecolor=\color{black},
 	showstringspaces=false

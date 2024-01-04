@@ -1,7 +1,7 @@
 UseTab: Never
 IndentWidth: 4
 TabWidth: 4
-ColumnLimit: 80
+ColumnLimit: 100
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false

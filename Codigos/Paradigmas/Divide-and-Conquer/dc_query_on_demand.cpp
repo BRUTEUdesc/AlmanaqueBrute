@@ -1,24 +1,29 @@
 namespace DC {
-    struct range { // eh preciso definir a forma de calcular o range
+    struct range { // eh preciso definir a forma
+                   // de calcular o range
         vi freq;
         ll sum = 0;
         int l = 0, r = -1;
-        void back_l(int v) { // Mover o 'l' do range para a esquerda
+        void back_l(int v) { // Mover o 'l' do range
+                             // para a esquerda
             sum += freq[v];
             freq[v]++;
             l--;
         }
-        void advance_r(int v) { // Mover o 'r' do range para a direita
+        void advance_r(int v) { // Mover o 'r' do range
+                                // para a direita
             sum += freq[v];
             freq[v]++;
             r++;
         }
-        void advance_l(int v) { // Mover o 'l' do range para a direita
+        void advance_l(int v) { // Mover o 'l' do range
+                                // para a direita
             freq[v]--;
             sum -= freq[v];
             l++;
         }
-        void back_r(int v) { // Mover o 'r' do range para a esquerda
+        void back_r(int v) { // Mover o 'r' do range
+                             // para a esquerda
             freq[v]--;
             sum -= freq[v];
             r--;
@@ -54,9 +59,7 @@ namespace DC {
 
         vi removed;
         for (int i = optl; i <= min(mid, optr); i++) {
-            best = min(best,
-                       {(i ? dp_before[i - 1] : 0) + s.sum,
-                        i}); // min() se quiser minimizar
+            best = min(best, {(i ? dp_before[i - 1] : 0) + s.sum, i}); // min() se quiser minimizar
             removed.push_back(v[s.l]);
             s.advance_l(v[s.l]);
         }

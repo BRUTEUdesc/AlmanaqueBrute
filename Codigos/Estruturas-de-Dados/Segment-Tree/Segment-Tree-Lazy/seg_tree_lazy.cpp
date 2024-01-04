@@ -46,8 +46,7 @@ namespace seg {
             return tree[n];
         }
         int mid = (esq + dir) / 2;
-        return merge(query(l, r, le(n), esq, mid),
-                     query(l, r, ri(n), mid + 1, dir));
+        return merge(query(l, r, le(n), esq, mid), query(l, r, ri(n), mid + 1, dir));
     }
     void update(int l, int r, ll v, int n = 0, int esq = 0, int dir = sz - 1) {
         push(n, esq, dir);

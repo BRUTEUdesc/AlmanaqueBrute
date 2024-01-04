@@ -72,7 +72,8 @@ struct full_dsu {
         edges[{u, v}].back().r = time++;
     }
 
-    // consulta se dois vertices estao no mesmo grupo
+    // consulta se dois vertices estao no mesmo
+    // grupo
     void question(int u, int v) {
         ord(u, v);
         queries.push_back({time, time, u, v, 1});
@@ -117,8 +118,10 @@ struct full_dsu {
         if (l == r) {
             for (auto &q : qrs) {
                 if (q.type && q.l == l) {
-                    ans[l] = number_of_sets; // numero de grupos nesse tempo
-                    // ans[l] = same(q.u, q.v); // se u e v estao no mesmo grupo
+                    ans[l] = number_of_sets;
+                    // numero de grupos nesse tempo
+                    // ans[l] = same(q.u, q.v);
+                    // se u e v estao no mesmo grupo
                 }
             }
             rollback();

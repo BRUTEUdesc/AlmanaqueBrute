@@ -35,8 +35,7 @@ void build() {
     build_x(0, 0, n - 1);
 }
 
-void update_y(int nx, int lx, int rx, int ny, int ly, int ry, int x, int y,
-              int v) {
+void update_y(int nx, int lx, int rx, int ny, int ly, int ry, int x, int y, int v) {
     if (ly == ry) {
         if (lx == rx) {
             tree[nx][ny] = v;
@@ -76,8 +75,7 @@ int sum_y(int nx, int ny, int ly, int ry, int qly, int qry) {
         return tree[nx][ny];
     }
     int my = (ly + ry) / 2;
-    return sum_y(nx, le(ny), ly, my, qly, qry) +
-           sum_y(nx, ri(ny), my + 1, ry, qly, qry);
+    return sum_y(nx, le(ny), ly, my, qly, qry) + sum_y(nx, ri(ny), my + 1, ry, qly, qry);
 }
 int sum_x(int nx, int lx, int rx, int qlx, int qrx, int qly, int qry) {
     if (rx < qlx || lx > qrx) {

@@ -61,7 +61,8 @@ namespace seg {
     ll query(int root, int l, int r) {
         return query(roots[root], ESQ, DIR, l, r);
     }
-    // kth min number in [L, R] (l_root can not be 0)
+    // kth min number in [L, R] (l_root can not be
+    // 0)
     int kth(node *L, node *R, int esq, int dir, int k) {
         push(L, esq, dir);
         push(R, esq, dir);
