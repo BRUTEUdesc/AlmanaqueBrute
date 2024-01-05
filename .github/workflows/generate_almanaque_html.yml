@@ -4,9 +4,9 @@ on:
   pull_request:
     branches:
       - master
-
-    types: [ closed ]
-
+  push:
+    branches:
+      - master
 jobs:
   generate_almanaque_html:
     # this job will only run if the PR has been merged
