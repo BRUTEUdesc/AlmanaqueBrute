@@ -1,12 +1,12 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  5 JAN 2024 14:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  5 JAN 2024 16:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **\nonstopmode \input{Almanaque.tex}
 (./Almanaque.tex (/opt/local/share/texmf-texlive/tex/latex/base/book.cls
 Document Class: book 2021/10/04 v1.4n Standard LaTeX document class
-(/opt/local/share/texmf-texlive/tex/latex/base/bk10.clo
-File: bk10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
+(/opt/local/share/texmf-texlive/tex/latex/base/bk11.clo
+File: bk11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
 \c@chapter=\count186
@@ -642,24 +642,24 @@ LaTeX Font Info:    ... okay on input line 69.
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(28.45274pt, 540.60239pt, 28.45274pt)
-* v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
-* \paperwidth=597.50787pt
-* \paperheight=845.04684pt
-* \textwidth=540.60239pt
-* \textheight=700.50687pt
+* modes: landscape 
+* h-part:(L,W,R)=(28.45274pt, 788.14136pt, 28.45274pt)
+* v-part:(T,H,B)=(72.26999pt, 452.9679pt, 72.26999pt)
+* \paperwidth=845.04684pt
+* \paperheight=597.50787pt
+* \textwidth=788.14136pt
+* \textheight=452.9679pt
 * \oddsidemargin=-43.81725pt
 * \evensidemargin=-43.81725pt
-* \topmargin=-30.06749pt
+* \topmargin=-31.8738pt
 * \headheight=12.0pt
-* \headsep=18.06749pt
-* \topskip=10.0pt
-* \footskip=25.29494pt
-* \marginparwidth=61.0pt
+* \headsep=19.8738pt
+* \topskip=11.0pt
+* \footskip=27.46295pt
+* \marginparwidth=53.0pt
 * \marginparsep=7.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -700,7 +700,7 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 69.
 (/opt/local/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Package xypdf Info: Line width: 0.39998pt on input line 69.
+Package xypdf Info: Line width: 0.43799pt on input line 69.
 
 (/opt/local/share/texmf-texlive/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -735,75 +735,107 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.33 ...on}{\numberline {2.4}HLD}{35}{section.2.4}
+l.17 ...ent Tree Persisente}{25}{subsection.1.4.7}
                                                   % [1
 
-] [2])
+] [2] [3])
 \tf@toc=\write6
 \openout6 = `Almanaque.toc'.
 
- [3]
+ [4]
 Cap\'{\i }tulo 1.
-[4
+[5
 
-] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19]
-[20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31]
+] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20]
+[21] [22] [23] [24] [25]
+Overfull \vbox (16.33214pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (9.0321pt too high) has occurred while \output is active []
+
+
+[26] [27] [28]
+Overfull \vbox (17.87pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (10.56996pt too high) has occurred while \output is active []
+
+
+[29] [30] [31] [32] [33] [34] [35] [36] [37] [38] [39]
 Cap\'{\i }tulo 2.
-[32
+[40
 
-] [33] [34] [35] [36] [37] [38] [39] [40] [41] [42] [43] [44] [45] [46]
+] [41] [42] [43] [44] [45] [46] [47]
+Overfull \vbox (15.5322pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (8.23216pt too high) has occurred while \output is active []
+
+
+[48] [49] [50] [51] [52] [53] [54] [55] [56] [57] [58] [59]
 Cap\'{\i }tulo 3.
-[47
+[60
 
-] [48] [49] [50] [51] [52] [53] [54]
+] [61] [62] [63]
+Overfull \vbox (1.03212pt too high) has occurred while \output is active []
+
+
+[64] [65] [66] [67] [68] [69] [70]
 Cap\'{\i }tulo 4.
-[55
+[71
 
-] [56] [57] [58] [59] [60] [61] [62] [63] [64]
+] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84]
 Cap\'{\i }tulo 5.
-[65
+[85
 
-] [66] [67] [68] [69] [70]
-Overfull \vbox (4.24352pt too high) has occurred while \output is active []
-
-
-Overfull \vbox (6.8935pt too high) has occurred while \output is active []
+] [86] [87] [88] [89]
+Overfull \vbox (15.37303pt too high) has occurred while \output is active []
 
 
-[71] [72] [73] [74] [75] [76] (./Almanaque.aux)
+Overfull \vbox (8.073pt too high) has occurred while \output is active []
+
+ [90]
+[91] [92] [93]
+Overfull \vbox (9.1322pt too high) has occurred while \output is active []
+
+
+Overfull \vbox (1.83217pt too high) has occurred while \output is active []
+
+
+[94] [95] [96] [97] [98] [99] [100] [101] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
 (rerunfilecheck)             Checksum: 73296E13A942FF10CF429327B9882775;8975.
  ) 
 Here is how much of TeX's memory you used:
- 22778 strings out of 479382
- 334449 string characters out of 5869399
- 1057513 words of memory out of 5000000
- 36366 multiletter control sequences out of 15000+600000
- 490103 words of font info for 81 fonts, out of 8000000 for 9000
+ 22799 strings out of 479382
+ 334633 string characters out of 5869399
+ 1237563 words of memory out of 5000000
+ 36364 multiletter control sequences out of 15000+600000
+ 489975 words of font info for 79 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 74i,8n,100p,3262b,2043s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,8n,100p,3262b,2140s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/o
 pt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}</opt/loc
 al/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/sh
 are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/t
-exmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/local/share/texmf-t
 exlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive
-/fonts/type1/public/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/
+/fonts/type1/public/amsfonts/cm/cmr8.pfb></opt/local/share/texmf-texlive/fonts/
 type1/public/amsfonts/cm/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1
-/public/cm-super/sfbx0800.pfb></opt/local/share/texmf-texlive/fonts/type1/publi
-c/cm-super/sfbx1000.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-s
+/public/cm-super/sfbx0900.pfb></opt/local/share/texmf-texlive/fonts/type1/publi
+c/cm-super/sfbx1095.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-s
 uper/sfbx1200.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/s
 fbx1440.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx207
 4.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx2488.pfb>
-</opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm0800.pfb></opt/
-local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1000.pfb></opt/local/
+</opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm0900.pfb></opt/
+local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1095.pfb></opt/local/
 share/texmf-texlive/fonts/type1/public/cm-super/sfrm1200.pfb></opt/local/share/
 texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb></opt/local/share/texmf-
-texlive/fonts/type1/public/cm-super/sfsl1000.pfb>
-Output written on Almanaque.pdf (77 pages, 612459 bytes).
+texlive/fonts/type1/public/cm-super/sfsl1095.pfb>
+Output written on Almanaque.pdf (102 pages, 620389 bytes).
 PDF statistics:
- 5676 PDF objects out of 6186 (max. 8388607)
- 5505 compressed objects within 56 object streams
- 4152 named destinations out of 4296 (max. 500000)
+ 5786 PDF objects out of 6186 (max. 8388607)
+ 5590 compressed objects within 56 object streams
+ 4177 named destinations out of 4296 (max. 500000)
  577 words of extra memory for PDF output out of 10000 (max. 10000000)
 

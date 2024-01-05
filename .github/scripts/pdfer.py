@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
+import os
 from pathlib import Path
 
 def printa_arquivo(path: Path, FILE: Path):
     with open(path, "r") as f:
         FILE.write(f.read())
-
 
 def printa_section(path: Path, FILE: Path, level: int):
     name = path.name.replace("-", " ")
@@ -121,7 +121,7 @@ def printa_readme(path: Path, FILE: Path):
 
 
 def printa_codigo(path: Path, FILE: Path):
-    max_lenght = 60
+    max_lenght = 100
     two_columns = True
     with open(path, "r") as f:
         for line in f.readlines():
@@ -146,12 +146,14 @@ def dfs(path: Path, FILE: Path, level: int = 0):
     printa_section(path, FILE, level)
 
     endpoint = False
+
     for child in path.iterdir():
-        if child.name.endswith(".cpp"):
+        if child.is_dir():
+            dfs(child, FILE, level + 1)
+        elif child.name.endswith(".cpp"):
             endpoint = True
 
     if endpoint:
-        # checks if there is a README.md
         if not (path / "README.md").exists():
             raise Exception(f"README.md not found in {path}")
         readme = path / "README.md"
@@ -163,81 +165,57 @@ def dfs(path: Path, FILE: Path, level: int = 0):
             printa_codigo(codigo, FILE)
         # FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
 
+
+def dfs_readmes(path: Path, FILE: Path, level: int, fullPath: str):
+    name = path.name.replace("-", " ")
+    if level == 0:
+        FILE.write(f"### [{name}]({fullPath})\n\n")
+        print(f"\n===== {name} =====\n")
+    elif level == 1:
+        FILE.write(f"- [{name}]({fullPath})\n\n")
+        print(f"- {name}")
+    elif level == 2:
+        FILE.write(f"    - [{name}]({fullPath})\n\n")
+        print(f"  - {name}")
+    elif level == 3:
+        FILE.write(f"        - [{name}]({fullPath})\n\n")
+        print(f"   - {name}")
+    elif level == 4:
+        FILE.write(f"            - [{name}]({fullPath})\n\n")
+        print(f"    - {name}")
     for child in path.iterdir():
         if child.is_dir():
-            dfs(child, FILE, level + 1)
-
-
-def get_description(path: Path):
-    ret_lines = []
-    with open(path, "r") as f:
-        append = False
-        for line in f.readlines():
-            if line.startswith("<!-- DESCRIPTION -->"):
-                if append:
-                    break
-                append = True
-            elif append:
-                ret_lines.append(line)
-    return "".join(ret_lines)
-
-def dfs_readmes(path: Path, FILE: Path, level: int):
-    cpp_code = False
-    for child in DIR.iterdir():
-        if child.is_dir():
-            dfs_readmes(child, FILE, level + 1)
-        elif child.name.endswith(".cpp"):
-            cpp_code = True
-
-    my_name = path.name.replace("-", " ")
-    my_readme = path / "README.md"
-
-    if not my_readme.exists():
-        my_name.touch()
-
-    with open(my_readme, "w") as f:
-        f.write(f"# {my_name}\n\n")
-        f.write(get_description(my_readme) + "\n\n")
-        if cpp_code:
-            f.write("## Códigos\n\n")
-            for child in path.iterdir():
-                if child.name.endswith(".cpp"):
-                    f.write(f"### [{child.name}](./{child.name})\n\n")
-                    f.write(get_description(child) + "\n\n")
-
-
-def update_readmes():
-    DIR = Path("Codigos")
-    for child in DIR.iterdir():
-        if child.is_dir():
-            README = child / "README.md"
-            with open(README, "w") as readme:
-                name = child.name.replace("-", " ")
-                readme.write(f"# {name}\n\n")
-                for subdir in child.iterdir():
-                    if subdir.is_dir():
-                        name = subdir.name.replace("-", " ")
-                        readme.write(f"## [{name}](./{subdir.name})\n\n")
-                        readme.write(get_description(subdir / "README.md") + "\n\n")
+            dfs_readmes(child, FILE, level + 1, fullPath + "/" + child.name)
 
 
 if __name__ == "__main__":
-
-    update_readmes()
-
+    DIR = Path("Codigos")
     ALMANAQUE = Path("LaTeX/Almanaque.tex")
     with open(ALMANAQUE, "w") as f:
-        INICIO = Path(".github/files/INICIO_LATEX.tex")
+        INICIO = Path("LaTeX/INICIO_LATEX.tex")
         printa_arquivo(INICIO, f)
-
-        DIR = Path("Codigos")
 
         for child in DIR.iterdir():
             if child.is_dir():
                 dfs(child, f, 0)
 
         f.write("\\end{document}\n")
-
-
+    README = Path("README.md")
+    with open(README, "w") as f:
+        printa_arquivo(Path("LaTeX/INICIO_README.md"), f)
+        f.write("## Tabela de Conteúdos\n\n")
+        for child in DIR.iterdir():
+            if child.is_dir():
+                dfs_readmes(child, f, 0, "Codigos/" + child.name)
+        print("")
+        f.write("\n\n")
+    os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+    # remove trash latex files
+    os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
+    os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
+    os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
+    os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
+    os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+    print("")
 else:
     print("Esse script não deve ser importado, apenas executado.")

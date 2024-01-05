@@ -1,9 +1,9 @@
-\documentclass[10pt, a4paper, oneside]{book}
+\documentclass[11pt, a4paper, oneside]{book}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb,amsmath}
 \usepackage[brazil]{babel}
-\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[landscape, a4paper, total={6in, 8in}]{geometry}
 \usepackage{comment}
 \usepackage{datetime}
 \usepackage[pdfusetitle]{hyperref}
@@ -112,6 +112,7 @@ Roda em 0,6ms para $3 * 10^5$ queries e nodos com printf e scanf.
 Possivelmente aguenta $10^6$ em 3s
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct full_dsu {
     struct change {
@@ -249,6 +250,8 @@ struct full_dsu {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{DSU Rollback}
@@ -477,6 +480,7 @@ Fila que armazena o resultado do operatório dos itens.
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 template <typename T> struct op_queue {
     stack<pair<T, T>> s1, s2;
@@ -512,6 +516,8 @@ template <typename T> struct op_queue {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Interval Tree}
@@ -622,6 +628,7 @@ Implementação padrão de Seg Tree com lazy update
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 namespace seg {
     const int MAX = 2e5 + 5;
@@ -690,6 +697,8 @@ namespace seg {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Segment Tree}
@@ -706,6 +715,7 @@ Implementação padrão de Seg Tree
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 namespace seg {
     const int MAX = 2e5 + 5;
@@ -768,6 +778,8 @@ namespace seg {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Segment Tree 2D}
@@ -786,6 +798,7 @@ Segment Tree em 2 dimensões.
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int MAX = 2505;
 
@@ -881,6 +894,8 @@ int sum(int lx, int rx, int ly, int ry) {
     return sum_x(0, 0, n - 1, lx, rx, ly, ry);
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Segment Tree Beats Max And Sum Update}
@@ -902,6 +917,7 @@ Utiliza uma fila de lazy para diferenciar os updates
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
 using namespace std;
@@ -1067,6 +1083,8 @@ int main() {
     build(v);
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Segment Tree Beats Max Update}
@@ -1084,6 +1102,7 @@ Seg Tree que suporta update de maximo e query de soma
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
 using namespace std;
@@ -1200,6 +1219,8 @@ int main() {
     tree.assign(4 * n, Node());
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Segment Tree Esparsa}
@@ -1303,6 +1324,7 @@ Utiliza uma fila de lazy para diferenciar os updates
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int SEGMAX = 8e6 + 5; // should be Q * log(DIR-ESQ+1)
 const ll ESQ = 0, DIR = 1e9 + 7;
@@ -1351,6 +1373,8 @@ struct seg {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Segment Tree Persisente}
@@ -1369,6 +1393,7 @@ Seg Tree Esparsa com histórico de Updates:
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 namespace seg {
     const ll ESQ = 0, DIR = 1e9 + 7;
@@ -1454,6 +1479,8 @@ namespace seg {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Segment Tree Kadani}
@@ -1472,6 +1499,7 @@ Implementação de uma Seg Tree que suporta update de soma e query de soma máxi
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 namespace seg {
     const int MAX = 1e5 + 5;
@@ -1546,6 +1574,8 @@ namespace seg {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Operation Stack}
@@ -1561,6 +1591,7 @@ Pilha que armazena o resultado do operatório dos itens.
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 template <typename T> struct op_stack {
     stack<pair<T, T>> st;
@@ -1584,6 +1615,8 @@ template <typename T> struct op_stack {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Fenwick Tree}
@@ -1684,6 +1717,7 @@ O mesmo que a superior, no entanto suporta consultas com |x| <= 1e18.
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 typedef long long ll;
 
@@ -1732,8 +1766,11 @@ ll query(int x, int n = 0, int l = 0, int r = MAXN) {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 typedef long long ll;
 
@@ -1789,6 +1826,8 @@ __int128 query(int x, int n = 0, ll l = -MAXR, ll r = MAXR) {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Kd Fenwick Tree}
@@ -1807,6 +1846,7 @@ Fenwick Tree em K dimensoes.
 * Complexidade de query: $O(log^k(N))$.
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int MAX = 10;
 ll tree[MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade
@@ -1840,6 +1880,8 @@ void update(vector<int> s, int pos, int v) {
         s[pos] += lsONE(s[pos]);
     }
 }\end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Ordered Set}
@@ -1890,6 +1932,7 @@ cout<<X.order_of_key(400)<<endl; // 5
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/trie_policy.hpp>
@@ -1898,6 +1941,8 @@ using namespace __gnu_pbds;
 
 template <typename T>
 typedef tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;\end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{MergeSort Tree}
@@ -1932,6 +1977,7 @@ Resolve Queries que envolvam ordenação em Range. (\textbf{COM UPDATE})
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -2040,8 +2086,11 @@ namespace mergesort {
     // greater(0, 0, n-1, l, r, k);}
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 namespace mergesort {
     const int MAX = 1e5 + 5;
@@ -2108,6 +2157,8 @@ namespace mergesort {
     // debug_query(0, 0, n-1, l, r);}
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Sparse Table}
@@ -2121,6 +2172,7 @@ Resolve query de range para qualquer operação associativa em $O(1)$.
 Pré-processamento em $O(n \log n)$.
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct dst {
     const int neutral = 1;
@@ -2154,6 +2206,8 @@ struct dst {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \subsection{Sparse Table}
@@ -2186,6 +2240,7 @@ Exemplo de operações com sobreposição amigável: max(), min(), gcd(), f(x, y
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct SparseTable {
     int n, e;
@@ -2222,6 +2277,8 @@ struct SparseTable {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \newpage
@@ -2326,6 +2383,7 @@ Complexidade de tempo: $O(V^3)$
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int MAXN = 555, INF = 1e9 + 7;
 
@@ -2373,6 +2431,8 @@ int mincut() {
     return bestCost;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{LCA}
@@ -2397,6 +2457,7 @@ Complexidade de espaço: O(Nlog(N))
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
 using namespace std;
@@ -2473,6 +2534,8 @@ int main() {
     build();
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{HLD}
@@ -2495,6 +2558,7 @@ Técnica usada para otimizar a execução de operações em árvores.
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 namespace hld {
     const int MAX = 2e5 + 5;
@@ -2588,6 +2652,8 @@ namespace hld {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Kruskal}
@@ -2607,6 +2673,7 @@ Utiliza [DSU](../../Estruturas\%20de\%20Dados/DSU/dsu.cpp) - (disjoint set union
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct Edge {
     int u, v, w;
@@ -2659,6 +2726,8 @@ void kruskal(int m, int n) {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Bridge}
@@ -2875,6 +2944,7 @@ Complexidade de tempo: O(|V| * |E|)
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int MAX = 1e4 + 4;
 const ll INF = 1e18 + 18;
@@ -2911,6 +2981,8 @@ void spfa(int s, int n) {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Binary Lifting}
@@ -3077,6 +3149,7 @@ Complexidade de tempo: O(V² * E²)
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const long long INF = 1e18;
 
@@ -3153,8 +3226,11 @@ struct EdmondsKarp {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct MinCostMaxFlow {
     int n, s, t, m = 0;
@@ -3225,8 +3301,11 @@ struct MinCostMaxFlow {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 typedef long long ll;
 
@@ -3321,6 +3400,8 @@ struct Dinic {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Inverse Graph}
@@ -3554,6 +3635,7 @@ Complexidade de tempo: O(|S|+|T|), onde |S| é o somatório do tamanho das strin
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int K = 26;
 
@@ -3630,6 +3712,8 @@ void process(const string &s) {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Patricia Tree}
@@ -3662,6 +3746,7 @@ Implementação PB-DS, extremamente curta e confusa:
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/trie_policy.hpp>
@@ -3671,6 +3756,8 @@ typedef trie<string, null_type, trie_string_access_traits<>, pat_trie_tag,
              trie_prefix_search_node_update>
     patricia_tree;
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Prefix Function}
@@ -3800,6 +3887,7 @@ vector<int> prefixCount(string s) {
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct AutKMP {
     vector<vector<int>> nxt;
@@ -3844,6 +3932,8 @@ struct AutKMP {
     }
 } aut;
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Hashing}
@@ -3865,6 +3955,7 @@ Pode ser necessário usar pares de hash para evitar colisões.
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct hashing {
     const long long LIM = 1000006;
@@ -3893,6 +3984,8 @@ struct hashing {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Trie}
@@ -3958,6 +4051,7 @@ Dada uma string s de tamanho n, encontra todos os pares (i,j) tal que a substrin
 * Complexidade de tempo: O(N)
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct manacher {
     long long n, count;
@@ -3998,6 +4092,8 @@ struct manacher {
     }
 } mana;
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Lyndon}
@@ -4105,6 +4201,7 @@ Tambem Constroi a tabela LCP(Longest common prefix).
 * Complexidade de tempo (Contar ocorrencias de S em T): O(|S|*log(|T|))
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 pair<int, int> busca(string &t, int i, pair<int, int> &range) {
     int esq = range.first, dir = range.second, L = -1, R = -1;
@@ -4144,8 +4241,11 @@ int busca_string(string &t) {
     }
     return range.second - range.first + 1;
 }\end{lstlisting}
+\end{multicols}
+
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int MAX_N = 5e5 + 5;
 
@@ -4213,6 +4313,8 @@ struct suffix_array {
     }
 } sa;
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \newpage
@@ -4262,6 +4364,7 @@ Permite que existam \textbf{UPDATES PONTUAIS!}
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 typedef pair<int, int> ii;
 int block_sz; // Better if 'const';
@@ -4323,8 +4426,11 @@ namespace mo {
 
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 typedef pair<int, int> ii;
 typedef tuple<int, int, int> iii;
@@ -4410,6 +4516,8 @@ namespace mo {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Exponenciação de Matriz}
@@ -4580,6 +4688,7 @@ Faz a busca binária para múltiplas consultas quando a busca binária é muito 
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 
 namespace parallel_binary_search {
@@ -4644,6 +4753,8 @@ namespace parallel_binary_search {
 
 } // namespace name
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Divide and Conquer}
@@ -4716,6 +4827,7 @@ namespace DC {
 \end{lstlisting}
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 namespace DC {
     struct range { // eh preciso definir a forma
@@ -4809,6 +4921,8 @@ namespace DC {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Busca Ternaria}
@@ -4869,6 +4983,7 @@ double ternary_search(double l, double r) {
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 
 long long eval(long long mid) {
@@ -4893,6 +5008,8 @@ long long discrete_ternary_search(long long l, long long r) {
     return ans;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{DP de Permutacao}
@@ -4967,6 +5084,7 @@ Complexidade de tempo:
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const ll INF = 1e18 + 18;
 bool op(ll a, ll b) {
@@ -5015,6 +5133,8 @@ ll get(ll x) {
     return fila.front().first.get(x);
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{All Submasks}
@@ -5066,6 +5186,7 @@ Computa o somatório de n dividido de 1 a n (divisão arredondado pra baixo).
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int MOD = 1e9 + 7;
 
@@ -5083,6 +5204,8 @@ long long sumoffloor(long long n) {
     return answer;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Primos}
@@ -5168,6 +5291,7 @@ bool is_prime(int n) {
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 long long power(long long base, long long e, long long mod) {
     long long result = 1;
@@ -5216,6 +5340,8 @@ bool miller_rabin(long long n) {
     return true;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{NTT}
@@ -5241,6 +5367,7 @@ Para constantes entre $10^9$ e $10^{18}$ é necessário codar também [big\_conv
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 typedef long long ll;
 typedef vector<ll> poly;
@@ -5315,8 +5442,11 @@ poly convolution(poly a, poly b, int id = 0) {
     return answer;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 
 ll mod_mul(ll a, ll b, ll m) {
@@ -5352,6 +5482,8 @@ poly big_convolution(poly a, poly b) {
     return answer;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Eliminação Gaussiana}
@@ -5438,6 +5570,7 @@ int gauss(vector<vector<double>> a, vector<double> &ans) {
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const int N = 105;
 const int INF = 2; // tanto faz
@@ -5495,6 +5628,8 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
               // bitset ans)
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{GCD}
@@ -5763,6 +5898,7 @@ Algoritmo que resolve o sistema $x \equiv a_i \pmod{m_i}$, onde $m_i$ são primo
 \textbf{} 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 ll extended_gcd(ll a, ll b, ll &x, ll &y) {
     if (b == 0) {
@@ -5795,6 +5931,8 @@ ll crt(vector<ll> rem, vector<ll> mod) {
     return ans;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{FFT}
@@ -5818,6 +5956,7 @@ Computa convolução (multiplicação) de polinômios.
 Garante que não haja erro de precisão para polinômios com grau até $3 * 10^5$ e constantes até $10^6$.
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 typedef complex<double> cd;
 typedef vector<cd> poly;
@@ -5894,6 +6033,8 @@ vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
     return res;
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Exponenciação Modular Rápida}
@@ -6112,6 +6253,7 @@ void compute_inv(const ll m = MOD) {
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 const ll INVB = (MOD + 1) / 2; // Modular inverse of the base,
                                // for 2 it is (MOD+1)/2
@@ -6125,6 +6267,8 @@ void compute_inv() {
     }
 }
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \begin{multicols}{2}
