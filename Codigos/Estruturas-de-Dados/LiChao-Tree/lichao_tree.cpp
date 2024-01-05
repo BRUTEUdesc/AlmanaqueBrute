@@ -13,7 +13,7 @@ int le(int n) {
     return 2 * n + 1;
 }
 int ri(int n) {
-    return 2 * n +2;
+    return 2 * n+2;
 }
 
 void insert(Line line, int n = 0, int l = 0, int r = MAXN) {
