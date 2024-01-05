@@ -18,7 +18,7 @@ $$ dp[n] = \sum_{i=1}^{k} c[i] \cdot dp[n - i]$$
 
 Mapeamento:   
 
-$$ \begin{pmatrix} 0&1&0&0&...&0 \\ 0&0&1&0&...&0 \\ 0&0&0&1&...&0 \\ ...&...&...&...&...&... \\ c[k]&c[k-1]&c[k-2]&...&c[1]&0 \end{pmatrix}^n \times \begin{pmatrix} dp[0] \\ dp[1] \\ dp[2] \\ ... \\ dp[k-1] \end{pmatrix} $$
+$$ \begin{pmatrix} 0&1&0&0&...&0 \\\ 0&0&1&0&...&0 \\\ 0&0&0&1&...&0 \\\ ...&...&...&...&...&... \\\ c[k]&c[k-1]&c[k-2]&...&c[1]&0 \end{pmatrix}^n \times \begin{pmatrix} dp[0] \\\ dp[1] \\\ dp[2] \\\ ... \\\ dp[k-1] \end{pmatrix} $$
 
 ---
 ### Variação que dependa de **constantes** e do **índice**

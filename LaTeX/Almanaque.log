@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  4 JAN 2024 19:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  5 JAN 2024 14:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -800,7 +800,7 @@ local/share/texmf-texlive/fonts/type1/public/cm-super/sfrm1000.pfb></opt/local/
 share/texmf-texlive/fonts/type1/public/cm-super/sfrm1200.pfb></opt/local/share/
 texmf-texlive/fonts/type1/public/cm-super/sfrm1728.pfb></opt/local/share/texmf-
 texlive/fonts/type1/public/cm-super/sfsl1000.pfb>
-Output written on Almanaque.pdf (77 pages, 612152 bytes).
+Output written on Almanaque.pdf (77 pages, 612459 bytes).
 PDF statistics:
  5676 PDF objects out of 6186 (max. 8388607)
  5505 compressed objects within 56 object streams
