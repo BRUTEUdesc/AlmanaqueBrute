@@ -198,8 +198,20 @@ if __name__ == "__main__":
         for child in DIR.iterdir():
             if child.is_dir():
                 dfs(child, f, 0)
+        
+        THEORETICAL = Path("Theoretical/THEORETICAL.tex")
+        printa_arquivo(THEORETICAL, f)
 
         f.write("\\end{document}\n")
+
+    os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+    # remove trash latex files
+    os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
+    os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
+    os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
+    os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
+    os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+
     README = Path("README.md")
     with open(README, "w") as f:
         printa_arquivo(Path("LaTeX/INICIO_README.md"), f)
@@ -209,13 +221,8 @@ if __name__ == "__main__":
                 dfs_readmes(child, f, 0, "Codigos/" + child.name)
         print("")
         f.write("\n\n")
-    os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
-    # remove trash latex files
-    os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
-    os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
-    os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
-    os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
-    os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+
     print("")
+
 else:
     print("Esse script não deve ser importado, apenas executado.")

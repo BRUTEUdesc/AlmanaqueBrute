@@ -24,6 +24,19 @@ sudo apt install rubber
 ### Pasta `PDF`
 
 Aqui está o `.pdf` do Almanaque.
+
+## Para fazer contribuições
+
+Clone o repositório, crie uma nova branch e depois faça um Pull Request para mergear.
+
+Os códigos devem seguir a formatação especificada no arquivo `.clang-format`, para executar o clang-format usando esse arquivo como entrada digite:
+
+```
+clang-format -i -style=FILE Codigos/.../a.cpp
+```
+
+Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-commit-format install`, isso vai instalar um hook que vai executar o clang-format a cada commit.
+
 ## Tabela de Conteúdos
 
 ### [Estruturas de Dados](Codigos/Estruturas-de-Dados)
@@ -84,8 +97,6 @@ Aqui está o `.pdf` do Almanaque.
 
     - [Hungaro](Codigos/Grafos/Matching/Hungaro)
 
-- [Stoer–Wagner minimum cut](Codigos/Grafos/Stoer–Wagner-minimum-cut)
-
 - [LCA](Codigos/Grafos/LCA)
 
 - [HLD](Codigos/Grafos/HLD)
@@ -93,6 +104,8 @@ Aqui está o `.pdf` do Almanaque.
 - [Kruskal](Codigos/Grafos/Kruskal)
 
 - [Bridge](Codigos/Grafos/Bridge)
+
+- [Stoer–Wagner Min Cut](Codigos/Grafos/Stoer–Wagner-Min-Cut)
 
 - [Shortest Paths](Codigos/Grafos/Shortest-Paths)
 
