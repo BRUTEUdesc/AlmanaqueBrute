@@ -10,9 +10,15 @@ ll modInv(ll b, ll m) {
     ll e = m - 2;
     ll res = 1;
     while (e) {
+<<<<<<< HEAD
         if (e & 1) {
             res = (res * b) % m;
         }
+=======
+        if (e & 1) {
+            res = (res * b) % m;
+        }
+>>>>>>> master
         e /= 2;
         b = (b * b) % m;
     }
@@ -23,6 +29,7 @@ void ntt(poly &a, bool invert, int id) {
     ll n = (ll)a.size(), m = mod[id];
     for (ll i = 1, j = 0; i < n; ++i) {
         ll bit = n >> 1;
+<<<<<<< HEAD
         for (; j >= bit; bit >>= 1) {
             j -= bit;
         }
@@ -36,6 +43,21 @@ void ntt(poly &a, bool invert, int id) {
         for (ll i = len; i < root_pw[id]; i <<= 1) {
             wlen = (wlen * wlen) % m;
         }
+=======
+        for (; j >= bit; bit >>= 1) {
+            j -= bit;
+        }
+        j += bit;
+        if (i < j) {
+            swap(a[i], a[j]);
+        }
+    }
+    for (ll len = 2, wlen; len <= n; len <<= 1) {
+        wlen = invert ? root_1[id] : root[id];
+        for (ll i = len; i < root_pw[id]; i <<= 1) {
+            wlen = (wlen * wlen) % m;
+        }
+>>>>>>> master
         for (ll i = 0; i < n; i += len) {
             ll w = 1;
             for (ll j = 0; j < len / 2; j++) {
@@ -48,25 +70,43 @@ void ntt(poly &a, bool invert, int id) {
     }
     if (invert) {
         ll inv = modInv(n, m);
+<<<<<<< HEAD
         for (ll i = 0; i < n; i++) {
             a[i] = (a[i] * inv) % m;
         }
+=======
+        for (ll i = 0; i < n; i++) {
+            a[i] = (a[i] * inv) % m;
+        }
+>>>>>>> master
     }
 }
 
 poly convolution(poly a, poly b, int id = 0) {
     ll n = 1LL, len = (1LL + a.size() + b.size());
+<<<<<<< HEAD
     while (n < len) {
         n *= 2;
     }
+=======
+    while (n < len) {
+        n *= 2;
+    }
+>>>>>>> master
     a.resize(n);
     b.resize(n);
     ntt(a, 0, id);
     ntt(b, 0, id);
     poly answer(n);
+<<<<<<< HEAD
     for (ll i = 0; i < n; i++) {
         answer[i] = (a[i] * b[i]);
     }
+=======
+    for (ll i = 0; i < n; i++) {
+        answer[i] = (a[i] * b[i]);
+    }
+>>>>>>> master
     ntt(answer, 1, id);
     return answer;
 }

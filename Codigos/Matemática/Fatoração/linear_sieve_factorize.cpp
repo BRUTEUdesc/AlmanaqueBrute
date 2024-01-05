@@ -11,13 +11,20 @@ namespace sieve {
             for (int j = 0; i * pr[j] <= MAX; ++j) {
                 lp[i * pr[j]] = pr[j];
                 factor[i * pr[j]] = i;
+<<<<<<< HEAD
                 if (pr[j] == lp[i]) {
                     break;
                 }
+=======
+                if (pr[j] == lp[i]) {
+                    break;
+                }
+>>>>>>> master
             }
         }
     }
     vector<int> factorize(int x) {
+<<<<<<< HEAD
         if (x < 2) {
             return {};
         }
@@ -25,6 +32,15 @@ namespace sieve {
         for (int lpx = lp[x]; x >= lpx; x = factor[x]) {
             v.emplace_back(lp[x]);
         }
+=======
+        if (x < 2) {
+            return {};
+        }
+        vector<int> v;
+        for (int lpx = lp[x]; x >= lpx; x = factor[x]) {
+            v.emplace_back(lp[x]);
+        }
+>>>>>>> master
         return v;
     }
 }
