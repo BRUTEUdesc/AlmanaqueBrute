@@ -4,5 +4,7 @@ ll inv[MAX]; // Modular inverse of b^i
 
 void compute_inv() {
     inv[0] = 1;
-    for (int i = 1; i < MAX; i++) { inv[i] = inv[i - 1] * INVB % MOD; }
+    for (int i = 1; i < MAX; i++) {
+        inv[i] = inv[i - 1] * INVB % MOD;
+    }
 }

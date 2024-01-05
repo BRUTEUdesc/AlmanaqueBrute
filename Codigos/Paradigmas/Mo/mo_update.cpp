@@ -21,22 +21,33 @@ namespace mo {
         block_sz = pow(1.4142 * n, 2.0 / 3);
         // TODO: initialize data structure
     }
-    inline void add_query(int l, int r) { queries.push_back({l, r, (int)updates.size(), (int)queries.size()}); }
-    inline void add_update(int x, int v) { updates.push_back({x, v}); }
+    inline void add_query(int l, int r) {
+        queries.push_back({l, r, (int)updates.size(), (int)queries.size()});
+    }
+    inline void add_update(int x, int v) {
+        updates.push_back({x, v});
+    }
     inline void remove(int idx) {
-        // TODO: remove value at idx from data structure
+        // TODO: remove value at idx from data
+        // structure
     }
     inline void add(int idx) {
-        // TODO: add value at idx from data structure
+        // TODO: add value at idx from data
+        // structure
     }
     inline void update(int l, int r, int t) {
         auto &[x, v] = updates[t];
-        if (l <= x && x <= r) { remove(x); }
+        if (l <= x && x <= r) {
+            remove(x);
+        }
         swap(vec[x], v);
-        if (l <= x && x <= r) { add(x); }
+        if (l <= x && x <= r) {
+            add(x);
+        }
     }
     inline int get_answer() {
-        // TODO: extract the current answer from the data structure
+        // TODO: extract the current answer from
+        // the data structure
         return 0;
     }
 
@@ -47,12 +58,24 @@ namespace mo {
         int R = -1;
         int T = 0;
         for (query q : queries) {
-            while (T < q.t) { update(L, R, T++); }
-            while (T > q.t) { update(L, R, --T); }
-            while (L > q.l) { add(--L); }
-            while (R < q.r) { add(++R); }
-            while (L < q.l) { remove(L++); }
-            while (R > q.r) { remove(R--); }
+            while (T < q.t) {
+                update(L, R, T++);
+            }
+            while (T > q.t) {
+                update(L, R, --T);
+            }
+            while (L > q.l) {
+                add(--L);
+            }
+            while (R < q.r) {
+                add(++R);
+            }
+            while (L < q.l) {
+                remove(L++);
+            }
+            while (R > q.r) {
+                remove(R--);
+            }
             answers[q.idx] = get_answer();
         }
         return answers;

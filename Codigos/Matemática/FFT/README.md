@@ -1,8 +1,10 @@
-# [Transformada rápida de Fourier](fft.cpp)
+# [Transformada Rápida de Fourier](fft.cpp)
 
-*Read in [English](README.en.md)*
+<!-- DESCRIPTION -->
+Algoritmo que computa a transformada rápida de fourier para convolução de polinômios.
+<!-- DESCRIPTION -->
 
-Computa multiplicação de polinômio.
+Computa convolução (multiplicação) de polinômios.
 
 - Complexidade de tempo (caso médio): O(N * log(N))
 - Complexidade de tempo (considerando alto overhead): $O(n * log^2(n) * log(log(n)))$

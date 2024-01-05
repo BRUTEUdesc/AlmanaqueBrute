@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-# this script will generate a latex file with all the cpp code in the repo
-
 import os
 from pathlib import Path
 
@@ -9,62 +7,126 @@ def printa_arquivo(path: Path, FILE: Path):
     with open(path, "r") as f:
         FILE.write(f.read())
 
+def printa_section(path: Path, FILE: Path, level: int):
+    name = path.name.replace("-", " ")
+    name = name.strip()
+    if level == 0:
+        FILE.write("\\newpage\n\n")
+        FILE.write("%%%%%%\n")
+        for i in range(2):
+            FILE.write("%\n")
+        FILE.write(f"% {name}\n")
+        for i in range(2):
+            FILE.write("%\n")
+        FILE.write("%%%%%%\n\n")
+        FILE.write(f"\\chapter{{{name}}}\n\n")
+    elif level == 1:
+        FILE.write(f"\\section{{{name}}}\n")
+    elif level == 2:
+        FILE.write(f"\\subsection{{{name}}}\n")
+    elif level == 3:
+        FILE.write(f"\\subsubsection{{{name}}}\n")
+
 def printa_readme(path: Path, FILE: Path):
+    def print_linha(line, dest):
+        in_math = False
+        in_inline_code = False
+        in_bold = False
+        i = 0
+        while i < len(line):
+            if line[i] == '`':
+                if in_inline_code:
+                    dest.write("}")
+                else:
+                    dest.write("\\lstinline{")
+                in_inline_code = not in_inline_code
+            elif line[i] == '$' and i + 1 < len(line) and line[i + 1] == '$':
+                in_math = not in_math
+                dest.write(line[i])
+                dest.write(line[i + 1])
+                i += 1
+            elif line[i] == '$':
+                in_math = not in_math
+                dest.write(line[i])
+            elif line[i] == '*' and i + 1 < len(line) and line[i + 1] == '*':
+                if in_bold:
+                    dest.write("}")
+                else:
+                    dest.write("\\textbf{")
+                in_bold = not in_bold
+                i += 1
+            elif line[i] == '#':
+                it = i
+                now = ""
+                while it < len(line) and line[it] != '[':
+                    it += 1
+                if it + 1 < len(line) and line[it] == '[':
+                    now = line[it + 1:line.find(']')]   
+                    it = line.find(']')
+                if it + 1 < len(line) and line[it + 1] == '(':
+                    while it < len(line) and line[it] != ')':
+                        it += 1
+                dest.write("\\textbf{" + now + "} ")
+                i = it
+            else:
+                if line[i] in ['%', '&', '~', '_'] and not in_math and not in_inline_code:
+                    dest.write('\\')
+                dest.write(line[i])
+            i += 1
+        dest.write("\n")
+
     with open(path, "r") as f:
         in_code = False
+        in_list = False
+        lines = f.readlines()
 
-        for line in f.readlines():
-            if line.startswith("```"):
+        while lines[0].startswith("#") or lines == "\n":
+            lines.pop(0)
+
+        for line in lines:
+            if "<!-- DESCRIPTION -->" in line:
+                FILE.write("")
+            elif line.startswith("```"):
+                if in_list:
+                    FILE.write("\\end{itemize}\n\n")
+                    in_list = False
                 if in_code:
                     FILE.write("\\end{lstlisting}\n\n")
-                    in_code = False
                 else:  
                     FILE.write("\\begin{lstlisting}[language=C++]\n")
-                    in_code = True
+                in_code = not in_code
 
             elif in_code: 
                 FILE.write(line)
 
-            elif (line.startswith("#")):
-                it = 0
-                while (line[it] == "#" or line[it] == " "):
-                    it += 1
-                name = line[it:-1]
-                if name[0] == '[':
-                    name = name[1:name.find(']')]
-                FILE.write(f"\\subsection{{{name}}}\n\n")
-
-            elif "English" in line:
-                pass
+            elif line.startswith("-") or line.startswith("+"):
+                if not in_list:
+                    FILE.write("\\begin{itemize}\n")
+                    in_list = True
+                item = line[1:].strip()
+                FILE.write("\\item ")
+                print_linha(item, FILE)
 
             else:
-                in_inline_code = False
-                for i in range(len(line)):
-                    if line[i] == '`':
-                        if in_inline_code:
-                            FILE.write("}")
-                        else:
-                            FILE.write("\\lstinline{")
-                        in_inline_code = not in_inline_code
-                    else:
-                        # if line[i] in ['_', '&', '%', '#', '{', '}']:
-                        #     FILE.write('\\')
-                        if line[i] in ['_', '%']:
-                            FILE.write('\\')
-                        FILE.write(line[i])
+                if in_list:
+                    FILE.write("\\end{itemize}\n\n")
+                    in_list = False
+                print_linha(line, FILE)
 
-        FILE.write("\n")
+        if in_list:
+            FILE.write("\\end{itemize}\n\n")
+            in_list = False
+
+        FILE.write("\\hfill\n\n")
+
 
 def printa_codigo(path: Path, FILE: Path):
-    max_width = 55
+    max_lenght = 100
     two_columns = True
-
     with open(path, "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            if len(line) > max_width:
+        for line in f.readlines():
+            if len(line) > max_lenght:
                 two_columns = False
-                break
 
     if two_columns:
         FILE.write("\\begin{multicols}{2}\n")
@@ -75,59 +137,85 @@ def printa_codigo(path: Path, FILE: Path):
     FILE.write("\\end{lstlisting}\n")
 
     if two_columns:
-        FILE.write("\\end{multicols}\n")
-    FILE.write("\n")
+        FILE.write("\\end{multicols}\n\n")
+
+    FILE.write("\\hfill\n\n")
 
 
-def printa_section(section: str, FILE: Path):
-    FILE.write("\\newpage\n")
+def dfs(path: Path, FILE: Path, level: int = 0):
+    printa_section(path, FILE, level)
 
-    FILE.write("%%%%%%\n")
-    for i in range(2):
-        FILE.write("%\n")
-    FILE.write(f"% {section}\n")
-    for i in range(2):
-        FILE.write("%\n")
-    FILE.write("%%%%%%\n\n")
+    endpoint = False
 
-    FILE.write(f"\\section{{{section}}}\n\n")
-
-def printa_subsection(subsection: str, FILE: Path):
-    FILE.write(f"\\subsection{{{subsection}}}\n\n")
-
-def dfs(path: Path, FILE: Path):
-    tem_codigo = True
     for child in path.iterdir():
         if child.is_dir():
-            dfs(child, FILE)
-            tem_codigo = False
+            dfs(child, FILE, level + 1)
+        elif child.name.endswith(".cpp"):
+            endpoint = True
 
-    if tem_codigo:
-        printa_subsection(path.name, FILE)
-        
-        READMES = [x for x in path.glob("*.md") if not "en" in x.name]
-        for readme in READMES:
-            printa_readme(readme, FILE)
+    if endpoint:
+        if not (path / "README.md").exists():
+            raise Exception(f"README.md not found in {path}")
+        readme = path / "README.md"
+        printa_readme(readme, FILE)
 
         CODIGOS = list(path.glob("*.cpp"))
+
         for codigo in CODIGOS:
             printa_codigo(codigo, FILE)
+        # FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
+
+
+def dfs_readmes(path: Path, FILE: Path, level: int, fullPath: str):
+    name = path.name.replace("-", " ")
+    if level == 0:
+        FILE.write(f"### [{name}]({fullPath})\n\n")
+        print(f"\n===== {name} =====\n")
+    elif level == 1:
+        FILE.write(f"- [{name}]({fullPath})\n\n")
+        print(f"- {name}")
+    elif level == 2:
+        FILE.write(f"    - [{name}]({fullPath})\n\n")
+        print(f"  - {name}")
+    elif level == 3:
+        FILE.write(f"        - [{name}]({fullPath})\n\n")
+        print(f"   - {name}")
+    elif level == 4:
+        FILE.write(f"            - [{name}]({fullPath})\n\n")
+        print(f"    - {name}")
+    for child in path.iterdir():
+        if child.is_dir():
+            dfs_readmes(child, FILE, level + 1, fullPath + "/" + child.name)
 
 
 if __name__ == "__main__":
-
+    DIR = Path("Codigos")
     ALMANAQUE = Path("LaTeX/Almanaque.tex")
     with open(ALMANAQUE, "w") as f:
-        INICIO = Path(".github/files/INICIO_LATEX.tex")
+        INICIO = Path("LaTeX/INICIO_LATEX.tex")
         printa_arquivo(INICIO, f)
 
-        DIR = Path("Codigos")
         for child in DIR.iterdir():
             if child.is_dir():
-                printa_section(child.name, f)
-                dfs(child, f)
+                dfs(child, f, 0)
+
         f.write("\\end{document}\n")
-
-
+    README = Path("README.md")
+    with open(README, "w") as f:
+        printa_arquivo(Path("LaTeX/INICIO_README.md"), f)
+        f.write("## Tabela de Conteúdos\n\n")
+        for child in DIR.iterdir():
+            if child.is_dir():
+                dfs_readmes(child, f, 0, "Codigos/" + child.name)
+        print("")
+        f.write("\n\n")
+    os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+    # remove trash latex files
+    os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
+    os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
+    os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
+    os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
+    os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+    print("")
 else:
     print("Esse script não deve ser importado, apenas executado.")

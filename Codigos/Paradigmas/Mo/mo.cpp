@@ -16,15 +16,20 @@ namespace mo {
         block_sz = (int)sqrt(n);
         // TODO: initialize data structure
     }
-    inline void add_query(int l, int r) { queries.push_back({l, r, (int)queries.size()}); }
+    inline void add_query(int l, int r) {
+        queries.push_back({l, r, (int)queries.size()});
+    }
     inline void remove(int idx) {
-        // TODO: remove value at idx from data structure
+        // TODO: remove value at idx from data
+        // structure
     }
     inline void add(int idx) {
-        // TODO: add value at idx from data structure
+        // TODO: add value at idx from data
+        // structure
     }
     inline int get_answer() {
-        // TODO: extract the current answer of the data structure
+        // TODO: extract the current answer of the
+        // data structure
         return 0;
     }
 
@@ -34,10 +39,18 @@ namespace mo {
         int L = 0;
         int R = -1;
         for (query q : queries) {
-            while (L > q.l) { add(--L); }
-            while (R < q.r) { add(++R); }
-            while (L < q.l) { remove(L++); }
-            while (R > q.r) { remove(R--); }
+            while (L > q.l) {
+                add(--L);
+            }
+            while (R < q.r) {
+                add(++R);
+            }
+            while (L < q.l) {
+                remove(L++);
+            }
+            while (R > q.r) {
+                remove(R--);
+            }
             answers[q.idx] = get_answer();
         }
         return answers;

@@ -1,5 +1,11 @@
 
+<<<<<<< HEAD
+ll mod_mul(ll a, ll b, ll m) {
+    return (__int128)a * b % m;
+}
+=======
 ll mod_mul(ll a, ll b, ll m) { return (__int128)a * b % m; }
+>>>>>>> master
 ll ext_gcd(ll a, ll b, ll &x, ll &y) {
     if (!b) {
         x = 1;
@@ -23,7 +29,13 @@ poly big_convolution(poly a, poly b) {
 
     answer.resize(r0.size());
     for (int i = 0; i < (int)answer.size(); i++) {
+<<<<<<< HEAD
+        answer[i] = (mod_mul((s * mod[2] + p) % p, r0[i], p) +
+                     mod_mul((r * mod[1] + p) % p, r1[i], p) + p) %
+                    p;
+=======
         answer[i] = (mod_mul((s * mod[2] + p) % p, r0[i], p) + mod_mul((r * mod[1] + p) % p, r1[i], p) + p) % p;
+>>>>>>> master
     }
     return answer;
 }

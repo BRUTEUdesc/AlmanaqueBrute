@@ -47,7 +47,9 @@ int go(int u, char ch) {
     return aho[u].go[c];
 }
 int exi(int u) {
-    if (aho[u].exi != -1) { return aho[u].exi; }
+    if (aho[u].exi != -1) {
+        return aho[u].exi;
+    }
     int v = get_link(u);
     return aho[u].exi = (v == 0 || aho[v].term ? v : exi(v));
 }
@@ -55,10 +57,14 @@ void process(const string &s) {
     int st = 0;
     for (char c : s) {
         st = go(st, c);
-        for (int aux = st; aux; aux = exi(aux)) { aho[aux].cont++; }
+        for (int aux = st; aux; aux = exi(aux)) {
+            aho[aux].cont++;
+        }
     }
     for (int st = 1; st < aho_sz; st++) {
-        if (!aho[st].term) { continue; }
+        if (!aho[st].term) {
+            continue;
+        }
         for (int i : aho[st].idxs) {
             // Do something here
             // idx i ocurs + aho[st].cont times

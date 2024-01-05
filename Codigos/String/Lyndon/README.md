@@ -1,6 +1,8 @@
 # Lyndon Factorization
 
+<!-- DESCRIPTION -->
 Strings em decomposição única em subcadeias que são ordenadas lexicograficamente e não podem ser mais reduzidas.
+<!-- DESCRIPTION -->
 
 ## [Duval](duval.cpp)
 

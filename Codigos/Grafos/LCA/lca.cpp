@@ -5,11 +5,10 @@ using namespace std;
 #define fi first
 #define se second
 
-typedef vector<int> vi;
 typedef pair<int, int> ii;
 
-vi tin, tout;
-vector<vi> adj;
+vector<int> tin, tout;
+vector<vector<int>> adj;
 vector<ii> prof;
 vector<vector<ii>> st;
 
@@ -19,9 +18,13 @@ void SparseTable(vector<ii> &v) {
     int n = v.size();
     int e = floor(log2(n));
     st.assign(e + 1, vector<ii>(n));
-    for (int i = 0; i < n; i++) { st[0][i] = v[i]; }
+    for (int i = 0; i < n; i++) {
+        st[0][i] = v[i];
+    }
     for (int i = 1; i <= e; i++) {
-        for (int j = 0; j + (1 << i) <= n; j++) { st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]); }
+        for (int j = 0; j + (1 << i) <= n; j++) {
+            st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+        }
     }
 }
 
@@ -48,7 +51,9 @@ void build(int root = 0) {
 
 int lca(int u, int v) {
     int l = tout[u], r = tin[v];
-    if (l > r) { swap(l, r); }
+    if (l > r) {
+        swap(l, r);
+    }
     int i = floor(log2(r - l + 1));
     return min(st[i][l], st[i][r - (1 << i) + 1]).se;
 }
@@ -56,7 +61,7 @@ int lca(int u, int v) {
 int main() {
     cin >> n;
 
-    adj.assign(n, vi(0));
+    adj.assign(n, vector<int>(0));
 
     for (int i = 0; i < n - 1; i++) {
         int a, b;
