@@ -5,10 +5,12 @@ using namespace __gnu_pbds;
 struct interval {
     long long lo, hi, id;
     bool operator<(const interval &i) const {
-        return lo < i.lo || (lo == i.lo && hi < i.hi) || (lo == i.lo && hi == i.hi && id < i.id);
+        return lo < i.lo || (lo == i.lo && hi < i.hi) ||
+               (lo == i.lo && hi == i.hi && id < i.id);
     }
 };
-template <class CNI, class NI, class Cmp_Fn, class Allocator> struct intervals_node_update {
+template <class CNI, class NI, class Cmp_Fn, class Allocator>
+struct intervals_node_update {
     typedef long long metadata_type;
     int sz = 0;
     virtual CNI node_begin() const = 0;
@@ -47,4 +49,5 @@ template <class CNI, class NI, class Cmp_Fn, class Allocator> struct intervals_n
         const_cast<long long &>(it.get_metadata()) = max((*it)->hi, max(l_max, r_max));
     }
 };
-typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update> interval_tree;
+typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update>
+    interval_tree;

@@ -15,21 +15,29 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
                 break;
             }
         }
-        if (!a[row][col]) { continue; }
+        if (!a[row][col]) {
+            continue;
+        }
         where[col] = row;
 
         for (int i = 0; i < n; i++) {
-            if (i != row && a[i][col]) { a[i] ^= a[row]; }
+            if (i != row && a[i][col]) {
+                a[i] ^= a[row];
+            }
         }
         row++;
     }
 
     for (int i = 0; i < m; i++) {
-        if (where[i] != -1) { ans[i] = a[where[i]][m] / a[where[i]][i]; }
+        if (where[i] != -1) {
+            ans[i] = a[where[i]][m] / a[where[i]][i];
+        }
     }
     for (int i = 0; i < n; i++) {
         int sum = 0;
-        for (int j = 0; j < m; j++) { sum += ans[j] * a[i][j]; }
+        for (int j = 0; j < m; j++) {
+            sum += ans[j] * a[i][j];
+        }
         if (abs(sum - a[i][m]) > 0) {
             return 0; // Sem solucao
         }

@@ -114,7 +114,8 @@ vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
 =======
         res[i] = round(c[i].real()); //  res = c[i].real(); se for vector de double
     }
-    // while(size(res) > 1 && res.back() == 0) res.pop_back(); // apenas para quando os zeros direita nao importarem
+    // while(size(res) > 1 && res.back() == 0) res.pop_back(); // apenas para quando os
+    // zeros direita nao importarem
 >>>>>>> master
     return res;
 }

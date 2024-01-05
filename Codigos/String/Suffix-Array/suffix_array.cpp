@@ -25,7 +25,9 @@ struct suffix_array {
             auxra[sa[0]] = r = 0;
             for (int i = 1; i < n; i++) {
                 auxra[sa[i]] =
-                    (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k]) ? r : ++r;
+                    (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k])
+                        ? r
+                        : ++r;
             }
             for (int i = 0; i < n; i++) {
                 ra[i] = auxra[i];

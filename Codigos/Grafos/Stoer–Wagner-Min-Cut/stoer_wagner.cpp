@@ -6,14 +6,16 @@ vector<int> bestCut;
 int mincut() {
     int bestCost = INF;
     vector<int> v[MAXN];
-    < < < < < < < <
-        HEAD : Codigos / Grafos / Stoer–Wagner - minimum - cut / stoer_wagner.cpp for (int i = 0; i < n; i++) {
+    < < < < < < < < HEAD : Codigos / Grafos / Stoer–Wagner - minimum -
+                        cut / stoer_wagner.cpp for (int i = 0; i < n; i++) {
         v[i].assign(1, i);
     }
     == == == == for (int i = 0; i < n; i++) {
         v[i].assign(1, i);
     }
-    >>>>>>>> master : Codigos / Grafos / Stoer–Wagner Min - Cut / stoer_wagner.cpp int w[MAXN], sel;
+    >>>>>>>>
+        master : Codigos / Grafos / Stoer–Wagner Min - Cut / stoer_wagner.cpp int w[MAXN],
+        sel;
     bool exist[MAXN], added[MAXN];
     memset(exist, true, sizeof(exist));
     for (int phase = 0; phase < n - 1; phase++) {
@@ -22,14 +24,17 @@ int mincut() {
         for (int j = 0, prev; j < n - phase; j++) {
             sel = -1;
             for (int i = 0; i < n; i++) {
-                < < < < < < < < HEAD : Codigos / Grafos / Stoer–Wagner - minimum -
-                                    cut / stoer_wagner.cpp if (exist[i] && !added[i] && (sel == -1 || w[i] > w[sel])) {
+                < < < < < < < <
+                    HEAD : Codigos / Grafos / Stoer–Wagner - minimum -
+                        cut / stoer_wagner.cpp if (exist[i] && !added[i] &&
+                                                   (sel == -1 || w[i] > w[sel])) {
                     sel = i;
                 }
                 == == == == if (exist[i] && !added[i] && (sel == -1 || w[i] > w[sel])) {
                     sel = i;
                 }
-                >>>>>>>> master : Codigos / Grafos / Stoer–Wagner Min - Cut / stoer_wagner.cpp
+                >>>>>>>>
+                    master : Codigos / Grafos / Stoer–Wagner Min - Cut / stoer_wagner.cpp
             }
             if (j == n - phase - 1) {
                 if (w[sel] < bestCost) {
@@ -57,7 +62,8 @@ int mincut() {
                 for (int i = 0; i < n; i++) {
                     w[i] += adj[sel][i];
                 }
-                >>>>>>>> master : Codigos / Grafos / Stoer–Wagner Min - Cut / stoer_wagner.cpp prev = sel;
+                >>>>>>>> master : Codigos / Grafos / Stoer–Wagner Min -
+                             Cut / stoer_wagner.cpp prev = sel;
             }
         }
     }

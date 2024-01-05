@@ -59,7 +59,9 @@ namespace DC {
 
         vi removed;
         for (int i = optl; i <= min(mid, optr); i++) {
-            best = min(best, {(i ? dp_before[i - 1] : 0) + s.sum, i}); // min() se quiser minimizar
+            best =
+                min(best,
+                    {(i ? dp_before[i - 1] : 0) + s.sum, i}); // min() se quiser minimizar
             removed.push_back(v[s.l]);
             s.advance_l(v[s.l]);
         }
