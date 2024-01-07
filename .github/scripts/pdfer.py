@@ -162,6 +162,7 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         CODIGOS = list(path.glob("*.cpp"))
 
         for codigo in CODIGOS:
+            print(codigo)
             printa_codigo(codigo, FILE)
         # FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
 
@@ -190,7 +191,7 @@ def dfs_readmes(path: Path, FILE: Path, level: int, fullPath: str):
 
 if __name__ == "__main__":
     DIR = Path("Codigos")
-    ALMANAQUE = Path("LaTeX/Almanaqu.tex")
+    ALMANAQUE = Path("LaTeX/Almanaque.tex")
     with open(ALMANAQUE, "w") as f:
         INICIO = Path("LaTeX/INICIO_LATEX.tex")
         printa_arquivo(INICIO, f)
