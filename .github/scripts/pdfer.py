@@ -211,11 +211,20 @@ if __name__ == "__main__":
         f.write("\\end{document}\n")
 
     os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
-    os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
-    os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
-    os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
-    os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
-    os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+    if Path("LaTeX/Almanaque.aux").exists():
+        os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
+    if Path("LaTeX/Almanaque.rubbercache").exists():
+        os.replace("LaTeX/Almanaque.rubbercache", "LaTeX/Arquivos/Almanaque.rubbercache")
+    if Path("LaTeX/Almanaque.log").exists():
+        os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
+    if Path("LaTeX/Almanaque.out").exists():
+        os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
+    if Path("LaTeX/Almanaque.toc").exists():
+        os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
+    if Path("LaTeX/Almanaque.pdf").exists():
+        os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+    else:
+        print("PDF não foi gerado, ocorreu algum erro.")
 
     README = Path("README.md")
     with open(README, "w") as f:
