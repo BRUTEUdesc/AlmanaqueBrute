@@ -1,0 +1,46 @@
+name: Generate Almanaque PDF
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+  generate_almanaque_pdf:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        sudo apt install texlive-full
+        sudo apt install rubber
+    - name: Run a python script
+      run: |
+        python3 ./.github/scripts/pdfer.py
+
+  commit_and_push:
+    needs: generate_almanaque_pdf
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+    - name: Set up Git
+      run: |
+        git config --global user.email "pdfer@brute.com"
+        git config --global user.name "pdfer"
+    - name: Commit and push changes
+      run: |
+        git add .
+        git commit -m "Generated PDF"
+        git push
+      env:
+        PAT: ${{ secrets.GITHUB_TOKEN }}
