@@ -1,16 +1,16 @@
 name: Generate Almanaque PDF
 
 on:
-  pull_request:
-    branches:
-      - master
   push:
     branches:
       - master
+  pull_request:
+    types:
+      - closed
 
 jobs:
   generate_almanaque_pdf:
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repo
@@ -36,7 +36,7 @@ jobs:
     - name: Set up Git
       run: |
         git config --global user.email "pdfer@brute.com"
-        git config --global user.name "pdfer"
+        git config --global user.name "Pdfer"
     - name: Commit and push changes
       run: |
         git add .
