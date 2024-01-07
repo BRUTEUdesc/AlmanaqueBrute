@@ -35,5 +35,16 @@ Os códigos devem seguir a formatação especificada no arquivo `.clang-format`,
 clang-format -i -style=FILE Codigos/.../a.cpp
 ```
 
+Para executar o clang-format em todos os arquivos `.cpp` da pasta `Codigos` digite:
+
+```
+find Codigos/ -type f -name "*.cpp" -exec clang-format -style=file -i {} \;
+```
+
 Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-commit-format install`, isso vai instalar um hook que vai executar o clang-format a cada commit.
 
+Atualize o PDF com o comando:
+
+```
+python3 .github/scripts/pdfer.py
+```
