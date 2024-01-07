@@ -205,13 +205,12 @@ if __name__ == "__main__":
 
         f.write("\\end{document}\n")
 
-    # os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
-    # remove trash latex files
-    # os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
-    # os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
-    # os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
-    # os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
-    # os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+    os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+    os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
+    os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
+    os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
+    os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
+    os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
 
     README = Path("README.md")
     with open(README, "w") as f:
