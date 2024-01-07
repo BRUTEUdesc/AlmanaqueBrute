@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  7 JAN 2024 02:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  7 JAN 2024 02:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -786,11 +786,7 @@ Overfull \vbox (15.37303pt too high) has occurred while \output is active []
 Overfull \vbox (8.073pt too high) has occurred while \output is active []
 
  [89]
-[90]
-Overfull \vbox (2.47307pt too high) has occurred while \output is active []
-
-
-[91] [92]
+[90] [91] [92]
 Overfull \vbox (9.1322pt too high) has occurred while \output is active []
 
 
@@ -803,104 +799,104 @@ Cap\'{\i }tulo 6.
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
-372.
+368.
  (/opt/local/share/texmf-texlive/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6403.
+(hyperref)                removing `math shift' on input line 6399.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\theta' on input line 6403.
+(hyperref)                removing `\theta' on input line 6399.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 6403.
+(hyperref)                removing `superscript' on input line 6399.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\circ' on input line 6403.
+(hyperref)                removing `\circ' on input line 6399.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6403.
+(hyperref)                removing `math shift' on input line 6399.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6405.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6414.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6401.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6414.
+(hyperref)                removing `math shift' on input line 6410.
 
 
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6416.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 6410.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6417.
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6412.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6427.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6413.
 
 
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6432.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6423.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6433.
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6428.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6429.
 
 [102
 
 ]
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6444.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6440.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6455.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6451.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6469.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6465.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6472.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6468.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6475.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6471.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6487.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6483.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6490.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6486.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6493.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6489.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6496.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6492.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6499.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6495.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6498.
 
 
 LaTeX Font Warning: Command \large invalid in math mode on input line 6502.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6506.
 
 [103] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
 (rerunfilecheck)             Checksum: 59F743C947379B8CCB933F40500A81FB;11138.
  ) 
 Here is how much of TeX's memory you used:
- 22876 strings out of 479382
- 336074 string characters out of 5869399
+ 22868 strings out of 479382
+ 335974 string characters out of 5869399
  1124563 words of memory out of 5000000
- 36409 multiletter control sequences out of 15000+600000
+ 36405 multiletter control sequences out of 15000+600000
  492887 words of font info for 91 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  74i,11n,100p,3262b,2140s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -927,10 +923,10 @@ ts/type1/public/cm-super/sfrm1440.pfb></opt/local/share/texmf-texlive/fonts/typ
 e1/public/cm-super/sfrm1728.pfb></opt/local/share/texmf-texlive/fonts/type1/pub
 lic/cm-super/sfsl1095.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm
 -super/sftt1200.pfb>
-Output written on Almanaque.pdf (104 pages, 707686 bytes).
+Output written on Almanaque.pdf (104 pages, 707456 bytes).
 PDF statistics:
- 5903 PDF objects out of 6186 (max. 8388607)
- 5694 compressed objects within 57 object streams
- 4205 named destinations out of 4296 (max. 500000)
+ 5899 PDF objects out of 6186 (max. 8388607)
+ 5690 compressed objects within 57 object streams
+ 4201 named destinations out of 4296 (max. 500000)
  681 words of extra memory for PDF output out of 10000 (max. 10000000)
 
