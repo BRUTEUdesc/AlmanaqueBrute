@@ -162,6 +162,12 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         CODIGOS = list(path.glob("*.cpp"))
 
         for codigo in CODIGOS:
+            # print("CODIGO: ", codigo)
+            # if "matrix" in str(codigo):
+            #     with open(codigo, "r") as f:
+            #         lines = f.readlines()
+            #         for line in lines:
+            #             print(line)
             printa_codigo(codigo, FILE)
         # FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
 
@@ -190,7 +196,7 @@ def dfs_readmes(path: Path, FILE: Path, level: int, fullPath: str):
 
 if __name__ == "__main__":
     DIR = Path("Codigos")
-    ALMANAQUE = Path("LaTeX/Almanaqu.tex")
+    ALMANAQUE = Path("LaTeX/Almanaque.tex")
     with open(ALMANAQUE, "w") as f:
         INICIO = Path("LaTeX/INICIO_LATEX.tex")
         printa_arquivo(INICIO, f)
@@ -204,13 +210,12 @@ if __name__ == "__main__":
 
         f.write("\\end{document}\n")
 
-    # os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
-    # remove trash latex files
-    # os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
-    # os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
-    # os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
-    # os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
-    # os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+    os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+    os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
+    os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
+    os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
+    os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
+    os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
 
     README = Path("README.md")
     with open(README, "w") as f:

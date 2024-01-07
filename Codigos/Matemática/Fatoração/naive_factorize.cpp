@@ -6,14 +6,8 @@ vector<int> factorize(int n) {
             n /= d;
         }
     }
-<<<<<<< HEAD
     if (n != 1) {
         factors.push_back(n);
     }
-=======
-    if (n != 1) {
-        factors.push_back(n);
-    }
->>>>>>> master
     return factors;
 }

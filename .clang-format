@@ -11,4 +11,3 @@ FixNamespaceComments: false
 BinPackArguments: false
 AllowShortBlocksOnASingleLine: Always
 SpaceInEmptyBlock: true
-InsertBraces: true

@@ -5,15 +5,9 @@ vector<bool> sieve(int n) {
     long long sq = sqrt(n + 5);
     for (long long i = 2; i <= sq; i++) {
         if (is_prime[i]) {
-<<<<<<< HEAD
             for (long long j = i * i; j < n; j += i) {
                 is_prime[j] = false;
             }
-=======
-            for (long long j = i * i; j < n; j += i) {
-                is_prime[j] = false;
-            }
->>>>>>> master
         }
     }
     return is_prime;

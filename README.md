@@ -39,51 +39,55 @@ Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-comm
 
 ## Tabela de Conteúdos
 
+### [Matemática](Codigos/Matemática)
+
+- [Sum of floor(n div i)](Codigos/Matemática/Sum-of-floor(n-div-i))
+
+- [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
+
+- [FFT](Codigos/Matemática/FFT)
+
+- [Primos](Codigos/Matemática/Primos)
+
+- [Inverso Modular](Codigos/Matemática/Inverso-Modular)
+
+- [NTT](Codigos/Matemática/NTT)
+
+- [Teorema do Resto Chinês](Codigos/Matemática/Teorema-do-Resto-Chinês)
+
+- [Fatoração](Codigos/Matemática/Fatoração)
+
+- [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
+
+- [GCD](Codigos/Matemática/GCD)
+
+- [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
+
 ### [Estruturas de Dados](Codigos/Estruturas-de-Dados)
-
-- [Disjoint Set Union](Codigos/Estruturas-de-Dados/Disjoint-Set-Union)
-
-    - [DSU Completo](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Completo)
-
-    - [DSU Rollback](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback)
-
-    - [DSU Simples](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Simples)
-
-    - [DSU Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Bipartido)
-
-- [Operation Queue](Codigos/Estruturas-de-Dados/Operation-Queue)
-
-- [Interval Tree](Codigos/Estruturas-de-Dados/Interval-Tree)
-
-- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree)
-
-    - [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
-
-    - [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
-
-    - [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
-
-    - [Segment Tree Beats Max And Sum Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-And-Sum-Update)
-
-    - [Segment Tree Beats Max Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-Update)
-
-    - [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
-
-    - [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
-
-    - [Segment Tree Kadani](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadani)
-
-- [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
 
 - [Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree)
 
-- [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
+- [MergeSort Tree](Codigos/Estruturas-de-Dados/MergeSort-Tree)
 
-- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Kd-Fenwick-Tree)
+- [Operation Queue](Codigos/Estruturas-de-Dados/Operation-Queue)
 
 - [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
 
-- [MergeSort Tree](Codigos/Estruturas-de-Dados/MergeSort-Tree)
+- [Disjoint Set Union](Codigos/Estruturas-de-Dados/Disjoint-Set-Union)
+
+    - [DSU Rollback](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback)
+
+    - [DSU Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Bipartido)
+
+    - [DSU Simples](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Simples)
+
+    - [DSU Completo](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Completo)
+
+- [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
+
+- [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
+
+- [Interval Tree](Codigos/Estruturas-de-Dados/Interval-Tree)
 
 - [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table)
 
@@ -91,19 +95,27 @@ Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-comm
 
     - [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Sparse-Table)
 
+- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Kd-Fenwick-Tree)
+
+- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree)
+
+    - [Segment Tree Beats Max And Sum Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-And-Sum-Update)
+
+    - [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
+
+    - [Segment Tree Beats Max Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-Update)
+
+    - [Segment Tree Kadani](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadani)
+
+    - [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
+
+    - [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
+
+    - [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
+
+    - [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
+
 ### [Grafos](Codigos/Grafos)
-
-- [Matching](Codigos/Grafos/Matching)
-
-    - [Hungaro](Codigos/Grafos/Matching/Hungaro)
-
-- [LCA](Codigos/Grafos/LCA)
-
-- [HLD](Codigos/Grafos/HLD)
-
-- [Kruskal](Codigos/Grafos/Kruskal)
-
-- [Bridge](Codigos/Grafos/Bridge)
 
 - [Stoer–Wagner Min Cut](Codigos/Grafos/Stoer–Wagner-Min-Cut)
 
@@ -113,19 +125,37 @@ Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-comm
 
     - [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
 
-- [Binary Lifting](Codigos/Grafos/Binary-Lifting)
-
-- [Fluxo](Codigos/Grafos/Fluxo)
-
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
 
 - [2 SAT](Codigos/Grafos/2-SAT)
 
+- [Fluxo](Codigos/Grafos/Fluxo)
+
+- [Kruskal](Codigos/Grafos/Kruskal)
+
 - [Graph Center](Codigos/Grafos/Graph-Center)
+
+- [Bridge](Codigos/Grafos/Bridge)
+
+- [HLD](Codigos/Grafos/HLD)
+
+- [Matching](Codigos/Grafos/Matching)
+
+    - [Hungaro](Codigos/Grafos/Matching/Hungaro)
+
+- [Binary Lifting](Codigos/Grafos/Binary-Lifting)
+
+- [LCA](Codigos/Grafos/LCA)
 
 ### [String](Codigos/String)
 
 - [Aho Corasick](Codigos/String/Aho-Corasick)
+
+- [Trie](Codigos/String/Trie)
+
+- [Suffix Array](Codigos/String/Suffix-Array)
+
+- [Manacher](Codigos/String/Manacher)
 
 - [Patricia Tree](Codigos/String/Patricia-Tree)
 
@@ -133,55 +163,25 @@ Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-comm
 
 - [Hashing](Codigos/String/Hashing)
 
-- [Trie](Codigos/String/Trie)
-
-- [Manacher](Codigos/String/Manacher)
-
 - [Lyndon](Codigos/String/Lyndon)
-
-- [Suffix Array](Codigos/String/Suffix-Array)
 
 ### [Paradigmas](Codigos/Paradigmas)
 
-- [Mo](Codigos/Paradigmas/Mo)
-
-- [Exponenciação de Matriz](Codigos/Paradigmas/Exponenciação-de-Matriz)
-
-- [Busca Binaria Paralela](Codigos/Paradigmas/Busca-Binaria-Paralela)
-
-- [Divide and Conquer](Codigos/Paradigmas/Divide-and-Conquer)
-
 - [Busca Ternaria](Codigos/Paradigmas/Busca-Ternaria)
-
-- [DP de Permutacao](Codigos/Paradigmas/DP-de-Permutacao)
 
 - [Convex Hull Trick](Codigos/Paradigmas/Convex-Hull-Trick)
 
+- [Busca Binaria Paralela](Codigos/Paradigmas/Busca-Binaria-Paralela)
+
 - [All Submasks](Codigos/Paradigmas/All-Submasks)
 
-### [Matemática](Codigos/Matemática)
+- [Divide and Conquer](Codigos/Paradigmas/Divide-and-Conquer)
 
-- [Sum of floor(n div i)](Codigos/Matemática/Sum-of-floor(n-div-i))
+- [Exponenciação de Matriz](Codigos/Paradigmas/Exponenciação-de-Matriz)
 
-- [Primos](Codigos/Matemática/Primos)
+- [DP de Permutacao](Codigos/Paradigmas/DP-de-Permutacao)
 
-- [NTT](Codigos/Matemática/NTT)
-
-- [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
-
-- [GCD](Codigos/Matemática/GCD)
-
-- [Fatoração](Codigos/Matemática/Fatoração)
-
-- [Teorema do Resto Chinês](Codigos/Matemática/Teorema-do-Resto-Chinês)
-
-- [FFT](Codigos/Matemática/FFT)
-
-- [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
-
-- [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
-
-- [Inverso Modular](Codigos/Matemática/Inverso-Modular)
+- [Mo](Codigos/Paradigmas/Mo)
 
 
 

@@ -3,8 +3,8 @@ namespace hld {
     int t, sz[MAX], pos[MAX], pai[MAX], head[MAX];
     bool e = 0;
     ll merge(ll a, ll b) {
-        return max(a, b);
-    } // how to merge paths
+        return max(a, b); // how to merge paths
+    }
     void dfs_sz(int u, int p = -1) {
         sz[u] = 1;
         for (int &v : adj[u]) {
