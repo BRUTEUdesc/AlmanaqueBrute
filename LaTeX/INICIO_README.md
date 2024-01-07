@@ -25,6 +25,10 @@ sudo apt install rubber
 
 Aqui está o `.pdf` do Almanaque.
 
+### Pasta `Theoretical`
+
+Aqui está um arquivo `.tex` com teoremas, fórmulas, e informações úteis em contest.
+
 ## Para fazer contribuições
 
 Clone o repositório, crie uma nova branch e depois faça um Pull Request para mergear.
