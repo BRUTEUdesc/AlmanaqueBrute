@@ -7,6 +7,7 @@ const int INF = 2; // tanto faz
 // a[i][j] para j == m -> resultado da equacao da
 // iesima linha ans -> bitset vazio, que retornara
 // a solucao do sistema (caso exista)
+
 int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
     vector<int> where(m, -1);
 
