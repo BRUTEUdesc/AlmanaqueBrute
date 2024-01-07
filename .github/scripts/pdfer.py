@@ -162,13 +162,13 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         CODIGOS = list(path.glob("*.cpp"))
 
         for codigo in CODIGOS:
-            print("CODIGO: ", codigo)
-            if "matrix" in str(codigo):
-                with open(codigo, "r") as f:
-                    lines = f.readlines()
-                    for line in lines:
-                        print(line)
-            # printa_codigo(codigo, FILE)
+            # print("CODIGO: ", codigo)
+            # if "matrix" in str(codigo):
+            #     with open(codigo, "r") as f:
+            #         lines = f.readlines()
+            #         for line in lines:
+            #             print(line)
+            printa_codigo(codigo, FILE)
         # FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
 
 

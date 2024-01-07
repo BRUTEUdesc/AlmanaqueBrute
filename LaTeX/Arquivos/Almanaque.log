@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  7 JAN 2024 02:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  7 JAN 2024 02:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -775,441 +775,132 @@ Overfull \vbox (1.03212pt too high) has occurred while \output is active []
 Cap\'{\i }tulo 4.
 [71
 
-] [72] [73] [74]
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4647 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A7.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4647 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4647 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A3.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4647 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-[75]
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4665 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A7.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4665 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4665 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A3.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4665 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4675 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A7.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4675 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4675 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A3.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4675 ...HEAD:Codigos/Paradigmas/Exponenciação-
-                                                  de-Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4683 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A7.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4683 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4683 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A3.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.4683 ...ster:Codigos/Paradigmas/Exponenciação 
-                                                  de Matriz/matrix_exp.cpp
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-[76] [77] [78] [79] [80] [81] [82] [83] [84]
+] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83]
 Cap\'{\i }tulo 5.
-[85
+[84
 
-] [86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96] [97] [98] [99]
-[100]
-Overfull \vbox (7.67001pt too high) has occurred while \output is active []
-
-
-Overfull \vbox (0.36998pt too high) has occurred while \output is active []
+] [85] [86] [87] [88]
+Overfull \vbox (15.37303pt too high) has occurred while \output is active []
 
 
-[101] [102]
-Overfull \vbox (1.13228pt too high) has occurred while \output is active []
+Overfull \vbox (8.073pt too high) has occurred while \output is active []
+
+ [89]
+[90]
+Overfull \vbox (2.47307pt too high) has occurred while \output is active []
 
 
-Overfull \vbox (4.83224pt too high) has occurred while \output is active []
+[91] [92]
+Overfull \vbox (9.1322pt too high) has occurred while \output is active []
 
 
-[103]
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.6505 <<<<<<< HEAD:Codigos/Matemática/I
-                                         nverso-Modular/modular_inverse_copr...
-
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
+Overfull \vbox (1.83217pt too high) has occurred while \output is active []
 
 
-! LaTeX Error: Invalid UTF-8 byte "A1.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.6505 <<<<<<< HEAD:Codigos/Matemática/I
-                                         nverso-Modular/modular_inverse_copr...
-
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-Overfull \hbox (8.2403pt too wide) in paragraph at lines 6505--6506
-[][][][][][][][][][][][][][]  
- []
-
-
-! LaTeX Error: Invalid UTF-8 byte sequence (�\expandafter).
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.6513 >>>>>>> master:Codigos/Matemática/I
-                                           nverso Modular/modular_inverse_co...
-
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-
-! LaTeX Error: Invalid UTF-8 byte "A1.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.6513 >>>>>>> master:Codigos/Matemática/I
-                                           nverso Modular/modular_inverse_co...
-
-The document does not appear to be in UTF-8 encoding.
-Try adding \UseRawInputEncoding as the first line of the file
-or specify an encoding such as \usepackage [latin1]{inputenc}
-in the document preamble.
-Alternatively, save the file in UTF-8 using your editor or another tool
-
-[104]
+[93] [94] [95] [96] [97] [98] [99] [100]
 Cap\'{\i }tulo 6.
-[105
+[101
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
-573.
+372.
  (/opt/local/share/texmf-texlive/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6604.
+(hyperref)                removing `math shift' on input line 6403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\theta' on input line 6604.
+(hyperref)                removing `\theta' on input line 6403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 6604.
+(hyperref)                removing `superscript' on input line 6403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\circ' on input line 6604.
+(hyperref)                removing `\circ' on input line 6403.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6604.
+(hyperref)                removing `math shift' on input line 6403.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6606.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6615.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6405.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6615.
+(hyperref)                removing `math shift' on input line 6414.
 
 
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6617.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 6414.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6618.
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6416.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6628.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6417.
 
 
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6633.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6427.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6634.
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6432.
 
-[106
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6433.
+
+[102
 
 ]
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6645.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6444.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6656.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6455.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6670.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6469.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6673.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6472.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6676.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6475.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6688.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6487.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6691.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6490.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6694.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6493.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6697.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6496.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6700.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6499.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6703.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6502.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6707.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6506.
 
-[107] (./Almanaque.aux)
+[103] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
 (rerunfilecheck)             Checksum: 59F743C947379B8CCB933F40500A81FB;11138.
  ) 
 Here is how much of TeX's memory you used:
- 23108 strings out of 479382
- 339747 string characters out of 5869399
+ 22876 strings out of 479382
+ 336074 string characters out of 5869399
  1124563 words of memory out of 5000000
- 36432 multiletter control sequences out of 15000+600000
+ 36409 multiletter control sequences out of 15000+600000
  492887 words of font info for 91 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  74i,11n,100p,3262b,2140s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1236,10 +927,10 @@ ts/type1/public/cm-super/sfrm1440.pfb></opt/local/share/texmf-texlive/fonts/typ
 e1/public/cm-super/sfrm1728.pfb></opt/local/share/texmf-texlive/fonts/type1/pub
 lic/cm-super/sfsl1095.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm
 -super/sftt1200.pfb>
-Output written on Almanaque.pdf (108 pages, 717459 bytes).
+Output written on Almanaque.pdf (104 pages, 707686 bytes).
 PDF statistics:
- 6169 PDF objects out of 6186 (max. 8388607)
- 5953 compressed objects within 60 object streams
- 4414 named destinations out of 5155 (max. 500000)
+ 5903 PDF objects out of 6186 (max. 8388607)
+ 5694 compressed objects within 57 object streams
+ 4205 named destinations out of 4296 (max. 500000)
  681 words of extra memory for PDF output out of 10000 (max. 10000000)
 
