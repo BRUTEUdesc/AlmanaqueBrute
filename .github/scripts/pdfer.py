@@ -162,7 +162,7 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         CODIGOS = list(path.glob("*.cpp"))
 
         for codigo in CODIGOS:
-            print(codigo)
+            # print("CODIGO: ", codigo)
             printa_codigo(codigo, FILE)
         # FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
 
