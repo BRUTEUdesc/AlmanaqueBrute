@@ -4644,7 +4644,6 @@ mat mult(mat a, mat b) {
 
 mat exp_mod(mat b, ll exp) {
     mat res(b.size(), vi(b.size()));
-<<<<<<< HEAD:Codigos/Paradigmas/Exponenciação-de-Matriz/matrix_exp.cpp
     for (int i = 0; i < b.size(); i++) {
         res[i][i] = 1;
     }
@@ -4653,16 +4652,6 @@ mat exp_mod(mat b, ll exp) {
         if (exp & 1) {
             res = mult(res, b);
         }
-=======
-    for (int i = 0; i < b.size(); i++) {
-        res[i][i] = 1;
-    }
-
-    while (exp) {
-        if (exp & 1) {
-            res = mult(res, b);
-        }
->>>>>>> master:Codigos/Paradigmas/Exponenciação de Matriz/matrix_exp.cpp
         b = mult(b, b);
         exp /= 2;
     }
@@ -4672,15 +4661,9 @@ mat exp_mod(mat b, ll exp) {
 // MUDA MUITO DE ACORDO COM O PROBLEMA
 // LEIA COMO FAZER O MAPEAMENTO NO README
 ll solve(ll exp, ll dim) {
-<<<<<<< HEAD:Codigos/Paradigmas/Exponenciação-de-Matriz/matrix_exp.cpp
     if (exp < dim) {
         return dp[exp];
     }
-=======
-    if (exp < dim) {
-        return dp[exp];
-    }
->>>>>>> master:Codigos/Paradigmas/Exponenciação de Matriz/matrix_exp.cpp
 
     T.assign(dim, vi(dim));
     // TO DO: Preencher a Matriz que vai ser
@@ -5297,15 +5280,9 @@ vector<bool> sieve(int n) {
     long long sq = sqrt(n + 5);
     for (long long i = 2; i <= sq; i++) {
         if (is_prime[i]) {
-<<<<<<< HEAD
             for (long long j = i * i; j < n; j += i) {
                 is_prime[j] = false;
             }
-=======
-            for (long long j = i * i; j < n; j += i) {
-                is_prime[j] = false;
-            }
->>>>>>> master
         }
     }
     return is_prime;
@@ -5319,15 +5296,9 @@ vector<bool> sieve(int n) {
 \begin{lstlisting}[language=C++]
 bool is_prime(int n) {
     for (long long d = 2; d * d <= n; d++) {
-<<<<<<< HEAD
         if (n % d == 0) {
             return false;
         }
-=======
-        if (n % d == 0) {
-            return false;
-        }
->>>>>>> master
     }
     return true;
 }
@@ -5342,15 +5313,9 @@ long long power(long long base, long long e, long long mod) {
     long long result = 1;
     base %= mod;
     while (e) {
-<<<<<<< HEAD
         if (e & 1) {
             result = (__int128)result * base % mod;
         }
-=======
-        if (e & 1) {
-            result = (__int128)result * base % mod;
-        }
->>>>>>> master
         base = (__int128)base * base % mod;
         e >>= 1;
     }
@@ -5359,7 +5324,6 @@ long long power(long long base, long long e, long long mod) {
 
 bool is_composite(long long n, long long a, long long d, int s) {
     long long x = power(a, d, n);
-<<<<<<< HEAD
     if (x == 1 || x == n - 1) {
         return false;
     }
@@ -5368,22 +5332,11 @@ bool is_composite(long long n, long long a, long long d, int s) {
         if (x == n - 1) {
             return false;
         }
-=======
-    if (x == 1 || x == n - 1) {
-        return false;
-    }
-    for (int r = 1; r < s; r++) {
-        x = (__int128)x * x % n;
-        if (x == n - 1) {
-            return false;
-        }
->>>>>>> master
     }
     return true;
 }
 
 bool miller_rabin(long long n) {
-<<<<<<< HEAD
     if (n < 2) {
         return false;
     }
@@ -5399,23 +5352,6 @@ bool miller_rabin(long long n) {
         if (is_composite(n, a, d, r)) {
             return false;
         }
-=======
-    if (n < 2) {
-        return false;
-    }
-    int r = 0;
-    long long d = n - 1;
-    while ((d & 1) == 0) {
-        d >>= 1, ++r;
-    }
-    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
-        if (n == a) {
-            return true;
-        }
-        if (is_composite(n, a, d, r)) {
-            return false;
-        }
->>>>>>> master
     }
     return true;
 }
@@ -5461,15 +5397,9 @@ ll modInv(ll b, ll m) {
     ll e = m - 2;
     ll res = 1;
     while (e) {
-<<<<<<< HEAD
         if (e & 1) {
             res = (res * b) % m;
         }
-=======
-        if (e & 1) {
-            res = (res * b) % m;
-        }
->>>>>>> master
         e /= 2;
         b = (b * b) % m;
     }
@@ -5480,7 +5410,6 @@ void ntt(poly &a, bool invert, int id) {
     ll n = (ll)a.size(), m = mod[id];
     for (ll i = 1, j = 0; i < n; ++i) {
         ll bit = n >> 1;
-<<<<<<< HEAD
         for (; j >= bit; bit >>= 1) {
             j -= bit;
         }
@@ -5494,21 +5423,6 @@ void ntt(poly &a, bool invert, int id) {
         for (ll i = len; i < root_pw[id]; i <<= 1) {
             wlen = (wlen * wlen) % m;
         }
-=======
-        for (; j >= bit; bit >>= 1) {
-            j -= bit;
-        }
-        j += bit;
-        if (i < j) {
-            swap(a[i], a[j]);
-        }
-    }
-    for (ll len = 2, wlen; len <= n; len <<= 1) {
-        wlen = invert ? root_1[id] : root[id];
-        for (ll i = len; i < root_pw[id]; i <<= 1) {
-            wlen = (wlen * wlen) % m;
-        }
->>>>>>> master
         for (ll i = 0; i < n; i += len) {
             ll w = 1;
             for (ll j = 0; j < len / 2; j++) {
@@ -5521,43 +5435,25 @@ void ntt(poly &a, bool invert, int id) {
     }
     if (invert) {
         ll inv = modInv(n, m);
-<<<<<<< HEAD
         for (ll i = 0; i < n; i++) {
             a[i] = (a[i] * inv) % m;
         }
-=======
-        for (ll i = 0; i < n; i++) {
-            a[i] = (a[i] * inv) % m;
-        }
->>>>>>> master
     }
 }
 
 poly convolution(poly a, poly b, int id = 0) {
     ll n = 1LL, len = (1LL + a.size() + b.size());
-<<<<<<< HEAD
     while (n < len) {
         n *= 2;
     }
-=======
-    while (n < len) {
-        n *= 2;
-    }
->>>>>>> master
     a.resize(n);
     b.resize(n);
     ntt(a, 0, id);
     ntt(b, 0, id);
     poly answer(n);
-<<<<<<< HEAD
     for (ll i = 0; i < n; i++) {
         answer[i] = (a[i] * b[i]);
     }
-=======
-    for (ll i = 0; i < n; i++) {
-        answer[i] = (a[i] * b[i]);
-    }
->>>>>>> master
     ntt(answer, 1, id);
     return answer;
 }
@@ -5568,13 +5464,9 @@ poly convolution(poly a, poly b, int id = 0) {
 
 \begin{lstlisting}[language=C++]
 
-<<<<<<< HEAD
 ll mod_mul(ll a, ll b, ll m) {
     return (__int128)a * b % m;
 }
-=======
-ll mod_mul(ll a, ll b, ll m) { return (__int128)a * b % m; }
->>>>>>> master
 ll ext_gcd(ll a, ll b, ll &x, ll &y) {
     if (!b) {
         x = 1;
@@ -5598,13 +5490,9 @@ poly big_convolution(poly a, poly b) {
 
     answer.resize(r0.size());
     for (int i = 0; i < (int)answer.size(); i++) {
-<<<<<<< HEAD
         answer[i] = (mod_mul((s * mod[2] + p) % p, r0[i], p) +
                      mod_mul((r * mod[1] + p) % p, r1[i], p) + p) %
                     p;
-=======
-        answer[i] = (mod_mul((s * mod[2] + p) % p, r0[i], p) + mod_mul((r * mod[1] + p) % p, r1[i], p) + p) % p;
->>>>>>> master
     }
     return answer;
 }
@@ -5802,13 +5690,9 @@ Algoritmo extendido de euclides que computa o Máximo Divisor Comum e os valores
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-<<<<<<< HEAD
 long long gcd(long long a, long long b) {
     return (b == 0) ? a : gcd(b, a % b);
 }
-=======
-long long gcd(long long a, long long b) { return (b == 0) ? a : gcd(b, a % b); }
->>>>>>> master
 \end{lstlisting}
 \end{multicols}
 
@@ -5920,15 +5804,9 @@ vector<int> factorize(int n) {
             n /= d;
         }
     }
-<<<<<<< HEAD
     if (n != 1) {
         factors.push_back(n);
     }
-=======
-    if (n != 1) {
-        factors.push_back(n);
-    }
->>>>>>> master
     return factors;
 }
 \end{lstlisting}
@@ -5951,20 +5829,13 @@ namespace sieve {
             for (int j = 0; i * pr[j] <= MAX; ++j) {
                 lp[i * pr[j]] = pr[j];
                 factor[i * pr[j]] = i;
-<<<<<<< HEAD
                 if (pr[j] == lp[i]) {
                     break;
                 }
-=======
-                if (pr[j] == lp[i]) {
-                    break;
-                }
->>>>>>> master
             }
         }
     }
     vector<int> factorize(int x) {
-<<<<<<< HEAD
         if (x < 2) {
             return {};
         }
@@ -5972,15 +5843,6 @@ namespace sieve {
         for (int lpx = lp[x]; x >= lpx; x = factor[x]) {
             v.emplace_back(lp[x]);
         }
-=======
-        if (x < 2) {
-            return {};
-        }
-        vector<int> v;
-        for (int lpx = lp[x]; x >= lpx; x = factor[x]) {
-            v.emplace_back(lp[x]);
-        }
->>>>>>> master
         return v;
     }
 }
@@ -5991,13 +5853,9 @@ namespace sieve {
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-<<<<<<< HEAD
 long long mod_mul(long long a, long long b, long long m) {
     return (__int128)a * b % m;
 }
-=======
-long long mod_mul(long long a, long long b, long long m) { return (__int128)a * b % m; }
->>>>>>> master
 
 long long pollard_rho(long long n) {
     auto f = [n](long long x) {
@@ -6005,17 +5863,12 @@ long long pollard_rho(long long n) {
     };
     long long x = 0, y = 0, t = 30, prd = 2, i = 1, q;
     while (t++ % 40 || __gcd(prd, n) == 1) {
-<<<<<<< HEAD
         if (x == y) {
             x = ++i, y = f(x);
         }
         if ((q = mod_mul(prd, max(x, y) - min(x, y), n))) {
             prd = q;
         }
-=======
-        if (x == y) { x = ++i, y = f(x); }
-        if ((q = mod_mul(prd, max(x, y) - min(x, y), n))) { prd = q; }
->>>>>>> master
         x = f(x), y = f(f(y));
     }
     return __gcd(prd, n);
@@ -6032,21 +5885,12 @@ long long pollard_rho(long long n) {
 // matematica/fatoracao
 
 vector<long long> factorize(long long n) {
-<<<<<<< HEAD
     if (n == 1) {
         return {};
     }
     if (miller_rabin(n)) {
         return {n};
     }
-=======
-    if (n == 1) {
-        return {};
-    }
-    if (miller_rabin(n)) {
-        return {n};
-    }
->>>>>>> master
     long long x = pollard_rho(n);
     auto l = factorize(x), r = factorize(n / x);
     l.insert(l.end(), all(r));
@@ -6133,7 +5977,6 @@ const double PI = acos(-1);
 
 void fft(poly &a, bool invert = 0) {
     int n = a.size(), log_n = 0;
-<<<<<<< HEAD
     while ((1 << log_n) < n) {
         log_n++;
     }
@@ -6147,34 +5990,13 @@ void fft(poly &a, bool invert = 0) {
         if (i < j) {
             swap(a[i], a[j]);
         }
-=======
-    while ((1 << log_n) < n) {
-        log_n++;
-    }
-
-    for (int i = 1, j = 0; i < n; ++i) {
-        int bit = n >> 1;
-        for (; j >= bit; bit >>= 1) {
-            j -= bit;
-        }
-        j += bit;
-        if (i < j) {
-            swap(a[i], a[j]);
-        }
->>>>>>> master
     }
 
     double angle = 2 * PI / n * (invert ? -1 : 1);
     poly root(n / 2);
-<<<<<<< HEAD
     for (int i = 0; i < n / 2; ++i) {
         root[i] = cd(cos(angle * i), sin(angle * i));
     }
-=======
-    for (int i = 0; i < n / 2; ++i) {
-        root[i] = cd(cos(angle * i), sin(angle * i));
-    }
->>>>>>> master
 
     for (long long len = 2; len <= n; len <<= 1) {
         long long step = n / len;
@@ -6188,29 +6010,17 @@ void fft(poly &a, bool invert = 0) {
         }
     }
     if (invert) {
-<<<<<<< HEAD
         for (int i = 0; i < n; ++i) {
             a[i] /= n;
         }
-=======
-        for (int i = 0; i < n; ++i) {
-            a[i] /= n;
-        }
->>>>>>> master
     }
 }
 
 vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
     int n = 1, len = a.size() + b.size();
-<<<<<<< HEAD
     while (n < len) {
         n <<= 1;
     }
-=======
-    while (n < len) {
-        n <<= 1;
-    }
->>>>>>> master
     a.resize(n);
     b.resize(n);
     poly fft_a(a.begin(), a.end());
@@ -6219,20 +6029,13 @@ vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
     fft(fft_b);
 
     poly c(n);
-<<<<<<< HEAD
     for (int i = 0; i < n; ++i) {
         c[i] = fft_a[i] * fft_b[i];
     }
-=======
-    for (int i = 0; i < n; ++i) {
-        c[i] = fft_a[i] * fft_b[i];
-    }
->>>>>>> master
     fft(c, 1);
 
     vector<long long> res(n);
     for (int i = 0; i < n; ++i) {
-<<<<<<< HEAD
         res[i] = round(c[i].real()); //  res = c[i].real();
                                      //  se for vector de
                                      //  double
@@ -6240,12 +6043,6 @@ vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
     // while(size(res) > 1 && res.back() == 0)
     // res.pop_back(); // apenas para quando os
     // zeros direita nao importarem
-=======
-        res[i] = round(c[i].real()); //  res = c[i].real(); se for vector de double
-    }
-    // while(size(res) > 1 && res.back() == 0) res.pop_back(); // apenas para quando os
-    // zeros direita nao importarem
->>>>>>> master
     return res;
 }
 \end{lstlisting}
@@ -6502,15 +6299,9 @@ ll inv(ll a) {
 int inv(int a) {
     int x, y;
     int g = extended_gcd(a, MOD, x, y);
-<<<<<<< HEAD:Codigos/Matemática/Inverso-Modular/modular_inverse_coprime.cpp
     if (g == 1) {
         return (x % m + m) % m;
     }
-=======
-    if (g == 1) {
-        return (x % m + m) % m;
-    }
->>>>>>> master:Codigos/Matemática/Inverso Modular/modular_inverse_coprime.cpp
     return -1;
 }
 \end{lstlisting}
