@@ -1,56 +1,9 @@
-# Segment Tree
-
-<!-- DESCRIPTION -->
-Consultas e atualizações em intervalos.
-<!-- DESCRIPTION -->
-
-# [Seg Tree](seg_tree.cpp)
-Implementação padrão de Seg Tree
-
-- Complexidade de tempo (Pré-processamento): O(N)
-- Complexidade de tempo (Consulta em intervalo): O(log(N))
-- Complexidade de tempo (Update em ponto): O(log(N))
-- Complexidade de espaço: 4 *N = O(N)
-
-# [Seg Tree Lazy](seg_tree_lazy.cpp)
-Implementação padrão de Seg Tree com lazy update
-
-- Complexidade de tempo (Pré-processamento): O(N)
-- Complexidade de tempo (Consulta em intervalo): O(log(N))
-- Complexidade de tempo (Update em ponto): O(log(N))
-- Complexidade de tempo (Update em intervalo): O(log(N))
-- Complexidade de espaço: 2 *4 *N = O(N)
-
 # [Sparse Seg Tree](seg_tree_sparse.cpp)
-Seg Tree Esparsa:
 
-- Complexidade de tempo (Pré-processamento): O(1)
-- Complexidade de tempo (Consulta em intervalo): O(log(N))
-- Complexidade de tempo (Update em ponto): O(log(N))
+Seg Tree Esparsa, ou seja, uma seg tree que não guarda todos os nós, mas apenas os nós que são necessários para responder as queries, permitindo fazer queries em intervalos de tamanho arbitrário.
 
-# [Persistent Seg Tree](seg_tree_persistent.cpp)
-Seg Tree Esparsa com histórico de Updates:
+Seja $LEN$ o tamanho do intervalo em que a Seg Tree foi construída:
 
-- Complexidade de tempo (Pré-processamento): O(N *log(N))
-- Complexidade de tempo (Consulta em intervalo): O(log(N))
-- Complexidade de tempo (Update em ponto): O(log(N))
-- **Para fazer consulta em um tempo específico basta indicar o tempo na query**
-
-# [Seg Tree Beats](seg_tree_beats.cpp)
-Seg Tree que suporta update de maximo e query de soma
-
-- Complexidade de tempo (Pré-processamento): O(N)
-- Complexidade de tempo (Consulta em intervalo): O(log(N))
-- Complexidade de tempo (Update em ponto): O(log(N))
-- Complexidade de tempo (Update em intervalo): O(log(N))
-- Complexidade de espaço: 2 *4 *N = O(N)
-
-# [Seg Tree Beats Max and Sum update](seg_tree_beats_max_and_sum_update.cpp)
-Seg Tree que suporta update de maximo, update de soma e query de soma.
-Utiliza uma fila de lazy para diferenciar os updates
-
-- Complexidade de tempo (Pré-processamento): O(N)
-- Complexidade de tempo (Consulta em intervalo): O(log(N))
-- Complexidade de tempo (Update em ponto): O(log(N))
-- Complexidade de tempo (Update em intervalo): O(log(N))
-- Complexidade de espaço: 2 *4 *N = O(N)
+- Complexidade de tempo (Pré-processamento): $O(1)$
+- Complexidade de tempo (Consulta em intervalo): $O(log(LEN))$
+- Complexidade de tempo (Update em ponto): $O(log(LEN))$
