@@ -12,15 +12,6 @@ Aqui estão os arquivos `.tex`.
 
 Aqui também estão os arquivos `INICIO_README.md` e `INICIO_LATEX.tex`, que são usados como cabeçalho para os arquivos `README.md` e `almanaque.tex`, respectivamente. Se quiser alterar o README ou as configurações do latex, edite sempre esses arquivos.
 
-Após qualquer alteração nos códigos ou nos arquivos `INICIO*`, basta executar o arquivo `.github/scripts/pdfer.py`. TODO: atualização automática.
-
-OBS: Antes de rodar o `pdfer.py`, rode os seguintes comandos para instalar o latex e as dependências:
-
-```
-sudo apt install texlive-full
-sudo apt install rubber
-```
-
 ### Pasta `PDF`
 
 Aqui está o `.pdf` do Almanaque.
@@ -47,7 +38,16 @@ find Codigos/ -type f -name "*.cpp" -exec clang-format -style=file -i {} \;
 
 Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-commit-format install`, isso vai instalar um hook que vai executar o clang-format a cada commit.
 
-Atualize o PDF com o comando:
+Após qualquer alteração nos códigos ou nos arquivos `INICIO*`, basta executar o arquivo `.github/scripts/pdfer.py` para atualizar o PDF e o README principal. *TODO: execução automática do pdfer.py.*
+
+**Obs: antes de rodar o `pdfer.py`, execute os seguintes comandos para instalar o latex e as dependências:**
+
+```
+sudo apt install texlive-full
+sudo apt install rubber
+```
+
+Execute o `pdfer.py` com o comando:
 
 ```
 python3 .github/scripts/pdfer.py
