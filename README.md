@@ -18,7 +18,7 @@ Aqui está o `.pdf` do Almanaque.
 
 ### Pasta `Theoretical`
 
-Aqui está um arquivo `.tex` com teoremas, fórmulas, e informações úteis em contest.
+Aqui está um arquivo `.tex` com teoremas, fórmulas, e informações úteis em contest. Esse arquivo será incluído no final do `Almanaque.tex`.
 
 ## Para fazer contribuições
 
