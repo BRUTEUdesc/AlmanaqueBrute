@@ -1,21 +1,17 @@
-template <typename T> struct op_stack {
-    stack<pair<T, T>> st;
-    T result;
+template <typename T> struct op_stack : stack<T> {
+    stack<T> st;
     T op(T a, T b) {
-        return a; // TODO: op to compare
-        // min(a, b);
-        // gcd(a, b);
-        // lca(a, b);
+        return min(a, b); // TODO: Operacao, pode ser qualquer uma
     }
     T get() {
-        return result = st.top().second;
+        return st.top();
     }
     void add(T element) {
-        result = st.empty() ? element : op(element, st.top().second);
-        st.push({element, result});
+        this->push(element);
+        st.push(st.empty() ? element : op(element, st.top()));
     }
     void remove() {
-        T removed_element = st.top().first;
         st.pop();
+        this->pop();
     }
 };

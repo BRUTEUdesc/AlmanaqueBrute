@@ -12,16 +12,16 @@
 \contentsline {section}{\numberline {1.6}MergeSort Tree}{15}{section.1.6}%
 \contentsline {section}{\numberline {1.7}Operation Queue}{18}{section.1.7}%
 \contentsline {section}{\numberline {1.8}Operation Stack}{19}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Ordered Set}{20}{section.1.9}%
+\contentsline {section}{\numberline {1.9}Ordered Set}{19}{section.1.9}%
 \contentsline {section}{\numberline {1.10}Segment Tree}{21}{section.1.10}%
 \contentsline {subsection}{\numberline {1.10.1}Segment Tree}{21}{subsection.1.10.1}%
 \contentsline {subsection}{\numberline {1.10.2}Segment Tree 2D}{22}{subsection.1.10.2}%
 \contentsline {subsection}{\numberline {1.10.3}Segment Tree Beats Max And Sum Update}{24}{subsection.1.10.3}%
-\contentsline {subsection}{\numberline {1.10.4}Segment Tree Beats Max Update}{27}{subsection.1.10.4}%
-\contentsline {subsection}{\numberline {1.10.5}Segment Tree Esparsa}{29}{subsection.1.10.5}%
-\contentsline {subsection}{\numberline {1.10.6}Segment Tree Kadani}{30}{subsection.1.10.6}%
+\contentsline {subsection}{\numberline {1.10.4}Segment Tree Beats Max Update}{26}{subsection.1.10.4}%
+\contentsline {subsection}{\numberline {1.10.5}Segment Tree Esparsa}{28}{subsection.1.10.5}%
+\contentsline {subsection}{\numberline {1.10.6}Segment Tree Kadani}{29}{subsection.1.10.6}%
 \contentsline {subsection}{\numberline {1.10.7}Segment Tree Lazy}{31}{subsection.1.10.7}%
-\contentsline {subsection}{\numberline {1.10.8}Segment Tree Persisente}{33}{subsection.1.10.8}%
+\contentsline {subsection}{\numberline {1.10.8}Segment Tree Persisente}{32}{subsection.1.10.8}%
 \contentsline {section}{\numberline {1.11}Sparse Table}{34}{section.1.11}%
 \contentsline {subsection}{\numberline {1.11.1}Disjoint Sparse Table}{34}{subsection.1.11.1}%
 \contentsline {subsection}{\numberline {1.11.2}Sparse Table}{35}{subsection.1.11.2}%

@@ -1,33 +1,22 @@
-template <typename T> struct op_queue {
-    stack<pair<T, T>> s1, s2;
-    T result;
-    T op(T a, T b) {
-        return a; // TODO: op to compare
-        // min(a, b);
-        // gcd(a, b);
-        // lca(a, b);
-    }
+template <typename T> struct op_queue : queue<T> {
+    op_stack<T> st1, st2;
     T get() {
-        if (s1.empty() || s2.empty()) {
-            return result = s1.empty() ? s2.top().second : s1.top().second;
-        } else {
-            return result = op(s1.top().second, s2.top().second);
-        }
+        if (st1.empty()) return st2.get();
+        if (st2.empty()) return st1.get();
+        return st1.op(st1.get(), st2.get());
     }
     void add(T element) {
-        result = s1.empty() ? element : op(element, s1.top().second);
-        s1.push({element, result});
+        this->push(element);
+        st1.add(element);
     }
     void remove() {
-        if (s2.empty()) {
-            while (!s1.empty()) {
-                T elem = s1.top().first;
-                s1.pop();
-                T result = s2.empty() ? elem : op(elem, s2.top().second);
-                s2.push({elem, result});
+        if (st2.empty()) {
+            while (!st1.empty()) {
+                st2.add(st1.get());
+                st1.remove();
             }
         }
-        T remove_elem = s2.top().first;
-        s2.pop();
+        st2.remove();
+        this->pop();
     }
 };
