@@ -1,62 +1,48 @@
-struct rollback_dsu {
-    struct change {
-        int node, old_size;
-    };
-    stack<change> changes;
-    vector<int> parent, size;
+struct Rollback_DSU {
+    vector<int> par, sz;
     int number_of_sets;
+    stack<stack<pair<int&, int>>> changes;
 
-    rollback_dsu(int n) {
-        size.resize(n + 5, 1);
-        number_of_sets = n;
-        for (int i = 0; i < n + 5; ++i) {
-            parent.push_back(i);
-        }
+    Rollback_DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
+        iota(par.begin(), par.end(), 0);
+        changes.emplace();
     }
 
-    int get(int a) {
-        return (a == parent[a]) ? a : get(parent[a]);
+    int find(int a) {
+        return a == par[a] ? a : find(par[a]);
     }
-    bool same(int a, int b) {
-        return get(a) == get(b);
-    }
+
     void checkpoint() {
-        changes.push({-2, 0});
+        changes.emplace();
     }
 
-    void join(int a, int b) {
-        a = get(a);
-        b = get(b);
+    void save(int &a) {
+        changes.top().emplace(a, a);
+    }
+
+    bool unite(int a, int b) {
+        a = find(a), b = find(b);
         if (a == b) {
-            changes.push({-1, -1});
-            return;
+            return false;
         }
-        if (size[a] > size[b]) {
+        if (sz[a] < sz[b]) {
             swap(a, b);
         }
-        changes.push({a, size[b]});
-        parent[a] = b;
-        size[b] += size[a];
-        --number_of_sets;
+        save(number_of_sets);
+        save(par[b]);
+        save(sz[a]);
+        number_of_sets--;
+        par[b] = a;
+        sz[a] += sz[b];
+        return true;
     }
 
-    void rollback(int qnt = 1 << 31) {
-        for (int i = 0; i < qnt; ++i) {
-            auto ch = changes.top();
-            changes.pop();
-            if (ch.node == -1) {
-                continue;
-            }
-            if (ch.node == -2) {
-                if (qnt == 1 << 31) {
-                    break;
-                }
-                --i;
-                continue;
-            }
-            size[parent[ch.node]] = ch.old_size;
-            parent[ch.node] = ch.node;
-            ++number_of_sets;
+    void rollback() {
+        while (changes.top().size()) {
+            auto [a, b] = changes.top().top();
+            a = b;
+            changes.top().pop();
         }
+        changes.pop();
     }
 };

@@ -58,11 +58,11 @@ python3 .github/scripts/pdfer.py
 
 - [Disjoint Set Union](Codigos/Estruturas-de-Dados/Disjoint-Set-Union)
 
-    - [DSU Completo](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Completo)
-
     - [DSU Rollback](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback)
 
-    - [DSU Simples](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Simples)
+    - [DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU)
+
+    - [DSU Rollback Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback-Bipartido)
 
     - [DSU Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Bipartido)
 
