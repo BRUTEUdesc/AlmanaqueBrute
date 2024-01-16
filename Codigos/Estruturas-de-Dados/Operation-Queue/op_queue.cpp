@@ -1,8 +1,10 @@
 template <typename T> struct op_queue : queue<T> {
     op_stack<T> st1, st2;
     T get() {
-        if (st1.empty()) return st2.get();
-        if (st2.empty()) return st1.get();
+        if (st1.empty())
+            return st2.get();
+        if (st2.empty())
+            return st1.get();
         return st1.op(st1.get(), st2.get());
     }
     void add(T element) {

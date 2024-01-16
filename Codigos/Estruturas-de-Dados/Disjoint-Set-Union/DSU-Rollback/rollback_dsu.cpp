@@ -1,7 +1,7 @@
 struct Rollback_DSU {
     vector<int> par, sz;
     int number_of_sets;
-    stack<stack<pair<int&, int>>> changes;
+    stack<stack<pair<int &, int>>> changes;
     Rollback_DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
         iota(par.begin(), par.end(), 0);
         changes.emplace();

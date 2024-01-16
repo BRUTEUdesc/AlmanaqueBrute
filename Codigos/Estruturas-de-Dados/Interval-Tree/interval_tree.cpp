@@ -42,9 +42,12 @@ struct intervals_node_update {
         return vec;
     }
     inline void operator()(NI it, CNI end_it) {
-        const long long l_max = (it.get_l_child() == end_it) ? -INF : it.get_l_child().get_metadata();
-        const long long r_max = (it.get_r_child() == end_it) ? -INF : it.get_r_child().get_metadata();
+        const long long l_max =
+            (it.get_l_child() == end_it) ? -INF : it.get_l_child().get_metadata();
+        const long long r_max =
+            (it.get_r_child() == end_it) ? -INF : it.get_r_child().get_metadata();
         const_cast<long long &>(it.get_metadata()) = max((*it)->hi, max(l_max, r_max));
     }
 };
-typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update> interval_tree;
+typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update>
+    interval_tree;

@@ -136,14 +136,14 @@ DSU que mantém se um conjunto é bipartido (visualize os conjuntos como compone
 struct Bipartite_DSU {
     vector<int> par, sz, c, bip;
     int number_of_sets, all_bipartite;
-    Bipartite_DSU(int n = 0) : par(n), sz(n, 1),
-        c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
+    Bipartite_DSU(int n = 0)
+        : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
         iota(par.begin(), par.end(), 0);
     }
     int find(int a) {
         return a == par[a] ? a : find(par[a]);
     }
-    int color (int a) {
+    int color(int a) {
         return a == par[a] ? c[a] : c[a] ^ color(par[a]);
     }
     bool bipartite(int a) {
@@ -189,7 +189,7 @@ DSU que desfaz as últimas operações. O método $checkpoint$ salva o estado at
 struct Rollback_DSU {
     vector<int> par, sz;
     int number_of_sets;
-    stack<stack<pair<int&, int>>> changes;
+    stack<stack<pair<int &, int>>> changes;
     Rollback_DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
         iota(par.begin(), par.end(), 0);
         changes.emplace();
@@ -244,9 +244,9 @@ DSU com rollback e bipartido.
 struct Full_DSU {
     vector<int> par, sz, c, bip;
     int number_of_sets, all_bipartite;
-    stack<stack<pair<int&, int>>> changes;
-    Full_DSU(int n = 0) : par(n), sz(n, 1),
-        c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
+    stack<stack<pair<int &, int>>> changes;
+    Full_DSU(int n = 0)
+        : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
         iota(par.begin(), par.end(), 0);
         changes.emplace();
     }
@@ -319,7 +319,8 @@ Algoritmo que utiliza o Full DSU (DSU com Rollback e Bipartido) que permite adi�
 \begin{lstlisting}[language=C++]
 struct Offline_DSU : Full_DSU {
     int time;
-    Offline_DSU(int n = 0) : Full_DSU(n), time(0) {}
+    Offline_DSU(int n = 0) : Full_DSU(n), time(0) {
+    }
     struct query {
         int type, a, b;
     };
@@ -422,15 +423,18 @@ struct Offline_DSU : Full_DSU {
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-template<typename T> struct FenwickTree {
+template <typename T> struct FenwickTree {
     vector<T> bit;
-    FenwickTree(int n = 0) : bit(n, T()) {}
+    FenwickTree(int n = 0) : bit(n, T()) {
+    }
     FenwickTree(vector<T> &v) : bit(v.size(), T()) {
         int n = v.size();
-        for (int i = 0; i < n; i++) bit[i] = v[i];
+        for (int i = 0; i < n; i++)
+            bit[i] = v[i];
         for (int i = 0; i < n; i++) {
             int j = i | (i + 1);
-            if (j < n) bit[j] = bit[j] + bit[i];
+            if (j < n)
+                bit[j] = bit[j] + bit[i];
         }
     }
     T pref(int i) {
@@ -443,7 +447,8 @@ template<typename T> struct FenwickTree {
         return res;
     }
     T query(int l, int r) {
-        if (l == 0) return pref(r);
+        if (l == 0)
+            return pref(r);
         return pref(r) - pref(l - 1);
     }
     void update(int i, T d) {
@@ -479,6 +484,7 @@ Capaz de retornar todos os intervalos que intersectam $[L, R]$. Contém métodos
 
 \hfill
 
+\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -524,13 +530,18 @@ struct intervals_node_update {
         return vec;
     }
     inline void operator()(NI it, CNI end_it) {
-        const long long l_max = (it.get_l_child() == end_it) ? -INF : it.get_l_child().get_metadata();
-        const long long r_max = (it.get_r_child() == end_it) ? -INF : it.get_r_child().get_metadata();
+        const long long l_max =
+            (it.get_l_child() == end_it) ? -INF : it.get_l_child().get_metadata();
+        const long long r_max =
+            (it.get_r_child() == end_it) ? -INF : it.get_r_child().get_metadata();
         const_cast<long long &>(it.get_metadata()) = max((*it)->hi, max(l_max, r_max));
     }
 };
-typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update> interval_tree;
+typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update>
+    interval_tree;
 \end{lstlisting}
+\end{multicols}
+
 \hfill
 
 \section{Kd Fenwick Tree}
@@ -973,8 +984,10 @@ Obs: usa a estrutura Operation Stack.
 template <typename T> struct op_queue : queue<T> {
     op_stack<T> st1, st2;
     T get() {
-        if (st1.empty()) return st2.get();
-        if (st2.empty()) return st1.get();
+        if (st1.empty())
+            return st2.get();
+        if (st2.empty())
+            return st1.get();
         return st1.op(st1.get(), st2.get());
     }
     void add(T element) {
@@ -1083,7 +1096,8 @@ cout<<X.order_of_key(400)<<endl; // 5
 using namespace __gnu_pbds;
 
 template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;\end{lstlisting}
+using ordered_set =
+    tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;\end{lstlisting}
 \end{multicols}
 
 \hfill
