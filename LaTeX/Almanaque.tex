@@ -135,8 +135,9 @@ DSU que mantém se um conjunto é bipartido (visualize os conjuntos como compone
 \begin{lstlisting}[language=C++]
 struct Bipartite_DSU {
     vector<int> par, sz, c, bip;
-    int number_of_sets;
-    Bipartite_DSU(int n = 0) : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n) {
+    int number_of_sets, all_bipartite;
+    Bipartite_DSU(int n = 0) : par(n), sz(n, 1),
+        c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
         iota(par.begin(), par.end(), 0);
     }
     int find(int a) {
@@ -149,10 +150,12 @@ struct Bipartite_DSU {
         return bip[find(a)];
     }
     bool unite(int a, int b) {
+        bool equal_color = color(a) == color(b);
         a = find(a), b = find(b);
         if (a == b) {
-            if (color(a) == color(b)) {
+            if (equal_color) {
                 bip[a] = 0;
+                all_bipartite = 0;
             }
             return false;
         }
@@ -162,10 +165,11 @@ struct Bipartite_DSU {
         number_of_sets--;
         par[b] = a;
         sz[a] += sz[b];
-        if (color(a) == color(b)) {
+        if (equal_color) {
             c[b] = 1;
         }
         bip[a] &= bip[b];
+        all_bipartite &= bip[a];
         return true;
     }
 };
@@ -239,40 +243,37 @@ DSU com rollback e bipartido.
 \begin{lstlisting}[language=C++]
 struct Full_DSU {
     vector<int> par, sz, c, bip;
-    int number_of_sets;
+    int number_of_sets, all_bipartite;
     stack<stack<pair<int&, int>>> changes;
-
-    Full_DSU(int n = 0) : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n) {
+    Full_DSU(int n = 0) : par(n), sz(n, 1),
+        c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
         iota(par.begin(), par.end(), 0);
         changes.emplace();
     }
-
     int find(int a) {
         return a == par[a] ? a : find(par[a]);
     }
-
     int color(int a) {
         return a == par[a] ? c[a] : c[a] ^ color(par[a]);
     }
-
     bool bipartite(int a) {
         return bip[find(a)];
     }
-
     void checkpoint() {
         changes.emplace();
     }
-
     void save(int &a) {
         changes.top().emplace(a, a);
     }
-
     bool unite(int a, int b) {
+        bool equal_color = color(a) == color(b);
         a = find(a), b = find(b);
         if (a == b) {
-            if (color(a) == color(b)) {
+            if (equal_color) {
                 save(bip[a]);
+                save(all_bipartite);
                 bip[a] = 0;
+                all_bipartite = 0;
             }
             return false;
         }
@@ -284,16 +285,17 @@ struct Full_DSU {
         save(sz[a]);
         save(c[b]);
         save(bip[a]);
+        save(all_bipartite);
         number_of_sets--;
         par[b] = a;
         sz[a] += sz[b];
-        if (color(a) == color(b)) {
+        if (equal_color) {
             c[b] = 1;
         }
         bip[a] &= bip[b];
+        all_bipartite &= bip[a];
         return true;
     }
-
     void rollback() {
         while (changes.top().size()) {
             auto [a, b] = changes.top().top();
@@ -301,6 +303,112 @@ struct Full_DSU {
             changes.top().pop();
         }
         changes.pop();
+    }
+};\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\subsection{Offline DSU}
+
+
+Algoritmo que utiliza o Full DSU (DSU com Rollback e Bipartido) que permite adição e \textbf{remoção} de arestas. O algoritmo funciona de maneira offline, recebendo previamente todas as operações de adição e remoção de arestas, bem como todas as perguntas (de qualquer tipo, conectividade, bipartição, etc), e retornando as respostas para cada pergunta no retorno do método $solve$. 
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+struct Offline_DSU : Full_DSU {
+    int time;
+    Offline_DSU(int n = 0) : Full_DSU(n), time(0) {}
+    struct query {
+        int type, a, b;
+    };
+    vector<query> queries;
+    void askConnect(int a, int b) {
+        if (a > b) {
+            swap(a, b);
+        }
+        queries.push_back({0, a, b});
+        time++;
+    }
+    void askBipartite(int a) {
+        queries.push_back({1, a, -1});
+        time++;
+    }
+    void askAllBipartite() {
+        queries.push_back({2, -1, -1});
+        time++;
+    }
+    void addEdge(int a, int b) {
+        if (a > b) {
+            swap(a, b);
+        }
+        queries.push_back({3, a, b});
+        time++;
+    }
+    void removeEdge(int a, int b) {
+        if (a > b) {
+            swap(a, b);
+        }
+        queries.push_back({4, a, b});
+        time++;
+    }
+    vector<vector<pair<int, int>>> lazy;
+    void update(int l, int r, pair<int, int> edge, int u, int L, int R) {
+        if (R < l || L > r) {
+            return;
+        }
+        if (L >= l && R <= r) {
+            lazy[u].push_back(edge);
+            return;
+        }
+        int mid = (L + R) / 2;
+        update(l, r, edge, 2 * u, L, mid);
+        update(l, r, edge, 2 * u + 1, mid + 1, R);
+    }
+    void dfs(int u, int L, int R, vector<int> &ans) {
+        if (L > R) {
+            return;
+        }
+        checkpoint();
+        for (auto [a, b] : lazy[u]) {
+            unite(a, b);
+        }
+        if (L == R) {
+            auto [type, a, b] = queries[L];
+            if (type == 0) {
+                ans.push_back(find(a) == find(b));
+            } else if (type == 1) {
+                ans.push_back(bipartite(a));
+            } else if (type == 2) {
+                ans.push_back(all_bipartite);
+            }
+        } else {
+            int mid = (L + R) / 2;
+            dfs(2 * u, L, mid, ans);
+            dfs(2 * u + 1, mid + 1, R, ans);
+        }
+        rollback();
+    }
+    vector<int> solve() {
+        lazy.assign(4 * time, {});
+        map<pair<int, int>, int> edges;
+        for (int i = 0; i < time; i++) {
+            auto [type, a, b] = queries[i];
+            if (type == 3) {
+                edges[{a, b}] = i;
+            } else if (type == 4) {
+                update(edges[{a, b}], i, {a, b}, 1, 0, time - 1);
+                edges.erase({a, b});
+            }
+        }
+        for (auto [k, v] : edges) {
+            update(v, time - 1, k, 1, 0, time - 1);
+        }
+        vector<int> ans;
+        dfs(1, 0, time - 1, ans);
+        return ans;
     }
 };\end{lstlisting}
 \end{multicols}
@@ -346,8 +454,9 @@ template<typename T> struct FenwickTree {
         }
     }
     void updateSet(int i, T d) {
+        // funciona pra fenwick de soma
         T now = query(i, i);
-        update(i, now * T(-1));
+        update(i, now * -1);
         update(i, d);
     }
 };
@@ -357,6 +466,8 @@ template<typename T> struct FenwickTree {
 \hfill
 
 \section{Interval Tree}
+
+
 \textbf{Por Rafael Granza de Mello}
 
 
@@ -365,34 +476,10 @@ Estrutura que trata intersecções de intervalos.
 
 
 
-Capaz de retornar todos os intervalos que intersectam [L, R]. \textbf{L e R inclusos}  
-
-Contém funções insert({L, R, ID}), erase({L, R, ID}) , overlaps(L, R) e find({L, R, ID}).  
-
-É necessário inserir e apagar indicando tanto os limites quanto o ID do intervalo.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O( N * log(N) ).
-\end{itemize}
-
-
-
-Podem ser usadas as operações em Set: 
-
-
-
-\begin{itemize}
-\item \lstinline{insert()}
-\item \lstinline{erase()}
-\item \lstinline{upper_bound()}
-\item etc
-\end{itemize}
+Capaz de retornar todos os intervalos que intersectam $[L, R]$. Contém métodos $insert({L, R, ID})$, $erase({L, R, ID})$, $overlaps(L, R)$ e $find({L, R, ID})$. É necessário inserir e apagar indicando tanto os limites quanto o ID do intervalo. Todas as operações são $O(\log n)$, exceto $overlaps$ que é $O(k + \log n)$, onde $k$ é o número de intervalos que intersectam $[L, R]$. Também podem ser usadas as operações padrões de um $std::set$.
 
 \hfill
 
-\begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -401,17 +488,18 @@ using namespace __gnu_pbds;
 struct interval {
     long long lo, hi, id;
     bool operator<(const interval &i) const {
-        return lo < i.lo || (lo == i.lo && hi < i.hi) ||
-               (lo == i.lo && hi == i.hi && id < i.id);
+        return tuple(lo, hi, id) < tuple(i.lo, i.hi, i.id);
     }
 };
+
+const long long INF = 1e18;
+
 template <class CNI, class NI, class Cmp_Fn, class Allocator>
 struct intervals_node_update {
     typedef long long metadata_type;
     int sz = 0;
     virtual CNI node_begin() const = 0;
     virtual CNI node_end() const = 0;
-
     inline vector<int> overlaps(const long long l, const long long r) {
         queue<CNI> q;
         q.push(node_begin());
@@ -436,20 +524,14 @@ struct intervals_node_update {
         }
         return vec;
     }
-
     inline void operator()(NI it, CNI end_it) {
-        const long long l_max =
-            (it.get_l_child() == end_it) ? -INF : it.get_l_child().get_metadata();
-        const long long r_max =
-            (it.get_r_child() == end_it) ? -INF : it.get_r_child().get_metadata();
+        const long long l_max = (it.get_l_child() == end_it) ? -INF : it.get_l_child().get_metadata();
+        const long long r_max = (it.get_r_child() == end_it) ? -INF : it.get_r_child().get_metadata();
         const_cast<long long &>(it.get_metadata()) = max((*it)->hi, max(l_max, r_max));
     }
 };
-typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update>
-    interval_tree;
+typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update> interval_tree;
 \end{lstlisting}
-\end{multicols}
-
 \hfill
 
 \section{Kd Fenwick Tree}
@@ -879,7 +961,7 @@ namespace mergesort {
 \section{Operation Queue}
 
 
-Fila que armazena o resultado do operatório dos itens. É uma extensão da $std::queue$ que permite as operações $push$, $pop$, $front$ e $back$ em $O(1)$ amortizado, agora permitindo também a operação $get$ que retorna o resultado do operatório dos itens da fila em $O(1)$ amortizado.
+Fila que armazena o resultado do operatório dos itens (ou seja, dado uma fila, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::queue$ que permite as operações $push$, $pop$, $front$ e $back$ em $O(1)$ amortizado, agora permitindo também a operação $get$ que retorna o resultado do operatório dos itens da fila em $O(1)$ amortizado.
 
 
 

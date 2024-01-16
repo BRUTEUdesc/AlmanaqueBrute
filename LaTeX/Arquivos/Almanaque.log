@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  14 JAN 2024 00:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  16 JAN 2024 01:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -735,7 +735,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.17 ....10.1}Segment Tree}{21}{subsection.1.10.1}
+l.17 ...line {1.10}Segment Tree}{22}{section.1.10}
                                                   % [1
 
 ] [2] [3] [4])
@@ -755,134 +755,135 @@ Overfull \vbox (14.74312pt too high) has occurred while \output is active []
 
 ] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
 [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]
+[37]
 Cap\'{\i }tulo 2.
-[37
+[38
 
-] [38] [39] [40] [41] [42] [43] [44] [45] [46] [47] [48] [49] [50] [51]
-[52] [53] [54] [55] [56]
+] [39] [40] [41] [42] [43] [44] [45] [46] [47] [48] [49] [50] [51] [52]
+[53] [54] [55] [56] [57]
 Cap\'{\i }tulo 3.
-[57
+[58
 
-] [58] [59] [60] [61] [62] [63] [64] [65] [66] [67]
+] [59] [60] [61] [62] [63] [64] [65] [66] [67] [68]
 Cap\'{\i }tulo 4.
-[68
+[69
 
-] [69] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80]
+] [70] [71] [72] [73] [74] [75] [76] [77] [78] [79] [80] [81]
 Cap\'{\i }tulo 5.
-[81
+[82
 
-] [82] [83] [84] [85] [86] [87] [88] [89] [90] [91] [92] [93] [94] [95]
-[96]
+] [83] [84] [85] [86] [87] [88] [89] [90] [91] [92] [93] [94] [95] [96]
+[97]
 Overfull \vbox (12.97308pt too high) has occurred while \output is active []
 
 
 Overfull \vbox (16.67305pt too high) has occurred while \output is active []
 
 
-[97] [98]
+[98] [99]
 Cap\'{\i }tulo 6.
-[99
+[100
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 6
-097.
+179.
  (/opt/local/share/texmf-texlive/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6128.
+(hyperref)                removing `math shift' on input line 6210.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\theta' on input line 6128.
+(hyperref)                removing `\theta' on input line 6210.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 6128.
+(hyperref)                removing `superscript' on input line 6210.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\circ' on input line 6128.
+(hyperref)                removing `\circ' on input line 6210.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6128.
+(hyperref)                removing `math shift' on input line 6210.
 
 
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6130.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6139.
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6212.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6139.
+(hyperref)                removing `math shift' on input line 6221.
 
 
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6141.
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 6221.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6142.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6152.
-
-
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6157.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6158.
-
-[100
-
-]
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6169.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6180.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6194.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6197.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6200.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6212.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6215.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6218.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6221.
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6223.
 
 
 LaTeX Font Warning: Command \large invalid in math mode on input line 6224.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6227.
+LaTeX Font Warning: Command \large invalid in math mode on input line 6234.
 
 
-LaTeX Font Warning: Command \large invalid in math mode on input line 6231.
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6239.
 
-[101] (./Almanaque.aux)
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6240.
+
+[101
+
+]
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6251.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6262.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6276.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6279.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 6282.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6294.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6297.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6300.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6303.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6306.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6309.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 6313.
+
+[102] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
-(rerunfilecheck)             Checksum: 20A469D4EF12BCFB70EF74CF969C7E5F;11388.
+(rerunfilecheck)             Checksum: 255D281DBEDC70964CF369B744351BCB;11508.
  ) 
 Here is how much of TeX's memory you used:
- 22738 strings out of 479382
- 334176 string characters out of 5869399
- 1164563 words of memory out of 5000000
- 36379 multiletter control sequences out of 15000+600000
+ 22857 strings out of 479382
+ 335985 string characters out of 5869399
+ 1167563 words of memory out of 5000000
+ 36402 multiletter control sequences out of 15000+600000
  492887 words of font info for 91 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
  74i,11n,100p,3262b,2039s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -910,10 +911,10 @@ ts/type1/public/cm-super/sfrm1440.pfb></opt/local/share/texmf-texlive/fonts/typ
 e1/public/cm-super/sfrm1728.pfb></opt/local/share/texmf-texlive/fonts/type1/pub
 lic/cm-super/sfsl1095.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm
 -super/sftt1200.pfb>
-Output written on Almanaque.pdf (102 pages, 709989 bytes).
+Output written on Almanaque.pdf (103 pages, 717762 bytes).
 PDF statistics:
- 5778 PDF objects out of 6186 (max. 8388607)
- 5570 compressed objects within 56 object streams
- 4097 named destinations out of 4296 (max. 500000)
- 697 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5903 PDF objects out of 6186 (max. 8388607)
+ 5693 compressed objects within 57 object streams
+ 4193 named destinations out of 4296 (max. 500000)
+ 705 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -29,8 +29,9 @@ template<typename T> struct FenwickTree {
         }
     }
     void updateSet(int i, T d) {
+        // funciona pra fenwick de soma
         T now = query(i, i);
-        update(i, now * T(-1));
+        update(i, now * -1);
         update(i, d);
     }
 };
