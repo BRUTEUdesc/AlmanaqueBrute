@@ -147,7 +147,10 @@ def dfs(path: Path, FILE: Path, level: int = 0):
 
     endpoint = False
 
-    for child in path.iterdir():
+    dirs = path.iterdir()
+    dirs = sorted(dirs, key=lambda x: x.name)
+
+    for child in dirs:
         if child.is_dir():
             dfs(child, FILE, level + 1)
         elif child.name.endswith(".cpp"):

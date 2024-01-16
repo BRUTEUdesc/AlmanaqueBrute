@@ -1,11 +1,3 @@
 # [DSU com Rollback](rollback_dsu.cpp)
 
-Desfaz as últimas K uniões
-
-- Complexidade de tempo: O(K).
-
-É possivel usar um checkpoint, bastando chamar **rollback()** para ir até o último checkpoint.  
-O rollback não altera a complexidade, uma vez que K <= queries.  
-**Só funciona sem compressão de caminho**
-
-- Complexidade de tempo: O(log(N))
+DSU que desfaz as últimas operações. O método $checkpoint$ salva o estado atual da estrutura, e o método $rollback$ desfaz as últimas operações até o último checkpoint. As operações de unir dois conjuntos e verificar em qual conjunto um elemento está agora são $O(\log n)$, e o rollback é $O(k)$, onde $k$ é o número de alterações a serem desfeitas. Importante notar que o rollback não altera a complexidade, uma vez que $\sum k = O(q)$, onde $q$ é o número de operações realizadas.

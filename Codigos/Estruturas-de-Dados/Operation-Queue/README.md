@@ -1,8 +1,5 @@
 # [Operation Queue](op_queue.cpp)
 
-<!-- DESCRIPTION -->
-Fila que armazena o resultado do operatório dos itens.
-<!-- DESCRIPTION -->
+Fila que armazena o resultado do operatório dos itens (ou seja, dado uma fila, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::queue$ que permite as operações $push$, $pop$, $front$ e $back$ em $O(1)$ amortizado, agora permitindo também a operação $get$ que retorna o resultado do operatório dos itens da fila em $O(1)$ amortizado.
 
-* Complexidade de tempo (Push): O(1)
-* Complexidade de tempo (Pop): O(1)
+Obs: usa a estrutura Operation Stack.

@@ -64,7 +64,7 @@
 }
 
 \title{BRUTE \\ UDESC}
-\author{Eliton Machado da Silva, Enzo de Almeida Rodrigues, Eric Grochowicz, \\ João Vitor Frölich, João Marcos de Oliveira e Rafael Granza de Mello}	
+\author{Eliton Machado da Silva, Enzo de Almeida Rodrigues, Eric Grochowicz, Igor Froehner\\ João Vitor Frölich, João Marcos de Oliveira e Rafael Granza de Mello}	
 
 \begin{document}
 
@@ -88,316 +88,36 @@
 \chapter{Estruturas de Dados}
 
 \section{Disjoint Set Union}
-\subsection{DSU Completo}
+\subsection{DSU}
 
 
-DSU com capacidade de adicionar e remover vértices.  
-
-
-
-\textbf{EXTREMAMENTE PODEROSO!}  
-
-
-
-Funciona de maneira off-line, recebendo as operações e dando as respostas das consultas no retorno da função \textbf{solve()}
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(Q * log(Q) * log(N)); Onde Q é o número de consultas e N o número de nodos
-\end{itemize}
-
-
-
-Roda em 0,6ms para $3 * 10^5$ queries e nodos com printf e scanf.  
-
-Possivelmente aguenta $10^6$ em 3s
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct full_dsu {
-    struct change {
-        int node, old_size;
-    };
-    struct query {
-        int l, r, u, v, type;
-    };
-    stack<change> changes;
-    map<pair<int, int>, vector<query>> edges;
-    vector<query> queries;
-    vector<int> parent, size;
-    int number_of_sets, time;
-
-    full_dsu(int n) {
-        time = 0;
-        size.resize(n + 5, 1);
-        number_of_sets = n;
-        loop(i, 0, n + 5) parent.push_back(i);
-    }
-
-    int get(int a) {
-        return (parent[a] == a ? a : get(parent[a]));
-    }
-    bool same(int a, int b) {
-        return get(a) == get(b);
-    }
-    void checkpoint() {
-        changes.push({-2, 0});
-    }
-
-    void join(int a, int b) {
-        a = get(a);
-        b = get(b);
-        if (a == b) {
-            return;
-        }
-        if (size[a] > size[b]) {
-            swap(a, b);
-        }
-        changes.push({a, size[b]});
-        parent[a] = b;
-        size[b] += size[a];
-        --number_of_sets;
-    }
-
-    void rollback() {
-        while (!changes.empty()) {
-            auto ch = changes.top();
-            changes.pop();
-            if (ch.node == -2) {
-                break;
-            }
-            size[parent[ch.node]] = ch.old_size;
-            parent[ch.node] = ch.node;
-            ++number_of_sets;
-        }
-    }
-
-    void ord(int &a, int &b) {
-        if (a > b) {
-            swap(a, b);
-        }
-    }
-
-    void add(int u, int v) {
-        ord(u, v);
-        edges[{u, v}].push_back({time++, (int)1e9, u, v, 0});
-    }
-
-    void remove(int u, int v) {
-        ord(u, v);
-        edges[{u, v}].back().r = time++;
-    }
-
-    // consulta se dois vertices estao no mesmo
-    // grupo
-    void question(int u, int v) {
-        ord(u, v);
-        queries.push_back({time, time, u, v, 1});
-        ++time;
-    }
-
-    // consulta a quantidade de grupos distintos
-    void question() {
-        queries.push_back({time, time, 0, 0, 1});
-        ++time;
-    }
-
-    vector<int> solve() {
-        for (auto [p, v] : edges) {
-            queries.insert(queries.end(), all(v));
-        }
-        vector<int> vec(time, -1), ans;
-        run(queries, 0, time, vec);
-        for (int i : vec) {
-            if (i != -1) {
-                ans.push_back(i);
-            }
-        }
-        return ans;
-    }
-
-    void run(const vector<query> &qrs, int l, int r, vector<int> &ans) {
-        if (l > r) {
-            return;
-        }
-        checkpoint();
-        vector<query> qrs_aux;
-        for (auto &q : qrs) {
-            if (!q.type && q.l <= l && r <= q.r) {
-                join(q.u, q.v);
-            } else if (r < q.l || l > q.r) {
-                continue;
-            } else {
-                qrs_aux.push_back(q);
-            }
-        }
-        if (l == r) {
-            for (auto &q : qrs) {
-                if (q.type && q.l == l) {
-                    ans[l] = number_of_sets;
-                    // numero de grupos nesse tempo
-                    // ans[l] = same(q.u, q.v);
-                    // se u e v estao no mesmo grupo
-                }
-            }
-            rollback();
-            return;
-        }
-        int m = (l + r) / 2;
-        run(qrs_aux, l, m, ans);
-        run(qrs_aux, m + 1, r, ans);
-        rollback();
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\subsection{DSU Rollback}
-
-
-Desfaz as últimas K uniões
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(K).
-\end{itemize}
-
-
-
-É possivel usar um checkpoint, bastando chamar \textbf{rollback()} para ir até o último checkpoint.  
-
-O rollback não altera a complexidade, uma vez que K <= queries.  
-
-\textbf{Só funciona sem compressão de caminho}
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(log(N))
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct rollback_dsu {
-    struct change {
-        int node, old_size;
-    };
-    stack<change> changes;
-    vector<int> parent, size;
-    int number_of_sets;
-
-    rollback_dsu(int n) {
-        size.resize(n + 5, 1);
-        number_of_sets = n;
-        for (int i = 0; i < n + 5; ++i) {
-            parent.push_back(i);
-        }
-    }
-
-    int get(int a) {
-        return (a == parent[a]) ? a : get(parent[a]);
-    }
-    bool same(int a, int b) {
-        return get(a) == get(b);
-    }
-    void checkpoint() {
-        changes.push({-2, 0});
-    }
-
-    void join(int a, int b) {
-        a = get(a);
-        b = get(b);
-        if (a == b) {
-            changes.push({-1, -1});
-            return;
-        }
-        if (size[a] > size[b]) {
-            swap(a, b);
-        }
-        changes.push({a, size[b]});
-        parent[a] = b;
-        size[b] += size[a];
-        --number_of_sets;
-    }
-
-    void rollback(int qnt = 1 << 31) {
-        for (int i = 0; i < qnt; ++i) {
-            auto ch = changes.top();
-            changes.pop();
-            if (ch.node == -1) {
-                continue;
-            }
-            if (ch.node == -2) {
-                if (qnt == 1 << 31) {
-                    break;
-                }
-                --i;
-                continue;
-            }
-            size[parent[ch.node]] = ch.old_size;
-            parent[ch.node] = ch.node;
-            ++number_of_sets;
-        }
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\subsection{DSU Simples}
-
-
-Verifica se dois itens pertencem a um mesmo grupo.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(1) amortizado.
-\end{itemize}
-
-
-
-Une grupos.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(1) amortizado.
-\end{itemize}
+Estrutura que mantém uma coleção de conjuntos e permite as operações de unir dois conjuntos e verificar em qual conjunto um elemento está, ambas em $O(1)$ amortizado. O método $find$ retorna o representante do conjunto que contém o elemento, e o método $unite$ une os conjuntos que contém os elementos dados, retornando $true$ se eles estavam em conjuntos diferentes e $false$ caso contrário.
 
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 struct DSU {
-    vector<int> pa, sz;
-    DSU(int n) : pa(n + 1), sz(n + 1, 1) {
-        iota(pa.begin(), pa.end(), 0);
+    vector<int> par, sz;
+    int number_of_sets;
+    DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
+        iota(par.begin(), par.end(), 0);
     }
-    int root(int a) {
-        return pa[a] = (a == pa[a] ? a : root(pa[a]));
+    int find(int a) {
+        return a == par[a] ? a : par[a] = find(par[a]);
     }
-    bool find(int a, int b) {
-        return root(a) == root(b);
-    }
-    void uni(int a, int b) {
-        int ra = root(a), rb = root(b);
-        if (ra == rb) {
-            return;
+    bool unite(int a, int b) {
+        a = find(a), b = find(b);
+        if (a == b) {
+            return false;
         }
-        if (sz[ra] > sz[rb]) {
-            swap(ra, rb);
+        number_of_sets--;
+        if (sz[a] < sz[b]) {
+            swap(a, b);
         }
-        pa[ra] = rb;
-        sz[rb] += sz[ra];
+        par[b] = a;
+        sz[a] += sz[b];
+        return true;
     }
 };
 \end{lstlisting}
@@ -408,60 +128,49 @@ struct DSU {
 \subsection{DSU Bipartido}
 
 
-DSU para grafo bipartido, é possível verificar se uma aresta é possível antes de adicioná-la.  
-
-Para todas as operações:
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(1) amortizado.
-\end{itemize}
-
+DSU que mantém se um conjunto é bipartido (visualize os conjuntos como componentes conexas de um grafo e os elementos como vértices). O método $unite$ adiciona uma aresta entre os dois elementos dados, e retorna $true$ se os elementos estavam em conjuntos diferentes (componentes conexas diferentes) e $false$ caso contrário. O método $bipartite$ retorna $true$ se o conjunto (componente conexa) que contém o elemento dado é bipartido e $false$ caso contrário. Todas as operações são $O(\log n)$.
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-struct bipartite_dsu {
-    vector<int> parent;
-    vector<int> color;
-    int size;
-    bipartite_dsu(int n) {
-        size = n;
-        color.resize(n + 5, 0);
-        for (int i = 0; i < n + 5; ++i) {
-            parent.push_back(i);
+struct Bipartite_DSU {
+    vector<int> par, sz, c, bip;
+    int number_of_sets, all_bipartite;
+    Bipartite_DSU(int n = 0)
+        : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
+        iota(par.begin(), par.end(), 0);
+    }
+    int find(int a) {
+        return a == par[a] ? a : find(par[a]);
+    }
+    int color(int a) {
+        return a == par[a] ? c[a] : c[a] ^ color(par[a]);
+    }
+    bool bipartite(int a) {
+        return bip[find(a)];
+    }
+    bool unite(int a, int b) {
+        bool equal_color = color(a) == color(b);
+        a = find(a), b = find(b);
+        if (a == b) {
+            if (equal_color) {
+                bip[a] = 0;
+                all_bipartite = 0;
+            }
+            return false;
         }
-    }
-
-    pair<int, bool> get(int a) {
-        if (parent[a] == a) {
-            return {a, 0};
+        if (sz[a] < sz[b]) {
+            swap(a, b);
         }
-        auto val = get(parent[a]);
-        parent[a] = val.fi;
-        color[a] = (color[a] + val.se) % 2;
-        return {parent[a], color[a]};
-    }
-
-    bool same_color(int a, int b) {
-        get(a);
-        get(b);
-        return color[a] == color[b];
-    }
-    bool same_group(int a, int b) {
-        get(a);
-        get(b);
-        return parent[a] == parent[b];
-    }
-    bool possible_edge(int a, int b) {
-        return !same_color(a, b) || !same_group(a, b);
-    }
-
-    void join(int a, int b) {
-        auto val_a = get(a), val_b = get(b);
-        parent[val_a.fi] = val_b.fi;
-        color[val_a.fi] = (val_a.se + val_b.se + 1) % 2;
+        number_of_sets--;
+        par[b] = a;
+        sz[a] += sz[b];
+        if (equal_color) {
+            c[b] = 1;
+        }
+        bip[a] &= bip[b];
+        all_bipartite &= bip[a];
+        return true;
     }
 };
 \end{lstlisting}
@@ -469,52 +178,290 @@ struct bipartite_dsu {
 
 \hfill
 
-\section{Operation Queue}
+\subsection{DSU Rollback}
 
 
-Fila que armazena o resultado do operatório dos itens.
+DSU que desfaz as últimas operações. O método $checkpoint$ salva o estado atual da estrutura, e o método $rollback$ desfaz as últimas operações até o último checkpoint. As operações de unir dois conjuntos e verificar em qual conjunto um elemento está agora são $O(\log n)$, e o rollback é $O(k)$, onde $k$ é o número de alterações a serem desfeitas. Importante notar que o rollback não altera a complexidade, uma vez que $\sum k = O(q)$, onde $q$ é o número de operações realizadas.
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+struct Rollback_DSU {
+    vector<int> par, sz;
+    int number_of_sets;
+    stack<stack<pair<int &, int>>> changes;
+    Rollback_DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
+        iota(par.begin(), par.end(), 0);
+        changes.emplace();
+    }
+    int find(int a) {
+        return a == par[a] ? a : find(par[a]);
+    }
+    void checkpoint() {
+        changes.emplace();
+    }
+    void save(int &a) {
+        changes.top().emplace(a, a);
+    }
+    bool unite(int a, int b) {
+        a = find(a), b = find(b);
+        if (a == b) {
+            return false;
+        }
+        if (sz[a] < sz[b]) {
+            swap(a, b);
+        }
+        save(number_of_sets);
+        save(par[b]);
+        save(sz[a]);
+        number_of_sets--;
+        par[b] = a;
+        sz[a] += sz[b];
+        return true;
+    }
+    void rollback() {
+        while (changes.top().size()) {
+            auto [a, b] = changes.top().top();
+            a = b;
+            changes.top().pop();
+        }
+        changes.pop();
+    }
+};\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\subsection{DSU Rollback Bipartido}
 
 
-
-* Complexidade de tempo (Push): O(1)
-
-* Complexidade de tempo (Pop): O(1)
+DSU com rollback e bipartido.
 
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-template <typename T> struct op_queue {
-    stack<pair<T, T>> s1, s2;
-    T result;
-    T op(T a, T b) {
-        return a; // TODO: op to compare
-        // min(a, b);
-        // gcd(a, b);
-        // lca(a, b);
+struct Full_DSU {
+    vector<int> par, sz, c, bip;
+    int number_of_sets, all_bipartite;
+    stack<stack<pair<int &, int>>> changes;
+    Full_DSU(int n = 0)
+        : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
+        iota(par.begin(), par.end(), 0);
+        changes.emplace();
     }
-    T get() {
-        if (s1.empty() || s2.empty()) {
-            return result = s1.empty() ? s2.top().second : s1.top().second;
-        } else {
-            return result = op(s1.top().second, s2.top().second);
+    int find(int a) {
+        return a == par[a] ? a : find(par[a]);
+    }
+    int color(int a) {
+        return a == par[a] ? c[a] : c[a] ^ color(par[a]);
+    }
+    bool bipartite(int a) {
+        return bip[find(a)];
+    }
+    void checkpoint() {
+        changes.emplace();
+    }
+    void save(int &a) {
+        changes.top().emplace(a, a);
+    }
+    bool unite(int a, int b) {
+        bool equal_color = color(a) == color(b);
+        a = find(a), b = find(b);
+        if (a == b) {
+            if (equal_color) {
+                save(bip[a]);
+                save(all_bipartite);
+                bip[a] = 0;
+                all_bipartite = 0;
+            }
+            return false;
         }
+        if (sz[a] < sz[b]) {
+            swap(a, b);
+        }
+        save(number_of_sets);
+        save(par[b]);
+        save(sz[a]);
+        save(c[b]);
+        save(bip[a]);
+        save(all_bipartite);
+        number_of_sets--;
+        par[b] = a;
+        sz[a] += sz[b];
+        if (equal_color) {
+            c[b] = 1;
+        }
+        bip[a] &= bip[b];
+        all_bipartite &= bip[a];
+        return true;
     }
-    void add(T element) {
-        result = s1.empty() ? element : op(element, s1.top().second);
-        s1.push({element, result});
+    void rollback() {
+        while (changes.top().size()) {
+            auto [a, b] = changes.top().top();
+            a = b;
+            changes.top().pop();
+        }
+        changes.pop();
     }
-    void remove() {
-        if (s2.empty()) {
-            while (!s1.empty()) {
-                T elem = s1.top().first;
-                s1.pop();
-                T result = s2.empty() ? elem : op(elem, s2.top().second);
-                s2.push({elem, result});
+};\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\subsection{Offline DSU}
+
+
+Algoritmo que utiliza o Full DSU (DSU com Rollback e Bipartido) que permite adição e \textbf{remoção} de arestas. O algoritmo funciona de maneira offline, recebendo previamente todas as operações de adição e remoção de arestas, bem como todas as perguntas (de qualquer tipo, conectividade, bipartição, etc), e retornando as respostas para cada pergunta no retorno do método $solve$. Complexidade total $O(q (\log q + \log n))$, onde $q$ é o número de operações realizadas e $n$ é o número de nodos.
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+struct Offline_DSU : Full_DSU {
+    int time;
+    Offline_DSU(int n = 0) : Full_DSU(n), time(0) {
+    }
+    struct query {
+        int type, a, b;
+    };
+    vector<query> queries;
+    void askConnect(int a, int b) {
+        if (a > b) {
+            swap(a, b);
+        }
+        queries.push_back({0, a, b});
+        time++;
+    }
+    void askBipartite(int a) {
+        queries.push_back({1, a, -1});
+        time++;
+    }
+    void askAllBipartite() {
+        queries.push_back({2, -1, -1});
+        time++;
+    }
+    void addEdge(int a, int b) {
+        if (a > b) {
+            swap(a, b);
+        }
+        queries.push_back({3, a, b});
+        time++;
+    }
+    void removeEdge(int a, int b) {
+        if (a > b) {
+            swap(a, b);
+        }
+        queries.push_back({4, a, b});
+        time++;
+    }
+    vector<vector<pair<int, int>>> lazy;
+    void update(int l, int r, pair<int, int> edge, int u, int L, int R) {
+        if (R < l || L > r) {
+            return;
+        }
+        if (L >= l && R <= r) {
+            lazy[u].push_back(edge);
+            return;
+        }
+        int mid = (L + R) / 2;
+        update(l, r, edge, 2 * u, L, mid);
+        update(l, r, edge, 2 * u + 1, mid + 1, R);
+    }
+    void dfs(int u, int L, int R, vector<int> &ans) {
+        if (L > R) {
+            return;
+        }
+        checkpoint();
+        for (auto [a, b] : lazy[u]) {
+            unite(a, b);
+        }
+        if (L == R) {
+            auto [type, a, b] = queries[L];
+            if (type == 0) {
+                ans.push_back(find(a) == find(b));
+            } else if (type == 1) {
+                ans.push_back(bipartite(a));
+            } else if (type == 2) {
+                ans.push_back(all_bipartite);
+            }
+        } else {
+            int mid = (L + R) / 2;
+            dfs(2 * u, L, mid, ans);
+            dfs(2 * u + 1, mid + 1, R, ans);
+        }
+        rollback();
+    }
+    vector<int> solve() {
+        lazy.assign(4 * time, {});
+        map<pair<int, int>, int> edges;
+        for (int i = 0; i < time; i++) {
+            auto [type, a, b] = queries[i];
+            if (type == 3) {
+                edges[{a, b}] = i;
+            } else if (type == 4) {
+                update(edges[{a, b}], i, {a, b}, 1, 0, time - 1);
+                edges.erase({a, b});
             }
         }
-        T remove_elem = s2.top().first;
-        s2.pop();
+        for (auto [k, v] : edges) {
+            update(v, time - 1, k, 1, 0, time - 1);
+        }
+        vector<int> ans;
+        dfs(1, 0, time - 1, ans);
+        return ans;
+    }
+};\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Fenwick Tree}
+
+
+Árvore de Fenwick (ou BIT) é uma estrutura de dados que permite atualizações pontuais e consultas de prefixos em um vetor em $O(\log n)$. A implementação abaixo é 0-indexada (é mais comum encontrar a implementação 1-indexada). A consulta em ranges arbitrários com o método $query$ é possível para qualquer operação inversível, como soma, XOR, multiplicação, etc. A implementação abaixo é para soma, mas é fácil adaptar para outras operações. O método $update$ soma $d$ à posição $i$ do vetor, enquanto o método $updateSet$ substitue o valor da posição $i$ do vetor por $d$.
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+template <typename T> struct FenwickTree {
+    vector<T> bit;
+    FenwickTree(int n = 0) : bit(n, T()) {
+    }
+    FenwickTree(vector<T> &v) : bit(v.size(), T()) {
+        int n = v.size();
+        for (int i = 0; i < n; i++)
+            bit[i] = v[i];
+        for (int i = 0; i < n; i++) {
+            int j = i | (i + 1);
+            if (j < n)
+                bit[j] = bit[j] + bit[i];
+        }
+    }
+    T pref(int i) {
+        T res = T();
+        while (i >= 0) {
+            res = res + bit[i];
+            i &= i + 1;
+            i--;
+        }
+        return res;
+    }
+    T query(int l, int r) {
+        if (l == 0)
+            return pref(r);
+        return pref(r) - pref(l - 1);
+    }
+    void update(int i, T d) {
+        while (i < (int)bit.size()) {
+            bit[i] = bit[i] + d;
+            i |= i + 1;
+        }
+    }
+    void updateSet(int i, T d) {
+        // funciona pra fenwick de soma
+        T now = query(i, i);
+        update(i, now * -1);
+        update(i, d);
     }
 };
 \end{lstlisting}
@@ -523,6 +470,8 @@ template <typename T> struct op_queue {
 \hfill
 
 \section{Interval Tree}
+
+
 \textbf{Por Rafael Granza de Mello}
 
 
@@ -531,30 +480,7 @@ Estrutura que trata intersecções de intervalos.
 
 
 
-Capaz de retornar todos os intervalos que intersectam [L, R]. \textbf{L e R inclusos}  
-
-Contém funções insert({L, R, ID}), erase({L, R, ID}) , overlaps(L, R) e find({L, R, ID}).  
-
-É necessário inserir e apagar indicando tanto os limites quanto o ID do intervalo.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O( N * log(N) ).
-\end{itemize}
-
-
-
-Podem ser usadas as operações em Set: 
-
-
-
-\begin{itemize}
-\item \lstinline{insert()}
-\item \lstinline{erase()}
-\item \lstinline{upper_bound()}
-\item etc
-\end{itemize}
+Capaz de retornar todos os intervalos que intersectam $[L, R]$. Contém métodos $insert({L, R, ID})$, $erase({L, R, ID})$, $overlaps(L, R)$ e $find({L, R, ID})$. É necessário inserir e apagar indicando tanto os limites quanto o ID do intervalo. Todas as operações são $O(\log n)$, exceto $overlaps$ que é $O(k + \log n)$, onde $k$ é o número de intervalos que intersectam $[L, R]$. Também podem ser usadas as operações padrões de um $std::set$.
 
 \hfill
 
@@ -567,17 +493,18 @@ using namespace __gnu_pbds;
 struct interval {
     long long lo, hi, id;
     bool operator<(const interval &i) const {
-        return lo < i.lo || (lo == i.lo && hi < i.hi) ||
-               (lo == i.lo && hi == i.hi && id < i.id);
+        return tuple(lo, hi, id) < tuple(i.lo, i.hi, i.id);
     }
 };
+
+const long long INF = 1e18;
+
 template <class CNI, class NI, class Cmp_Fn, class Allocator>
 struct intervals_node_update {
     typedef long long metadata_type;
     int sz = 0;
     virtual CNI node_begin() const = 0;
     virtual CNI node_end() const = 0;
-
     inline vector<int> overlaps(const long long l, const long long r) {
         queue<CNI> q;
         q.push(node_begin());
@@ -602,7 +529,6 @@ struct intervals_node_update {
         }
         return vec;
     }
-
     inline void operator()(NI it, CNI end_it) {
         const long long l_max =
             (it.get_l_child() == end_it) ? -INF : it.get_l_child().get_metadata();
@@ -618,90 +544,147 @@ typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_up
 
 \hfill
 
-\section{Segment Tree}
-\subsection{Segment Tree Lazy}
+\section{Kd Fenwick Tree}
 
 
-Implementação padrão de Seg Tree com lazy update
+\textbf{KD Fenwick Tree} 
 
 
 
-\begin{itemize}
-\item Complexidade de tempo (Pré-processamento): O(N)
-\item Complexidade de tempo (Consulta em intervalo): O(log(N))
-\item Complexidade de tempo (Update em ponto): O(log(N))
-\item Complexidade de tempo (Update em intervalo): O(log(N))
-\item Complexidade de espaço: 2 * 4 * N = O(N)
-\end{itemize}
+Fenwick Tree em K dimensoes.
+
+
+
+* Complexidade de update: $O(log^k(N))$.
+
+* Complexidade de query: $O(log^k(N))$.
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MAX = 10;
+ll tree[MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade
+                                                 // necessaria de dimensoes
+
+int lsONE(int x) {
+    return x & (-x);
+}
+
+ll query(vector<int> s, int pos) {
+    ll sum = 0;
+    while (s[pos] > 0) {
+        if (pos < s.size() - 1) {
+            sum += query(s, pos + 1);
+        } else {
+            sum += tree[s[0]][s[1]][s[2]][s[3]][s[4]][s[5]][s[6]][s[7]];
+        }
+        s[pos] -= lsONE(s[pos]);
+    }
+    return sum;
+}
+
+void update(vector<int> s, int pos, int v) {
+    while (s[pos] < MAX + 1) {
+        if (pos < s.size() - 1) {
+            update(s, pos + 1, v);
+        } else {
+            tree[s[0]][s[1]][s[2]][s[3]][s[4]][s[5]][s[6]][s[7]] += v;
+        }
+
+        s[pos] += lsONE(s[pos]);
+    }
+}\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{LiChao Tree}
+
+
+Uma árvore de Funções. Retorna o F(x) máximo em um ponto X.
+
+
+
+Para retornar o minimo deve-se inserir o negativo da função e pegar o negativo do resultado.
+
+
+
+Está pronta para usar função linear do tipo F(x) = mx + b.
+
+
+
+Funciona para funções com a seguinte propriedade, sejam duas funções f(x) e g(x), uma vez que f(x) ganha/perde de g(x), f(x) vai continuar ganhando/perdendo de g(x),
+
+ou seja f(x) e g(x) se intersectam apenas uma vez.
+
+
+
+* Complexidade de consulta : O(log(N))
+
+* Complexidade de update: O(log(N))
+
+
+
+\textbf{LiChao Tree Sparse} 
+
+
+
+O mesmo que a superior, no entanto suporta consultas com |x| <= 1e18.
+
+
+
+* Complexidade de consulta : O(log(tamanho do intervalo))
+
+* Complexidade de update: O(log(tamanho do intervalo))
 
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-namespace seg {
-    const int MAX = 2e5 + 5;
-    const ll NEUTRAL = 0; // merge(a, neutral) = a
-    ll merge(ll a, ll b) {
-        return a + b;
+typedef long long ll;
+
+const ll MAXN = 1e5 + 5, INF = 1e18 + 9;
+
+struct Line {
+    ll a, b = -INF;
+    ll operator()(ll x) {
+        return a * x + b;
     }
-    int sz; // size of the array
-    ll tree[4 * MAX], lazy[4 * MAX];
-    int le(int n) {
-        return 2 * n + 1;
+} tree[4 * MAXN];
+
+int le(int n) {
+    return 2 * n + 1;
+}
+int ri(int n) {
+    return 2 * n + 2;
+}
+
+void insert(Line line, int n = 0, int l = 0, int r = MAXN) {
+    int mid = (l + r) / 2;
+    bool bl = line(l) < tree[n](l);
+    bool bm = line(mid) < tree[n](mid);
+    if (!bm) {
+        swap(tree[n], line);
     }
-    int ri(int n) {
-        return 2 * n + 2;
+    if (l == r) {
+        return;
     }
-    void push(int n, int esq, int dir) {
-        if (lazy[n] == 0) {
-            return;
-        }
-        tree[n] += lazy[n] * (dir - esq + 1);
-        if (esq != dir) {
-            lazy[le(n)] += lazy[n];
-            lazy[ri(n)] += lazy[n];
-        }
-        lazy[n] = 0;
+    if (bl != bm) {
+        insert(line, le(n), l, mid);
+    } else {
+        insert(line, ri(n), mid + 1, r);
     }
-    void build(span<const ll> v, int n, int esq, int dir) {
-        if (esq == dir) {
-            tree[n] = v[esq];
-        } else {
-            int mid = (esq + dir) / 2;
-            build(v, le(n), esq, mid);
-            build(v, ri(n), mid + 1, dir);
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
-        }
+}
+
+ll query(int x, int n = 0, int l = 0, int r = MAXN) {
+    if (l == r) {
+        return tree[n](x);
     }
-    void build(span<const ll> v) {
-        sz = v.size();
-        build(v, 0, 0, sz - 1);
-    }
-    ll query(int l, int r, int n = 0, int esq = 0, int dir = sz - 1) {
-        push(n, esq, dir);
-        if (esq > r || dir < l) {
-            return NEUTRAL;
-        }
-        if (l <= esq && dir <= r) {
-            return tree[n];
-        }
-        int mid = (esq + dir) / 2;
-        return merge(query(l, r, le(n), esq, mid), query(l, r, ri(n), mid + 1, dir));
-    }
-    void update(int l, int r, ll v, int n = 0, int esq = 0, int dir = sz - 1) {
-        push(n, esq, dir);
-        if (esq > r || dir < l) {
-            return;
-        }
-        if (l <= esq && dir <= r) {
-            lazy[n] += v;
-            push(n, esq, dir);
-        } else {
-            int mid = (esq + dir) / 2;
-            update(l, r, v, le(n), esq, mid);
-            update(l, r, v, ri(n), mid + 1, dir);
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
-        }
+    int mid = (l + r) / 2;
+    if (x < mid) {
+        return max(tree[n](x), query(x, le(n), l, mid));
+    } else {
+        return max(tree[n](x), query(x, ri(n), mid + 1, r));
     }
 }
 \end{lstlisting}
@@ -709,6 +692,417 @@ namespace seg {
 
 \hfill
 
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+typedef long long ll;
+
+const ll MAXN = 1e5 + 5, INF = 1e18 + 9, MAXR = 1e18;
+
+struct Line {
+    ll a, b = -INF;
+    __int128 operator()(ll x) {
+        return (__int128)a * x + b;
+    }
+} tree[4 * MAXN];
+int idx = 0, L[4 * MAXN], R[4 * MAXN];
+
+int le(int n) {
+    if (!L[n]) {
+        L[n] = ++idx;
+    }
+    return L[n];
+}
+int ri(int n) {
+    if (!R[n]) {
+        R[n] = ++idx;
+    }
+    return R[n];
+}
+
+void insert(Line line, int n = 0, ll l = -MAXR, ll r = MAXR) {
+    ll mid = (l + r) / 2;
+    bool bl = line(l) < tree[n](l);
+    bool bm = line(mid) < tree[n](mid);
+    if (!bm) {
+        swap(tree[n], line);
+    }
+    if (l == r) {
+        return;
+    }
+    if (bl != bm) {
+        insert(line, le(n), l, mid);
+    } else {
+        insert(line, ri(n), mid + 1, r);
+    }
+}
+
+__int128 query(int x, int n = 0, ll l = -MAXR, ll r = MAXR) {
+    if (l == r) {
+        return tree[n](x);
+    }
+    ll mid = (l + r) / 2;
+    if (x < mid) {
+        return max(tree[n](x), query(x, le(n), l, mid));
+    } else {
+        return max(tree[n](x), query(x, ri(n), mid + 1, r));
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{MergeSort Tree}
+
+
+Árvore que resolve queries que envolvam ordenação em range.
+
+
+
+\begin{itemize}
+\item Complexidade de construção : $O(N * log(N))$
+\item Complexidade de consulta : $O(log^2(N))$
+\end{itemize}
+
+
+
+\textbf{MergeSort Tree com Update Pontual} 
+
+
+
+Resolve Queries que envolvam ordenação em Range. (\textbf{COM UPDATE})  
+
+\textbf{1 segundo para vetores de tamanho $3 * 10^5$}
+
+
+
+\begin{itemize}
+\item Complexidade de construção : $O(N * log^2(N))$
+\item Complexidade de consulta : $O(log^2(N))$
+\item Complexidade de update : $O(log^2(N))$
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+
+using namespace __gnu_pbds;
+
+namespace mergesort {
+    typedef tree<ii, null_type, less<ii>, rb_tree_tag, tree_order_statistics_node_update>
+        ordered_set;
+    const int MAX = 1e5 + 5;
+
+    int n;
+    ordered_set mgtree[4 * MAX];
+    vi values;
+
+    int le(int n) {
+        return 2 * n + 1;
+    }
+    int ri(int n) {
+        return 2 * n + 2;
+    }
+
+    ordered_set join(ordered_set set_l, ordered_set set_r) {
+        for (auto v : set_r) {
+            set_l.insert(v);
+        }
+        return set_l;
+    }
+
+    void build(int n, int esq, int dir) {
+        if (esq == dir) {
+            mgtree[n].insert(ii(values[esq], esq));
+        } else {
+            int mid = (esq + dir) / 2;
+            build(le(n), esq, mid);
+            build(ri(n), mid + 1, dir);
+            mgtree[n] = join(mgtree[le(n)], mgtree[ri(n)]);
+        }
+    }
+    void build(vi &v) {
+        n = v.size();
+        values = v;
+        build(0, 0, n - 1);
+    }
+
+    int less(int n, int esq, int dir, int l, int r, int k) {
+        if (esq > r || dir < l) {
+            return 0;
+        }
+        if (l <= esq && dir <= r) {
+            return mgtree[n].order_of_key({k, -1});
+        }
+        int mid = (esq + dir) / 2;
+        return less(le(n), esq, mid, l, r, k) + less(ri(n), mid + 1, dir, l, r, k);
+    }
+    int less(int l, int r, int k) {
+        return less(0, 0, n - 1, l, r, k);
+    }
+
+    void update(int n, int esq, int dir, int x, int v) {
+        if (esq > x || dir < x) {
+            return;
+        }
+        if (esq == dir) {
+            mgtree[n].clear(), mgtree[n].insert(ii(v, x));
+        } else {
+            int mid = (esq + dir) / 2;
+            if (x <= mid) {
+                update(le(n), esq, mid, x, v);
+            } else {
+                update(ri(n), mid + 1, dir, x, v);
+            }
+            mgtree[n].erase(ii(values[x], x));
+            mgtree[n].insert(ii(v, x));
+        }
+    }
+    void update(int x, int v) {
+        update(0, 0, n - 1, x, v);
+        values[x] = v;
+    }
+
+    // ordered_set debug_query(int n, int esq, int
+    // dir, int l, int r) {
+    //     if (esq > r || dir < l) return
+    //     ordered_set(); if (l <= esq && dir <=
+    //     r) return mgtree[n]; int mid = (esq +
+    //     dir) / 2; return
+    //     join(debug_query(le(n), esq, mid, l,
+    //     r), debug_query(ri(n), mid+1, dir, l,
+    //     r));
+    // }
+    // ordered_set debug_query(int l, int r)
+    // {return debug_query(0, 0, n-1, l, r);}
+
+    // int greater(int n, int esq, int dir, int l,
+    // int r, int k) {
+    //     if (esq > r || dir < l) return 0;
+    //     if (l <= esq && dir <= r) return
+    //     (r-l+1) - mgtree[n].order_of_key({k,
+    //     1e8}); int mid = (esq + dir) / 2;
+    //     return greater(le(n), esq, mid, l, r,
+    //     k) + greater(ri(n), mid+1, dir, l, r,
+    //     k);
+    // }
+    // int greater(int l, int r, int k) {return
+    // greater(0, 0, n-1, l, r, k);}
+};
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+namespace mergesort {
+    const int MAX = 1e5 + 5;
+
+    int n;
+    vi mgtree[4 * MAX];
+
+    int le(int n) {
+        return 2 * n + 1;
+    }
+    int ri(int n) {
+        return 2 * n + 2;
+    }
+
+    void build(int n, int esq, int dir, vi &v) {
+        mgtree[n] = vi(dir - esq + 1, 0);
+        if (esq == dir) {
+            mgtree[n][0] = v[esq];
+        } else {
+            int mid = (esq + dir) / 2;
+            build(le(n), esq, mid, v);
+            build(ri(n), mid + 1, dir, v);
+            merge(mgtree[le(n)].begin(),
+                  mgtree[le(n)].end(),
+                  mgtree[ri(n)].begin(),
+                  mgtree[ri(n)].end(),
+                  mgtree[n].begin());
+        }
+    }
+    void build(vi &v) {
+        n = v.size();
+        build(0, 0, n - 1, v);
+    }
+
+    int less(int n, int esq, int dir, int l, int r, int k) {
+        if (esq > r || dir < l) {
+            return 0;
+        }
+        if (l <= esq && dir <= r) {
+            return lower_bound(mgtree[n].begin(), mgtree[n].end(), k) - mgtree[n].begin();
+        }
+        int mid = (esq + dir) / 2;
+        return less(le(n), esq, mid, l, r, k) + less(ri(n), mid + 1, dir, l, r, k);
+    }
+    int less(int l, int r, int k) {
+        return less(0, 0, n - 1, l, r, k);
+    }
+
+    // vi debug_query(int n, int esq, int dir, int
+    // l, int r) {
+    //     if (esq > r || dir < l) return vi();
+    //     if (l <= esq && dir <= r) return
+    //     mgtree[n]; int mid = (esq + dir) / 2;
+    //     auto vl = debug_query(le(n), esq, mid,
+    //     l, r); auto vr = debug_query(ri(n),
+    //     mid+1, dir, l, r); vi ans =
+    //     vi(vl.size() + vr.size());
+    //     merge(vl.begin(), vl.end(),
+    //         vr.begin(), vr.end(),
+    //         ans.begin());
+    //     return ans;
+    // }
+    // vi debug_query(int l, int r) {return
+    // debug_query(0, 0, n-1, l, r);}
+};
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Operation Queue}
+
+
+Fila que armazena o resultado do operatório dos itens (ou seja, dado uma fila, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::queue$ que permite as operações $push$, $pop$, $front$ e $back$ em $O(1)$ amortizado, agora permitindo também a operação $get$ que retorna o resultado do operatório dos itens da fila em $O(1)$ amortizado.
+
+
+
+Obs: usa a estrutura Operation Stack.
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+template <typename T> struct op_queue : queue<T> {
+    op_stack<T> st1, st2;
+    T get() {
+        if (st1.empty())
+            return st2.get();
+        if (st2.empty())
+            return st1.get();
+        return st1.op(st1.get(), st2.get());
+    }
+    void add(T element) {
+        this->push(element);
+        st1.add(element);
+    }
+    void remove() {
+        if (st2.empty()) {
+            while (!st1.empty()) {
+                st2.add(st1.get());
+                st1.remove();
+            }
+        }
+        st2.remove();
+        this->pop();
+    }
+};
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Operation Stack}
+
+
+Pilha que armazena o resultado do operatório dos itens (ou seja, dado uma pilha, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::stack$ que permite as operações $push$, $pop$ e $top$ em $O(1)$ amortizado, agora permitindo também a operação $get$ que retorna o resultado do operatório dos itens da pilha em $O(1)$ amortizado.
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+template <typename T> struct op_stack : stack<T> {
+    stack<T> st;
+    T op(T a, T b) {
+        return min(a, b); // TODO: Operacao, pode ser qualquer uma
+    }
+    T get() {
+        return st.top();
+    }
+    void add(T element) {
+        this->push(element);
+        st.push(st.empty() ? element : op(element, st.top()));
+    }
+    void remove() {
+        st.pop();
+        this->pop();
+    }
+};\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Ordered Set}
+
+
+Set com operações de busca por ordem e índice.
+
+
+
+Pode ser usado como um set normal, a principal diferença são duas novas operações possíveis:
+
+
+
+\begin{itemize}
+\item \lstinline{find_by_order(x)}: retorna o item na posição x.
+\item \lstinline{order_of_key(k)}: retorna o número de elementos menores que k. (o índice de k)
+\end{itemize}
+
+
+
+\textbf{} 
+\begin{lstlisting}[language=C++]
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/trie_policy.hpp>
+
+using namespace __gnu_pbds;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+
+ordered_set X;
+X.insert(1);
+X.insert(2);
+X.insert(4);
+X.insert(8);
+X.insert(16);
+
+cout<<*X.find_by_order(1)<<endl; // 2
+cout<<*X.find_by_order(2)<<endl; // 4
+cout<<*X.find_by_order(4)<<endl; // 16
+cout<<(end(X)==X.find_by_order(6))<<endl; // true
+
+cout<<X.order_of_key(-5)<<endl;  // 0
+cout<<X.order_of_key(1)<<endl;   // 0
+cout<<X.order_of_key(3)<<endl;   // 2
+cout<<X.order_of_key(4)<<endl;   // 2
+cout<<X.order_of_key(400)<<endl; // 5
+
+\end{lstlisting}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/trie_policy.hpp>
+
+using namespace __gnu_pbds;
+
+template <typename T>
+using ordered_set =
+    tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Segment Tree}
 \subsection{Segment Tree}
 Implementação padrão de Seg Tree
 
@@ -1303,6 +1697,191 @@ struct seg {
 
 \hfill
 
+\subsection{Segment Tree Kadani}
+
+
+Implementação de uma Seg Tree que suporta update de soma e query de soma máxima em intervalo.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo (Pré-processamento): O(N)
+\item Complexidade de tempo (Consulta em intervalo): O(log(N))
+\item Complexidade de tempo (Update em ponto): O(log(N))
+\item Complexidade de espaço: 4 * N = O(N)
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+namespace seg {
+    const int MAX = 1e5 + 5;
+    struct node {
+        ll pref, suff, sum, best;
+    };
+    node new_node(ll v) {
+        return node{v, v, v, v};
+    }
+    const node NEUTRAL = {0, 0, 0, 0};
+    node tree[4 * MAX];
+    node merge(node a, node b) {
+        ll pref = max(a.pref, a.sum + b.pref);
+        ll suff = max(b.suff, b.sum + a.suff);
+        ll sum = a.sum + b.sum;
+        ll best = max(a.suff + b.pref, max(a.best, b.best));
+        return node{pref, suff, sum, best};
+    }
+
+    int n;
+    int le(int n) {
+        return 2 * n + 1;
+    }
+    int ri(int n) {
+        return 2 * n + 2;
+    }
+    void build(int n, int esq, int dir, const vector<ll> &v) {
+        if (esq == dir) {
+            tree[n] = new_node(v[esq]);
+        } else {
+            int mid = (esq + dir) / 2;
+            build(le(n), esq, mid, v);
+            build(ri(n), mid + 1, dir, v);
+            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+        }
+    }
+    void build(const vector<ll> &v) {
+        n = v.size();
+        build(0, 0, n - 1, v);
+    }
+    node query(int n, int esq, int dir, int l, int r) {
+        if (esq > r || dir < l) {
+            return NEUTRAL;
+        }
+        if (l <= esq && dir <= r) {
+            return tree[n];
+        }
+        int mid = (esq + dir) / 2;
+        return merge(query(le(n), esq, mid, l, r), query(ri(n), mid + 1, dir, l, r));
+    }
+    ll query(int l, int r) {
+        return query(0, 0, n - 1, l, r).best;
+    }
+    void update(int n, int esq, int dir, int x, ll v) {
+        if (esq > x || dir < x) {
+            return;
+        }
+        if (esq == dir) {
+            tree[n] = new_node(v);
+        } else {
+            int mid = (esq + dir) / 2;
+            if (x <= mid) {
+                update(le(n), esq, mid, x, v);
+            } else {
+                update(ri(n), mid + 1, dir, x, v);
+            }
+            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+        }
+    }
+    void update(int x, ll v) {
+        update(0, 0, n - 1, x, v);
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\subsection{Segment Tree Lazy}
+
+
+Implementação padrão de Seg Tree com lazy update
+
+
+
+\begin{itemize}
+\item Complexidade de tempo (Pré-processamento): O(N)
+\item Complexidade de tempo (Consulta em intervalo): O(log(N))
+\item Complexidade de tempo (Update em ponto): O(log(N))
+\item Complexidade de tempo (Update em intervalo): O(log(N))
+\item Complexidade de espaço: 2 * 4 * N = O(N)
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+namespace seg {
+    const int MAX = 2e5 + 5;
+    const ll NEUTRAL = 0; // merge(a, neutral) = a
+    ll merge(ll a, ll b) {
+        return a + b;
+    }
+    int sz; // size of the array
+    ll tree[4 * MAX], lazy[4 * MAX];
+    int le(int n) {
+        return 2 * n + 1;
+    }
+    int ri(int n) {
+        return 2 * n + 2;
+    }
+    void push(int n, int esq, int dir) {
+        if (lazy[n] == 0) {
+            return;
+        }
+        tree[n] += lazy[n] * (dir - esq + 1);
+        if (esq != dir) {
+            lazy[le(n)] += lazy[n];
+            lazy[ri(n)] += lazy[n];
+        }
+        lazy[n] = 0;
+    }
+    void build(span<const ll> v, int n, int esq, int dir) {
+        if (esq == dir) {
+            tree[n] = v[esq];
+        } else {
+            int mid = (esq + dir) / 2;
+            build(v, le(n), esq, mid);
+            build(v, ri(n), mid + 1, dir);
+            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+        }
+    }
+    void build(span<const ll> v) {
+        sz = v.size();
+        build(v, 0, 0, sz - 1);
+    }
+    ll query(int l, int r, int n = 0, int esq = 0, int dir = sz - 1) {
+        push(n, esq, dir);
+        if (esq > r || dir < l) {
+            return NEUTRAL;
+        }
+        if (l <= esq && dir <= r) {
+            return tree[n];
+        }
+        int mid = (esq + dir) / 2;
+        return merge(query(l, r, le(n), esq, mid), query(l, r, ri(n), mid + 1, dir));
+    }
+    void update(int l, int r, ll v, int n = 0, int esq = 0, int dir = sz - 1) {
+        push(n, esq, dir);
+        if (esq > r || dir < l) {
+            return;
+        }
+        if (l <= esq && dir <= r) {
+            lazy[n] += v;
+            push(n, esq, dir);
+        } else {
+            int mid = (esq + dir) / 2;
+            update(l, r, v, le(n), esq, mid);
+            update(l, r, v, ri(n), mid + 1, dir);
+            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+        }
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
 \subsection{Segment Tree Persisente}
 
 
@@ -1403,685 +1982,6 @@ namespace seg {
     int kth(int l_root, int r_root, int k) {
         return kth(roots[l_root - 1], roots[r_root], ESQ, DIR, k);
     }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\subsection{Segment Tree Kadani}
-
-
-Implementação de uma Seg Tree que suporta update de soma e query de soma máxima em intervalo.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo (Pré-processamento): O(N)
-\item Complexidade de tempo (Consulta em intervalo): O(log(N))
-\item Complexidade de tempo (Update em ponto): O(log(N))
-\item Complexidade de espaço: 4 * N = O(N)
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-namespace seg {
-    const int MAX = 1e5 + 5;
-    struct node {
-        ll pref, suff, sum, best;
-    };
-    node new_node(ll v) {
-        return node{v, v, v, v};
-    }
-    const node NEUTRAL = {0, 0, 0, 0};
-    node tree[4 * MAX];
-    node merge(node a, node b) {
-        ll pref = max(a.pref, a.sum + b.pref);
-        ll suff = max(b.suff, b.sum + a.suff);
-        ll sum = a.sum + b.sum;
-        ll best = max(a.suff + b.pref, max(a.best, b.best));
-        return node{pref, suff, sum, best};
-    }
-
-    int n;
-    int le(int n) {
-        return 2 * n + 1;
-    }
-    int ri(int n) {
-        return 2 * n + 2;
-    }
-    void build(int n, int esq, int dir, const vector<ll> &v) {
-        if (esq == dir) {
-            tree[n] = new_node(v[esq]);
-        } else {
-            int mid = (esq + dir) / 2;
-            build(le(n), esq, mid, v);
-            build(ri(n), mid + 1, dir, v);
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
-        }
-    }
-    void build(const vector<ll> &v) {
-        n = v.size();
-        build(0, 0, n - 1, v);
-    }
-    node query(int n, int esq, int dir, int l, int r) {
-        if (esq > r || dir < l) {
-            return NEUTRAL;
-        }
-        if (l <= esq && dir <= r) {
-            return tree[n];
-        }
-        int mid = (esq + dir) / 2;
-        return merge(query(le(n), esq, mid, l, r), query(ri(n), mid + 1, dir, l, r));
-    }
-    ll query(int l, int r) {
-        return query(0, 0, n - 1, l, r).best;
-    }
-    void update(int n, int esq, int dir, int x, ll v) {
-        if (esq > x || dir < x) {
-            return;
-        }
-        if (esq == dir) {
-            tree[n] = new_node(v);
-        } else {
-            int mid = (esq + dir) / 2;
-            if (x <= mid) {
-                update(le(n), esq, mid, x, v);
-            } else {
-                update(ri(n), mid + 1, dir, x, v);
-            }
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
-        }
-    }
-    void update(int x, ll v) {
-        update(0, 0, n - 1, x, v);
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Operation Stack}
-
-
-Pilha que armazena o resultado do operatório dos itens.
-
-
-
-* Complexidade de tempo (Push): O(1)
-
-* Complexidade de tempo (Pop): O(1)
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-template <typename T> struct op_stack {
-    stack<pair<T, T>> st;
-    T result;
-    T op(T a, T b) {
-        return a; // TODO: op to compare
-        // min(a, b);
-        // gcd(a, b);
-        // lca(a, b);
-    }
-    T get() {
-        return result = st.top().second;
-    }
-    void add(T element) {
-        result = st.empty() ? element : op(element, st.top().second);
-        st.push({element, result});
-    }
-    void remove() {
-        T removed_element = st.top().first;
-        st.pop();
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Fenwick Tree}
-
-
-Consultas e atualizações de soma em intervalo.
-
-
-
-O vetor precisa obrigatoriamente estar indexado em 1.
-
-
-
-* Complexidade de tempo (Pre-processamento): $O(N * log(N))$
-
-* Complexidade de tempo (Consulta em intervalo): $O(log(N))$
-
-* Complexidade de tempo (Update em ponto): $O(log(N))$
-
-* Complexidade de espaço: 2 * N = $O(N)$
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct FenwickTree {
-    int n;
-    vector<int> tree;
-    FenwickTree(int n) : n(n) {
-        tree.assign(n, 0);
-    }
-    FenwickTree(vector<int> v) : FenwickTree(v.size()) {
-        for (size_t i = 1; i < v.size(); i++) {
-            update(i, v[i]);
-        }
-    }
-    int lsONE(int x) {
-        return x & (-x);
-    }
-    int query(int x) {
-        int soma = 0;
-        for (; x > 0; x -= lsONE(x)) {
-            soma += tree[x];
-        }
-        return soma;
-    }
-    int query(int l, int r) {
-        return query(r) - query(l - 1);
-    }
-    void update(int x, int v) {
-        for (; x < n; x += lsONE(x)) {
-            tree[x] += v;
-        }
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{LiChao Tree}
-
-
-Uma árvore de Funções. Retorna o F(x) máximo em um ponto X.
-
-
-
-Para retornar o minimo deve-se inserir o negativo da função e pegar o negativo do resultado.
-
-
-
-Está pronta para usar função linear do tipo F(x) = mx + b.
-
-
-
-Funciona para funções com a seguinte propriedade, sejam duas funções f(x) e g(x), uma vez que f(x) ganha/perde de g(x), f(x) vai continuar ganhando/perdendo de g(x),
-
-ou seja f(x) e g(x) se intersectam apenas uma vez.
-
-
-
-* Complexidade de consulta : O(log(N))
-
-* Complexidade de update: O(log(N))
-
-
-
-\textbf{LiChao Tree Sparse} 
-
-
-
-O mesmo que a superior, no entanto suporta consultas com |x| <= 1e18.
-
-
-
-* Complexidade de consulta : O(log(tamanho do intervalo))
-
-* Complexidade de update: O(log(tamanho do intervalo))
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-typedef long long ll;
-
-const ll MAXN = 1e5 + 5, INF = 1e18 + 9;
-
-struct Line {
-    ll a, b = -INF;
-    ll operator()(ll x) {
-        return a * x + b;
-    }
-} tree[4 * MAXN];
-
-int le(int n) {
-    return 2 * n + 1;
-}
-int ri(int n) {
-    return 2 * n + 2;
-}
-
-void insert(Line line, int n = 0, int l = 0, int r = MAXN) {
-    int mid = (l + r) / 2;
-    bool bl = line(l) < tree[n](l);
-    bool bm = line(mid) < tree[n](mid);
-    if (!bm) {
-        swap(tree[n], line);
-    }
-    if (l == r) {
-        return;
-    }
-    if (bl != bm) {
-        insert(line, le(n), l, mid);
-    } else {
-        insert(line, ri(n), mid + 1, r);
-    }
-}
-
-ll query(int x, int n = 0, int l = 0, int r = MAXN) {
-    if (l == r) {
-        return tree[n](x);
-    }
-    int mid = (l + r) / 2;
-    if (x < mid) {
-        return max(tree[n](x), query(x, le(n), l, mid));
-    } else {
-        return max(tree[n](x), query(x, ri(n), mid + 1, r));
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-typedef long long ll;
-
-const ll MAXN = 1e5 + 5, INF = 1e18 + 9, MAXR = 1e18;
-
-struct Line {
-    ll a, b = -INF;
-    __int128 operator()(ll x) {
-        return (__int128)a * x + b;
-    }
-} tree[4 * MAXN];
-int idx = 0, L[4 * MAXN], R[4 * MAXN];
-
-int le(int n) {
-    if (!L[n]) {
-        L[n] = ++idx;
-    }
-    return L[n];
-}
-int ri(int n) {
-    if (!R[n]) {
-        R[n] = ++idx;
-    }
-    return R[n];
-}
-
-void insert(Line line, int n = 0, ll l = -MAXR, ll r = MAXR) {
-    ll mid = (l + r) / 2;
-    bool bl = line(l) < tree[n](l);
-    bool bm = line(mid) < tree[n](mid);
-    if (!bm) {
-        swap(tree[n], line);
-    }
-    if (l == r) {
-        return;
-    }
-    if (bl != bm) {
-        insert(line, le(n), l, mid);
-    } else {
-        insert(line, ri(n), mid + 1, r);
-    }
-}
-
-__int128 query(int x, int n = 0, ll l = -MAXR, ll r = MAXR) {
-    if (l == r) {
-        return tree[n](x);
-    }
-    ll mid = (l + r) / 2;
-    if (x < mid) {
-        return max(tree[n](x), query(x, le(n), l, mid));
-    } else {
-        return max(tree[n](x), query(x, ri(n), mid + 1, r));
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Kd Fenwick Tree}
-
-
-\textbf{KD Fenwick Tree} 
-
-
-
-Fenwick Tree em K dimensoes.
-
-
-
-* Complexidade de update: $O(log^k(N))$.
-
-* Complexidade de query: $O(log^k(N))$.
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int MAX = 10;
-ll tree[MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade
-                                                 // necessaria de dimensoes
-
-int lsONE(int x) {
-    return x & (-x);
-}
-
-ll query(vector<int> s, int pos) {
-    ll sum = 0;
-    while (s[pos] > 0) {
-        if (pos < s.size() - 1) {
-            sum += query(s, pos + 1);
-        } else {
-            sum += tree[s[0]][s[1]][s[2]][s[3]][s[4]][s[5]][s[6]][s[7]];
-        }
-        s[pos] -= lsONE(s[pos]);
-    }
-    return sum;
-}
-
-void update(vector<int> s, int pos, int v) {
-    while (s[pos] < MAX + 1) {
-        if (pos < s.size() - 1) {
-            update(s, pos + 1, v);
-        } else {
-            tree[s[0]][s[1]][s[2]][s[3]][s[4]][s[5]][s[6]][s[7]] += v;
-        }
-
-        s[pos] += lsONE(s[pos]);
-    }
-}\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Ordered Set}
-
-
-Set com operações de busca por ordem e índice.
-
-
-
-Pode ser usado como um set normal, a principal diferença são duas novas operações possíveis:
-
-
-
-\begin{itemize}
-\item \lstinline{find_by_order(x)}: retorna o item na posição x.
-\item \lstinline{order_of_key(k)}: retorna o número de elementos menores que k. (o índice de k)
-\end{itemize}
-
-
-
-\textbf{} 
-\begin{lstlisting}[language=C++]
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/trie_policy.hpp>
-
-using namespace __gnu_pbds;
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-
-ordered_set X;
-X.insert(1);
-X.insert(2);
-X.insert(4);
-X.insert(8);
-X.insert(16);
-
-cout<<*X.find_by_order(1)<<endl; // 2
-cout<<*X.find_by_order(2)<<endl; // 4
-cout<<*X.find_by_order(4)<<endl; // 16
-cout<<(end(X)==X.find_by_order(6))<<endl; // true
-
-cout<<X.order_of_key(-5)<<endl;  // 0
-cout<<X.order_of_key(1)<<endl;   // 0
-cout<<X.order_of_key(3)<<endl;   // 2
-cout<<X.order_of_key(4)<<endl;   // 2
-cout<<X.order_of_key(400)<<endl; // 5
-
-\end{lstlisting}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/trie_policy.hpp>
-
-using namespace __gnu_pbds;
-
-template <typename T>
-typedef tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>
-    ordered_set;\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{MergeSort Tree}
-
-
-Árvore que resolve queries que envolvam ordenação em range.
-
-
-
-\begin{itemize}
-\item Complexidade de construção : $O(N * log(N))$
-\item Complexidade de consulta : $O(log^2(N))$
-\end{itemize}
-
-
-
-\textbf{MergeSort Tree com Update Pontual} 
-
-
-
-Resolve Queries que envolvam ordenação em Range. (\textbf{COM UPDATE})  
-
-\textbf{1 segundo para vetores de tamanho $3 * 10^5$}
-
-
-
-\begin{itemize}
-\item Complexidade de construção : $O(N * log^2(N))$
-\item Complexidade de consulta : $O(log^2(N))$
-\item Complexidade de update : $O(log^2(N))$
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-
-using namespace __gnu_pbds;
-
-namespace mergesort {
-    typedef tree<ii, null_type, less<ii>, rb_tree_tag, tree_order_statistics_node_update>
-        ordered_set;
-    const int MAX = 1e5 + 5;
-
-    int n;
-    ordered_set mgtree[4 * MAX];
-    vi values;
-
-    int le(int n) {
-        return 2 * n + 1;
-    }
-    int ri(int n) {
-        return 2 * n + 2;
-    }
-
-    ordered_set join(ordered_set set_l, ordered_set set_r) {
-        for (auto v : set_r) {
-            set_l.insert(v);
-        }
-        return set_l;
-    }
-
-    void build(int n, int esq, int dir) {
-        if (esq == dir) {
-            mgtree[n].insert(ii(values[esq], esq));
-        } else {
-            int mid = (esq + dir) / 2;
-            build(le(n), esq, mid);
-            build(ri(n), mid + 1, dir);
-            mgtree[n] = join(mgtree[le(n)], mgtree[ri(n)]);
-        }
-    }
-    void build(vi &v) {
-        n = v.size();
-        values = v;
-        build(0, 0, n - 1);
-    }
-
-    int less(int n, int esq, int dir, int l, int r, int k) {
-        if (esq > r || dir < l) {
-            return 0;
-        }
-        if (l <= esq && dir <= r) {
-            return mgtree[n].order_of_key({k, -1});
-        }
-        int mid = (esq + dir) / 2;
-        return less(le(n), esq, mid, l, r, k) + less(ri(n), mid + 1, dir, l, r, k);
-    }
-    int less(int l, int r, int k) {
-        return less(0, 0, n - 1, l, r, k);
-    }
-
-    void update(int n, int esq, int dir, int x, int v) {
-        if (esq > x || dir < x) {
-            return;
-        }
-        if (esq == dir) {
-            mgtree[n].clear(), mgtree[n].insert(ii(v, x));
-        } else {
-            int mid = (esq + dir) / 2;
-            if (x <= mid) {
-                update(le(n), esq, mid, x, v);
-            } else {
-                update(ri(n), mid + 1, dir, x, v);
-            }
-            mgtree[n].erase(ii(values[x], x));
-            mgtree[n].insert(ii(v, x));
-        }
-    }
-    void update(int x, int v) {
-        update(0, 0, n - 1, x, v);
-        values[x] = v;
-    }
-
-    // ordered_set debug_query(int n, int esq, int
-    // dir, int l, int r) {
-    //     if (esq > r || dir < l) return
-    //     ordered_set(); if (l <= esq && dir <=
-    //     r) return mgtree[n]; int mid = (esq +
-    //     dir) / 2; return
-    //     join(debug_query(le(n), esq, mid, l,
-    //     r), debug_query(ri(n), mid+1, dir, l,
-    //     r));
-    // }
-    // ordered_set debug_query(int l, int r)
-    // {return debug_query(0, 0, n-1, l, r);}
-
-    // int greater(int n, int esq, int dir, int l,
-    // int r, int k) {
-    //     if (esq > r || dir < l) return 0;
-    //     if (l <= esq && dir <= r) return
-    //     (r-l+1) - mgtree[n].order_of_key({k,
-    //     1e8}); int mid = (esq + dir) / 2;
-    //     return greater(le(n), esq, mid, l, r,
-    //     k) + greater(ri(n), mid+1, dir, l, r,
-    //     k);
-    // }
-    // int greater(int l, int r, int k) {return
-    // greater(0, 0, n-1, l, r, k);}
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-namespace mergesort {
-    const int MAX = 1e5 + 5;
-
-    int n;
-    vi mgtree[4 * MAX];
-
-    int le(int n) {
-        return 2 * n + 1;
-    }
-    int ri(int n) {
-        return 2 * n + 2;
-    }
-
-    void build(int n, int esq, int dir, vi &v) {
-        mgtree[n] = vi(dir - esq + 1, 0);
-        if (esq == dir) {
-            mgtree[n][0] = v[esq];
-        } else {
-            int mid = (esq + dir) / 2;
-            build(le(n), esq, mid, v);
-            build(ri(n), mid + 1, dir, v);
-            merge(mgtree[le(n)].begin(),
-                  mgtree[le(n)].end(),
-                  mgtree[ri(n)].begin(),
-                  mgtree[ri(n)].end(),
-                  mgtree[n].begin());
-        }
-    }
-    void build(vi &v) {
-        n = v.size();
-        build(0, 0, n - 1, v);
-    }
-
-    int less(int n, int esq, int dir, int l, int r, int k) {
-        if (esq > r || dir < l) {
-            return 0;
-        }
-        if (l <= esq && dir <= r) {
-            return lower_bound(mgtree[n].begin(), mgtree[n].end(), k) - mgtree[n].begin();
-        }
-        int mid = (esq + dir) / 2;
-        return less(le(n), esq, mid, l, r, k) + less(ri(n), mid + 1, dir, l, r, k);
-    }
-    int less(int l, int r, int k) {
-        return less(0, 0, n - 1, l, r, k);
-    }
-
-    // vi debug_query(int n, int esq, int dir, int
-    // l, int r) {
-    //     if (esq > r || dir < l) return vi();
-    //     if (l <= esq && dir <= r) return
-    //     mgtree[n]; int mid = (esq + dir) / 2;
-    //     auto vl = debug_query(le(n), esq, mid,
-    //     l, r); auto vr = debug_query(ri(n),
-    //     mid+1, dir, l, r); vi ans =
-    //     vi(vl.size() + vr.size());
-    //     merge(vl.begin(), vl.end(),
-    //         vr.begin(), vr.end(),
-    //         ans.begin());
-    //     return ans;
-    // }
-    // vi debug_query(int l, int r) {return
-    // debug_query(0, 0, n-1, l, r);}
 };
 \end{lstlisting}
 \end{multicols}
@@ -2220,692 +2120,94 @@ struct SparseTable {
 
 \chapter{Grafos}
 
-\section{Matching}
-\subsection{Hungaro}
+\section{2 SAT}
 
 
-Resolve o problema de Matching para uma matriz \lstinline{A[n][m]}, onde $n \leq m$.
-
-
-
-A implementação minimiza os custos, para maximizar basta multiplicar os pesos por -1.
-
-
-
-\textbf{A matriz de entrada precisa ser indexada em 1 !!!}
-
-
-
-O vetor \lstinline{result} guarda os pares do matching.
-
-
-
-Complexidade de tempo: $O(n^2 * m)$
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const ll INF = 1e18 + 18;
-
-vector<pair<int, int>> result;
-
-ll hungarian(int n, int m, vector<vector<int>> &A) {
-    vector<int> u(n + 1), v(m + 1), p(m + 1), way(m + 1);
-    for (int i = 1; i <= n; i++) {
-        p[0] = i;
-        int j0 = 0;
-        vector<int> minv(m + 1, INF);
-        vector<char> used(m + 1, false);
-        do {
-            used[j0] = true;
-            ll i0 = p[j0], delta = INF, j1;
-            for (int j = 1; j <= m; j++) {
-                if (!used[j]) {
-                    int cur = A[i0][j] - u[i0] - v[j];
-                    if (cur < minv[j]) {
-                        minv[j] = cur, way[j] = j0;
-                    }
-                    if (minv[j] < delta) {
-                        delta = minv[j], j1 = j;
-                    }
-                }
-            }
-            for (int j = 0; j <= m; j++) {
-                if (used[j]) {
-                    u[p[j]] += delta, v[j] -= delta;
-                } else {
-                    minv[j] -= delta;
-                }
-            }
-            j0 = j1;
-        } while (p[j0] != 0);
-        do {
-            int j1 = way[j0];
-            p[j0] = p[j1];
-            j0 = j1;
-        } while (j0);
-    }
-    for (int i = 1; i <= m; i++) {
-        result.emplace_back(p[i], i);
-    }
-    return -v[0];
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{LCA}
-
-
-Algoritmo de Lowest Common Ancestor usando EulerTour e Sparse Table
-
-
-
-Complexidade de tempo:
+Resolve problema do 2-SAT.
 
 
 
 \begin{itemize}
-\item O(Nlog(N)) Preprocessing
-\item O(1) Query LCA
+\item Complexidade de tempo (caso médio): O(N + M)
 \end{itemize}
 
 
 
-Complexidade de espaço: O(Nlog(N))
+N é o número de variáveis e M é o número de cláusulas.  
+
+A configuração da solução fica guardada no vetor *assignment*. 
+
+
+
+Em relaçõa ao sinal, tanto faz se 0 liga ou desliga, apenas siga o mesmo padrão.
 
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-#include <bits/stdc++.h>
-using namespace std;
+struct sat2 {
+    int n;
+    vector<vector<int>> g, gt;
+    vector<bool> used;
+    vector<int> order, comp;
+    vector<bool> assignment;
 
-#define INF 1e9
-#define fi first
-#define se second
-
-typedef pair<int, int> ii;
-
-vector<int> tin, tout;
-vector<vector<int>> adj;
-vector<ii> prof;
-vector<vector<ii>> st;
-
-int n, timer;
-
-void SparseTable(vector<ii> &v) {
-    int n = v.size();
-    int e = floor(log2(n));
-    st.assign(e + 1, vector<ii>(n));
-    for (int i = 0; i < n; i++) {
-        st[0][i] = v[i];
+    // number of variables
+    sat2(int _n) {
+        n = 2 * (_n + 5);
+        g.assign(n, vector<int>());
+        gt.assign(n, vector<int>());
     }
-    for (int i = 1; i <= e; i++) {
-        for (int j = 0; j + (1 << i) <= n; j++) {
-            st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+    void add_edge(int v, int u, bool v_sign, bool u_sign) {
+        g[2 * v + v_sign].push_back(2 * u + !u_sign);
+        g[2 * u + u_sign].push_back(2 * v + !v_sign);
+        gt[2 * u + !u_sign].push_back(2 * v + v_sign);
+        gt[2 * v + !v_sign].push_back(2 * u + u_sign);
+    }
+    void dfs1(int v) {
+        used[v] = true;
+        for (int u : g[v]) {
+            if (!used[u]) {
+                dfs1(u);
+            }
         }
+        order.push_back(v);
     }
-}
-
-void et_dfs(int u, int p, int h) {
-    tin[u] = timer++;
-    prof.emplace_back(h, u);
-    for (int v : adj[u]) {
-        if (v != p) {
-            et_dfs(v, u, h + 1);
-            prof.emplace_back(h, u);
-        }
-    }
-    tout[u] = timer++;
-}
-
-void build(int root = 0) {
-    tin.assign(n, 0);
-    tout.assign(n, 0);
-    prof.clear();
-    timer = 0;
-    et_dfs(root, root, 0);
-    SparseTable(prof);
-}
-
-int lca(int u, int v) {
-    int l = tout[u], r = tin[v];
-    if (l > r) {
-        swap(l, r);
-    }
-    int i = floor(log2(r - l + 1));
-    return min(st[i][l], st[i][r - (1 << i) + 1]).se;
-}
-
-int main() {
-    cin >> n;
-
-    adj.assign(n, vector<int>(0));
-
-    for (int i = 0; i < n - 1; i++) {
-        int a, b;
-        cin >> a >> b;
-        adj[a].push_back(b);
-        adj[b].push_back(a);
-    }
-
-    build();
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{HLD}
-
-
-Técnica usada para otimizar a execução de operações em árvores.
-
-
-
-\begin{itemize}
-\item Pré-Processamento: O(N)
-\item Range Query/Update: O(Log(N)) * O(Complexidade de query da estrutura)
-\item Point Query/Update: O(Complexidade de query da estrutura)
-\item LCA: O(Log(N))
-\item Subtree Query: O(Complexidade de query da estrutura)
-\item Complexidade de espaço: O(N)
-\end{itemize}
-
-
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-namespace hld {
-    const int MAX = 2e5 + 5;
-    int t, sz[MAX], pos[MAX], pai[MAX], head[MAX];
-    bool e = 0;
-    ll merge(ll a, ll b) {
-        return max(a, b); // how to merge paths
-    }
-    void dfs_sz(int u, int p = -1) {
-        sz[u] = 1;
-        for (int &v : adj[u]) {
-            if (v != p) {
-                dfs_sz(v, u);
-                sz[u] += sz[v];
-                if (sz[v] > sz[adj[u][0]] || adj[u][0] == p) {
-                    swap(v, adj[u][0]);
-                }
+    void dfs2(int v, int cl) {
+        comp[v] = cl;
+        for (int u : gt[v]) {
+            if (comp[u] == -1) {
+                dfs2(u, cl);
             }
         }
     }
-    void dfs_hld(int u, int p = -1) {
-        pos[u] = t++;
-        for (int v : adj[u]) {
-            if (v != p) {
-                pai[v] = u;
-                head[v] = (v == adj[u][0] ? head[u] : v);
-                dfs_hld(v, u);
+    bool solve() {
+        order.clear();
+        used.assign(n, false);
+        for (int i = 0; i < n; ++i) {
+            if (!used[i]) {
+                dfs1(i);
             }
         }
-    }
-    void build(int root) {
-        dfs_sz(root);
-        t = 0;
-        pai[root] = root;
-        head[root] = root;
-        dfs_hld(root);
-    }
-    void build(int root, vector<ll> &v) {
-        build(root);
-        vector<ll> aux(v.size());
-        for (int i = 0; i < (int)v.size(); i++) {
-            aux[pos[i]] = v[i];
-        }
-        seg::build(aux);
-    }
-    void build(int root,
-               vector<i3> &edges) { // use this if
-                                    // weighted edges
-        build(root);
-        e = 1;
-        vector<ll> aux(edges.size() + 1);
-        for (auto [u, v, w] : edges) {
-            if (pos[u] > pos[v]) {
-                swap(u, v);
+
+        comp.assign(n, -1);
+        for (int i = 0, j = 0; i < n; ++i) {
+            int v = order[n - i - 1];
+            if (comp[v] == -1) {
+                dfs2(v, j++);
             }
-            aux[pos[v]] = w;
         }
-        seg::build(aux);
-    }
-    ll query(int u, int v) {
-        if (pos[u] > pos[v]) {
-            swap(u, v);
+
+        assignment.assign(n / 2, false);
+        for (int i = 0; i < n; i += 2) {
+            if (comp[i] == comp[i + 1]) {
+                return false;
+            }
+            assignment[i / 2] = comp[i] > comp[i + 1];
         }
-        if (head[u] == head[v]) {
-            return seg::query(pos[u] + e, pos[v]);
-        } else {
-            ll qv = seg::query(pos[head[v]], pos[v]);
-            ll qu = query(u, pai[head[v]]);
-            return merge(qu, qv);
-        }
-    }
-    void update(int u, int v, ll k) {
-        if (pos[u] > pos[v]) {
-            swap(u, v);
-        }
-        if (head[u] == head[v]) {
-            seg::update(pos[u] + e, pos[v], k);
-        } else {
-            seg::update(pos[head[v]], pos[v], k);
-            update(u, pai[head[v]], k);
-        }
-    }
-    int lca(int u, int v) {
-        if (pos[u] > pos[v]) {
-            swap(u, v);
-        }
-        return (head[u] == head[v] ? u : lca(u, pai[head[v]]));
-    }
-    ll query_subtree(int u) {
-        return seg::query(pos[u], pos[u] + sz[u] - 1);
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Kruskal}
-
-
-Algoritimo para encontrar a MST (minimum spanning tree) de um grafo.
-
-
-
-Utiliza [DSU](../../Estruturas\%20de\%20Dados/DSU/dsu.cpp) - (disjoint set union) - para construir MST - (minimum spanning tree)
-
-
-
-\begin{itemize}
-\item Complexidade de tempo (Construção): O(M log N)
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct Edge {
-    int u, v, w;
-    bool operator<(Edge const &other) {
-        return w < other.w;
+        return true;
     }
 };
-
-vector<Edge> edges, result;
-int cost;
-
-struct DSU {
-    vector<int> pa, sz;
-    DSU(int n) {
-        sz.assign(n + 5, 1);
-        for (int i = 0; i < n + 5; i++) {
-            pa.push_back(i);
-        }
-    }
-    int root(int a) {
-        return pa[a] = (a == pa[a] ? a : root(pa[a]));
-    }
-    bool find(int a, int b) {
-        return root(a) == root(b);
-    }
-    void uni(int a, int b) {
-        int ra = root(a), rb = root(b);
-        if (ra == rb) {
-            return;
-        }
-        if (sz[ra] > sz[rb]) {
-            swap(ra, rb);
-        }
-        pa[ra] = rb;
-        sz[rb] += sz[ra];
-    }
-};
-
-void kruskal(int m, int n) {
-    DSU dsu(n);
-
-    sort(edges.begin(), edges.end());
-
-    for (Edge e : edges) {
-        if (!dsu.find(e.u, e.v)) {
-            cost += e.w;
-            result.push_back(e); // remove if need only cost
-            dsu.uni(e.u, e.v);
-        }
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Bridge}
-
-
-Algoritmo que acha pontes utilizando uma dfs
-
-
-
-Complexidade de tempo: O(N + M)
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-int n;                   // number of nodes
-vector<vector<int>> adj; // adjacency list of graph
-
-vector<bool> visited;
-vector<int> tin, low;
-int timer;
-
-void dfs(int u, int p = -1) {
-    visited[u] = true;
-    tin[u] = low[u] = timer++;
-    for (int v : adj[u]) {
-        if (v == p) {
-            continue;
-        }
-        if (visited[v]) {
-            low[u] = min(low[u], tin[v]);
-        } else {
-            dfs(v, u);
-            low[u] = min(low[u], low[v]);
-            if (low[v] > tin[u]) {
-                // edge UV is a bridge
-                // do_something(u, v)
-            }
-        }
-    }
-}
-
-void find_bridges() {
-    timer = 0;
-    visited.assign(n, false);
-    tin.assign(n, -1);
-    low.assign(n, -1);
-    for (int i = 0; i < n; ++i) {
-        if (!visited[i]) {
-            dfs(i);
-        }
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Stoer–Wagner Min Cut}
-
-
-Algortimo de Stoer-Wagner para encontrar o corte mínimo de um grafo.
-
-
-
-O algoritmo de Stoer-Wagner é um algoritmo para resolver o problema de corte mínimo em grafos não direcionados com pesos não negativos. A ideia essencial deste algoritmo é encolher o grafo mesclando os vértices mais intensos até que o grafo contenha apenas dois conjuntos de vértices combinados
-
-
-
-Complexidade de tempo: $O(V^3)$
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int MAXN = 555, INF = 1e9 + 7;
-
-int n, e, adj[MAXN][MAXN];
-vector<int> bestCut;
-
-int mincut() {
-    int bestCost = INF;
-    vector<int> v[MAXN];
-    for (int i = 0; i < n; i++) {
-        v[i].assign(1, i);
-    }
-    int w[MAXN], sel;
-    bool exist[MAXN], added[MAXN];
-    memset(exist, true, sizeof(exist));
-    for (int phase = 0; phase < n - 1; phase++) {
-        memset(added, false, sizeof(added));
-        memset(w, 0, sizeof(w));
-        for (int j = 0, prev; j < n - phase; j++) {
-            sel = -1;
-            for (int i = 0; i < n; i++) {
-                if (exist[i] && !added[i] && (sel == -1 || w[i] > w[sel])) {
-                    sel = i;
-                }
-            }
-            if (j == n - phase - 1) {
-                if (w[sel] < bestCost) {
-                    bestCost = w[sel];
-                    bestCut = v[sel];
-                }
-                v[prev].insert(v[prev].end(), v[sel].begin(), v[sel].end());
-                for (int i = 0; i < n; i++) {
-                    adj[prev][i] = adj[i][prev] += adj[sel][i];
-                }
-                exist[sel] = false;
-            } else {
-                added[sel] = true;
-                for (int i = 0; i < n; i++) {
-                    w[i] += adj[sel][i];
-                }
-                prev = sel;
-            }
-        }
-    }
-    return bestCost;
-}\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Shortest Paths}
-\subsection{Dijkstra}
-
-
-Computa o menor caminho entre nós de um grafo.
-
-
-
-\textbf{} 
-
-
-Dado dois nós u e v, computa o menor caminho de u para v.
-
-
-
-Complexidade de tempo: O((E + V) * log(E))
-
-
-
-\textbf{} 
-
-
-Dado um nó u, computa o menor caminho de u para todos os nós.
-
-
-
-Complexidade de tempo: O((E + V) * log(E))
-
-
-
-\textbf{} 
-
-
-Computa o menor caminho de todos os nós para todos os nós
-
-
-
-Complexidade de tempo: O(V * ((E + V) * log(E)))
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int MAX = 505, INF = 1e9 + 9;
-
-vector<ii> adj[MAX];
-int dist[MAX][MAX];
-
-void dk(int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            dist[i][j] = INF;
-        }
-    }
-    for (int s = 0; s < n; s++) {
-        priority_queue<ii, vector<ii>, greater<ii>> fila;
-        dist[s][s] = 0;
-        fila.emplace(dist[s][s], s);
-        while (!fila.empty()) {
-            auto [d, u] = fila.top();
-            fila.pop();
-            if (d != dist[s][u]) {
-                continue;
-            }
-            for (auto [w, v] : adj[u]) {
-                if (dist[s][v] > d + w) {
-                    dist[s][v] = d + w;
-                    fila.emplace(dist[s][v], v);
-                }
-            }
-        }
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int MAX = 1e5 + 5, INF = 1e9 + 9;
-
-vector<ii> adj[MAX];
-int dist[MAX];
-
-void dk(int s) {
-    priority_queue<ii, vector<ii>, greater<ii>> fila;
-    fill(begin(dist), end(dist), INF);
-    dist[s] = 0;
-    fila.emplace(dist[s], s);
-    while (!fila.empty()) {
-        auto [d, u] = fila.top();
-        fila.pop();
-        if (d != dist[u]) {
-            continue;
-        }
-        for (auto [w, v] : adj[u]) {
-            if (dist[v] > d + w) {
-                dist[v] = d + w;
-                fila.emplace(dist[v], v);
-            }
-        }
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int MAX = 1e5 + 5, INF = 1e9 + 9;
-
-vector<ii> adj[MAX];
-int dist[MAX];
-
-int dk(int s, int t) {
-    priority_queue<ii, vector<ii>, greater<ii>> fila;
-    fill(begin(dist), end(dist), INF);
-    dist[s] = 0;
-    fila.emplace(dist[s], s);
-    while (!fila.empty()) {
-        auto [d, u] = fila.top();
-        fila.pop();
-        if (u == t) {
-            return dist[t];
-        }
-        if (d != dist[u]) {
-            continue;
-        }
-        for (auto [w, v] : adj[u]) {
-            if (dist[v] > d + w) {
-                dist[v] = d + w;
-                fila.emplace(dist[v], v);
-            }
-        }
-    }
-    return -1;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\subsection{SPFA}
-
-
-Encontra o caminho mais curto entre um vértice e todos os outros vértices de um grafo.
-
-
-
-Detecta ciclos negativos.
-
-
-
-Complexidade de tempo: O(|V| * |E|)
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int MAX = 1e4 + 4;
-const ll INF = 1e18 + 18;
-
-vector<ii> adj[MAX];
-ll dist[MAX];
-
-void spfa(int s, int n) {
-    fill(dist, dist + n, INF);
-    vector<int> cnt(n, 0);
-    vector<bool> inq(n, false);
-    queue<int> fila;
-    fila.push(s);
-    inq[s] = true;
-    dist[s] = 0;
-    while (!fila.empty()) {
-        int u = fila.front();
-        fila.pop();
-        inq[u] = false;
-        for (auto [w, v] : adj[u]) {
-            ll newd = (dist[u] == -INF ? -INF : max(w + dist[u], -INF));
-            if (newd < dist[v]) {
-                dist[v] = newd;
-                if (!inq[v]) {
-                    fila.push(v);
-                    inq[v] = true;
-                    cnt[v]++;
-                    if (cnt[v] > n) { // negative cycle
-                        dist[v] = -INF;
-                    }
-                }
-            }
-        }
-    }
-}
 \end{lstlisting}
 \end{multicols}
 
@@ -3028,6 +2330,61 @@ namespace st {
             }
         }
         return u;
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Bridge}
+
+
+Algoritmo que acha pontes utilizando uma dfs
+
+
+
+Complexidade de tempo: O(N + M)
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+int n;                   // number of nodes
+vector<vector<int>> adj; // adjacency list of graph
+
+vector<bool> visited;
+vector<int> tin, low;
+int timer;
+
+void dfs(int u, int p = -1) {
+    visited[u] = true;
+    tin[u] = low[u] = timer++;
+    for (int v : adj[u]) {
+        if (v == p) {
+            continue;
+        }
+        if (visited[v]) {
+            low[u] = min(low[u], tin[v]);
+        } else {
+            dfs(v, u);
+            low[u] = min(low[u], low[v]);
+            if (low[v] > tin[u]) {
+                // edge UV is a bridge
+                // do_something(u, v)
+            }
+        }
+    }
+}
+
+void find_bridges() {
+    timer = 0;
+    visited.assign(n, false);
+    tin.assign(n, -1);
+    low.assign(n, -1);
+    for (int i = 0; i < n; ++i) {
+        if (!visited[i]) {
+            dfs(i);
+        }
     }
 }
 \end{lstlisting}
@@ -3330,149 +2687,6 @@ struct Dinic {
 
 \hfill
 
-\section{Inverse Graph}
-
-
-Algoritmo que encontra as componentes conexas quando se é dado o grafo complemento.
-
-
-
-Resolve problemas em que se deseja encontrar as componentes conexas quando são dadas as arestas que não pertencem ao grafo
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(N log N + N log M)
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-#include <bits/stdc++.h>
-using namespace std;
-
-set<int> nodes;
-vector<set<int>> adj;
-
-void bfs(int s) {
-    queue<int> f;
-    f.push(s);
-    nodes.erase(s);
-    set<int> aux;
-    while (!f.empty()) {
-        int x = f.front();
-        f.pop();
-        for (int y : nodes) {
-            if (adj[x].count(y) == 0) {
-                aux.insert(y);
-            }
-        }
-        for (int y : aux) {
-            f.push(y);
-            nodes.erase(y);
-        }
-        aux.clear();
-    }
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{2 SAT}
-
-
-Resolve problema do 2-SAT.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo (caso médio): O(N + M)
-\end{itemize}
-
-
-
-N é o número de variáveis e M é o número de cláusulas.  
-
-A configuração da solução fica guardada no vetor *assignment*. 
-
-
-
-Em relaçõa ao sinal, tanto faz se 0 liga ou desliga, apenas siga o mesmo padrão.
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct sat2 {
-    int n;
-    vector<vector<int>> g, gt;
-    vector<bool> used;
-    vector<int> order, comp;
-    vector<bool> assignment;
-
-    // number of variables
-    sat2(int _n) {
-        n = 2 * (_n + 5);
-        g.assign(n, vector<int>());
-        gt.assign(n, vector<int>());
-    }
-    void add_edge(int v, int u, bool v_sign, bool u_sign) {
-        g[2 * v + v_sign].push_back(2 * u + !u_sign);
-        g[2 * u + u_sign].push_back(2 * v + !v_sign);
-        gt[2 * u + !u_sign].push_back(2 * v + v_sign);
-        gt[2 * v + !v_sign].push_back(2 * u + u_sign);
-    }
-    void dfs1(int v) {
-        used[v] = true;
-        for (int u : g[v]) {
-            if (!used[u]) {
-                dfs1(u);
-            }
-        }
-        order.push_back(v);
-    }
-    void dfs2(int v, int cl) {
-        comp[v] = cl;
-        for (int u : gt[v]) {
-            if (comp[u] == -1) {
-                dfs2(u, cl);
-            }
-        }
-    }
-    bool solve() {
-        order.clear();
-        used.assign(n, false);
-        for (int i = 0; i < n; ++i) {
-            if (!used[i]) {
-                dfs1(i);
-            }
-        }
-
-        comp.assign(n, -1);
-        for (int i = 0, j = 0; i < n; ++i) {
-            int v = order[n - i - 1];
-            if (comp[v] == -1) {
-                dfs2(v, j++);
-            }
-        }
-
-        assignment.assign(n / 2, false);
-        for (int i = 0; i < n; i += 2) {
-            if (comp[i] == comp[i + 1]) {
-                return false;
-            }
-            assignment[i / 2] = comp[i] > comp[i + 1];
-        }
-        return true;
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
 \section{Graph Center}
 
 
@@ -3534,6 +2748,692 @@ struct GraphCenter {
     }
 };
 \end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{HLD}
+
+
+Técnica usada para otimizar a execução de operações em árvores.
+
+
+
+\begin{itemize}
+\item Pré-Processamento: O(N)
+\item Range Query/Update: O(Log(N)) * O(Complexidade de query da estrutura)
+\item Point Query/Update: O(Complexidade de query da estrutura)
+\item LCA: O(Log(N))
+\item Subtree Query: O(Complexidade de query da estrutura)
+\item Complexidade de espaço: O(N)
+\end{itemize}
+
+
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+namespace hld {
+    const int MAX = 2e5 + 5;
+    int t, sz[MAX], pos[MAX], pai[MAX], head[MAX];
+    bool e = 0;
+    ll merge(ll a, ll b) {
+        return max(a, b); // how to merge paths
+    }
+    void dfs_sz(int u, int p = -1) {
+        sz[u] = 1;
+        for (int &v : adj[u]) {
+            if (v != p) {
+                dfs_sz(v, u);
+                sz[u] += sz[v];
+                if (sz[v] > sz[adj[u][0]] || adj[u][0] == p) {
+                    swap(v, adj[u][0]);
+                }
+            }
+        }
+    }
+    void dfs_hld(int u, int p = -1) {
+        pos[u] = t++;
+        for (int v : adj[u]) {
+            if (v != p) {
+                pai[v] = u;
+                head[v] = (v == adj[u][0] ? head[u] : v);
+                dfs_hld(v, u);
+            }
+        }
+    }
+    void build(int root) {
+        dfs_sz(root);
+        t = 0;
+        pai[root] = root;
+        head[root] = root;
+        dfs_hld(root);
+    }
+    void build(int root, vector<ll> &v) {
+        build(root);
+        vector<ll> aux(v.size());
+        for (int i = 0; i < (int)v.size(); i++) {
+            aux[pos[i]] = v[i];
+        }
+        seg::build(aux);
+    }
+    void build(int root,
+               vector<i3> &edges) { // use this if
+                                    // weighted edges
+        build(root);
+        e = 1;
+        vector<ll> aux(edges.size() + 1);
+        for (auto [u, v, w] : edges) {
+            if (pos[u] > pos[v]) {
+                swap(u, v);
+            }
+            aux[pos[v]] = w;
+        }
+        seg::build(aux);
+    }
+    ll query(int u, int v) {
+        if (pos[u] > pos[v]) {
+            swap(u, v);
+        }
+        if (head[u] == head[v]) {
+            return seg::query(pos[u] + e, pos[v]);
+        } else {
+            ll qv = seg::query(pos[head[v]], pos[v]);
+            ll qu = query(u, pai[head[v]]);
+            return merge(qu, qv);
+        }
+    }
+    void update(int u, int v, ll k) {
+        if (pos[u] > pos[v]) {
+            swap(u, v);
+        }
+        if (head[u] == head[v]) {
+            seg::update(pos[u] + e, pos[v], k);
+        } else {
+            seg::update(pos[head[v]], pos[v], k);
+            update(u, pai[head[v]], k);
+        }
+    }
+    int lca(int u, int v) {
+        if (pos[u] > pos[v]) {
+            swap(u, v);
+        }
+        return (head[u] == head[v] ? u : lca(u, pai[head[v]]));
+    }
+    ll query_subtree(int u) {
+        return seg::query(pos[u], pos[u] + sz[u] - 1);
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Inverse Graph}
+
+
+Algoritmo que encontra as componentes conexas quando se é dado o grafo complemento.
+
+
+
+Resolve problemas em que se deseja encontrar as componentes conexas quando são dadas as arestas que não pertencem ao grafo
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(N log N + N log M)
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+#include <bits/stdc++.h>
+using namespace std;
+
+set<int> nodes;
+vector<set<int>> adj;
+
+void bfs(int s) {
+    queue<int> f;
+    f.push(s);
+    nodes.erase(s);
+    set<int> aux;
+    while (!f.empty()) {
+        int x = f.front();
+        f.pop();
+        for (int y : nodes) {
+            if (adj[x].count(y) == 0) {
+                aux.insert(y);
+            }
+        }
+        for (int y : aux) {
+            f.push(y);
+            nodes.erase(y);
+        }
+        aux.clear();
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Kruskal}
+
+
+Algoritimo para encontrar a MST (minimum spanning tree) de um grafo.
+
+
+
+Utiliza [DSU](../../Estruturas\%20de\%20Dados/DSU/dsu.cpp) - (disjoint set union) - para construir MST - (minimum spanning tree)
+
+
+
+\begin{itemize}
+\item Complexidade de tempo (Construção): O(M log N)
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+struct Edge {
+    int u, v, w;
+    bool operator<(Edge const &other) {
+        return w < other.w;
+    }
+};
+
+vector<Edge> edges, result;
+int cost;
+
+struct DSU {
+    vector<int> pa, sz;
+    DSU(int n) {
+        sz.assign(n + 5, 1);
+        for (int i = 0; i < n + 5; i++) {
+            pa.push_back(i);
+        }
+    }
+    int root(int a) {
+        return pa[a] = (a == pa[a] ? a : root(pa[a]));
+    }
+    bool find(int a, int b) {
+        return root(a) == root(b);
+    }
+    void uni(int a, int b) {
+        int ra = root(a), rb = root(b);
+        if (ra == rb) {
+            return;
+        }
+        if (sz[ra] > sz[rb]) {
+            swap(ra, rb);
+        }
+        pa[ra] = rb;
+        sz[rb] += sz[ra];
+    }
+};
+
+void kruskal(int m, int n) {
+    DSU dsu(n);
+
+    sort(edges.begin(), edges.end());
+
+    for (Edge e : edges) {
+        if (!dsu.find(e.u, e.v)) {
+            cost += e.w;
+            result.push_back(e); // remove if need only cost
+            dsu.uni(e.u, e.v);
+        }
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{LCA}
+
+
+Algoritmo de Lowest Common Ancestor usando EulerTour e Sparse Table
+
+
+
+Complexidade de tempo:
+
+
+
+\begin{itemize}
+\item O(Nlog(N)) Preprocessing
+\item O(1) Query LCA
+\end{itemize}
+
+
+
+Complexidade de espaço: O(Nlog(N))
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+#include <bits/stdc++.h>
+using namespace std;
+
+#define INF 1e9
+#define fi first
+#define se second
+
+typedef pair<int, int> ii;
+
+vector<int> tin, tout;
+vector<vector<int>> adj;
+vector<ii> prof;
+vector<vector<ii>> st;
+
+int n, timer;
+
+void SparseTable(vector<ii> &v) {
+    int n = v.size();
+    int e = floor(log2(n));
+    st.assign(e + 1, vector<ii>(n));
+    for (int i = 0; i < n; i++) {
+        st[0][i] = v[i];
+    }
+    for (int i = 1; i <= e; i++) {
+        for (int j = 0; j + (1 << i) <= n; j++) {
+            st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+        }
+    }
+}
+
+void et_dfs(int u, int p, int h) {
+    tin[u] = timer++;
+    prof.emplace_back(h, u);
+    for (int v : adj[u]) {
+        if (v != p) {
+            et_dfs(v, u, h + 1);
+            prof.emplace_back(h, u);
+        }
+    }
+    tout[u] = timer++;
+}
+
+void build(int root = 0) {
+    tin.assign(n, 0);
+    tout.assign(n, 0);
+    prof.clear();
+    timer = 0;
+    et_dfs(root, root, 0);
+    SparseTable(prof);
+}
+
+int lca(int u, int v) {
+    int l = tout[u], r = tin[v];
+    if (l > r) {
+        swap(l, r);
+    }
+    int i = floor(log2(r - l + 1));
+    return min(st[i][l], st[i][r - (1 << i) + 1]).se;
+}
+
+int main() {
+    cin >> n;
+
+    adj.assign(n, vector<int>(0));
+
+    for (int i = 0; i < n - 1; i++) {
+        int a, b;
+        cin >> a >> b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+
+    build();
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Matching}
+\subsection{Hungaro}
+
+
+Resolve o problema de Matching para uma matriz \lstinline{A[n][m]}, onde $n \leq m$.
+
+
+
+A implementação minimiza os custos, para maximizar basta multiplicar os pesos por -1.
+
+
+
+\textbf{A matriz de entrada precisa ser indexada em 1 !!!}
+
+
+
+O vetor \lstinline{result} guarda os pares do matching.
+
+
+
+Complexidade de tempo: $O(n^2 * m)$
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const ll INF = 1e18 + 18;
+
+vector<pair<int, int>> result;
+
+ll hungarian(int n, int m, vector<vector<int>> &A) {
+    vector<int> u(n + 1), v(m + 1), p(m + 1), way(m + 1);
+    for (int i = 1; i <= n; i++) {
+        p[0] = i;
+        int j0 = 0;
+        vector<int> minv(m + 1, INF);
+        vector<char> used(m + 1, false);
+        do {
+            used[j0] = true;
+            ll i0 = p[j0], delta = INF, j1;
+            for (int j = 1; j <= m; j++) {
+                if (!used[j]) {
+                    int cur = A[i0][j] - u[i0] - v[j];
+                    if (cur < minv[j]) {
+                        minv[j] = cur, way[j] = j0;
+                    }
+                    if (minv[j] < delta) {
+                        delta = minv[j], j1 = j;
+                    }
+                }
+            }
+            for (int j = 0; j <= m; j++) {
+                if (used[j]) {
+                    u[p[j]] += delta, v[j] -= delta;
+                } else {
+                    minv[j] -= delta;
+                }
+            }
+            j0 = j1;
+        } while (p[j0] != 0);
+        do {
+            int j1 = way[j0];
+            p[j0] = p[j1];
+            j0 = j1;
+        } while (j0);
+    }
+    for (int i = 1; i <= m; i++) {
+        result.emplace_back(p[i], i);
+    }
+    return -v[0];
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Shortest Paths}
+\subsection{Dijkstra}
+
+
+Computa o menor caminho entre nós de um grafo.
+
+
+
+\textbf{} 
+
+
+Dado dois nós u e v, computa o menor caminho de u para v.
+
+
+
+Complexidade de tempo: O((E + V) * log(E))
+
+
+
+\textbf{} 
+
+
+Dado um nó u, computa o menor caminho de u para todos os nós.
+
+
+
+Complexidade de tempo: O((E + V) * log(E))
+
+
+
+\textbf{} 
+
+
+Computa o menor caminho de todos os nós para todos os nós
+
+
+
+Complexidade de tempo: O(V * ((E + V) * log(E)))
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MAX = 505, INF = 1e9 + 9;
+
+vector<ii> adj[MAX];
+int dist[MAX][MAX];
+
+void dk(int n) {
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            dist[i][j] = INF;
+        }
+    }
+    for (int s = 0; s < n; s++) {
+        priority_queue<ii, vector<ii>, greater<ii>> fila;
+        dist[s][s] = 0;
+        fila.emplace(dist[s][s], s);
+        while (!fila.empty()) {
+            auto [d, u] = fila.top();
+            fila.pop();
+            if (d != dist[s][u]) {
+                continue;
+            }
+            for (auto [w, v] : adj[u]) {
+                if (dist[s][v] > d + w) {
+                    dist[s][v] = d + w;
+                    fila.emplace(dist[s][v], v);
+                }
+            }
+        }
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MAX = 1e5 + 5, INF = 1e9 + 9;
+
+vector<ii> adj[MAX];
+int dist[MAX];
+
+void dk(int s) {
+    priority_queue<ii, vector<ii>, greater<ii>> fila;
+    fill(begin(dist), end(dist), INF);
+    dist[s] = 0;
+    fila.emplace(dist[s], s);
+    while (!fila.empty()) {
+        auto [d, u] = fila.top();
+        fila.pop();
+        if (d != dist[u]) {
+            continue;
+        }
+        for (auto [w, v] : adj[u]) {
+            if (dist[v] > d + w) {
+                dist[v] = d + w;
+                fila.emplace(dist[v], v);
+            }
+        }
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MAX = 1e5 + 5, INF = 1e9 + 9;
+
+vector<ii> adj[MAX];
+int dist[MAX];
+
+int dk(int s, int t) {
+    priority_queue<ii, vector<ii>, greater<ii>> fila;
+    fill(begin(dist), end(dist), INF);
+    dist[s] = 0;
+    fila.emplace(dist[s], s);
+    while (!fila.empty()) {
+        auto [d, u] = fila.top();
+        fila.pop();
+        if (u == t) {
+            return dist[t];
+        }
+        if (d != dist[u]) {
+            continue;
+        }
+        for (auto [w, v] : adj[u]) {
+            if (dist[v] > d + w) {
+                dist[v] = d + w;
+                fila.emplace(dist[v], v);
+            }
+        }
+    }
+    return -1;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\subsection{SPFA}
+
+
+Encontra o caminho mais curto entre um vértice e todos os outros vértices de um grafo.
+
+
+
+Detecta ciclos negativos.
+
+
+
+Complexidade de tempo: O(|V| * |E|)
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MAX = 1e4 + 4;
+const ll INF = 1e18 + 18;
+
+vector<ii> adj[MAX];
+ll dist[MAX];
+
+void spfa(int s, int n) {
+    fill(dist, dist + n, INF);
+    vector<int> cnt(n, 0);
+    vector<bool> inq(n, false);
+    queue<int> fila;
+    fila.push(s);
+    inq[s] = true;
+    dist[s] = 0;
+    while (!fila.empty()) {
+        int u = fila.front();
+        fila.pop();
+        inq[u] = false;
+        for (auto [w, v] : adj[u]) {
+            ll newd = (dist[u] == -INF ? -INF : max(w + dist[u], -INF));
+            if (newd < dist[v]) {
+                dist[v] = newd;
+                if (!inq[v]) {
+                    fila.push(v);
+                    inq[v] = true;
+                    cnt[v]++;
+                    if (cnt[v] > n) { // negative cycle
+                        dist[v] = -INF;
+                    }
+                }
+            }
+        }
+    }
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Stoer–Wagner Min Cut}
+
+
+Algortimo de Stoer-Wagner para encontrar o corte mínimo de um grafo.
+
+
+
+O algoritmo de Stoer-Wagner é um algoritmo para resolver o problema de corte mínimo em grafos não direcionados com pesos não negativos. A ideia essencial deste algoritmo é encolher o grafo mesclando os vértices mais intensos até que o grafo contenha apenas dois conjuntos de vértices combinados
+
+
+
+Complexidade de tempo: $O(V^3)$
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MAXN = 555, INF = 1e9 + 7;
+
+int n, e, adj[MAXN][MAXN];
+vector<int> bestCut;
+
+int mincut() {
+    int bestCost = INF;
+    vector<int> v[MAXN];
+    for (int i = 0; i < n; i++) {
+        v[i].assign(1, i);
+    }
+    int w[MAXN], sel;
+    bool exist[MAXN], added[MAXN];
+    memset(exist, true, sizeof(exist));
+    for (int phase = 0; phase < n - 1; phase++) {
+        memset(added, false, sizeof(added));
+        memset(w, 0, sizeof(w));
+        for (int j = 0, prev; j < n - phase; j++) {
+            sel = -1;
+            for (int i = 0; i < n; i++) {
+                if (exist[i] && !added[i] && (sel == -1 || w[i] > w[sel])) {
+                    sel = i;
+                }
+            }
+            if (j == n - phase - 1) {
+                if (w[sel] < bestCost) {
+                    bestCost = w[sel];
+                    bestCut = v[sel];
+                }
+                v[prev].insert(v[prev].end(), v[sel].begin(), v[sel].end());
+                for (int i = 0; i < n; i++) {
+                    adj[prev][i] = adj[i][prev] += adj[sel][i];
+                }
+                exist[sel] = false;
+            } else {
+                added[sel] = true;
+                for (int i = 0; i < n; i++) {
+                    w[i] += adj[sel][i];
+                }
+                prev = sel;
+            }
+        }
+    }
+    return bestCost;
+}\end{lstlisting}
 \end{multicols}
 
 \hfill
@@ -3637,6 +3537,206 @@ void process(const string &s) {
         }
     }
 }
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Hashing}
+
+
+Hashing para testar igualdade de duas strings.
+
+
+
+A função \textbf{*range(i, j)}* retorna o hash da substring nesse range.   
+
+Pode ser necessário usar pares de hash para evitar colisões.
+
+
+
+* Complexidade de tempo (Construção): O(N)
+
+* Complexidade de tempo (Consulta de range): O(1)
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+struct hashing {
+    const long long LIM = 1000006;
+    long long p, m;
+    vector<long long> pw, hsh;
+    hashing(long long _p, long long _m) : p(_p), m(_m) {
+        pw.resize(LIM);
+        hsh.resize(LIM);
+        pw[0] = 1;
+        for (int i = 1; i < LIM; i++) {
+            pw[i] = (pw[i - 1] * p) % m;
+        }
+    }
+    void set_string(string &s) {
+        hsh[0] = s[0];
+        for (int i = 1; i < s.size(); i++) {
+            hsh[i] = (hsh[i - 1] * p + s[i]) % m;
+        }
+    }
+    long long range(int esq, int dir) {
+        long long ans = hsh[dir];
+        if (esq > 0) {
+            ans = (ans - (hsh[esq - 1] * pw[dir - esq + 1] % m) + m) % m;
+        }
+        return ans;
+    }
+};
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Lyndon}
+
+
+Strings em decomposição única em subcadeias que são ordenadas lexicograficamente e não podem ser mais reduzidas.
+
+
+
+\textbf{Duval} 
+
+
+
+Gera a Lyndon Factorization de uma string
+
+
+
+* Complexidade de tempo: O(N)
+
+
+
+\textbf{Min Cyclic Shift} 
+
+
+
+Gera a menor rotação circular da string original que pode ser obtida por meio de deslocamentos cíclicos dos caracteres.
+
+
+
+* Complexidade de tempo: O(N)
+
+
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+string min_cyclic_shift(string s) {
+    s += s;
+    int n = s.size();
+    int i = 0, ans = 0;
+    while (i < n / 2) {
+        ans = i;
+        int j = i + 1, k = i;
+        while (j < n && s[k] <= s[j]) {
+            if (s[k] < s[j]) {
+                k = i;
+            } else {
+                k++;
+            }
+            j++;
+        }
+        while (i <= k) {
+            i += j - k;
+        }
+    }
+    return s.substr(ans, n / 2);
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+vector<string> duval(string const &s) {
+    int n = s.size();
+    int i = 0;
+    vector<string> factorization;
+    while (i < n) {
+        int j = i + 1, k = i;
+        while (j < n && s[k] <= s[j]) {
+            if (s[k] < s[j]) {
+                k = i;
+            } else {
+                k++;
+            }
+            j++;
+        }
+        while (i <= k) {
+            factorization.push_back(s.substr(i, j - k));
+            i += j - k;
+        }
+    }
+    return factorization;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Manacher}
+
+
+Encontra todos os palindromos de uma string.
+
+
+
+Dada uma string s de tamanho n, encontra todos os pares (i,j) tal que a substring $s[i...j]$ seja um palindromo.
+
+
+
+* Complexidade de tempo: O(N)
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+struct manacher {
+    long long n, count;
+    vector<int> d1, d2;
+    long long solve(string &s) {
+        n = s.size(), count = 0;
+        solve_odd(s);
+        solve_even(s);
+        return count;
+    }
+    void solve_odd(string &s) {
+        d1.resize(n);
+        for (int i = 0, l = 0, r = -1; i < n; i++) {
+            int k = (i > r) ? 1 : min(d1[l + r - i], r - i + 1);
+            while (0 <= i - k && i + k < n && s[i - k] == s[i + k]) {
+                k++;
+            }
+            count += d1[i] = k--;
+            if (i + k > r) {
+                l = i - k;
+                r = i + k;
+            }
+        }
+    }
+    void solve_even(string &s) {
+        d2.resize(n);
+        for (int i = 0, l = 0, r = -1; i < n; i++) {
+            int k = (i > r) ? 0 : min(d2[l + r - i + 1], r - i + 1);
+            while (0 <= i - k - 1 && i + k < n && s[i - k - 1] == s[i + k]) {
+                k++;
+            }
+            count += d2[i] = k--;
+            if (i + k > r) {
+                l = i - k - 1;
+                r = i + k;
+            }
+        }
+    }
+} mana;
 \end{lstlisting}
 \end{multicols}
 
@@ -3862,255 +3962,6 @@ struct AutKMP {
 
 \hfill
 
-\section{Hashing}
-
-
-Hashing para testar igualdade de duas strings.
-
-
-
-A função \textbf{*range(i, j)}* retorna o hash da substring nesse range.   
-
-Pode ser necessário usar pares de hash para evitar colisões.
-
-
-
-* Complexidade de tempo (Construção): O(N)
-
-* Complexidade de tempo (Consulta de range): O(1)
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct hashing {
-    const long long LIM = 1000006;
-    long long p, m;
-    vector<long long> pw, hsh;
-    hashing(long long _p, long long _m) : p(_p), m(_m) {
-        pw.resize(LIM);
-        hsh.resize(LIM);
-        pw[0] = 1;
-        for (int i = 1; i < LIM; i++) {
-            pw[i] = (pw[i - 1] * p) % m;
-        }
-    }
-    void set_string(string &s) {
-        hsh[0] = s[0];
-        for (int i = 1; i < s.size(); i++) {
-            hsh[i] = (hsh[i - 1] * p + s[i]) % m;
-        }
-    }
-    long long range(int esq, int dir) {
-        long long ans = hsh[dir];
-        if (esq > 0) {
-            ans = (ans - (hsh[esq - 1] * pw[dir - esq + 1] % m) + m) % m;
-        }
-        return ans;
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Trie}
-
-
-Estrutura que guarda informações indexadas por palavra.   
-
-
-
-Útil encontrar todos os prefixos inseridos anteriormente de uma palavra específica.
-
-
-
-* Complexidade de tempo (Update): O(|S|)
-
-* Complexidade de tempo (Consulta de palavra): O(|S|)
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct trie {
-    map<char, int> trie[100005];
-    int value[100005];
-    int n_nodes = 0;
-    void insert(string &s, int v) {
-        int id = 0;
-        for (char c : s) {
-            if (!trie[id].count(c)) {
-                trie[id][c] = ++n_nodes;
-            }
-            id = trie[id][c];
-        }
-        value[id] = v;
-    }
-    int get_value(string &s) {
-        int id = 0;
-        for (char c : s) {
-            if (!trie[id].count(c)) {
-                return -1;
-            }
-            id = trie[id][c];
-        }
-        return value[id];
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Manacher}
-
-
-Encontra todos os palindromos de uma string.
-
-
-
-Dada uma string s de tamanho n, encontra todos os pares (i,j) tal que a substring $s[i...j]$ seja um palindromo.
-
-
-
-* Complexidade de tempo: O(N)
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-struct manacher {
-    long long n, count;
-    vector<int> d1, d2;
-    long long solve(string &s) {
-        n = s.size(), count = 0;
-        solve_odd(s);
-        solve_even(s);
-        return count;
-    }
-    void solve_odd(string &s) {
-        d1.resize(n);
-        for (int i = 0, l = 0, r = -1; i < n; i++) {
-            int k = (i > r) ? 1 : min(d1[l + r - i], r - i + 1);
-            while (0 <= i - k && i + k < n && s[i - k] == s[i + k]) {
-                k++;
-            }
-            count += d1[i] = k--;
-            if (i + k > r) {
-                l = i - k;
-                r = i + k;
-            }
-        }
-    }
-    void solve_even(string &s) {
-        d2.resize(n);
-        for (int i = 0, l = 0, r = -1; i < n; i++) {
-            int k = (i > r) ? 0 : min(d2[l + r - i + 1], r - i + 1);
-            while (0 <= i - k - 1 && i + k < n && s[i - k - 1] == s[i + k]) {
-                k++;
-            }
-            count += d2[i] = k--;
-            if (i + k > r) {
-                l = i - k - 1;
-                r = i + k;
-            }
-        }
-    }
-} mana;
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Lyndon}
-
-
-Strings em decomposição única em subcadeias que são ordenadas lexicograficamente e não podem ser mais reduzidas.
-
-
-
-\textbf{Duval} 
-
-
-
-Gera a Lyndon Factorization de uma string
-
-
-
-* Complexidade de tempo: O(N)
-
-
-
-\textbf{Min Cyclic Shift} 
-
-
-
-Gera a menor rotação circular da string original que pode ser obtida por meio de deslocamentos cíclicos dos caracteres.
-
-
-
-* Complexidade de tempo: O(N)
-
-
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-string min_cyclic_shift(string s) {
-    s += s;
-    int n = s.size();
-    int i = 0, ans = 0;
-    while (i < n / 2) {
-        ans = i;
-        int j = i + 1, k = i;
-        while (j < n && s[k] <= s[j]) {
-            if (s[k] < s[j]) {
-                k = i;
-            } else {
-                k++;
-            }
-            j++;
-        }
-        while (i <= k) {
-            i += j - k;
-        }
-    }
-    return s.substr(ans, n / 2);
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-vector<string> duval(string const &s) {
-    int n = s.size();
-    int i = 0;
-    vector<string> factorization;
-    while (i < n) {
-        int j = i + 1, k = i;
-        while (j < n && s[k] <= s[j]) {
-            if (s[k] < s[j]) {
-                k = i;
-            } else {
-                k++;
-            }
-            j++;
-        }
-        while (i <= k) {
-            factorization.push_back(s.substr(i, j - k));
-            i += j - k;
-        }
-    }
-    return factorization;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
 \section{Suffix Array}
 
 
@@ -4245,6 +4096,55 @@ struct suffix_array {
 
 \hfill
 
+\section{Trie}
+
+
+Estrutura que guarda informações indexadas por palavra.   
+
+
+
+Útil encontrar todos os prefixos inseridos anteriormente de uma palavra específica.
+
+
+
+* Complexidade de tempo (Update): O(|S|)
+
+* Complexidade de tempo (Consulta de palavra): O(|S|)
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+struct trie {
+    map<char, int> trie[100005];
+    int value[100005];
+    int n_nodes = 0;
+    void insert(string &s, int v) {
+        int id = 0;
+        for (char c : s) {
+            if (!trie[id].count(c)) {
+                trie[id][c] = ++n_nodes;
+            }
+            id = trie[id][c];
+        }
+        value[id] = v;
+    }
+    int get_value(string &s) {
+        int id = 0;
+        for (char c : s) {
+            if (!trie[id].count(c)) {
+                return -1;
+            }
+            id = trie[id][c];
+        }
+        return value[id];
+    }
+};
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
 \newpage
 
 %%%%%%
@@ -4256,6 +4156,644 @@ struct suffix_array {
 %%%%%%
 
 \chapter{Paradigmas}
+
+\section{All Submasks}
+
+
+Percorre todas as submáscaras de uma máscara.
+
+
+
+* Complexidade de tempo: $O(3^N)$
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+int mask;
+for (int sub = mask; sub; sub = (sub - 1) & mask) { }
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Busca Binaria Paralela}
+
+
+Faz a busca binária para múltiplas consultas quando a busca binária é muito pesada.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O((N+Q)log(N) * O(F)), onde N é o tamanho do espaço de busca, Q é o número de consultas e O(F), o custo de avaliação da função.
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+
+namespace parallel_binary_search {
+    typedef tuple<int, int, long long, long long> query; //{value, id, l, r}
+    vector<query> queries[1123456];                      // pode ser um mapa se
+                                                         // for muito esparso
+    long long ans[1123456];                              // definir pro tamanho
+                                                         // das queries
+    long long l, r, mid;
+    int id = 0;
+    void set_lim_search(long long n) {
+        l = 0;
+        r = n;
+        mid = (l + r) / 2;
+    }
+
+    void add_query(long long v) {
+        queries[mid].push_back({v, id++, l, r});
+    }
+
+    void advance_search(long long v) {
+        // advance search
+    }
+
+    bool satisfies(long long mid, int v, long long l, long long r) {
+        // implement the evaluation
+    }
+
+    bool get_ans() {
+        // implement the get ans
+    }
+
+    void parallel_binary_search(long long l, long long r) {
+
+        bool go = 1;
+        while (go) {
+            go = 0;
+            int i = 0; // outra logica se for usar
+                       // um mapa
+            for (auto &vec : queries) {
+                advance_search(i++);
+                for (auto q : vec) {
+                    auto [v, id, l, r] = q;
+                    if (l > r) {
+                        continue;
+                    }
+                    go = 1;
+                    // return while satisfies
+                    if (satisfies(i, v, l, r)) {
+                        ans[i] = get_ans();
+                        long long mid = (i + l) / 2;
+                        queries[mid] = query(v, id, l, i - 1);
+                    } else {
+                        long long mid = (i + r) / 2;
+                        queries[mid] = query(v, id, i + 1, r);
+                    }
+                }
+                vec.clear();
+            }
+        }
+    }
+
+} // namespace name
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Busca Ternaria}
+
+
+Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(log(N) * O(eval)). Onde N é o tamanho do espaço de busca e O(eval) o custo de avaliação da função.
+\end{itemize}
+
+
+
+\textbf{Busca Ternária em Espaço Discreto} 
+
+
+
+Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
+
+Versão para espaços discretos.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(log(N) * O(eval)). Onde N é o tamanho do espaço de busca e O(eval) o custo de avaliação da função.
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+
+double eval(double mid) {
+    // implement the evaluation
+}
+
+double ternary_search(double l, double r) {
+    int k = 100;
+    while (k--) {
+        double step = (l + r) / 3;
+        double mid_1 = l + step;
+        double mid_2 = r - step;
+
+        // minimizing. To maximize use >= to
+        // compare
+        if (eval(mid_1) <= eval(mid_2)) {
+            r = mid_2;
+        } else {
+            l = mid_1;
+        }
+    }
+    return l;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+
+long long eval(long long mid) {
+    // implement the evaluation
+}
+
+long long discrete_ternary_search(long long l, long long r) {
+    long long ans = -1;
+    r--; // to not space r
+    while (l <= r) {
+        long long mid = (l + r) / 2;
+
+        // minimizing. To maximize use >= to
+        // compare
+        if (eval(mid) <= eval(mid + 1)) {
+            ans = mid;
+            r = mid - 1;
+        } else {
+            l = mid + 1;
+        }
+    }
+    return ans;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Convex Hull Trick}
+
+
+Otimização de DP onde se mantém as retas que formam um Convex Hull em uma estrutura que permite consultar qual o melhor valor para um determinado x.
+
+
+
+Só funciona quando as retas são monotônicas. Caso não forem, usar LiChao Tree para guardar as retas
+
+
+
+Complexidade de tempo:
+
+
+
+\begin{itemize}
+\item Inserir reta: O(1) amortizado
+\item Consultar x: O(log(N))
+\item Consultar x quando x tem crescimento monotônico: O(1)
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const ll INF = 1e18 + 18;
+bool op(ll a, ll b) {
+    return a >= b; // either >= or <=
+}
+struct line {
+    ll a, b;
+    ll get(ll x) {
+        return a * x + b;
+    }
+    ll intersect(line l) {
+        return (l.b - b + a - l.a) / (a - l.a); // rounds up for integer
+                                                // only
+    }
+};
+deque<pair<line, ll>> fila;
+void add_line(ll a, ll b) {
+    line nova = {a, b};
+    if (!fila.empty() && fila.back().first.a == a && fila.back().first.b == b) {
+        return;
+    }
+    while (!fila.empty() && op(fila.back().second, nova.intersect(fila.back().first))) {
+        fila.pop_back();
+    }
+    ll x = fila.empty() ? -INF : nova.intersect(fila.back().first);
+    fila.emplace_back(nova, x);
+}
+ll get_binary_search(ll x) {
+    int esq = 0, dir = fila.size() - 1, r = -1;
+    while (esq <= dir) {
+        int mid = (esq + dir) / 2;
+        if (op(x, fila[mid].second)) {
+            esq = mid + 1;
+            r = mid;
+        } else {
+            dir = mid - 1;
+        }
+    }
+    return fila[r].first.get(x);
+}
+// O(1), use only when QUERIES are monotonic!
+ll get(ll x) {
+    while (fila.size() >= 2 && op(x, fila[1].second)) {
+        fila.pop_front();
+    }
+    return fila.front().first.get(x);
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{DP de Permutacao}
+
+
+Otimização do problema do Caixeiro Viajante
+
+
+
+* Complexidade de tempo: $O(n^2 * 2^n)$
+
+
+
+Para rodar a função basta setar a matriz de adjacência 'dist' e chamar solve(0,0,n).
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int lim = 17;         // setar para o maximo de itens
+long double dist[lim][lim]; // eh preciso dar as
+                            // distancias de n para n
+long double dp[lim][1 << lim];
+
+int limMask = (1 << lim) - 1; // 2**(maximo de itens) - 1
+long double solve(int atual, int mask, int n) {
+    if (dp[atual][mask] != 0) {
+        return dp[atual][mask];
+    }
+    if (mask == (1 << n) - 1) {
+        return dp[atual][mask] = 0; // o que fazer quando
+                                    // chega no final
+    }
+
+    long double res = 1e13; // pode ser maior se precisar
+    for (int i = 0; i < n; i++) {
+        if (!(mask & (1 << i))) {
+            long double aux = solve(i, mask | (1 << i), n);
+            if (mask) {
+                aux += dist[atual][i];
+            }
+            res = min(res, aux);
+        }
+    }
+    return dp[atual][mask] = res;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Divide and Conquer}
+
+
+Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupos.    
+
+
+
+É preciso fazer a função query(i, j) que computa o custo do subgrupo \[i, j\].
+
+* Complexidade de tempo: O(n * k * log(n) *  O(query))
+
+
+
+\textbf{Divide and Conquer com Query on demand} 
+
+
+
+<!-- *Read in [English](README.en.md)* -->
+
+
+
+Usado para evitar queries pesadas ou o custo de pré-processamento.  
+
+É preciso fazer as funções da estrutura \textbf{janela}, eles adicionam e removem itens um a um como uma janela flutuante.
+
+
+
+* Complexidade de tempo: O(n * k * log(n) * O(update da janela))
+
+
+
+
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+namespace DC {
+    vi dp_before, dp_cur;
+    void compute(int l, int r, int optl, int optr) {
+        if (l > r) {
+            return;
+        }
+        int mid = (l + r) >> 1;
+        pair<ll, int> best = {0, -1}; // {INF, -1} se quiser minimizar
+        for (int i = optl; i <= min(mid, optr); i++) {
+            best = max(best,
+                       {(i ? dp_before[i - 1] : 0) + query(i, mid),
+                        i}); // min() se quiser minimizar
+        }
+        dp_cur[mid] = best.first;
+        int opt = best.second;
+        compute(l, mid - 1, optl, opt);
+        compute(mid + 1, r, opt, optr);
+    }
+
+    ll solve(int n, int k) {
+        dp_before.assign(n + 5, 0);
+        dp_cur.assign(n + 5, 0);
+        for (int i = 0; i < n; i++) {
+            dp_before[i] = query(0, i);
+        }
+        for (int i = 1; i < k; i++) {
+            compute(0, n - 1, 0, n - 1);
+            dp_before = dp_cur;
+        }
+        return dp_before[n - 1];
+    }
+};
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+namespace DC {
+    struct range { // eh preciso definir a forma
+                   // de calcular o range
+        vi freq;
+        ll sum = 0;
+        int l = 0, r = -1;
+        void back_l(int v) { // Mover o 'l' do range
+                             // para a esquerda
+            sum += freq[v];
+            freq[v]++;
+            l--;
+        }
+        void advance_r(int v) { // Mover o 'r' do range
+                                // para a direita
+            sum += freq[v];
+            freq[v]++;
+            r++;
+        }
+        void advance_l(int v) { // Mover o 'l' do range
+                                // para a direita
+            freq[v]--;
+            sum -= freq[v];
+            l++;
+        }
+        void back_r(int v) { // Mover o 'r' do range
+                             // para a esquerda
+            freq[v]--;
+            sum -= freq[v];
+            r--;
+        }
+        void clear(int n) { // Limpar range
+            l = 0;
+            r = -1;
+            sum = 0;
+            freq.assign(n + 5, 0);
+        }
+    } s;
+
+    vi dp_before, dp_cur;
+    void compute(int l, int r, int optl, int optr) {
+        if (l > r) {
+            return;
+        }
+        int mid = (l + r) >> 1;
+        pair<ll, int> best = {0, -1}; // {INF, -1} se quiser minimizar
+
+        while (s.l < optl) {
+            s.advance_l(v[s.l]);
+        }
+        while (s.l > optl) {
+            s.back_l(v[s.l - 1]);
+        }
+        while (s.r < mid) {
+            s.advance_r(v[s.r + 1]);
+        }
+        while (s.r > mid) {
+            s.back_r(v[s.r]);
+        }
+
+        vi removed;
+        for (int i = optl; i <= min(mid, optr); i++) {
+            best =
+                min(best,
+                    {(i ? dp_before[i - 1] : 0) + s.sum, i}); // min() se quiser minimizar
+            removed.push_back(v[s.l]);
+            s.advance_l(v[s.l]);
+        }
+        for (int rem : removed) {
+            s.back_l(v[s.l - 1]);
+        }
+
+        dp_cur[mid] = best.first;
+        int opt = best.second;
+        compute(l, mid - 1, optl, opt);
+        compute(mid + 1, r, opt, optr);
+    }
+
+    ll solve(int n, int k) {
+        dp_before.assign(n, 0);
+        dp_cur.assign(n, 0);
+        s.clear(n);
+        for (int i = 0; i < n; i++) {
+            s.advance_r(v[i]);
+            dp_before[i] = s.sum;
+        }
+        for (int i = 1; i < k; i++) {
+            s.clear(n);
+            compute(0, n - 1, 0, n - 1);
+            dp_before = dp_cur;
+        }
+        return dp_before[n - 1];
+    }
+};
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Exponenciação de Matriz}
+
+
+Otimização para DP de prefixo quando o valor atual está em função dos últimos $K$ valores já calculados.   
+
+
+
+* Complexidade de tempo: $O(log(n)*k^3)$
+
+
+
+É preciso mapear a DP para uma exponenciação de matriz.
+
+
+
+\textbf{} 
+
+
+DP:   
+
+
+
+$$ dp[n] = \sum_{i=1}^{k} c[i] \cdot dp[n - i] $$ 
+
+
+
+Mapeamento:   
+
+
+
+$$ \begin{pmatrix} 0&1&0&0&...&0 \\\ 0&0&1&0&...&0 \\\ 0&0&0&1&...&0 \\\ ...&...&...&...&...&... \\\ c[k]&c[k-1]&c[k-2]&...&c[1]&0 \end{pmatrix}^n \times \begin{pmatrix} dp[0] \\\ dp[1] \\\ dp[2] \\\ ... \\\ dp[k-1] \end{pmatrix} $$
+
+
+
+\begin{itemize}
+\item --
+\end{itemize}
+
+\textbf{} 
+
+
+Exemplo de DP:   
+
+
+
+$$ dp[i] = dp[i-1] + 2 \cdot i^2 + 3 \cdot i + 5 $$
+
+
+
+Nesses casos é preciso fazer uma linha para manter cada constante e potência do índice.
+
+
+
+Mapeamento:
+
+
+
+$$ \begin{pmatrix} 1&5&3&2 \\\ 0&1&0&0 \\\ 0&1&1&0 \\\ 0&1&2&1 \end{pmatrix}^n \times \begin{pmatrix} dp[0]   \\\ 1       \\\ 1       \\\ 1\end {pmatrix} \begin{matrix} \text{mantém } dp[i]   \\\ \text{mantém }1       \\\ \text{mantém }i       \\\ \text{mantém }i^2      \end {matrix} $$
+
+
+
+\textbf{} 
+
+
+Exemplo de DP:
+
+
+
+$$ dp[n] =  c\times \prod_{i=1}^{k} dp[n-i] $$
+
+
+
+Nesses casos é preciso trabalhar com o logaritmo e temos o caso padrão:
+
+
+
+
+
+$$ \log(dp[n]) =  log(c) + \sum_{i=1}^{k} log(dp[n-i]) $$
+
+
+
+Se a resposta precisar ser inteira, deve-se fatorar a constante e os valores inicias e então fazer uma exponenciação para cada fator primo. Depois é só juntar a resposta no final.
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+ll dp[100];
+mat T;
+
+#define MOD 1000000007
+
+mat mult(mat a, mat b) {
+    mat res(a.size(), vi(b[0].size()));
+    for (int i = 0; i < a.size(); i++) {
+        for (int j = 0; j < b[0].size(); j++) {
+            for (int k = 0; k < b.size(); k++) {
+                res[i][j] += a[i][k] * b[k][j] % MOD;
+                res[i][j] %= MOD;
+            }
+        }
+    }
+    return res;
+}
+
+mat exp_mod(mat b, ll exp) {
+    mat res(b.size(), vi(b.size()));
+    for (int i = 0; i < b.size(); i++) {
+        res[i][i] = 1;
+    }
+
+    while (exp) {
+        if (exp & 1) {
+            res = mult(res, b);
+        }
+        b = mult(b, b);
+        exp /= 2;
+    }
+    return res;
+}
+
+// MUDA MUITO DE ACORDO COM O PROBLEMA
+// LEIA COMO FAZER O MAPEAMENTO NO README
+ll solve(ll exp, ll dim) {
+    if (exp < dim) {
+        return dp[exp];
+    }
+
+    T.assign(dim, vi(dim));
+    // TO DO: Preencher a Matriz que vai ser
+    // exponenciada T[0][1] = 1; T[1][0] = 1;
+    // T[1][1] = 1;
+
+    mat prod = exp_mod(T, exp);
+
+    mat vec;
+    vec.assign(dim, vi(1));
+    for (int i = 0; i < dim; i++) {
+        vec[i][0] = dp[i]; // Valores iniciais
+    }
+
+    mat ans = mult(prod, vec);
+    return ans[0][0];
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
 
 \section{Mo}
 
@@ -4448,644 +4986,6 @@ namespace mo {
 
 \hfill
 
-\section{Exponenciação de Matriz}
-
-
-Otimização para DP de prefixo quando o valor atual está em função dos últimos $K$ valores já calculados.   
-
-
-
-* Complexidade de tempo: $O(log(n)*k^3)$
-
-
-
-É preciso mapear a DP para uma exponenciação de matriz.
-
-
-
-\textbf{} 
-
-
-DP:   
-
-
-
-$$ dp[n] = \sum_{i=1}^{k} c[i] \cdot dp[n - i] $$ 
-
-
-
-Mapeamento:   
-
-
-
-$$ \begin{pmatrix} 0&1&0&0&...&0 \\\ 0&0&1&0&...&0 \\\ 0&0&0&1&...&0 \\\ ...&...&...&...&...&... \\\ c[k]&c[k-1]&c[k-2]&...&c[1]&0 \end{pmatrix}^n \times \begin{pmatrix} dp[0] \\\ dp[1] \\\ dp[2] \\\ ... \\\ dp[k-1] \end{pmatrix} $$
-
-
-
-\begin{itemize}
-\item --
-\end{itemize}
-
-\textbf{} 
-
-
-Exemplo de DP:   
-
-
-
-$$ dp[i] = dp[i-1] + 2 \cdot i^2 + 3 \cdot i + 5 $$
-
-
-
-Nesses casos é preciso fazer uma linha para manter cada constante e potência do índice.
-
-
-
-Mapeamento:
-
-
-
-$$ \begin{pmatrix} 1&5&3&2 \\\ 0&1&0&0 \\\ 0&1&1&0 \\\ 0&1&2&1 \end{pmatrix}^n \times \begin{pmatrix} dp[0]   \\\ 1       \\\ 1       \\\ 1\end {pmatrix} \begin{matrix} \text{mantém } dp[i]   \\\ \text{mantém }1       \\\ \text{mantém }i       \\\ \text{mantém }i^2      \end {matrix} $$
-
-
-
-\textbf{} 
-
-
-Exemplo de DP:
-
-
-
-$$ dp[n] =  c\times \prod_{i=1}^{k} dp[n-i] $$
-
-
-
-Nesses casos é preciso trabalhar com o logaritmo e temos o caso padrão:
-
-
-
-
-
-$$ \log(dp[n]) =  log(c) + \sum_{i=1}^{k} log(dp[n-i]) $$
-
-
-
-Se a resposta precisar ser inteira, deve-se fatorar a constante e os valores inicias e então fazer uma exponenciação para cada fator primo. Depois é só juntar a resposta no final.
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-ll dp[100];
-mat T;
-
-#define MOD 1000000007
-
-mat mult(mat a, mat b) {
-    mat res(a.size(), vi(b[0].size()));
-    for (int i = 0; i < a.size(); i++) {
-        for (int j = 0; j < b[0].size(); j++) {
-            for (int k = 0; k < b.size(); k++) {
-                res[i][j] += a[i][k] * b[k][j] % MOD;
-                res[i][j] %= MOD;
-            }
-        }
-    }
-    return res;
-}
-
-mat exp_mod(mat b, ll exp) {
-    mat res(b.size(), vi(b.size()));
-    for (int i = 0; i < b.size(); i++) {
-        res[i][i] = 1;
-    }
-
-    while (exp) {
-        if (exp & 1) {
-            res = mult(res, b);
-        }
-        b = mult(b, b);
-        exp /= 2;
-    }
-    return res;
-}
-
-// MUDA MUITO DE ACORDO COM O PROBLEMA
-// LEIA COMO FAZER O MAPEAMENTO NO README
-ll solve(ll exp, ll dim) {
-    if (exp < dim) {
-        return dp[exp];
-    }
-
-    T.assign(dim, vi(dim));
-    // TO DO: Preencher a Matriz que vai ser
-    // exponenciada T[0][1] = 1; T[1][0] = 1;
-    // T[1][1] = 1;
-
-    mat prod = exp_mod(T, exp);
-
-    mat vec;
-    vec.assign(dim, vi(1));
-    for (int i = 0; i < dim; i++) {
-        vec[i][0] = dp[i]; // Valores iniciais
-    }
-
-    mat ans = mult(prod, vec);
-    return ans[0][0];
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Busca Binaria Paralela}
-
-
-Faz a busca binária para múltiplas consultas quando a busca binária é muito pesada.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O((N+Q)log(N) * O(F)), onde N é o tamanho do espaço de busca, Q é o número de consultas e O(F), o custo de avaliação da função.
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-
-namespace parallel_binary_search {
-    typedef tuple<int, int, long long, long long> query; //{value, id, l, r}
-    vector<query> queries[1123456];                      // pode ser um mapa se
-                                                         // for muito esparso
-    long long ans[1123456];                              // definir pro tamanho
-                                                         // das queries
-    long long l, r, mid;
-    int id = 0;
-    void set_lim_search(long long n) {
-        l = 0;
-        r = n;
-        mid = (l + r) / 2;
-    }
-
-    void add_query(long long v) {
-        queries[mid].push_back({v, id++, l, r});
-    }
-
-    void advance_search(long long v) {
-        // advance search
-    }
-
-    bool satisfies(long long mid, int v, long long l, long long r) {
-        // implement the evaluation
-    }
-
-    bool get_ans() {
-        // implement the get ans
-    }
-
-    void parallel_binary_search(long long l, long long r) {
-
-        bool go = 1;
-        while (go) {
-            go = 0;
-            int i = 0; // outra logica se for usar
-                       // um mapa
-            for (auto &vec : queries) {
-                advance_search(i++);
-                for (auto q : vec) {
-                    auto [v, id, l, r] = q;
-                    if (l > r) {
-                        continue;
-                    }
-                    go = 1;
-                    // return while satisfies
-                    if (satisfies(i, v, l, r)) {
-                        ans[i] = get_ans();
-                        long long mid = (i + l) / 2;
-                        queries[mid] = query(v, id, l, i - 1);
-                    } else {
-                        long long mid = (i + r) / 2;
-                        queries[mid] = query(v, id, i + 1, r);
-                    }
-                }
-                vec.clear();
-            }
-        }
-    }
-
-} // namespace name
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Divide and Conquer}
-
-
-Otimização para DP de prefixo quando se pretende separar o vetor em K subgrupos.    
-
-
-
-É preciso fazer a função query(i, j) que computa o custo do subgrupo \[i, j\].
-
-* Complexidade de tempo: O(n * k * log(n) *  O(query))
-
-
-
-\textbf{Divide and Conquer com Query on demand} 
-
-
-
-<!-- *Read in [English](README.en.md)* -->
-
-
-
-Usado para evitar queries pesadas ou o custo de pré-processamento.  
-
-É preciso fazer as funções da estrutura \textbf{janela}, eles adicionam e removem itens um a um como uma janela flutuante.
-
-
-
-* Complexidade de tempo: O(n * k * log(n) * O(update da janela))
-
-
-
-
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-namespace DC {
-    vi dp_before, dp_cur;
-    void compute(int l, int r, int optl, int optr) {
-        if (l > r) {
-            return;
-        }
-        int mid = (l + r) >> 1;
-        pair<ll, int> best = {0, -1}; // {INF, -1} se quiser minimizar
-        for (int i = optl; i <= min(mid, optr); i++) {
-            best = max(best,
-                       {(i ? dp_before[i - 1] : 0) + query(i, mid),
-                        i}); // min() se quiser minimizar
-        }
-        dp_cur[mid] = best.first;
-        int opt = best.second;
-        compute(l, mid - 1, optl, opt);
-        compute(mid + 1, r, opt, optr);
-    }
-
-    ll solve(int n, int k) {
-        dp_before.assign(n + 5, 0);
-        dp_cur.assign(n + 5, 0);
-        for (int i = 0; i < n; i++) {
-            dp_before[i] = query(0, i);
-        }
-        for (int i = 1; i < k; i++) {
-            compute(0, n - 1, 0, n - 1);
-            dp_before = dp_cur;
-        }
-        return dp_before[n - 1];
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-namespace DC {
-    struct range { // eh preciso definir a forma
-                   // de calcular o range
-        vi freq;
-        ll sum = 0;
-        int l = 0, r = -1;
-        void back_l(int v) { // Mover o 'l' do range
-                             // para a esquerda
-            sum += freq[v];
-            freq[v]++;
-            l--;
-        }
-        void advance_r(int v) { // Mover o 'r' do range
-                                // para a direita
-            sum += freq[v];
-            freq[v]++;
-            r++;
-        }
-        void advance_l(int v) { // Mover o 'l' do range
-                                // para a direita
-            freq[v]--;
-            sum -= freq[v];
-            l++;
-        }
-        void back_r(int v) { // Mover o 'r' do range
-                             // para a esquerda
-            freq[v]--;
-            sum -= freq[v];
-            r--;
-        }
-        void clear(int n) { // Limpar range
-            l = 0;
-            r = -1;
-            sum = 0;
-            freq.assign(n + 5, 0);
-        }
-    } s;
-
-    vi dp_before, dp_cur;
-    void compute(int l, int r, int optl, int optr) {
-        if (l > r) {
-            return;
-        }
-        int mid = (l + r) >> 1;
-        pair<ll, int> best = {0, -1}; // {INF, -1} se quiser minimizar
-
-        while (s.l < optl) {
-            s.advance_l(v[s.l]);
-        }
-        while (s.l > optl) {
-            s.back_l(v[s.l - 1]);
-        }
-        while (s.r < mid) {
-            s.advance_r(v[s.r + 1]);
-        }
-        while (s.r > mid) {
-            s.back_r(v[s.r]);
-        }
-
-        vi removed;
-        for (int i = optl; i <= min(mid, optr); i++) {
-            best =
-                min(best,
-                    {(i ? dp_before[i - 1] : 0) + s.sum, i}); // min() se quiser minimizar
-            removed.push_back(v[s.l]);
-            s.advance_l(v[s.l]);
-        }
-        for (int rem : removed) {
-            s.back_l(v[s.l - 1]);
-        }
-
-        dp_cur[mid] = best.first;
-        int opt = best.second;
-        compute(l, mid - 1, optl, opt);
-        compute(mid + 1, r, opt, optr);
-    }
-
-    ll solve(int n, int k) {
-        dp_before.assign(n, 0);
-        dp_cur.assign(n, 0);
-        s.clear(n);
-        for (int i = 0; i < n; i++) {
-            s.advance_r(v[i]);
-            dp_before[i] = s.sum;
-        }
-        for (int i = 1; i < k; i++) {
-            s.clear(n);
-            compute(0, n - 1, 0, n - 1);
-            dp_before = dp_cur;
-        }
-        return dp_before[n - 1];
-    }
-};
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Busca Ternaria}
-
-
-Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(log(N) * O(eval)). Onde N é o tamanho do espaço de busca e O(eval) o custo de avaliação da função.
-\end{itemize}
-
-
-
-\textbf{Busca Ternária em Espaço Discreto} 
-
-
-
-Encontra um ponto ótimo em uma função que pode ser separada em duas funções estritamente monotônicas (e.g. parábolas).
-
-Versão para espaços discretos.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(log(N) * O(eval)). Onde N é o tamanho do espaço de busca e O(eval) o custo de avaliação da função.
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-
-double eval(double mid) {
-    // implement the evaluation
-}
-
-double ternary_search(double l, double r) {
-    int k = 100;
-    while (k--) {
-        double step = (l + r) / 3;
-        double mid_1 = l + step;
-        double mid_2 = r - step;
-
-        // minimizing. To maximize use >= to
-        // compare
-        if (eval(mid_1) <= eval(mid_2)) {
-            r = mid_2;
-        } else {
-            l = mid_1;
-        }
-    }
-    return l;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-
-long long eval(long long mid) {
-    // implement the evaluation
-}
-
-long long discrete_ternary_search(long long l, long long r) {
-    long long ans = -1;
-    r--; // to not space r
-    while (l <= r) {
-        long long mid = (l + r) / 2;
-
-        // minimizing. To maximize use >= to
-        // compare
-        if (eval(mid) <= eval(mid + 1)) {
-            ans = mid;
-            r = mid - 1;
-        } else {
-            l = mid + 1;
-        }
-    }
-    return ans;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{DP de Permutacao}
-
-
-Otimização do problema do Caixeiro Viajante
-
-
-
-* Complexidade de tempo: $O(n^2 * 2^n)$
-
-
-
-Para rodar a função basta setar a matriz de adjacência 'dist' e chamar solve(0,0,n).
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int lim = 17;         // setar para o maximo de itens
-long double dist[lim][lim]; // eh preciso dar as
-                            // distancias de n para n
-long double dp[lim][1 << lim];
-
-int limMask = (1 << lim) - 1; // 2**(maximo de itens) - 1
-long double solve(int atual, int mask, int n) {
-    if (dp[atual][mask] != 0) {
-        return dp[atual][mask];
-    }
-    if (mask == (1 << n) - 1) {
-        return dp[atual][mask] = 0; // o que fazer quando
-                                    // chega no final
-    }
-
-    long double res = 1e13; // pode ser maior se precisar
-    for (int i = 0; i < n; i++) {
-        if (!(mask & (1 << i))) {
-            long double aux = solve(i, mask | (1 << i), n);
-            if (mask) {
-                aux += dist[atual][i];
-            }
-            res = min(res, aux);
-        }
-    }
-    return dp[atual][mask] = res;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Convex Hull Trick}
-
-
-Otimização de DP onde se mantém as retas que formam um Convex Hull em uma estrutura que permite consultar qual o melhor valor para um determinado x.
-
-
-
-Só funciona quando as retas são monotônicas. Caso não forem, usar LiChao Tree para guardar as retas
-
-
-
-Complexidade de tempo:
-
-
-
-\begin{itemize}
-\item Inserir reta: O(1) amortizado
-\item Consultar x: O(log(N))
-\item Consultar x quando x tem crescimento monotônico: O(1)
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const ll INF = 1e18 + 18;
-bool op(ll a, ll b) {
-    return a >= b; // either >= or <=
-}
-struct line {
-    ll a, b;
-    ll get(ll x) {
-        return a * x + b;
-    }
-    ll intersect(line l) {
-        return (l.b - b + a - l.a) / (a - l.a); // rounds up for integer
-                                                // only
-    }
-};
-deque<pair<line, ll>> fila;
-void add_line(ll a, ll b) {
-    line nova = {a, b};
-    if (!fila.empty() && fila.back().first.a == a && fila.back().first.b == b) {
-        return;
-    }
-    while (!fila.empty() && op(fila.back().second, nova.intersect(fila.back().first))) {
-        fila.pop_back();
-    }
-    ll x = fila.empty() ? -INF : nova.intersect(fila.back().first);
-    fila.emplace_back(nova, x);
-}
-ll get_binary_search(ll x) {
-    int esq = 0, dir = fila.size() - 1, r = -1;
-    while (esq <= dir) {
-        int mid = (esq + dir) / 2;
-        if (op(x, fila[mid].second)) {
-            esq = mid + 1;
-            r = mid;
-        } else {
-            dir = mid - 1;
-        }
-    }
-    return fila[r].first.get(x);
-}
-// O(1), use only when QUERIES are monotonic!
-ll get(ll x) {
-    while (fila.size() >= 2 && op(x, fila[1].second)) {
-        fila.pop_front();
-    }
-    return fila.front().first.get(x);
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{All Submasks}
-
-
-Percorre todas as submáscaras de uma máscara.
-
-
-
-* Complexidade de tempo: $O(3^N)$
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-int mask;
-for (int sub = mask; sub; sub = (sub - 1) & mask) { }
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
 \newpage
 
 %%%%%%
@@ -5098,361 +4998,7 @@ for (int sub = mask; sub; sub = (sub - 1) & mask) { }
 
 \chapter{Matemática}
 
-\section{Primos}
-
-
-Algortimos relacionados a números primos.
-
-
-
-\textbf{Crivo de Eratóstenes} 
-
-Computa a primalidade de todos os números até N, quase tão rápido quanto o crivo linear.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(N * log(log(N)))
-\end{itemize}
-
-
-
-Demora 1 segundo para LIM igual a $3 * 10^7$.
-
-
-
-\textbf{Miller-Rabin} 
-
-Teste de primalidade garantido para números menores do que $2^64$.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(log(N))
-\end{itemize}
-
-
-
-\textbf{Teste Ingênuo} 
-
-Computa a primalidade de um número N.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $O(N^(1/2))$
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-vector<bool> sieve(int n) {
-    vector<bool> is_prime(n + 5, true);
-    is_prime[0] = false;
-    is_prime[1] = false;
-    long long sq = sqrt(n + 5);
-    for (long long i = 2; i <= sq; i++) {
-        if (is_prime[i]) {
-            for (long long j = i * i; j < n; j += i) {
-                is_prime[j] = false;
-            }
-        }
-    }
-    return is_prime;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-bool is_prime(int n) {
-    for (long long d = 2; d * d <= n; d++) {
-        if (n % d == 0) {
-            return false;
-        }
-    }
-    return true;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-long long power(long long base, long long e, long long mod) {
-    long long result = 1;
-    base %= mod;
-    while (e) {
-        if (e & 1) {
-            result = (__int128)result * base % mod;
-        }
-        base = (__int128)base * base % mod;
-        e >>= 1;
-    }
-    return result;
-}
-
-bool is_composite(long long n, long long a, long long d, int s) {
-    long long x = power(a, d, n);
-    if (x == 1 || x == n - 1) {
-        return false;
-    }
-    for (int r = 1; r < s; r++) {
-        x = (__int128)x * x % n;
-        if (x == n - 1) {
-            return false;
-        }
-    }
-    return true;
-}
-
-bool miller_rabin(long long n) {
-    if (n < 2) {
-        return false;
-    }
-    int r = 0;
-    long long d = n - 1;
-    while ((d & 1) == 0) {
-        d >>= 1, ++r;
-    }
-    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
-        if (n == a) {
-            return true;
-        }
-        if (is_composite(n, a, d, r)) {
-            return false;
-        }
-    }
-    return true;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{NTT}
-
-
-Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo.
-
-
-
-Computa multiplicação de polinômino; \textbf{Somente para inteiros}.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(N * log(N))
-\end{itemize}
-
-
-
-Constantes finais devem ser menor do que $10^9$.  
-
-Para constantes entre $10^9$ e $10^{18}$ é necessário codar também [big\_convolution](big\_convolution.cpp).
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-typedef long long ll;
-typedef vector<ll> poly;
-
-ll mod[3] = {998244353LL, 1004535809LL, 1092616193LL};
-ll root[3] = {102292LL, 12289LL, 23747LL};
-ll root_1[3] = {116744195LL, 313564925LL, 642907570LL};
-ll root_pw[3] = {1LL << 23, 1LL << 21, 1LL << 21};
-
-ll modInv(ll b, ll m) {
-    ll e = m - 2;
-    ll res = 1;
-    while (e) {
-        if (e & 1) {
-            res = (res * b) % m;
-        }
-        e /= 2;
-        b = (b * b) % m;
-    }
-    return res;
-}
-
-void ntt(poly &a, bool invert, int id) {
-    ll n = (ll)a.size(), m = mod[id];
-    for (ll i = 1, j = 0; i < n; ++i) {
-        ll bit = n >> 1;
-        for (; j >= bit; bit >>= 1) {
-            j -= bit;
-        }
-        j += bit;
-        if (i < j) {
-            swap(a[i], a[j]);
-        }
-    }
-    for (ll len = 2, wlen; len <= n; len <<= 1) {
-        wlen = invert ? root_1[id] : root[id];
-        for (ll i = len; i < root_pw[id]; i <<= 1) {
-            wlen = (wlen * wlen) % m;
-        }
-        for (ll i = 0; i < n; i += len) {
-            ll w = 1;
-            for (ll j = 0; j < len / 2; j++) {
-                ll u = a[i + j], v = (a[i + j + len / 2] * w) % m;
-                a[i + j] = (u + v) % m;
-                a[i + j + len / 2] = (u - v + m) % m;
-                w = (w * wlen) % m;
-            }
-        }
-    }
-    if (invert) {
-        ll inv = modInv(n, m);
-        for (ll i = 0; i < n; i++) {
-            a[i] = (a[i] * inv) % m;
-        }
-    }
-}
-
-poly convolution(poly a, poly b, int id = 0) {
-    ll n = 1LL, len = (1LL + a.size() + b.size());
-    while (n < len) {
-        n *= 2;
-    }
-    a.resize(n);
-    b.resize(n);
-    ntt(a, 0, id);
-    ntt(b, 0, id);
-    poly answer(n);
-    for (ll i = 0; i < n; i++) {
-        answer[i] = (a[i] * b[i]);
-    }
-    ntt(answer, 1, id);
-    return answer;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-
-ll mod_mul(ll a, ll b, ll m) {
-    return (__int128)a * b % m;
-}
-ll ext_gcd(ll a, ll b, ll &x, ll &y) {
-    if (!b) {
-        x = 1;
-        y = 0;
-        return a;
-    } else {
-        ll g = ext_gcd(b, a % b, y, x);
-        y -= a / b * x;
-        return g;
-    }
-}
-
-// convolution mod 1,097,572,091,361,755,137
-poly big_convolution(poly a, poly b) {
-    poly r0, r1, answer;
-    r0 = convolution(a, b, 1);
-    r1 = convolution(a, b, 2);
-
-    ll s, r, p = mod[1] * mod[2];
-    ext_gcd(mod[1], mod[2], r, s);
-
-    answer.resize(r0.size());
-    for (int i = 0; i < (int)answer.size(); i++) {
-        answer[i] = (mod_mul((s * mod[2] + p) % p, r0[i], p) +
-                     mod_mul((r * mod[1] + p) % p, r1[i], p) + p) %
-                    p;
-    }
-    return answer;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
 \section{Eliminação Gaussiana}
-\subsection{Gauss Mod 2}
-
-
-Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes em $\mathbb{Z}_2$ (inteiros módulo 2).
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $O(n^3/32)$
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int N = 105;
-const int INF = 2; // tanto faz
-
-// n -> numero de equacoes, m -> numero de
-// variaveis a[i][j] para j em [0, m - 1] ->
-// coeficiente da variavel j na iesima equacao
-// a[i][j] para j == m -> resultado da equacao da
-// iesima linha ans -> bitset vazio, que retornara
-// a solucao do sistema (caso exista)
-
-int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
-    vector<int> where(m, -1);
-
-    for (int col = 0, row = 0; col < m && row < n; col++) {
-        for (int i = row; i < n; i++) {
-            if (a[i][col]) {
-                swap(a[i], a[row]);
-                break;
-            }
-        }
-        if (!a[row][col]) {
-            continue;
-        }
-        where[col] = row;
-
-        for (int i = 0; i < n; i++) {
-            if (i != row && a[i][col]) {
-                a[i] ^= a[row];
-            }
-        }
-        row++;
-    }
-
-    for (int i = 0; i < m; i++) {
-        if (where[i] != -1) {
-            ans[i] = a[where[i]][m] / a[where[i]][i];
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        int sum = 0;
-        for (int j = 0; j < m; j++) {
-            sum += ans[j] * a[i][j];
-        }
-        if (abs(sum - a[i][m]) > 0) {
-            return 0; // Sem solucao
-        }
-    }
-
-    for (int i = 0; i < m; i++) {
-        if (where[i] == -1) {
-            return INF; // Infinitas solucoes
-        }
-    }
-    return 1; // Unica solucao (retornada no
-              // bitset ans)
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
 \subsection{Gauss}
 
 
@@ -5531,130 +5077,210 @@ int gauss(vector<vector<double>> a, vector<double> &ans) {
 
 \hfill
 
-\section{Sum of floor (n div i)}
+\subsection{Gauss Mod 2}
 
 
-Computa
-
-
-
-$$ \sum_{i=1}^{n} \lfloor\frac{n}{i}\rfloor $$
-
-
+Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes em $\mathbb{Z}_2$ (inteiros módulo 2).
 
 
 
 \begin{itemize}
-\item Complexidade de tempo: $O(\sqrt{n})$
+\item Complexidade de tempo: $O(n^3/32)$
 \end{itemize}
 
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-const int MOD = 1e9 + 7;
+const int N = 105;
+const int INF = 2; // tanto faz
 
-long long sumoffloor(long long n) {
-    long long answer = 0, i;
-    for (i = 1; i * i <= n; i++) {
-        answer += n / i;
-        answer %= MOD;
+// n -> numero de equacoes, m -> numero de
+// variaveis a[i][j] para j em [0, m - 1] ->
+// coeficiente da variavel j na iesima equacao
+// a[i][j] para j == m -> resultado da equacao da
+// iesima linha ans -> bitset vazio, que retornara
+// a solucao do sistema (caso exista)
+
+int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
+    vector<int> where(m, -1);
+
+    for (int col = 0, row = 0; col < m && row < n; col++) {
+        for (int i = row; i < n; i++) {
+            if (a[i][col]) {
+                swap(a[i], a[row]);
+                break;
+            }
+        }
+        if (!a[row][col]) {
+            continue;
+        }
+        where[col] = row;
+
+        for (int i = 0; i < n; i++) {
+            if (i != row && a[i][col]) {
+                a[i] ^= a[row];
+            }
+        }
+        row++;
     }
-    i--;
-    for (int j = 1; n / (j + 1) >= i; j++) {
-        answer += (((n / j - n / (j + 1)) % MOD) * j) % MOD;
-        answer %= MOD;
+
+    for (int i = 0; i < m; i++) {
+        if (where[i] != -1) {
+            ans[i] = a[where[i]][m] / a[where[i]][i];
+        }
     }
-    return answer;
+    for (int i = 0; i < n; i++) {
+        int sum = 0;
+        for (int j = 0; j < m; j++) {
+            sum += ans[j] * a[i][j];
+        }
+        if (abs(sum - a[i][m]) > 0) {
+            return 0; // Sem solucao
+        }
+    }
+
+    for (int i = 0; i < m; i++) {
+        if (where[i] == -1) {
+            return INF; // Infinitas solucoes
+        }
+    }
+    return 1; // Unica solucao (retornada no
+              // bitset ans)
 }
 \end{lstlisting}
 \end{multicols}
 
 \hfill
 
-\section{GCD}
+\section{Exponenciação Modular Rápida}
 
 
-Algoritmo Euclides para computar o Máximo Divisor Comum (MDC em português; GCD em inglês), e variações.
-
-
-
-*Read in [English](README.en.md)*
-
-
-
-\textbf{Algoritmo de Euclides} 
-
-
-
-Computa o Máximo Divisor Comum (MDC em português; GCD em inglês).
+Computa $(base^{exp}) \% mod$.
 
 
 
 \begin{itemize}
-\item Complexidade de tempo: O(log(n))
+\item Complexidade de tempo: $O(log(exp))$.
+\item Complexidade de espaço: $O(1)$
 \end{itemize}
 
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+ll exp_mod(ll base, ll exp) {
+    ll b = base, res = 1;
+    while (exp) {
+        if (exp & 1) {
+            res = (res * b) % MOD;
+        }
+        b = (b * b) % MOD;
+        exp /= 2;
+    }
+    return res;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{FFT}
 
 
-Mais demorado que usar a função do compilador C++ \_\_gcd(a,b).
+Algoritmo que computa a transformada rápida de fourier para convolução de polinômios.
 
 
 
-\textbf{Algoritmo de Euclides Estendido} 
-
-
-
-Algoritmo extendido de euclides que computa o Máximo Divisor Comum e os valores x e y tal que a * x + b * y = gcd(a, b).
+Computa convolução (multiplicação) de polinômios.
 
 
 
 \begin{itemize}
-\item Complexidade de tempo: O(log(n))
+\item Complexidade de tempo (caso médio): O(N * log(N))
+\item Complexidade de tempo (considerando alto overhead): $O(n * log^2(n) * log(log(n)))$
 \end{itemize}
 
+
+
+Garante que não haja erro de precisão para polinômios com grau até $3 * 10^5$ e constantes até $10^6$.
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
-long long gcd(long long a, long long b) {
-    return (b == 0) ? a : gcd(b, a % b);
-}
-\end{lstlisting}
-\end{multicols}
+typedef complex<double> cd;
+typedef vector<cd> poly;
+const double PI = acos(-1);
 
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-int extended_gcd(int a, int b, int &x, int &y) {
-    x = 1, y = 0;
-    int x1 = 0, y1 = 1;
-    while (b) {
-        int q = a / b;
-        tie(x, x1) = make_tuple(x1, x - q * x1);
-        tie(y, y1) = make_tuple(y1, y - q * y1);
-        tie(a, b) = make_tuple(b, a - q * b);
+void fft(poly &a, bool invert = 0) {
+    int n = a.size(), log_n = 0;
+    while ((1 << log_n) < n) {
+        log_n++;
     }
-    return a;
-}
-\end{lstlisting}
-\end{multicols}
 
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-ll extended_gcd(ll a, ll b, ll &x, ll &y) {
-    if (b == 0) {
-        x = 1;
-        y = 0;
-        return a;
-    } else {
-        ll g = extended_gcd(b, a % b, y, x);
-        y -= a / b * x;
-        return g;
+    for (int i = 1, j = 0; i < n; ++i) {
+        int bit = n >> 1;
+        for (; j >= bit; bit >>= 1) {
+            j -= bit;
+        }
+        j += bit;
+        if (i < j) {
+            swap(a[i], a[j]);
+        }
     }
+
+    double angle = 2 * PI / n * (invert ? -1 : 1);
+    poly root(n / 2);
+    for (int i = 0; i < n / 2; ++i) {
+        root[i] = cd(cos(angle * i), sin(angle * i));
+    }
+
+    for (long long len = 2; len <= n; len <<= 1) {
+        long long step = n / len;
+        long long aux = len / 2;
+        for (long long i = 0; i < n; i += len) {
+            for (int j = 0; j < aux; ++j) {
+                cd u = a[i + j], v = a[i + j + aux] * root[step * j];
+                a[i + j] = u + v;
+                a[i + j + aux] = u - v;
+            }
+        }
+    }
+    if (invert) {
+        for (int i = 0; i < n; ++i) {
+            a[i] /= n;
+        }
+    }
+}
+
+vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
+    int n = 1, len = a.size() + b.size();
+    while (n < len) {
+        n <<= 1;
+    }
+    a.resize(n);
+    b.resize(n);
+    poly fft_a(a.begin(), a.end());
+    fft(fft_a);
+    poly fft_b(b.begin(), b.end());
+    fft(fft_b);
+
+    poly c(n);
+    for (int i = 0; i < n; ++i) {
+        c[i] = fft_a[i] * fft_b[i];
+    }
+    fft(c, 1);
+
+    vector<long long> res(n);
+    for (int i = 0; i < n; ++i) {
+        res[i] = round(c[i].real()); //  res = c[i].real();
+                                     //  se for vector de
+                                     //  double
+    }
+    // while(size(res) > 1 && res.back() == 0)
+    // res.pop_back(); // apenas para quando os
+    // zeros direita nao importarem
+    return res;
 }
 \end{lstlisting}
 \end{multicols}
@@ -5828,14 +5454,74 @@ vector<long long> factorize(long long n) {
 
 \hfill
 
-\section{Teorema do Resto Chinês}
+\section{GCD}
 
 
-Algoritmo que resolve o sistema $x \equiv a_i \pmod{m_i}$, onde $m_i$ são primos entre si.
+Algoritmo Euclides para computar o Máximo Divisor Comum (MDC em português; GCD em inglês), e variações.
 
 
 
-Retorna $-1$ se a resposta não existir.
+*Read in [English](README.en.md)*
+
+
+
+\textbf{Algoritmo de Euclides} 
+
+
+
+Computa o Máximo Divisor Comum (MDC em português; GCD em inglês).
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(log(n))
+\end{itemize}
+
+
+
+Mais demorado que usar a função do compilador C++ \_\_gcd(a,b).
+
+
+
+\textbf{Algoritmo de Euclides Estendido} 
+
+
+
+Algoritmo extendido de euclides que computa o Máximo Divisor Comum e os valores x e y tal que a * x + b * y = gcd(a, b).
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(log(n))
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+long long gcd(long long a, long long b) {
+    return (b == 0) ? a : gcd(b, a % b);
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+int extended_gcd(int a, int b, int &x, int &y) {
+    x = 1, y = 0;
+    int x1 = 0, y1 = 1;
+    while (b) {
+        int q = a / b;
+        tie(x, x1) = make_tuple(x1, x - q * x1);
+        tie(y, y1) = make_tuple(y1, y - q * y1);
+        tie(a, b) = make_tuple(b, a - q * b);
+    }
+    return a;
+}
+\end{lstlisting}
+\end{multicols}
 
 \hfill
 
@@ -5851,233 +5537,6 @@ ll extended_gcd(ll a, ll b, ll &x, ll &y) {
         y -= a / b * x;
         return g;
     }
-}
-
-ll crt(vector<ll> rem, vector<ll> mod) {
-    int n = rem.size();
-    if (n == 0) {
-        return 0;
-    }
-    __int128 ans = rem[0], m = mod[0];
-    for (int i = 1; i < n; i++) {
-        ll x, y;
-        ll g = extended_gcd(mod[i], m, x, y);
-        if ((ans - rem[i]) % g != 0) {
-            return -1;
-        }
-        ans = ans + (__int128)1 * (rem[i] - ans) * (m / g) * y;
-        m = (__int128)(mod[i] / g) * (m / g) * g;
-        ans = (ans % m + m) % m;
-    }
-    return ans;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{FFT}
-
-
-Algoritmo que computa a transformada rápida de fourier para convolução de polinômios.
-
-
-
-Computa convolução (multiplicação) de polinômios.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo (caso médio): O(N * log(N))
-\item Complexidade de tempo (considerando alto overhead): $O(n * log^2(n) * log(log(n)))$
-\end{itemize}
-
-
-
-Garante que não haja erro de precisão para polinômios com grau até $3 * 10^5$ e constantes até $10^6$.
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-typedef complex<double> cd;
-typedef vector<cd> poly;
-const double PI = acos(-1);
-
-void fft(poly &a, bool invert = 0) {
-    int n = a.size(), log_n = 0;
-    while ((1 << log_n) < n) {
-        log_n++;
-    }
-
-    for (int i = 1, j = 0; i < n; ++i) {
-        int bit = n >> 1;
-        for (; j >= bit; bit >>= 1) {
-            j -= bit;
-        }
-        j += bit;
-        if (i < j) {
-            swap(a[i], a[j]);
-        }
-    }
-
-    double angle = 2 * PI / n * (invert ? -1 : 1);
-    poly root(n / 2);
-    for (int i = 0; i < n / 2; ++i) {
-        root[i] = cd(cos(angle * i), sin(angle * i));
-    }
-
-    for (long long len = 2; len <= n; len <<= 1) {
-        long long step = n / len;
-        long long aux = len / 2;
-        for (long long i = 0; i < n; i += len) {
-            for (int j = 0; j < aux; ++j) {
-                cd u = a[i + j], v = a[i + j + aux] * root[step * j];
-                a[i + j] = u + v;
-                a[i + j + aux] = u - v;
-            }
-        }
-    }
-    if (invert) {
-        for (int i = 0; i < n; ++i) {
-            a[i] /= n;
-        }
-    }
-}
-
-vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
-    int n = 1, len = a.size() + b.size();
-    while (n < len) {
-        n <<= 1;
-    }
-    a.resize(n);
-    b.resize(n);
-    poly fft_a(a.begin(), a.end());
-    fft(fft_a);
-    poly fft_b(b.begin(), b.end());
-    fft(fft_b);
-
-    poly c(n);
-    for (int i = 0; i < n; ++i) {
-        c[i] = fft_a[i] * fft_b[i];
-    }
-    fft(c, 1);
-
-    vector<long long> res(n);
-    for (int i = 0; i < n; ++i) {
-        res[i] = round(c[i].real()); //  res = c[i].real();
-                                     //  se for vector de
-                                     //  double
-    }
-    // while(size(res) > 1 && res.back() == 0)
-    // res.pop_back(); // apenas para quando os
-    // zeros direita nao importarem
-    return res;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Exponenciação Modular Rápida}
-
-
-Computa $(base^{exp}) \% mod$.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $O(log(exp))$.
-\item Complexidade de espaço: $O(1)$
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-ll exp_mod(ll base, ll exp) {
-    ll b = base, res = 1;
-    while (exp) {
-        if (exp & 1) {
-            res = (res * b) % MOD;
-        }
-        b = (b * b) % MOD;
-        exp /= 2;
-    }
-    return res;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Totiente de Euler}
-
-
-Código para computar o totiente de Euler.
-
-
-
-\textbf{Totiente de Euler (Phi) para um número} 
-
-Computa o totiente para um único número N.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $O(N^(1/2))$
-\end{itemize}
-
-
-
-\textbf{Totiente de Euler (Phi) entre 1 e N} 
-
-Computa o totiente entre 1 e N.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: O(N * log(log(N)))
-\end{itemize}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-vector<int> phi_1_to_n(int n) {
-    vector<int> phi(n + 1);
-    for (int i = 0; i <= n; i++) {
-        phi[i] = i;
-    }
-    for (int i = 2; i <= n; i++) {
-        if (phi[i] == i) {
-            for (int j = i; j <= n; j += i) {
-                phi[j] -= phi[j] / i;
-            }
-        }
-    }
-    return phi;
-}
-\end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-int phi(int n) {
-    int result = n;
-    for (int i = 2; i * i <= n; i++) {
-        if (n % i == 0) {
-            while (n % i == 0) {
-                n /= i;
-            }
-            result -= result / i;
-        }
-    }
-    if (n > 1) {
-        result -= result / n;
-    }
-    return result;
 }
 \end{lstlisting}
 \end{multicols}
@@ -6231,6 +5690,447 @@ int inv(int a) {
         return (x % m + m) % m;
     }
     return -1;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{NTT}
+
+
+Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo.
+
+
+
+Computa multiplicação de polinômino; \textbf{Somente para inteiros}.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(N * log(N))
+\end{itemize}
+
+
+
+Constantes finais devem ser menor do que $10^9$.  
+
+Para constantes entre $10^9$ e $10^{18}$ é necessário codar também [big\_convolution](big\_convolution.cpp).
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+typedef long long ll;
+typedef vector<ll> poly;
+
+ll mod[3] = {998244353LL, 1004535809LL, 1092616193LL};
+ll root[3] = {102292LL, 12289LL, 23747LL};
+ll root_1[3] = {116744195LL, 313564925LL, 642907570LL};
+ll root_pw[3] = {1LL << 23, 1LL << 21, 1LL << 21};
+
+ll modInv(ll b, ll m) {
+    ll e = m - 2;
+    ll res = 1;
+    while (e) {
+        if (e & 1) {
+            res = (res * b) % m;
+        }
+        e /= 2;
+        b = (b * b) % m;
+    }
+    return res;
+}
+
+void ntt(poly &a, bool invert, int id) {
+    ll n = (ll)a.size(), m = mod[id];
+    for (ll i = 1, j = 0; i < n; ++i) {
+        ll bit = n >> 1;
+        for (; j >= bit; bit >>= 1) {
+            j -= bit;
+        }
+        j += bit;
+        if (i < j) {
+            swap(a[i], a[j]);
+        }
+    }
+    for (ll len = 2, wlen; len <= n; len <<= 1) {
+        wlen = invert ? root_1[id] : root[id];
+        for (ll i = len; i < root_pw[id]; i <<= 1) {
+            wlen = (wlen * wlen) % m;
+        }
+        for (ll i = 0; i < n; i += len) {
+            ll w = 1;
+            for (ll j = 0; j < len / 2; j++) {
+                ll u = a[i + j], v = (a[i + j + len / 2] * w) % m;
+                a[i + j] = (u + v) % m;
+                a[i + j + len / 2] = (u - v + m) % m;
+                w = (w * wlen) % m;
+            }
+        }
+    }
+    if (invert) {
+        ll inv = modInv(n, m);
+        for (ll i = 0; i < n; i++) {
+            a[i] = (a[i] * inv) % m;
+        }
+    }
+}
+
+poly convolution(poly a, poly b, int id = 0) {
+    ll n = 1LL, len = (1LL + a.size() + b.size());
+    while (n < len) {
+        n *= 2;
+    }
+    a.resize(n);
+    b.resize(n);
+    ntt(a, 0, id);
+    ntt(b, 0, id);
+    poly answer(n);
+    for (ll i = 0; i < n; i++) {
+        answer[i] = (a[i] * b[i]);
+    }
+    ntt(answer, 1, id);
+    return answer;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+
+ll mod_mul(ll a, ll b, ll m) {
+    return (__int128)a * b % m;
+}
+ll ext_gcd(ll a, ll b, ll &x, ll &y) {
+    if (!b) {
+        x = 1;
+        y = 0;
+        return a;
+    } else {
+        ll g = ext_gcd(b, a % b, y, x);
+        y -= a / b * x;
+        return g;
+    }
+}
+
+// convolution mod 1,097,572,091,361,755,137
+poly big_convolution(poly a, poly b) {
+    poly r0, r1, answer;
+    r0 = convolution(a, b, 1);
+    r1 = convolution(a, b, 2);
+
+    ll s, r, p = mod[1] * mod[2];
+    ext_gcd(mod[1], mod[2], r, s);
+
+    answer.resize(r0.size());
+    for (int i = 0; i < (int)answer.size(); i++) {
+        answer[i] = (mod_mul((s * mod[2] + p) % p, r0[i], p) +
+                     mod_mul((r * mod[1] + p) % p, r1[i], p) + p) %
+                    p;
+    }
+    return answer;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Primos}
+
+
+Algortimos relacionados a números primos.
+
+
+
+\textbf{Crivo de Eratóstenes} 
+
+Computa a primalidade de todos os números até N, quase tão rápido quanto o crivo linear.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(N * log(log(N)))
+\end{itemize}
+
+
+
+Demora 1 segundo para LIM igual a $3 * 10^7$.
+
+
+
+\textbf{Miller-Rabin} 
+
+Teste de primalidade garantido para números menores do que $2^64$.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(log(N))
+\end{itemize}
+
+
+
+\textbf{Teste Ingênuo} 
+
+Computa a primalidade de um número N.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: $O(N^(1/2))$
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+vector<bool> sieve(int n) {
+    vector<bool> is_prime(n + 5, true);
+    is_prime[0] = false;
+    is_prime[1] = false;
+    long long sq = sqrt(n + 5);
+    for (long long i = 2; i <= sq; i++) {
+        if (is_prime[i]) {
+            for (long long j = i * i; j < n; j += i) {
+                is_prime[j] = false;
+            }
+        }
+    }
+    return is_prime;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+bool is_prime(int n) {
+    for (long long d = 2; d * d <= n; d++) {
+        if (n % d == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+long long power(long long base, long long e, long long mod) {
+    long long result = 1;
+    base %= mod;
+    while (e) {
+        if (e & 1) {
+            result = (__int128)result * base % mod;
+        }
+        base = (__int128)base * base % mod;
+        e >>= 1;
+    }
+    return result;
+}
+
+bool is_composite(long long n, long long a, long long d, int s) {
+    long long x = power(a, d, n);
+    if (x == 1 || x == n - 1) {
+        return false;
+    }
+    for (int r = 1; r < s; r++) {
+        x = (__int128)x * x % n;
+        if (x == n - 1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool miller_rabin(long long n) {
+    if (n < 2) {
+        return false;
+    }
+    int r = 0;
+    long long d = n - 1;
+    while ((d & 1) == 0) {
+        d >>= 1, ++r;
+    }
+    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37}) {
+        if (n == a) {
+            return true;
+        }
+        if (is_composite(n, a, d, r)) {
+            return false;
+        }
+    }
+    return true;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Sum of floor (n div i)}
+
+
+Computa
+
+
+
+$$ \sum_{i=1}^{n} \lfloor\frac{n}{i}\rfloor $$
+
+
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: $O(\sqrt{n})$
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MOD = 1e9 + 7;
+
+long long sumoffloor(long long n) {
+    long long answer = 0, i;
+    for (i = 1; i * i <= n; i++) {
+        answer += n / i;
+        answer %= MOD;
+    }
+    i--;
+    for (int j = 1; n / (j + 1) >= i; j++) {
+        answer += (((n / j - n / (j + 1)) % MOD) * j) % MOD;
+        answer %= MOD;
+    }
+    return answer;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Teorema do Resto Chinês}
+
+
+Algoritmo que resolve o sistema $x \equiv a_i \pmod{m_i}$, onde $m_i$ são primos entre si.
+
+
+
+Retorna $-1$ se a resposta não existir.
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+ll extended_gcd(ll a, ll b, ll &x, ll &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    } else {
+        ll g = extended_gcd(b, a % b, y, x);
+        y -= a / b * x;
+        return g;
+    }
+}
+
+ll crt(vector<ll> rem, vector<ll> mod) {
+    int n = rem.size();
+    if (n == 0) {
+        return 0;
+    }
+    __int128 ans = rem[0], m = mod[0];
+    for (int i = 1; i < n; i++) {
+        ll x, y;
+        ll g = extended_gcd(mod[i], m, x, y);
+        if ((ans - rem[i]) % g != 0) {
+            return -1;
+        }
+        ans = ans + (__int128)1 * (rem[i] - ans) * (m / g) * y;
+        m = (__int128)(mod[i] / g) * (m / g) * g;
+        ans = (ans % m + m) % m;
+    }
+    return ans;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\section{Totiente de Euler}
+
+
+Código para computar o totiente de Euler.
+
+
+
+\textbf{Totiente de Euler (Phi) para um número} 
+
+Computa o totiente para um único número N.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: $O(N^(1/2))$
+\end{itemize}
+
+
+
+\textbf{Totiente de Euler (Phi) entre 1 e N} 
+
+Computa o totiente entre 1 e N.
+
+
+
+\begin{itemize}
+\item Complexidade de tempo: O(N * log(log(N)))
+\end{itemize}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+vector<int> phi_1_to_n(int n) {
+    vector<int> phi(n + 1);
+    for (int i = 0; i <= n; i++) {
+        phi[i] = i;
+    }
+    for (int i = 2; i <= n; i++) {
+        if (phi[i] == i) {
+            for (int j = i; j <= n; j += i) {
+                phi[j] -= phi[j] / i;
+            }
+        }
+    }
+    return phi;
+}
+\end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+int phi(int n) {
+    int result = n;
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            while (n % i == 0) {
+                n /= i;
+            }
+            result -= result / i;
+        }
+    }
+    if (n > 1) {
+        result -= result / n;
+    }
+    return result;
 }
 \end{lstlisting}
 \end{multicols}

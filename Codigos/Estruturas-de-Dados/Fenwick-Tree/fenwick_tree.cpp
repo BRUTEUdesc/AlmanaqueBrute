@@ -1,30 +1,41 @@
-struct FenwickTree {
-    int n;
-    vector<int> tree;
-    FenwickTree(int n) : n(n) {
-        tree.assign(n, 0);
+template <typename T> struct FenwickTree {
+    vector<T> bit;
+    FenwickTree(int n = 0) : bit(n, T()) {
     }
-    FenwickTree(vector<int> v) : FenwickTree(v.size()) {
-        for (size_t i = 1; i < v.size(); i++) {
-            update(i, v[i]);
+    FenwickTree(vector<T> &v) : bit(v.size(), T()) {
+        int n = v.size();
+        for (int i = 0; i < n; i++)
+            bit[i] = v[i];
+        for (int i = 0; i < n; i++) {
+            int j = i | (i + 1);
+            if (j < n)
+                bit[j] = bit[j] + bit[i];
         }
     }
-    int lsONE(int x) {
-        return x & (-x);
-    }
-    int query(int x) {
-        int soma = 0;
-        for (; x > 0; x -= lsONE(x)) {
-            soma += tree[x];
+    T pref(int i) {
+        T res = T();
+        while (i >= 0) {
+            res = res + bit[i];
+            i &= i + 1;
+            i--;
         }
-        return soma;
+        return res;
     }
-    int query(int l, int r) {
-        return query(r) - query(l - 1);
+    T query(int l, int r) {
+        if (l == 0)
+            return pref(r);
+        return pref(r) - pref(l - 1);
     }
-    void update(int x, int v) {
-        for (; x < n; x += lsONE(x)) {
-            tree[x] += v;
+    void update(int i, T d) {
+        while (i < (int)bit.size()) {
+            bit[i] = bit[i] + d;
+            i |= i + 1;
         }
+    }
+    void updateSet(int i, T d) {
+        // funciona pra fenwick de soma
+        T now = query(i, i);
+        update(i, now * -1);
+        update(i, d);
     }
 };
