@@ -312,8 +312,7 @@ struct Full_DSU {
 \subsection{Offline DSU}
 
 
-Algoritmo que utiliza o Full DSU (DSU com Rollback e Bipartido) que permite adição e \textbf{remoção} de arestas. O algoritmo funciona de maneira offline, recebendo previamente todas as operações de adição e remoção de arestas, bem como todas as perguntas (de qualquer tipo, conectividade, bipartição, etc), e retornando as respostas para cada pergunta no retorno do método $solve$. 
-
+Algoritmo que utiliza o Full DSU (DSU com Rollback e Bipartido) que permite adição e \textbf{remoção} de arestas. O algoritmo funciona de maneira offline, recebendo previamente todas as operações de adição e remoção de arestas, bem como todas as perguntas (de qualquer tipo, conectividade, bipartição, etc), e retornando as respostas para cada pergunta no retorno do método $solve$. Complexidade total $O(q (\log q + \log n))$, onde $q$ é o número de operações realizadas e $n$ é o número de nodos.
 \hfill
 
 \begin{multicols}{2}
