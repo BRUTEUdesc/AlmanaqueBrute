@@ -94,9 +94,11 @@ python3 .github/scripts/pdfer.py
 
 - [Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree)
 
-- [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
+    - [Fenwick](Codigos/Estruturas-de-Dados/Fenwick-Tree/Fenwick)
 
-- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Kd-Fenwick-Tree)
+    - [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree/Kd-Fenwick-Tree)
+
+- [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
 
 - [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
 

@@ -14,7 +14,7 @@ template <typename T> struct op_queue : queue<T> {
     void remove() {
         if (st2.empty()) {
             while (!st1.empty()) {
-                st2.add(st1.get());
+                st2.add(st1.top());
                 st1.remove();
             }
         }
