@@ -1,7 +1,7 @@
 template <typename T> struct op_stack : stack<T> {
     stack<T> st;
     T op(T a, T b) {
-        return min(a, b); // TODO: Operacao, pode ser qualquer uma
+        return min(a, b); // Operacao, pode ser qualquer uma
     }
     T get() {
         return st.top();

@@ -1,3 +1,0 @@
-# [Fenwick Tree](fenwick_tree.cpp)
-
-Árvore de Fenwick (ou BIT) é uma estrutura de dados que permite atualizações pontuais e consultas de prefixos em um vetor em $O(\log n)$. A implementação abaixo é 0-indexada (é mais comum encontrar a implementação 1-indexada). A consulta em ranges arbitrários com o método $query$ é possível para qualquer operação inversível, como soma, XOR, multiplicação, etc. A implementação abaixo é para soma, mas é fácil adaptar para outras operações. O método $update$ soma $d$ à posição $i$ do vetor, enquanto o método $updateSet$ substitue o valor da posição $i$ do vetor por $d$.

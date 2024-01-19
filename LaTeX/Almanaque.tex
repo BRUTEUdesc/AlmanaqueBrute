@@ -416,55 +416,96 @@ struct Offline_DSU : Full_DSU {
 \hfill
 
 \section{Fenwick Tree}
+\subsection{Fenwick}
 
 
 Árvore de Fenwick (ou BIT) é uma estrutura de dados que permite atualizações pontuais e consultas de prefixos em um vetor em $O(\log n)$. A implementação abaixo é 0-indexada (é mais comum encontrar a implementação 1-indexada). A consulta em ranges arbitrários com o método $query$ é possível para qualquer operação inversível, como soma, XOR, multiplicação, etc. A implementação abaixo é para soma, mas é fácil adaptar para outras operações. O método $update$ soma $d$ à posição $i$ do vetor, enquanto o método $updateSet$ substitue o valor da posição $i$ do vetor por $d$.
+
 \hfill
 
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 template <typename T> struct FenwickTree {
-    vector<T> bit;
-    FenwickTree(int n = 0) : bit(n, T()) {
-    }
-    FenwickTree(vector<T> &v) : bit(v.size(), T()) {
-        int n = v.size();
-        for (int i = 0; i < n; i++)
-            bit[i] = v[i];
+    int n;
+    vector<T> bit, arr;
+    FenwickTree(int n = 0) : n(n), bit(n, T()), arr(n, T()) {}
+    FenwickTree(vector<T> &v) : n(v.size()), bit(n, T()), arr(v) {
+        for (int i = 0; i < n; i++) {
+            bit[i] = arr[i];
+        }
         for (int i = 0; i < n; i++) {
             int j = i | (i + 1);
-            if (j < n)
+            if (j < n) {
                 bit[j] = bit[j] + bit[i];
+            }
         }
     }
-    T pref(int i) {
+    T pref(int x) {
         T res = T();
-        while (i >= 0) {
+        for (int i = x; i >= 0; i = (i & (i + 1)) - 1) {
             res = res + bit[i];
-            i &= i + 1;
-            i--;
         }
         return res;
     }
     T query(int l, int r) {
-        if (l == 0)
+        if (l == 0) {
             return pref(r);
+        }
         return pref(r) - pref(l - 1);
     }
-    void update(int i, T d) {
-        while (i < (int)bit.size()) {
+    void update(int x, T d) {
+        for (int i = x; i < n; i = i | (i + 1)) {
             bit[i] = bit[i] + d;
-            i |= i + 1;
         }
+        arr[x] = arr[x] + d;
     }
     void updateSet(int i, T d) {
         // funciona pra fenwick de soma
-        T now = query(i, i);
-        update(i, now * -1);
-        update(i, d);
+        update(i, d - arr[i]);
+        arr[i] = d;
     }
 };
 \end{lstlisting}
+\end{multicols}
+
+\hfill
+
+\subsection{Kd Fenwick Tree}
+
+
+Fenwick Tree em $k$ dimensões. Faz apenas queries de prefixo e updates pontuais em $O(log^k(n))$. Para queries em range, deve-se fazer inclusão-exclusão, porém a complexidade fica exponencial, para $k$ dimensões a query em range é $O(2^k log^k(n))$.
+\hfill
+
+\begin{multicols}{2}
+\begin{lstlisting}[language=C++]
+const int MAX = 20;
+long long tree[MAX][MAX][MAX][MAX]; // insira o numero de dimensoes aqui
+
+long long query(vector<int> s, int pos = 0) { // s eh a coordenada
+    long long sum = 0;
+    while (s[pos] >= 0) {
+        if (pos < (int)s.size() - 1) {
+            sum += query(s, pos + 1);
+        } else {
+            sum += tree[s[0]][s[1]][s[2]][s[3]];
+            // atualizar se mexer no numero de dimensoes
+        }
+        s[pos] = (s[pos] & (s[pos] + 1)) - 1;
+    }
+    return sum;
+}
+
+void update(vector<int> s, int v, int pos = 0) {
+    while (s[pos] < MAX) {
+        if (pos < (int)s.size() - 1) {
+            update(s, v, pos + 1);
+        } else {
+            tree[s[0]][s[1]][s[2]][s[3]] += v;
+            // atualizar se mexer no numero de dimensoes
+        }
+        s[pos] |= s[pos] + 1;
+    }
+}\end{lstlisting}
 \end{multicols}
 
 \hfill
@@ -540,60 +581,6 @@ struct intervals_node_update {
 typedef tree<interval, null_type, less<interval>, rb_tree_tag, intervals_node_update>
     interval_tree;
 \end{lstlisting}
-\end{multicols}
-
-\hfill
-
-\section{Kd Fenwick Tree}
-
-
-\textbf{KD Fenwick Tree} 
-
-
-
-Fenwick Tree em K dimensoes.
-
-
-
-* Complexidade de update: $O(log^k(N))$.
-
-* Complexidade de query: $O(log^k(N))$.
-\hfill
-
-\begin{multicols}{2}
-\begin{lstlisting}[language=C++]
-const int MAX = 10;
-ll tree[MAX][MAX][MAX][MAX][MAX][MAX][MAX][MAX]; // insira a quantidade
-                                                 // necessaria de dimensoes
-
-int lsONE(int x) {
-    return x & (-x);
-}
-
-ll query(vector<int> s, int pos) {
-    ll sum = 0;
-    while (s[pos] > 0) {
-        if (pos < s.size() - 1) {
-            sum += query(s, pos + 1);
-        } else {
-            sum += tree[s[0]][s[1]][s[2]][s[3]][s[4]][s[5]][s[6]][s[7]];
-        }
-        s[pos] -= lsONE(s[pos]);
-    }
-    return sum;
-}
-
-void update(vector<int> s, int pos, int v) {
-    while (s[pos] < MAX + 1) {
-        if (pos < s.size() - 1) {
-            update(s, pos + 1, v);
-        } else {
-            tree[s[0]][s[1]][s[2]][s[3]][s[4]][s[5]][s[6]][s[7]] += v;
-        }
-
-        s[pos] += lsONE(s[pos]);
-    }
-}\end{lstlisting}
 \end{multicols}
 
 \hfill
@@ -971,11 +958,11 @@ namespace mergesort {
 \section{Operation Queue}
 
 
-Fila que armazena o resultado do operatório dos itens (ou seja, dado uma fila, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::queue$ que permite as operações $push$, $pop$, $front$ e $back$ em $O(1)$ amortizado, agora permitindo também a operação $get$ que retorna o resultado do operatório dos itens da fila em $O(1)$ amortizado.
+Fila que armazena o resultado do operatório dos itens (ou seja, dado uma fila, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::queue$, permitindo todos os métodos já presentes nela, com a diferença de que $push$ e $pop$ agora são $add$ e $remove$, respectivamente, ambos continuam $O(1)$ amortizado. A fila agora também permite a operação $get$ que retorna o resultado do operatório dos itens da fila em $O(1)$ amortizado. Chamar o método $get$ em uma fila vazia é indefinido.
 
 
 
-Obs: usa a estrutura Operation Stack.
+\textbf{Obs}: usa a estrutura Operation Stack.
 
 \hfill
 
@@ -997,7 +984,7 @@ template <typename T> struct op_queue : queue<T> {
     void remove() {
         if (st2.empty()) {
             while (!st1.empty()) {
-                st2.add(st1.get());
+                st2.add(st1.top());
                 st1.remove();
             }
         }
@@ -1013,8 +1000,7 @@ template <typename T> struct op_queue : queue<T> {
 \section{Operation Stack}
 
 
-Pilha que armazena o resultado do operatório dos itens (ou seja, dado uma pilha, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::stack$ que permite as operações $push$, $pop$ e $top$ em $O(1)$ amortizado, agora permitindo também a operação $get$ que retorna o resultado do operatório dos itens da pilha em $O(1)$ amortizado.
-
+Pilha que armazena o resultado do operatório dos itens (ou seja, dado uma pilha, responde qual é o elemento mínimo, por exemplo). É uma extensão da $std::stack$, permitindo todos os métodos já presentes nela, com a diferença de que $push$ e $pop$ agora são $add$ e $remove$, respectivamente, ambos continuam $O(1)$ amortizado. A pilha agora também permite a operação $get$ que retorna o resultado do operatório dos itens da pilha em $O(1)$ amortizado. Chamar o método $get$ em uma pilha vazia é indefinido.
 \hfill
 
 \begin{multicols}{2}
@@ -1022,7 +1008,7 @@ Pilha que armazena o resultado do operatório dos itens (ou seja, dado uma pilha
 template <typename T> struct op_stack : stack<T> {
     stack<T> st;
     T op(T a, T b) {
-        return min(a, b); // TODO: Operacao, pode ser qualquer uma
+        return min(a, b); // Operacao, pode ser qualquer uma
     }
     T get() {
         return st.top();
@@ -1035,7 +1021,8 @@ template <typename T> struct op_stack : stack<T> {
         st.pop();
         this->pop();
     }
-};\end{lstlisting}
+};
+\end{lstlisting}
 \end{multicols}
 
 \hfill
@@ -1047,43 +1034,87 @@ Set com operações de busca por ordem e índice.
 
 
 
-Pode ser usado como um set normal, a principal diferença são duas novas operações possíveis:
+Pode ser usado como um $std::set$ normal, a principal diferença são duas novas operações possíveis:
 
 
 
 \begin{itemize}
-\item \lstinline{find_by_order(x)}: retorna o item na posição x.
-\item \lstinline{order_of_key(k)}: retorna o número de elementos menores que k. (o índice de k)
+\item $find\_by\_order(k)$: retorna um iterador para o k-ésimo menor elemento no set (indexado em 0).
+\item $order\_of\_key(k)$: retorna o número de elementos menores que k. (ou seja, o índice de k no set)
 \end{itemize}
 
 
 
-\textbf{} 
+Ambas as operações são $O(log(n))$.
+
+
+
+Também é possível criar um $ordered\_map$, funciona como um $std::map$, mas com as operações de busca por ordem e índice. $find\_by\_order(k)$ retorna um iterador para a k-ésima menor \textbf{key} no mapa (indexado em 0). $order\_of\_key(k)$ retorna o número de \textbf{keys} no mapa menores que k. (ou seja, o índice de k no map).
+
+
+
+Para simular um $std::multiset$, há várias formas:
+
+
+
+\begin{itemize}
+\item Usar um $std::pair$ como elemento do set, com o primeiro elemento sendo o valor e o segundo sendo um identificador único para cada elemento. Para saber o número de elementos menores que $k$ no multiset, basta usar $order\_of\_key({k, -INF})$.
+\end{itemize}
+
+
+
+\begin{itemize}
+\item Usar um $ordered\_map$ com a key sendo o valor e o value sendo o número de ocorrências do valor no multiset. Para saber o número de elementos menores que $k$ no multiset, basta usar $order\_of\_key(k)$.
+\end{itemize}
+
+
+
+\begin{itemize}
+\item Criar o $ordered\_set$ substituindo o parâmetro $less<T>$ por $less\_equal<T>$. Isso faz com que o set aceite elementos repetidos, e $order\_of\_key(k)$ retorna o número de elementos menores ou iguais a $k$ no multiset. Porém esse método não é recomendado pois gera algumas inconsistências, como por exemplo: $upper\_bound$ funciona como $lower\_bound$ e vice-versa, $find$ sempre retorna $end()$ e $erase$ por valor não funciona, só por iterador. Dá pra usar se souber o que está fazendo.
+\end{itemize}
+
+
+
+Exemplo de uso do $ordered\_set$:
+
+
+
 \begin{lstlisting}[language=C++]
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/trie_policy.hpp>
-
-using namespace __gnu_pbds;
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
-
-ordered_set X;
+ordered_set<int> X;
 X.insert(1);
 X.insert(2);
 X.insert(4);
 X.insert(8);
 X.insert(16);
+cout << *X.find_by_order(1) << endl; // 2
+cout << *X.find_by_order(2) << endl; // 4
+cout << *X.find_by_order(4) << endl; // 16
+cout << (end(X) == X.find_by_order(5)) << endl; // true
+cout << X.order_of_key(-5) << endl;  // 0
+cout << X.order_of_key(1) << endl;   // 0
+cout << X.order_of_key(3) << endl;   // 2
+cout << X.order_of_key(4) << endl;   // 2
+cout << X.order_of_key(400) << endl; // 5
+\end{lstlisting}
 
-cout<<*X.find_by_order(1)<<endl; // 2
-cout<<*X.find_by_order(2)<<endl; // 4
-cout<<*X.find_by_order(4)<<endl; // 16
-cout<<(end(X)==X.find_by_order(6))<<endl; // true
 
-cout<<X.order_of_key(-5)<<endl;  // 0
-cout<<X.order_of_key(1)<<endl;   // 0
-cout<<X.order_of_key(3)<<endl;   // 2
-cout<<X.order_of_key(4)<<endl;   // 2
-cout<<X.order_of_key(400)<<endl; // 5
 
+Exemplo de uso do $ordered\_map$:
+
+
+
+\begin{lstlisting}[language=C++]
+ordered_map<int, int> Y;
+Y[1] = 10;
+Y[2] = 20;
+Y[4] = 40;
+Y[8] = 80;
+Y[16] = 160;
+cout << Y.find_by_order(1)->first << endl; // 2
+cout << Y.find_by_order(1)->second << endl; // 20
+cout << Y.order_of_key(5) << endl; // 3
+cout << Y.order_of_key(10) << endl; // 4
+cout << Y.order_of_key(4) << endl; // 2
 \end{lstlisting}
 
 \hfill
@@ -1091,13 +1122,15 @@ cout<<X.order_of_key(400)<<endl; // 5
 \begin{multicols}{2}
 \begin{lstlisting}[language=C++]
 #include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/trie_policy.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 
 using namespace __gnu_pbds;
 
 template <typename T>
-using ordered_set =
-    tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;\end{lstlisting}
+using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+template <typename T, typename U>
+using ordered_map = tree<T, U, less<T>, rb_tree_tag, tree_order_statistics_node_update>;\end{lstlisting}
 \end{multicols}
 
 \hfill

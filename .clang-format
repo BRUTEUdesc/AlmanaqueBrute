@@ -4,7 +4,7 @@ TabWidth: 4
 ColumnLimit: 90
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: true
 AllowShortLambdasOnASingleLine: Empty
 NamespaceIndentation: All
 FixNamespaceComments: false
