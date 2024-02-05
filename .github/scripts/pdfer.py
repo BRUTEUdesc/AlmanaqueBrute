@@ -219,11 +219,11 @@ if __name__ == "__main__":
         INICIO = Path("LaTeX/INICIO_LATEX.tex")
         printa_arquivo(INICIO, f)
 
-        STL = Path("Introducao/STL.tex")
+        STL = Path("LaTeX/STL.tex")
         printa_arquivo(STL, f)
-        TEMPLATES = Path("Introducao/Templates.tex")
+        TEMPLATES = Path("LaTeX/Templates.tex")
         printa_arquivo(TEMPLATES, f)
-        TEORICO = Path("Introducao/Teorico.tex")
+        TEORICO = Path("LaTeX/Teorico.tex")
         printa_arquivo(TEORICO, f)
 
         for child in DIR.iterdir():
