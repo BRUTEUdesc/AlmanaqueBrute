@@ -38,7 +38,7 @@ def printa_readme(path: Path, FILE: Path):
                 if in_inline_code:
                     dest.write("}")
                 else:
-                    dest.write("\\lstinline{")
+                    dest.write("\\texttt{")
                 in_inline_code = not in_inline_code
             elif line[i] == '$' and i + 1 < len(line) and line[i + 1] == '$':
                 in_math = not in_math
@@ -71,6 +71,8 @@ def printa_readme(path: Path, FILE: Path):
             else:
                 if line[i] in ['%', '&', '~', '_'] and not in_math and not in_inline_code:
                     dest.write('\\')
+                if line[i] in ['_', '^'] and in_inline_code:
+                    dest.write("\\")
                 dest.write(line[i])
             i += 1
         dest.write("\n")
@@ -217,30 +219,41 @@ if __name__ == "__main__":
         INICIO = Path("LaTeX/INICIO_LATEX.tex")
         printa_arquivo(INICIO, f)
 
+        STL = Path("LaTeX/STL.tex")
+        printa_arquivo(STL, f)
+        TEMPLATES = Path("LaTeX/Templates.tex")
+        printa_arquivo(TEMPLATES, f)
+        TEORICO = Path("LaTeX/Teorico.tex")
+        printa_arquivo(TEORICO, f)
+
         for child in DIR.iterdir():
             if child.is_dir():
                 dfs(child, f, 0)
         
-        THEORETICAL = Path("Theoretical/THEORETICAL.tex")
-        printa_arquivo(THEORETICAL, f)
-
         f.write("\\end{document}\n")
+    
+    clean = True
 
     os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
-    if Path("LaTeX/Almanaque.aux").exists():
-        os.replace("LaTeX/Almanaque.aux", "LaTeX/Arquivos/Almanaque.aux")
-    if Path("LaTeX/Almanaque.rubbercache").exists():
-        os.replace("LaTeX/Almanaque.rubbercache", "LaTeX/Arquivos/Almanaque.rubbercache")
-    if Path("LaTeX/Almanaque.log").exists():
-        os.replace("LaTeX/Almanaque.log", "LaTeX/Arquivos/Almanaque.log")
-    if Path("LaTeX/Almanaque.out").exists():
-        os.replace("LaTeX/Almanaque.out", "LaTeX/Arquivos/Almanaque.out")
-    if Path("LaTeX/Almanaque.toc").exists():
-        os.replace("LaTeX/Almanaque.toc", "LaTeX/Arquivos/Almanaque.toc")
+
     if Path("LaTeX/Almanaque.pdf").exists():
+        print("\nPDF gerado com sucesso e salvo em PDF/Almanaque.pdf")
         os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
     else:
-        print("PDF não foi gerado, ocorreu algum erro.")
+        raise Exception("PDF não foi gerado, ocorreu algum erro.")
+
+    if clean:
+        if Path("LaTeX/Almanaque.log").exists():
+            os.remove("LaTeX/Almanaque.log")
+        if Path("LaTeX/Almanaque.aux").exists():
+            os.remove("LaTeX/Almanaque.aux")
+        if Path("LaTeX/Almanaque.out").exists():
+            os.remove("LaTeX/Almanaque.out")
+        if Path("LaTeX/Almanaque.toc").exists():
+            os.remove("LaTeX/Almanaque.toc")
+        if Path("LaTeX/Almanaque.tex").exists():
+            os.remove("LaTeX/Almanaque.tex")
+
 
     README = Path("README.md")
     with open(README, "w") as f:

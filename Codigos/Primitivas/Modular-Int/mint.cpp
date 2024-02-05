@@ -3,13 +3,16 @@ template <int mod> struct Mint {
     int val;
     Mint() : val(0) { }
     Mint(ll v) {
-        if (v < -mod || v >= 2 * mod)
+        if (v < -mod || v >= 2 * mod) {
             v %= mod;
-        if (v >= mod)
+        }
+        if (v >= mod) {
             v -= mod;
-        if (v < 0)
+        }
+        if (v < 0) {
             v += mod;
-        val = v;
+        }
+        val = (int)v;
     }
     m pwr(m b, ll e) {
         m res = 1;
@@ -21,13 +24,15 @@ template <int mod> struct Mint {
         return res;
     }
     m &operator+=(const m &o) {
-        if ((val += o.val) >= mod)
+        if ((val += o.val) >= mod) {
             val -= mod;
+        }
         return *this;
     }
     m &operator-=(const m &o) {
-        if ((val -= o.val) < 0)
+        if ((val -= o.val) < 0) {
             val += mod;
+        }
         return *this;
     }
     m &operator*=(const m &o) {
@@ -45,6 +50,11 @@ template <int mod> struct Mint {
     friend m operator/(m a, const m &b) { return a /= b; }
     friend m operator^(m a, ll e) { return a ^= e; }
     friend ostream &operator<<(ostream &os, const m &a) { return os << a.val; }
+    friend istream &operator>>(istream &is, m &a) {
+        ll x;
+        is >> x, a = m(x);
+        return is;
+    }
 };
 
 const int mod = 998244353;

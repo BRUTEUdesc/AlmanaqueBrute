@@ -1,24 +1,24 @@
 # Almanaque BRUTE
 
-Repositório de códigos para programação competitiva do BRUTE UDESC.
+Repositório de códigos para programação competitiva do **BRUTE UDESC**.
 
 ### Pasta `Codigos`
 
-Todas as implementações estão nessa pasta.
+Todas as implementações estão nesta pasta.
 
 ### Pasta `LaTeX`
 
-Aqui estão os arquivos `.tex`.
+Aqui estão os arquivos `.tex` que compõem o Almanaque.
 
-Aqui também estão os arquivos `INICIO_README.md` e `INICIO_LATEX.tex`, que são usados como cabeçalho para os arquivos `README.md` e `Almanaque.tex`, respectivamente. Se quiser alterar o README ou as configurações do latex, edite sempre esses arquivos.
+O primeiro arquivo é o `INICIO_README.md`, que é convertido para o `README.md` do repositório.
+
+O `INICIO_LATEX.tex` é o início do arquivo `.tex` do Almanaque, ele contém as principais configurações e o início do documento.
+
+Os arquivos `STL.tex`, `Templates.tex` e `Teorico.tex` são os arquivos `tex` dos primeiros capítulos do Almanaque.
 
 ### Pasta `PDF`
 
 Aqui está o `.pdf` do Almanaque.
-
-### Pasta `Theoretical`
-
-Aqui está um arquivo `.tex` com teoremas, fórmulas, e informações úteis em contest. Esse arquivo será incluído no final do `Almanaque.tex`.
 
 ## Para fazer contribuições
 
