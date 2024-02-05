@@ -1,6 +1,4 @@
-long long mod_mul(long long a, long long b, long long m) {
-    return (__int128)a * b % m;
-}
+long long mod_mul(long long a, long long b, long long m) { return (__int128)a * b % m; }
 
 long long pollard_rho(long long n) {
     auto f = [n](long long x) {

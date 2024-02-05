@@ -3,13 +3,9 @@ namespace seg {
     struct node {
         ll v = 0;
         node *l = NULL, *r = NULL;
-        node() {
-        }
-        node(ll v) : v(v) {
-        }
-        node(node *l, node *r) : l(l), r(r) {
-            v = l->v + r->v;
-        }
+        node() { }
+        node(ll v) : v(v) { }
+        node(node *l, node *r) : l(l), r(r) { v = l->v + r->v; }
         void apply() {
             if (l == NULL) {
                 l = new node();
@@ -20,9 +16,7 @@ namespace seg {
         }
     };
     vector<node *> roots;
-    void build() {
-        roots.push_back(new node());
-    }
+    void build() { roots.push_back(new node()); }
     void push(node *n, int esq, int dir) {
         if (esq != dir) {
             n->apply();
@@ -58,9 +52,7 @@ namespace seg {
         int mid = (esq + dir) / 2;
         return query(n->l, esq, mid, l, r) + query(n->r, mid + 1, dir, l, r);
     }
-    ll query(int root, int l, int r) {
-        return query(roots[root], ESQ, DIR, l, r);
-    }
+    ll query(int root, int l, int r) { return query(roots[root], ESQ, DIR, l, r); }
     // kth min number in [L, R] (l_root can not be
     // 0)
     int kth(node *L, node *R, int esq, int dir, int k) {

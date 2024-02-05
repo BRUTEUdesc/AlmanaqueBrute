@@ -1,8 +1,6 @@
 struct Edge {
     int u, v, w;
-    bool operator<(Edge const &other) {
-        return w < other.w;
-    }
+    bool operator<(Edge const &other) { return w < other.w; }
 };
 
 vector<Edge> edges, result;
@@ -16,12 +14,8 @@ struct DSU {
             pa.push_back(i);
         }
     }
-    int root(int a) {
-        return pa[a] = (a == pa[a] ? a : root(pa[a]));
-    }
-    bool find(int a, int b) {
-        return root(a) == root(b);
-    }
+    int root(int a) { return pa[a] = (a == pa[a] ? a : root(pa[a])); }
+    bool find(int a, int b) { return root(a) == root(b); }
     void uni(int a, int b) {
         int ra = root(a), rb = root(b);
         if (ra == rb) {

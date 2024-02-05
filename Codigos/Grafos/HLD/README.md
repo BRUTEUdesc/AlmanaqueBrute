@@ -1,13 +1,10 @@
 # Heavy-Light Decomposition (hld.cpp)
 
-<!-- DESCRIPTION -->
 Técnica usada para otimizar a execução de operações em árvores.
-<!-- DESCRIPTION -->
 
-- Pré-Processamento: O(N)
-- Range Query/Update: O(Log(N)) * O(Complexidade de query da estrutura)
-- Point Query/Update: O(Complexidade de query da estrutura)
-- LCA: O(Log(N))
-- Subtree Query: O(Complexidade de query da estrutura)
-- Complexidade de espaço: O(N)
-
+- Pré-Processamento: $\mathcal{O}(N)$
+- Range Query/Update: $\mathcal{O}(Log(N)) * \mathcal{O}(\text{Complexidade de query da estrutura})$
+- Point Query/Update: $\mathcal{O}(\text{Complexidade de query da estrutura})$
+- LCA: $\mathcal{O}(Log(N))$
+- Subtree Query: $\mathcal{O}(Complexidade de query da estrutura)$
+- Complexidade de espaço: $\mathcal{O}(N)$

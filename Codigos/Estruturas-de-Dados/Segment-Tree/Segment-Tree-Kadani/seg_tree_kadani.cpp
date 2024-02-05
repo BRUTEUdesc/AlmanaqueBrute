@@ -3,9 +3,7 @@ namespace seg {
     struct node {
         ll pref, suff, sum, best;
     };
-    node new_node(ll v) {
-        return node{v, v, v, v};
-    }
+    node new_node(ll v) { return node{v, v, v, v}; }
     const node NEUTRAL = {0, 0, 0, 0};
     node tree[4 * MAX];
     node merge(node a, node b) {
@@ -17,12 +15,8 @@ namespace seg {
     }
 
     int n;
-    int le(int n) {
-        return 2 * n + 1;
-    }
-    int ri(int n) {
-        return 2 * n + 2;
-    }
+    int le(int n) { return 2 * n + 1; }
+    int ri(int n) { return 2 * n + 2; }
     void build(int n, int esq, int dir, const vector<ll> &v) {
         if (esq == dir) {
             tree[n] = new_node(v[esq]);
@@ -47,9 +41,7 @@ namespace seg {
         int mid = (esq + dir) / 2;
         return merge(query(le(n), esq, mid, l, r), query(ri(n), mid + 1, dir, l, r));
     }
-    ll query(int l, int r) {
-        return query(0, 0, n - 1, l, r).best;
-    }
+    ll query(int l, int r) { return query(0, 0, n - 1, l, r).best; }
     void update(int n, int esq, int dir, int x, ll v) {
         if (esq > x || dir < x) {
             return;
@@ -66,7 +58,5 @@ namespace seg {
             tree[n] = merge(tree[le(n)], tree[ri(n)]);
         }
     }
-    void update(int x, ll v) {
-        update(0, 0, n - 1, x, v);
-    }
+    void update(int x, ll v) { update(0, 0, n - 1, x, v); }
 }

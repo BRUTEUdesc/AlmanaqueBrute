@@ -1,7 +1,5 @@
 
-ll mod_mul(ll a, ll b, ll m) {
-    return (__int128)a * b % m;
-}
+ll mod_mul(ll a, ll b, ll m) { return (__int128)a * b % m; }
 ll ext_gcd(ll a, ll b, ll &x, ll &y) {
     if (!b) {
         x = 1;

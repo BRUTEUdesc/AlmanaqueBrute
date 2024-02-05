@@ -1,49 +1,49 @@
-# Modular Inverse
+# Inverso Modular
 
-<!-- DESCRIPTION -->
+<!-- DESCRIÇÃO -->
 Algoritmos para calcular o inverso modular de um número. O inverso modular de um inteiro $a$ é outro inteiro $x$ tal que $a \cdot x \equiv 1 \pmod{MOD}$
-<!-- DESCRIPTION -->
+<!-- DESCRIÇÃO -->
 
-The modular inverse of an integer `a` is another integer `x` such that `a * x` is congruent to `1 (mod MOD)`.
+O inverso modular de um inteiro `a` é outro inteiro `x` tal que `a * x` é congruente a `1 (mod MOD)`.
 
-# [Modular Inverse](modular_inverse.cpp)
+# [Inverso Modular](modular_inverse.cpp)
 
-Calculates the modular inverse of `a`.
+Calcula o inverso modular de `a`.
 
-Uses the [exp_mod](/Matemática/Exponenciação%20Modular%20Rápida/exp_mod.cpp) algorithm, thus expects `MOD` to be prime.
+Utiliza o algoritmo Exp Mod, portanto, espera-se que `MOD` seja um número primo.
 
-* Time Complexity: O(log(MOD)).
-* Space Complexity: O(1).
+* Complexidade de tempo: $\mathcal{O}(\log(\text{MOD}))$.
+* Complexidade de espaço: $\mathcal{O}(1)$.
 
-# [Modular Inverse by Extended GDC](modular_inverse_coprime.cpp)
+# [Inverso Modular por MDC Estendido](modular_inverse_coprime.cpp)
 
-Calculates the modular inverse of `a`.
+Calcula o inverso modular de `a`.
 
-Uses the [extended_gcd](/Matemática/GCD/extended_gcd.cpp) algorithm, thus expects `MOD` to be coprime with `a`.
+Utiliza o algoritmo Euclides Extendido, portanto, espera-se que `MOD` seja coprimo com `a`.
 
-Returns `-1` if this assumption is broken.
+Retorna `-1` se essa suposição for quebrada.
 
-* Time Complexity: O(log(MOD)).
-* Space Complexity: O(1).
+* Complexidade de tempo: $\mathcal{O}(\log(\text{MOD}))$.
+* Complexidade de espaço: $\mathcal{O}(1)$.
 
-# [Modular Inverse for 1 to MAX](modular_inverse_linear.cpp)
+# [Inverso Modular para 1 até MAX](modular_inverse_linear.cpp)
 
-Calculates the modular inverse for all numbers between `1` and `MAX`.
+Calcula o inverso modular para todos os números entre `1` e `MAX`.
 
-expects `MOD` to be prime.
+Espera-se que `MOD` seja primo.
 
-* Time Complexity: O(MAX).
-* Space Complexity: O(MAX).
+* Complexidade de tempo: $\mathcal{O}(\text{MAX})$.
+* Complexidade de espaço: $\mathcal{O}(\text{MAX})$.
 
-# [Modular Inverse for all powers](modular_inverse_pow.cpp)
+# [Inverso Modular para todas as potências](modular_inverse_pow.cpp)
 
-Let `b` be any integer.
+Seja `b` um número inteiro qualquer.
 
-Calculates the modular inverse for all powers of `b` between `b^0` and `b^MAX`.
+Calcula o inverso modular para todas as potências de `b` entre `b^0` e `b^MAX`.
 
-Needs you calculate beforehand the modular inverse of `b`, for 2 it is always `(MOD+1)/2`.
+É necessário calcular antecipadamente o inverso modular de `b`, para 2 é sempre `(MOD+1)/2`.
 
-expects `MOD` to be coprime with `b`.
+Espera-se que `MOD` seja coprimo com `b`.
 
-* Time Complexity: O(MAX).
-* Space Complexity: O(MAX).
+* Complexidade de tempo: $\mathcal{O}(\text{MAX})$.
+* Complexidade de espaço: $\mathcal{O}(\text{MAX})$.

@@ -1,12 +1,10 @@
 # 2-SAT  
 
-<!-- DESCRIPTION -->
 Resolve problema do 2-SAT.
-<!-- DESCRIPTION -->
 
-- Complexidade de tempo (caso médio): O(N + M)  
+- Complexidade de tempo (caso médio): $\mathcal{O}(N + M)$
 
 N é o número de variáveis e M é o número de cláusulas.  
-A configuração da solução fica guardada no vetor *assignment*. 
+A configuração da solução fica guardada no vetor **assignment**. 
 
 Em relaçõa ao sinal, tanto faz se 0 liga ou desliga, apenas siga o mesmo padrão.

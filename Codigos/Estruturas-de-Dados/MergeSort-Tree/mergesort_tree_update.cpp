@@ -12,12 +12,8 @@ namespace mergesort {
     ordered_set mgtree[4 * MAX];
     vi values;
 
-    int le(int n) {
-        return 2 * n + 1;
-    }
-    int ri(int n) {
-        return 2 * n + 2;
-    }
+    int le(int n) { return 2 * n + 1; }
+    int ri(int n) { return 2 * n + 2; }
 
     ordered_set join(ordered_set set_l, ordered_set set_r) {
         for (auto v : set_r) {
@@ -52,9 +48,7 @@ namespace mergesort {
         int mid = (esq + dir) / 2;
         return less(le(n), esq, mid, l, r, k) + less(ri(n), mid + 1, dir, l, r, k);
     }
-    int less(int l, int r, int k) {
-        return less(0, 0, n - 1, l, r, k);
-    }
+    int less(int l, int r, int k) { return less(0, 0, n - 1, l, r, k); }
 
     void update(int n, int esq, int dir, int x, int v) {
         if (esq > x || dir < x) {

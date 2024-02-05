@@ -6,15 +6,9 @@ struct Rollback_DSU {
         iota(par.begin(), par.end(), 0);
         changes.emplace();
     }
-    int find(int a) {
-        return a == par[a] ? a : find(par[a]);
-    }
-    void checkpoint() {
-        changes.emplace();
-    }
-    void save(int &a) {
-        changes.top().emplace(a, a);
-    }
+    int find(int a) { return a == par[a] ? a : find(par[a]); }
+    void checkpoint() { changes.emplace(); }
+    void save(int &a) { changes.top().emplace(a, a); }
     bool unite(int a, int b) {
         a = find(a), b = find(b);
         if (a == b) {

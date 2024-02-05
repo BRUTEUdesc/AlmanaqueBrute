@@ -4,4 +4,4 @@ Encontra o caminho mais curto entre um vértice e todos os outros vértices de u
 
 Detecta ciclos negativos.
 
-Complexidade de tempo: O(|V| * |E|)
+Complexidade de tempo: $\mathcal{O}(|V| * |E|)$

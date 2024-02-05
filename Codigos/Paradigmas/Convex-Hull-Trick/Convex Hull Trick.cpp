@@ -4,9 +4,7 @@ bool op(ll a, ll b) {
 }
 struct line {
     ll a, b;
-    ll get(ll x) {
-        return a * x + b;
-    }
+    ll get(ll x) { return a * x + b; }
     ll intersect(line l) {
         return (l.b - b + a - l.a) / (a - l.a); // rounds up for integer
                                                 // only

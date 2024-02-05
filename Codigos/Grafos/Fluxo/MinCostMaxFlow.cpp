@@ -4,9 +4,7 @@ struct MinCostMaxFlow {
     vector<FlowEdge> edges;
     vector<vector<int>> adj;
 
-    MinCostMaxFlow(int n, int s, int t) : n(n), s(s), t(t) {
-        adj.resize(n);
-    }
+    MinCostMaxFlow(int n, int s, int t) : n(n), s(s), t(t) { adj.resize(n); }
 
     void add_edge(int u, int v, ll cap, ll cost) {
         edges.emplace_back(u, v, cap, cost);

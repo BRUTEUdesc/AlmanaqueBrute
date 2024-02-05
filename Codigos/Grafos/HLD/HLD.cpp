@@ -85,7 +85,5 @@ namespace hld {
         }
         return (head[u] == head[v] ? u : lca(u, pai[head[v]]));
     }
-    ll query_subtree(int u) {
-        return seg::query(pos[u], pos[u] + sz[u] - 1);
-    }
+    ll query_subtree(int u) { return seg::query(pos[u], pos[u] + sz[u] - 1); }
 }

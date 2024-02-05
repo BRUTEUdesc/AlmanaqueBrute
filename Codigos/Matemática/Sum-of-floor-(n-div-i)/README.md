@@ -7,4 +7,4 @@ $$ \sum_{i=1}^{n} \lfloor\frac{n}{i}\rfloor $$
 
 <!-- DESCRIPTION -->
 
-- Complexidade de tempo: $O(\sqrt{n})$
+- Complexidade de tempo: $\mathcal{O}(\sqrt{n})$

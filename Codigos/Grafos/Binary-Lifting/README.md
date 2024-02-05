@@ -8,8 +8,8 @@ Pode ser usada com o algoritmo de EulerTour para calcular o LCA.
 
 Complexidade de tempo:
 
-- Pré-processamento: O(N * log(N))
-- Consulta do k-ésimo ancestral de u: O(log(N))
-- LCA: O(log(N))
+- Pré-processamento: $\mathcal{O}(N * log(N))$
+- Consulta do k-ésimo ancestral de u: $\mathcal{O}(log(N))$
+- LCA: $\mathcal{O}(log(N))$
 
-Complexidade de espaço: O(Nlog(N))
+Complexidade de espaço: $\mathcal{O}(Nlog(N))$

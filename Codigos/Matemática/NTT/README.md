@@ -1,12 +1,12 @@
 # [Numeric Theoric Transformation](ntt.cpp)
 
-<!-- DESCRIPTION -->
+<!-- DESCRIÇÃO -->
 Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo.
-<!-- DESCRIPTION -->
+<!-- DESCRIÇÃO -->
 
-Computa multiplicação de polinômino; **Somente para inteiros**.
+Computa multiplicação de polinômios; **Somente para inteiros**.
 
-- Complexidade de tempo: O(N * log(N))
+- Complexidade de tempo: $\mathcal{O}(N \cdot \log(N))$
 
-Constantes finais devem ser menor do que $10^9$.  
-Para constantes entre $10^9$ e $10^{18}$ é necessário codar também [big_convolution](big_convolution.cpp).
+Constantes finais devem ser menores do que $10^9$.  
+Para constantes entre $10^9$ e $10^{18}$ é necessário codificar também [big_convolution](big_convolution.cpp).

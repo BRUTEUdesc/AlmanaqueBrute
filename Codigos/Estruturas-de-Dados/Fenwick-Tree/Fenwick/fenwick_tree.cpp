@@ -1,8 +1,8 @@
 template <typename T> struct FenwickTree {
     int n;
     vector<T> bit, arr;
-    FenwickTree(int n = 0) : n(n), bit(n, T()), arr(n, T()) {}
-    FenwickTree(vector<T> &v) : n(v.size()), bit(n, T()), arr(v) {
+    FenwickTree(int n = 0) : n(n), bit(n), arr(n) { }
+    FenwickTree(vector<T> &v) : n(v.size()), bit(n), arr(v) {
         for (int i = 0; i < n; i++) {
             bit[i] = arr[i];
         }

@@ -13,9 +13,7 @@ namespace parallel_binary_search {
         mid = (l + r) / 2;
     }
 
-    void add_query(long long v) {
-        queries[mid].push_back({v, id++, l, r});
-    }
+    void add_query(long long v) { queries[mid].push_back({v, id++, l, r}); }
 
     void advance_search(long long v) {
         // advance search

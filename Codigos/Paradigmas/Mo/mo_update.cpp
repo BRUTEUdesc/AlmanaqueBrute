@@ -24,9 +24,7 @@ namespace mo {
     inline void add_query(int l, int r) {
         queries.push_back({l, r, (int)updates.size(), (int)queries.size()});
     }
-    inline void add_update(int x, int v) {
-        updates.push_back({x, v});
-    }
+    inline void add_update(int x, int v) { updates.push_back({x, v}); }
     inline void remove(int idx) {
         // TODO: remove value at idx from data
         // structure

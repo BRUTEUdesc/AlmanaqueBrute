@@ -1,22 +1,15 @@
 # [LiChao Tree](lichao_tree.cpp)
 
-<!-- DESCRIPTION -->
-Uma árvore de Funções. Retorna o F(x) máximo em um ponto X.
-<!-- DESCRIPTION -->
+Uma árvore de funções. Retorna o $f(x)$ máximo em um ponto $x$.
 
-Para retornar o minimo deve-se inserir o negativo da função e pegar o negativo do resultado.
+Para retornar o minimo deve-se inserir o negativo da função e pegar o negativo do resultado. Ou, alterar a função de comparação da árvore se souber mexer.
 
-Está pronta para usar função linear do tipo F(x) = mx + b.
+Funciona para funções com a seguinte propriedade, sejam duas funções $f(x)$ e $g(x)$, uma vez que $f(x)$ passa a ganhar/perder pra $g(x)$, $f(x)$ nunca mais passa a perder/ganhar pra $g(x)$. Em outras palavras, $f(x)$ e $g(x)$ se intersectam no máximo uma vez.
 
-Funciona para funções com a seguinte propriedade, sejam duas funções f(x) e g(x), uma vez que f(x) ganha/perde de g(x), f(x) vai continuar ganhando/perdendo de g(x),
-ou seja f(x) e g(x) se intersectam apenas uma vez.
+Essa implementação está pronta para usar função linear do tipo $f(x) = ax + b$.
 
-* Complexidade de consulta : O(log(N))
-* Complexidade de update: O(log(N))
+Sendo $L$ o tamanho do intervalo: 
 
-# [LiChao Tree Sparse](lichao_tree_sparse.cpp)
+- Complexidade de consulta: $\mathcal{O}(log(L))$
 
-O mesmo que a superior, no entanto suporta consultas com |x| <= 1e18.
-
-* Complexidade de consulta : O(log(tamanho do intervalo))
-* Complexidade de update: O(log(tamanho do intervalo))
+- Complexidade de update: $\mathcal{O}(log(L))$

@@ -2,4 +2,4 @@
 
 Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes em $\mathbb{Z}_2$ (inteiros módulo 2).
 
-- Complexidade de tempo: $O(n^3/32)$
+- Complexidade de tempo: $\mathcal{O}(n^3/32)$

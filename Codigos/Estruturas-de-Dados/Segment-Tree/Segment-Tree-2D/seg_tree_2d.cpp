@@ -2,12 +2,8 @@ const int MAX = 2505;
 
 int n, m, mat[MAX][MAX], tree[4 * MAX][4 * MAX];
 
-int le(int x) {
-    return 2 * x + 1;
-}
-int ri(int x) {
-    return 2 * x + 2;
-}
+int le(int x) { return 2 * x + 1; }
+int ri(int x) { return 2 * x + 2; }
 
 void build_y(int nx, int lx, int rx, int ny, int ly, int ry) {
     if (ly == ry) {
@@ -31,9 +27,7 @@ void build_x(int nx, int lx, int rx) {
     }
     build_y(nx, lx, rx, 0, 0, m - 1);
 }
-void build() {
-    build_x(0, 0, n - 1);
-}
+void build() { build_x(0, 0, n - 1); }
 
 void update_y(int nx, int lx, int rx, int ny, int ly, int ry, int x, int y, int v) {
     if (ly == ry) {
@@ -63,9 +57,7 @@ void update_x(int nx, int lx, int rx, int x, int y, int v) {
     }
     update_y(nx, lx, rx, 0, 0, m - 1, x, y, v);
 }
-void update(int x, int y, int v) {
-    update_x(0, 0, n - 1, x, y, v);
-}
+void update(int x, int y, int v) { update_x(0, 0, n - 1, x, y, v); }
 
 int sum_y(int nx, int ny, int ly, int ry, int qly, int qry) {
     if (ry < qly || ly > qry) {
@@ -88,6 +80,4 @@ int sum_x(int nx, int lx, int rx, int qlx, int qrx, int qly, int qry) {
     return sum_x(le(nx), lx, mx, qlx, qrx, qly, qry) +
            sum_x(ri(nx), mx + 1, rx, qlx, qrx, qly, qry);
 }
-int sum(int lx, int rx, int ly, int ry) {
-    return sum_x(0, 0, n - 1, lx, rx, ly, ry);
-}
+int sum(int lx, int rx, int ly, int ry) { return sum_x(0, 0, n - 1, lx, rx, ly, ry); }

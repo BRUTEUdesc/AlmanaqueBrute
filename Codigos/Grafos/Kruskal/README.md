@@ -4,6 +4,6 @@
 Algoritimo para encontrar a MST (minimum spanning tree) de um grafo.
 <!-- DESCRIPTION -->
 
-Utiliza [DSU](../../Estruturas%20de%20Dados/DSU/dsu.cpp) - (disjoint set union) - para construir MST - (minimum spanning tree)
+Utiliza DSU para construir MST.
 
-- Complexidade de tempo (Construção): O(M log N)
+- Complexidade de tempo (Construção): $\mathcal{O}(M log N)$
