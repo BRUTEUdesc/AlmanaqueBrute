@@ -1,8 +1,6 @@
-\chapter{Introdução}
+\chapter{STL (Standard Template Library - C++)}
 
-\section{STL (Standard Template Library - C++)}
-
-\subsection{Vector}
+\section{Vector}
 
 Um vetor dinâmico (que pode crescer e diminuir de tamanho).
 
@@ -24,7 +22,7 @@ Um vetor dinâmico (que pode crescer e diminuir de tamanho).
     \item \texttt{v.resize(n, x)}: Redimensiona o vetor para \texttt{n} elementos, todos inicializados com \texttt{x} - $\mathcal{O}(n)$
 \end{itemize}
 
-\subsection{Pair}
+\section{Pair}
 
 Um par de elementos (de tipos possivelmente diferentes).
 
@@ -34,7 +32,7 @@ Um par de elementos (de tipos possivelmente diferentes).
     \item \texttt{p.second}: Retorna o segundo elemento do par - $\mathcal{O}(1)$
 \end{itemize}
 
-\subsection{Set}
+\section{Set}
 
 Um conjunto de elementos únicos. Por baixo, é uma árvore de busca binária balanceada.
 
@@ -50,7 +48,7 @@ Um conjunto de elementos únicos. Por baixo, é uma árvore de busca binária ba
     \item \texttt{s.end()}: Retorna um iterador para o elemento seguinte ao último do conjunto - $\mathcal{O}(1)$
 \end{itemize}
 
-\subsection{Map}
+\section{Map}
 
 Um conjunto de pares chave-valor, onde as chaves são únicas. Por baixo, é uma árvore de busca binária balanceada.
 
@@ -67,7 +65,7 @@ Um conjunto de pares chave-valor, onde as chaves são únicas. Por baixo, é uma
     \item \texttt{m.end()}: Retorna um iterador para o par chave-valor seguinte ao último do mapa - $\mathcal{O}(1)$
 \end{itemize}
 
-\subsection{Queue}
+\section{Queue}
 
 Uma fila (primeiro a entrar, primeiro a sair).
 
@@ -78,10 +76,9 @@ Uma fila (primeiro a entrar, primeiro a sair).
     \item \texttt{q.front()}: Retorna o primeiro elemento da fila - $\mathcal{O}(1)$
     \item \texttt{q.size()}: Retorna o tamanho da fila - $\mathcal{O}(1)$
     \item \texttt{q.empty()}: Retorna \texttt{true} se a fila estiver vazia - $\mathcal{O}(1)$
-    \item \texttt{q.clear()}: Remove todos os elementos da fila - $\mathcal{O}(n)$
 \end{itemize}
 
-\subsection{Priority Queue}
+\section{Priority Queue}
 
 Uma fila de prioridade (o maior elemento é o primeiro a sair).
 
@@ -92,10 +89,9 @@ Uma fila de prioridade (o maior elemento é o primeiro a sair).
     \item \texttt{pq.top()}: Retorna o maior elemento da fila de prioridade - $\mathcal{O}(1)$
     \item \texttt{pq.size()}: Retorna o tamanho da fila de prioridade - $\mathcal{O}(1)$
     \item \texttt{pq.empty()}: Retorna \texttt{true} se a fila de prioridade estiver vazia - $\mathcal{O}(1)$
-    \item \texttt{pq.clear()}: Remove todos os elementos da fila de prioridade - $\mathcal{O}(n)$
 \end{itemize}
 
-\subsection{Stack}
+\section{Stack}
 
 Uma pilha (último a entrar, primeiro a sair).
 
@@ -106,24 +102,22 @@ Uma pilha (último a entrar, primeiro a sair).
     \item \texttt{s.top()}: Retorna o elemento do topo da pilha - $\mathcal{O}(1)$
     \item \texttt{s.size()}: Retorna o tamanho da pilha - $\mathcal{O}(1)$
     \item \texttt{s.empty()}: Retorna \texttt{true} se a pilha estiver vazia - $\mathcal{O}(1)$
-    \item \texttt{s.clear()}: Remove todos os elementos da pilha - $\mathcal{O}(n)$
 \end{itemize}
 
-\subsection{Funções úteis}
+\section{Funções úteis}
 
 \begin{itemize}
     \item \texttt{min(a, b)}: Retorna o menor entre \texttt{a} e \texttt{b} - $\mathcal{O}(1)$
     \item \texttt{max(a, b)}: Retorna o maior entre \texttt{a} e \texttt{b} - $\mathcal{O}(1)$
     \item \texttt{abs(a)}: Retorna o valor absoluto de \texttt{a} - $\mathcal{O}(1)$
     \item \texttt{swap(a, b)}: Troca os valores de \texttt{a} e \texttt{b} - $\mathcal{O}(1)$
-    \item \texttt{pow(a, b)}: Retorna \texttt{a} elevado a \texttt{b} - $\mathcal{O}(\log b)$
     \item \texttt{sqrt(a)}: Retorna a raiz quadrada de \texttt{a} - $\mathcal{O}(\log a)$
     \item \texttt{ceil(a)}: Retorna o menor inteiro maior ou igual a \texttt{a} - $\mathcal{O}(1)$
     \item \texttt{floor(a)}: Retorna o maior inteiro menor ou igual a \texttt{a} - $\mathcal{O}(1)$
     \item \texttt{round(a)}: Retorna o inteiro mais próximo de \texttt{a} - $\mathcal{O}(1)$
 \end{itemize}
 
-\subsection{Funções úteis para vetores}
+\section{Funções úteis para vetores}
 
 Para usar em \texttt{std::vector}, sempre passar \texttt{v.begin()} e \texttt{v.end()} como argumentos.
 Se for um vetor estilo \texttt{C} (ex: \texttt{int a[10]}), passar \texttt{a} e \texttt{a + 10}.
@@ -141,265 +135,3 @@ Se for um vetor estilo \texttt{C} (ex: \texttt{int a[10]}), passar \texttt{a} e 
     \item \texttt{upper\_bound(v.begin(), v.end(), x)}: Retorna um iterador para o primeiro elemento estritamente maior que \texttt{x} no vetor \texttt{v} (o vetor deve estar ordenado) - $\mathcal{O}(\log n)$
     \item \texttt{next\_permutation(a.begin(), a.end())}: Rearranja os elementos do vetor \texttt{a} para a próxima permutação lexicograficamente maior - $\mathcal{O}(n)$
 \end{itemize}
-
-\section{Templates}
-
-\subsection{Template C++}
-
-\begin{lstlisting}[language=C++]
-#include <bits/stdc++.h>
-#define endl '\n'
-using namespace std;
-using ll = long long;
-
-void solve() {
-
-}
-
-signed main() {
-    cin.tie(0)->sync_with_stdio(0);
-    solve();
-}
-\end{lstlisting}
-
-\subsection{Template Debug}
-
-\begin{lstlisting}[language=C++]
-
-template<typename T, typename U> 
-ostream& operator<<(ostream& os, const pair<T, U>& p) {
-    os << "(" << p.first << ", " << p.second << ")";
-    return os;
-}
-template<typename T>
-ostream& operator<<(ostream& os, const vector<T>& v) {
-    os << "{";
-    int n = (int)v.size();
-    for (int i = 0; i < n; i++) {
-        os << v[i];
-        if (i < n - 1) os << ", ";
-    }
-    os << "}";
-    return os;
-}
-
-void _print() {}
-template <typename T, typename... U> void _print(T a, U... b) {
-    if (sizeof...(b)) {
-        cerr << a << ", ";
-        _print(b...);
-    } else cerr << a;
-}
-#ifdef BRUTE
-#define debug(x...) cerr << "[" << #x << "] = [", _print(x), cerr << "]" << endl
-#else
-#define debug(...)
-#endif
-\end{lstlisting}
-
-\subsection{Vimrc}
-
-Template de arquivo \texttt{\$HOME/.vimrc} para o vim.
-
-Recomendado copiar o arquivo \texttt{/etc/vim/vimrc}, e adicionar as linhas abaixo no final.
-
-\begin{lstlisting}
-set nu ai si cindent et ts=4 sw=4 so=10 nosm nohls
-inoremap {} {}<left><return><up><end><return>
-\end{lstlisting}
-
-\subsection{Run}
-
-Arquivo útil para compilar e rodar um programa em C++ com flags que ajudam a debugar.
-Basta criar um arquivo chamado \texttt{run}, adicionar o código abaixo e dar permissão de execução com \texttt{chmod +x run}.
-
-\begin{lstlisting}
-#!/bin/bash
-g++ -std=c++20 -DBRUTE -O2 -Wall -Wextra -Wconversion -Wfatal-errors -fsanitize=address,undefined $1 && ./a.out
-\end{lstlisting}
-
-\section{Teórico}
-
-% \twocolumn
-
-\subsection{Alguns Números Primos}
-
-\subsubsection{Primo com Truncamento à Esquerda}
-\large{Número primo tal que qualquer sufixo dele é um número primo} \\
-\Large{357,686,312,646,216,567,629,137}
-
-\subsubsection{Números Primos de Mersenne}
-\large{Números primos da forma $2^m-1$}
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|c|c|}
-    \hline
-    \textbf{Expoente ($m$)} & \textbf{Representação Decimal} \\
-    \hline
-    \(2\) & 3 \\
-    \hline
-    \(3\) & 7 \\
-    \hline
-    \(5\) & 31 \\
-    \hline
-    \(7\) & 127 \\
-    \hline
-    \(13\) & 8,191 \\
-    \hline
-    \(17\) & 131,071 \\
-    \hline
-    \(19\) & 524,287 \\
-    \hline
-    \(31\) & 2,147,483,647 \\
-    \hline
-    \(61\) & $2,3 * 10^{18}$ \\
-    \hline
-    \(89\) & $6,1 * 10^{26}$ \\
-    \hline
-    \(107\) & $1,6 * 10^{32}$ \\
-    \hline
-    \(127\) & $1,7 * 10^{38}$ \\
-    \hline
-  \end{tabular}
-\end{table}
-
-\section{Constantes em C++}
-
-\begin{center}
-\begin{tabular}{|c|c|c|}
-  \hline
-  Constante & Nome em C++ & Valor \\
-  \hline
-  $\pi$ & \texttt{M\_PI} & 3.141592... \\
-  \hline
-  $\pi / 2$ & \texttt{M\_PI\_2} & 1.570796... \\
-  \hline
-  $\pi / 4$ & \texttt{M\_PI\_4} & 0.785398... \\
-  \hline
-  $1 / \pi$ & \texttt{M\_1\_PI} & 0.318309... \\
-  \hline
-  $2 / \pi$ & \texttt{M\_2\_PI} & 0.636619... \\
-  \hline
-  $2 / \sqrt{\pi}$ & \texttt{M\_2\_SQRTPI} & 1.128379... \\
-  \hline
-  $\sqrt{2}$ & \texttt{M\_SQRT2} & 1.414213... \\
-  \hline
-  $1 / \sqrt{2}$ & \texttt{M\_SQRT1\_2} & 0.707106... \\
-  \hline
-  $e$ & \texttt{M\_E} & 2.718281... \\
-  \hline
-  $\log_2{e}$ & \texttt{M\_LOG2E} & 1.442695... \\
-  \hline
-  $\log_{10}{e}$ & \texttt{M\_LOG10E} & 0.434294... \\
-  \hline
-  $\ln{2}$ & \texttt{M\_LN2} & 0.693147... \\
-  \hline
-  $\ln{10}$ & \texttt{M\_LN10} & 2.302585... \\
-  \hline
-\end{tabular}
-\end{center}
-
-\section{Operadores Lineares}
-
-\subsection{Rotação no sentido anti-horário por $\theta ^\circ$}
-\begin{equation*} 
-\Large{
-\begin{bmatrix}
-    \cos \theta & -\sin \theta \\
-    \sin \theta & \cos \theta
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsection{Reflexão em relação à reta $y = mx$ }
-\begin{equation*}
-\LARGE{\frac{1}{m^2+1}}
-\large{
-\begin{bmatrix}
-    1 - m^2 & 2m \\
-    2m & m^2 - 1
-\end{bmatrix}
-}  
-\end{equation*} 
-
-\subsection{Inversa de uma matriz 2x2 A}
-\begin{equation*} 
-\large{
-\begin{bmatrix}
-    a & b \\
-    c & d
-\end{bmatrix}^{-1} =
-\LARGE{\frac{1}{\text{det}(A)}}
-\large{
-\begin{bmatrix}
-    d & -b \\
-    -c & a
-\end{bmatrix}
-}
-}
-\end{equation*}
-
-\subsection{Cisalhamento horizontal por K}
-\begin{equation*} 
-\Large{
-\begin{bmatrix}
-    1 & K \\
-    0 & 1
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsection{Cisalhamento vertical por K}
-\begin{equation*} 
-\Large{
-\begin{bmatrix}
-    1 & 0 \\
-    K & 1
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsubsection{Mudança de base}
-\Large {$\vec{a}_\beta$ são as coordenadas do vetor $\vec{a}$ na base $\beta$.\\}
-\Large {$\vec{a}$ são as coordenadas do vetor $\vec{a}$ na base canônica.\\}
-\Large {$\vec{b1}$ e $\vec{b2}$ são os vetores de base para $\beta$.\\}
-\Large {$C$ é uma matriz que muda da base $\beta$ para a base canônica.}
-\begin{equation*}
-\Large{C \vec{a}_\beta = \vec{a}}
-\end{equation*} 
-\begin{equation*}
-\Large{C^{-1} \vec{a} = \vec{a}_\beta}
-\end{equation*} 
-\begin{equation*} 
-\Large{
-C = 
-\begin{bmatrix}
-    b1_x & b2_x \\
-    b1_y & b2_y
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsubsection{Propriedades das operações de matriz}
-\begin{equation*} 
-\large{(AB)^{-1} = A^{-1}B^{-1}}\\
-\end{equation*}
-\begin{equation*} 
-\large{(AB)^{T} = B^{T}A^{T}}\\
-\end{equation*}
-\begin{equation*} 
-\large{(A^{-1})^{T} = (A^{T})^{-1}}\\
-\end{equation*}
-\begin{equation*} 
-\large{(A+B)^{T} = A^{T} + B^{T}}\\
-\end{equation*}
-\begin{equation*} 
-\large{\text{det}(A) = \text{det}(A^{T})}\\
-\end{equation*}
-\begin{equation*} 
-\large{\text{det}(AB) = \text{det}(A)\text{det}(B)}\\
-\end{equation*}
-\large{Seja $A$ uma matriz NxN:}
-\begin{equation*} 
-\large{\text{det}(kA) = K^N\text{det}(A)}\\
-\end{equation*}

@@ -1,8 +1,6 @@
 # [Transformada Rápida de Fourier](fft.cpp)
 
-<!-- DESCRIPTION -->
 Algoritmo que computa a transformada rápida de fourier para convolução de polinômios.
-<!-- DESCRIPTION -->
 
 Computa convolução (multiplicação) de polinômios.
 
