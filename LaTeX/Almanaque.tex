@@ -131,7 +131,411 @@ João Marcos de Oliveira, Rafael Granza de Mello e Vinicius Gasparini}
 \renewcommand{\contentsname}{Índice} %troca o nome do indice para indice
 
 \tableofcontents
-\newpage
+\chapter{Introdução}
+
+\section{STL (Standard Template Library - C++)}
+
+\subsection{Vector}
+
+Um vetor dinâmico (que pode crescer e diminuir de tamanho).
+
+\begin{itemize}
+    \item \texttt{vector<int> v(n, 0)}: Cria um vetor de inteiros com \texttt{n} elementos, todos inicializados com 0 - $\mathcal{O}(n)$
+    \item \texttt{v.push\_back(x)}: Adiciona o elemento \texttt{x} no final do vetor - $\mathcal{O}(1)$
+    \item \texttt{v.pop\_back()}: Remove o último elemento do vetor - $\mathcal{O}(1)$
+    \item \texttt{v.size()}: Retorna o tamanho do vetor - $\mathcal{O}(1)$
+    \item \texttt{v.empty()}: Retorna \texttt{true} se o vetor estiver vazio - $\mathcal{O}(1)$
+    \item \texttt{v.clear()}: Remove todos os elementos do vetor - $\mathcal{O}(n)$
+    \item \texttt{v.front()}: Retorna o primeiro elemento do vetor - $\mathcal{O}(1)$
+    \item \texttt{v.back()}: Retorna o último elemento do vetor - $\mathcal{O}(1)$
+    \item \texttt{v.begin()}: Retorna um iterador para o primeiro elemento do vetor - $\mathcal{O}(1)$
+    \item \texttt{v.end()}: Retorna um iterador para o elemento seguinte ao último do vetor - $\mathcal{O}(1)$
+    \item \texttt{v.insert(it, x)}: Insere o elemento \texttt{x} na posição apontada pelo iterador \texttt{it} - $\mathcal{O}(n)$
+    \item \texttt{v.erase(it)}: Remove o elemento apontado pelo iterador \texttt{it} - $\mathcal{O}(n)$
+    \item \texttt{v.erase(it1, it2)}: Remove os elementos no intervalo \texttt{[it1, it2)} - $\mathcal{O}(n)$
+    \item \texttt{v.resize(n)}: Redimensiona o vetor para \texttt{n} elementos - $\mathcal{O}(n)$
+    \item \texttt{v.resize(n, x)}: Redimensiona o vetor para \texttt{n} elementos, todos inicializados com \texttt{x} - $\mathcal{O}(n)$
+\end{itemize}
+
+\subsection{Pair}
+
+Um par de elementos (de tipos possivelmente diferentes).
+
+\begin{itemize}
+    \item \texttt{pair<int, int> p}: Cria um par de inteiros - $\mathcal{O}(1)$
+    \item \texttt{p.first}: Retorna o primeiro elemento do par - $\mathcal{O}(1)$
+    \item \texttt{p.second}: Retorna o segundo elemento do par - $\mathcal{O}(1)$
+\end{itemize}
+
+\subsection{Set}
+
+Um conjunto de elementos únicos. Por baixo, é uma árvore de busca binária balanceada.
+
+\begin{itemize}
+    \item \texttt{set<int> s}: Cria um conjunto de inteiros - $\mathcal{O}(1)$
+    \item \texttt{s.insert(x)}: Insere o elemento \texttt{x} no conjunto - $\mathcal{O}(\log n)$
+    \item \texttt{s.erase(x)}: Remove o elemento \texttt{x} do conjunto - $\mathcal{O}(\log n)$
+    \item \texttt{s.find(x)}: Retorna um iterador para o elemento \texttt{x} no conjunto, ou \texttt{s.end()} se não existir - $\mathcal{O}(\log n)$
+    \item \texttt{s.size()}: Retorna o tamanho do conjunto - $\mathcal{O}(1)$
+    \item \texttt{s.empty()}: Retorna \texttt{true} se o conjunto estiver vazio - $\mathcal{O}(1)$
+    \item \texttt{s.clear()}: Remove todos os elementos do conjunto - $\mathcal{O}(n)$
+    \item \texttt{s.begin()}: Retorna um iterador para o primeiro elemento do conjunto - $\mathcal{O}(1)$
+    \item \texttt{s.end()}: Retorna um iterador para o elemento seguinte ao último do conjunto - $\mathcal{O}(1)$
+\end{itemize}
+
+\subsection{Map}
+
+Um conjunto de pares chave-valor, onde as chaves são únicas. Por baixo, é uma árvore de busca binária balanceada.
+
+\begin{itemize}
+    \item \texttt{map<int, int> m}: Cria um mapa de inteiros para inteiros - $\mathcal{O}(1)$
+    \item \texttt{m[key]}: Retorna o valor associado à chave \texttt{key} - $\mathcal{O}(\log n)$
+    \item \texttt{m[key] = value}: Associa o valor \texttt{value} à chave \texttt{key} - $\mathcal{O}(\log n)$
+    \item \texttt{m.erase(key)}: Remove a chave \texttt{key} do mapa - $\mathcal{O}(\log n)$
+    \item \texttt{m.find(key)}: Retorna um iterador para o par chave-valor com chave \texttt{key}, ou \texttt{m.end()} se não existir - $\mathcal{O}(\log n)$
+    \item \texttt{m.size()}: Retorna o tamanho do mapa - $\mathcal{O}(1)$
+    \item \texttt{m.empty()}: Retorna \texttt{true} se o mapa estiver vazio - $\mathcal{O}(1)$
+    \item \texttt{m.clear()}: Remove todos os pares chave-valor do mapa - $\mathcal{O}(n)$
+    \item \texttt{m.begin()}: Retorna um iterador para o primeiro par chave-valor do mapa - $\mathcal{O}(1)$
+    \item \texttt{m.end()}: Retorna um iterador para o par chave-valor seguinte ao último do mapa - $\mathcal{O}(1)$
+\end{itemize}
+
+\subsection{Queue}
+
+Uma fila (primeiro a entrar, primeiro a sair).
+
+\begin{itemize}
+    \item \texttt{queue<int> q}: Cria uma fila de inteiros - $\mathcal{O}(1)$
+    \item \texttt{q.push(x)}: Adiciona o elemento \texttt{x} no final da fila - $\mathcal{O}(1)$
+    \item \texttt{q.pop()}: Remove o primeiro elemento da fila - $\mathcal{O}(1)$
+    \item \texttt{q.front()}: Retorna o primeiro elemento da fila - $\mathcal{O}(1)$
+    \item \texttt{q.size()}: Retorna o tamanho da fila - $\mathcal{O}(1)$
+    \item \texttt{q.empty()}: Retorna \texttt{true} se a fila estiver vazia - $\mathcal{O}(1)$
+    \item \texttt{q.clear()}: Remove todos os elementos da fila - $\mathcal{O}(n)$
+\end{itemize}
+
+\subsection{Priority Queue}
+
+Uma fila de prioridade (o maior elemento é o primeiro a sair).
+
+\begin{itemize}
+    \item \texttt{priority\_queue<int> pq}: Cria uma fila de prioridade de inteiros - $\mathcal{O}(1)$
+    \item \texttt{pq.push(x)}: Adiciona o elemento \texttt{x} na fila de prioridade - $\mathcal{O}(\log n)$
+    \item \texttt{pq.pop()}: Remove o maior elemento da fila de prioridade - $\mathcal{O}(\log n)$
+    \item \texttt{pq.top()}: Retorna o maior elemento da fila de prioridade - $\mathcal{O}(1)$
+    \item \texttt{pq.size()}: Retorna o tamanho da fila de prioridade - $\mathcal{O}(1)$
+    \item \texttt{pq.empty()}: Retorna \texttt{true} se a fila de prioridade estiver vazia - $\mathcal{O}(1)$
+    \item \texttt{pq.clear()}: Remove todos os elementos da fila de prioridade - $\mathcal{O}(n)$
+\end{itemize}
+
+\subsection{Stack}
+
+Uma pilha (último a entrar, primeiro a sair).
+
+\begin{itemize}
+    \item \texttt{stack<int> s}: Cria uma pilha de inteiros - $\mathcal{O}(1)$
+    \item \texttt{s.push(x)}: Adiciona o elemento \texttt{x} no topo da pilha - $\mathcal{O}(1)$
+    \item \texttt{s.pop()}: Remove o elemento do topo da pilha - $\mathcal{O}(1)$
+    \item \texttt{s.top()}: Retorna o elemento do topo da pilha - $\mathcal{O}(1)$
+    \item \texttt{s.size()}: Retorna o tamanho da pilha - $\mathcal{O}(1)$
+    \item \texttt{s.empty()}: Retorna \texttt{true} se a pilha estiver vazia - $\mathcal{O}(1)$
+    \item \texttt{s.clear()}: Remove todos os elementos da pilha - $\mathcal{O}(n)$
+\end{itemize}
+
+\subsection{Funções úteis}
+
+\begin{itemize}
+    \item \texttt{min(a, b)}: Retorna o menor entre \texttt{a} e \texttt{b} - $\mathcal{O}(1)$
+    \item \texttt{max(a, b)}: Retorna o maior entre \texttt{a} e \texttt{b} - $\mathcal{O}(1)$
+    \item \texttt{abs(a)}: Retorna o valor absoluto de \texttt{a} - $\mathcal{O}(1)$
+    \item \texttt{swap(a, b)}: Troca os valores de \texttt{a} e \texttt{b} - $\mathcal{O}(1)$
+    \item \texttt{pow(a, b)}: Retorna \texttt{a} elevado a \texttt{b} - $\mathcal{O}(\log b)$
+    \item \texttt{sqrt(a)}: Retorna a raiz quadrada de \texttt{a} - $\mathcal{O}(\log a)$
+    \item \texttt{ceil(a)}: Retorna o menor inteiro maior ou igual a \texttt{a} - $\mathcal{O}(1)$
+    \item \texttt{floor(a)}: Retorna o maior inteiro menor ou igual a \texttt{a} - $\mathcal{O}(1)$
+    \item \texttt{round(a)}: Retorna o inteiro mais próximo de \texttt{a} - $\mathcal{O}(1)$
+\end{itemize}
+
+\subsection{Funções úteis para vetores}
+
+Para usar em \texttt{std::vector}, sempre passar \texttt{v.begin()} e \texttt{v.end()} como argumentos.
+Se for um vetor estilo \texttt{C} (ex: \texttt{int a[10]}), passar \texttt{a} e \texttt{a + 10}.
+
+\begin{itemize}
+    \item \texttt{fill(v.begin(), v.end(), x)}: Preenche o vetor \texttt{v} com o valor \texttt{x} - $\mathcal{O}(n)$
+    \item \texttt{sort(v.begin(), v.end())}: Ordena o vetor \texttt{v} - $\mathcal{O}(n \log n)$
+    \item \texttt{reverse(v.begin(), v.end())}: Inverte o vetor \texttt{v} - $\mathcal{O}(n)$
+    \item \texttt{accumulate(v.begin(), v.end(), 0)}: Soma todos os elementos do vetor \texttt{v} - $\mathcal{O}(n)$
+    \item \texttt{max\_element(v.begin(), v.end())}: Retorna um iterador para o maior elemento do vetor \texttt{v} - $\mathcal{O}(n)$
+    \item \texttt{min\_element(v.begin(), v.end())}: Retorna um iterador para o menor elemento do vetor \texttt{v} - $\mathcal{O}(n)$
+    \item \texttt{count(v.begin(), v.end(), x)}: Retorna o número de ocorrências do elemento \texttt{x} no vetor \texttt{v} - $\mathcal{O}(n)$
+    \item \texttt{find(v.begin(), v.end(), x)}: Retorna um iterador para a primeira ocorrência do elemento \texttt{x} no vetor \texttt{v}, ou \texttt{v.end()} se não existir - $\mathcal{O}(n)$
+    \item \texttt{lower\_bound(v.begin(), v.end(), x)}: Retorna um iterador para o primeiro elemento maior ou igual a \texttt{x} no vetor \texttt{v} (o vetor deve estar ordenado) - $\mathcal{O}(\log n)$
+    \item \texttt{upper\_bound(v.begin(), v.end(), x)}: Retorna um iterador para o primeiro elemento estritamente maior que \texttt{x} no vetor \texttt{v} (o vetor deve estar ordenado) - $\mathcal{O}(\log n)$
+    \item \texttt{next\_permutation(a.begin(), a.end())}: Rearranja os elementos do vetor \texttt{a} para a próxima permutação lexicograficamente maior - $\mathcal{O}(n)$
+\end{itemize}
+
+\section{Templates}
+
+\subsection{Template C++}
+
+\begin{lstlisting}[language=C++]
+#include <bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+using ll = long long;
+
+void solve() {
+
+}
+
+signed main() {
+    cin.tie(0)->sync_with_stdio(0);
+    solve();
+}
+\end{lstlisting}
+
+\subsection{Template Debug}
+
+\begin{lstlisting}[language=C++]
+
+template<typename T, typename U> 
+ostream& operator<<(ostream& os, const pair<T, U>& p) {
+    os << "(" << p.first << ", " << p.second << ")";
+    return os;
+}
+template<typename T>
+ostream& operator<<(ostream& os, const vector<T>& v) {
+    os << "{";
+    int n = (int)v.size();
+    for (int i = 0; i < n; i++) {
+        os << v[i];
+        if (i < n - 1) os << ", ";
+    }
+    os << "}";
+    return os;
+}
+
+void _print() {}
+template <typename T, typename... U> void _print(T a, U... b) {
+    if (sizeof...(b)) {
+        cerr << a << ", ";
+        _print(b...);
+    } else cerr << a;
+}
+#ifdef BRUTE
+#define debug(x...) cerr << "[" << #x << "] = [", _print(x), cerr << "]" << endl
+#else
+#define debug(...)
+#endif
+\end{lstlisting}
+
+\subsection{Vimrc}
+
+Template de arquivo \texttt{\$HOME/.vimrc} para o vim.
+
+Recomendado copiar o arquivo \texttt{/etc/vim/vimrc}, e adicionar as linhas abaixo no final.
+
+\begin{lstlisting}
+set nu ai si cindent et ts=4 sw=4 so=10 nosm nohls
+inoremap {} {}<left><return><up><end><return>
+\end{lstlisting}
+
+\subsection{Run}
+
+Arquivo útil para compilar e rodar um programa em C++ com flags que ajudam a debugar.
+Basta criar um arquivo chamado \texttt{run}, adicionar o código abaixo e dar permissão de execução com \texttt{chmod +x run}.
+
+\begin{lstlisting}
+#!/bin/bash
+g++ -std=c++20 -DBRUTE -O2 -Wall -Wextra -Wconversion -Wfatal-errors -fsanitize=address,undefined $1 && ./a.out
+\end{lstlisting}
+
+\section{Teórico}
+
+% \twocolumn
+
+\subsection{Alguns Números Primos}
+
+\subsubsection{Primo com Truncamento à Esquerda}
+\large{Número primo tal que qualquer sufixo dele é um número primo} \\
+\Large{357,686,312,646,216,567,629,137}
+
+\subsubsection{Números Primos de Mersenne}
+\large{Números primos da forma $2^m-1$}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{|c|c|}
+    \hline
+    \textbf{Expoente ($m$)} & \textbf{Representação Decimal} \\
+    \hline
+    \(2\) & 3 \\
+    \hline
+    \(3\) & 7 \\
+    \hline
+    \(5\) & 31 \\
+    \hline
+    \(7\) & 127 \\
+    \hline
+    \(13\) & 8,191 \\
+    \hline
+    \(17\) & 131,071 \\
+    \hline
+    \(19\) & 524,287 \\
+    \hline
+    \(31\) & 2,147,483,647 \\
+    \hline
+    \(61\) & $2,3 * 10^{18}$ \\
+    \hline
+    \(89\) & $6,1 * 10^{26}$ \\
+    \hline
+    \(107\) & $1,6 * 10^{32}$ \\
+    \hline
+    \(127\) & $1,7 * 10^{38}$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+\section{Constantes em C++}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  Constante & Nome em C++ & Valor \\
+  \hline
+  $\pi$ & \texttt{M\_PI} & 3.141592... \\
+  \hline
+  $\pi / 2$ & \texttt{M\_PI\_2} & 1.570796... \\
+  \hline
+  $\pi / 4$ & \texttt{M\_PI\_4} & 0.785398... \\
+  \hline
+  $1 / \pi$ & \texttt{M\_1\_PI} & 0.318309... \\
+  \hline
+  $2 / \pi$ & \texttt{M\_2\_PI} & 0.636619... \\
+  \hline
+  $2 / \sqrt{\pi}$ & \texttt{M\_2\_SQRTPI} & 1.128379... \\
+  \hline
+  $\sqrt{2}$ & \texttt{M\_SQRT2} & 1.414213... \\
+  \hline
+  $1 / \sqrt{2}$ & \texttt{M\_SQRT1\_2} & 0.707106... \\
+  \hline
+  $e$ & \texttt{M\_E} & 2.718281... \\
+  \hline
+  $\log_2{e}$ & \texttt{M\_LOG2E} & 1.442695... \\
+  \hline
+  $\log_{10}{e}$ & \texttt{M\_LOG10E} & 0.434294... \\
+  \hline
+  $\ln{2}$ & \texttt{M\_LN2} & 0.693147... \\
+  \hline
+  $\ln{10}$ & \texttt{M\_LN10} & 2.302585... \\
+  \hline
+\end{tabular}
+\end{center}
+
+\section{Operadores Lineares}
+
+\subsection{Rotação no sentido anti-horário por $\theta ^\circ$}
+\begin{equation*} 
+\Large{
+\begin{bmatrix}
+    \cos \theta & -\sin \theta \\
+    \sin \theta & \cos \theta
+\end{bmatrix}
+}
+\end{equation*}
+
+\subsection{Reflexão em relação à reta $y = mx$ }
+\begin{equation*}
+\LARGE{\frac{1}{m^2+1}}
+\large{
+\begin{bmatrix}
+    1 - m^2 & 2m \\
+    2m & m^2 - 1
+\end{bmatrix}
+}  
+\end{equation*} 
+
+\subsection{Inversa de uma matriz 2x2 A}
+\begin{equation*} 
+\large{
+\begin{bmatrix}
+    a & b \\
+    c & d
+\end{bmatrix}^{-1} =
+\LARGE{\frac{1}{\text{det}(A)}}
+\large{
+\begin{bmatrix}
+    d & -b \\
+    -c & a
+\end{bmatrix}
+}
+}
+\end{equation*}
+
+\subsection{Cisalhamento horizontal por K}
+\begin{equation*} 
+\Large{
+\begin{bmatrix}
+    1 & K \\
+    0 & 1
+\end{bmatrix}
+}
+\end{equation*}
+
+\subsection{Cisalhamento vertical por K}
+\begin{equation*} 
+\Large{
+\begin{bmatrix}
+    1 & 0 \\
+    K & 1
+\end{bmatrix}
+}
+\end{equation*}
+
+\subsubsection{Mudança de base}
+\Large {$\vec{a}_\beta$ são as coordenadas do vetor $\vec{a}$ na base $\beta$.\\}
+\Large {$\vec{a}$ são as coordenadas do vetor $\vec{a}$ na base canônica.\\}
+\Large {$\vec{b1}$ e $\vec{b2}$ são os vetores de base para $\beta$.\\}
+\Large {$C$ é uma matriz que muda da base $\beta$ para a base canônica.}
+\begin{equation*}
+\Large{C \vec{a}_\beta = \vec{a}}
+\end{equation*} 
+\begin{equation*}
+\Large{C^{-1} \vec{a} = \vec{a}_\beta}
+\end{equation*} 
+\begin{equation*} 
+\Large{
+C = 
+\begin{bmatrix}
+    b1_x & b2_x \\
+    b1_y & b2_y
+\end{bmatrix}
+}
+\end{equation*}
+
+\subsubsection{Propriedades das operações de matriz}
+\begin{equation*} 
+\large{(AB)^{-1} = A^{-1}B^{-1}}\\
+\end{equation*}
+\begin{equation*} 
+\large{(AB)^{T} = B^{T}A^{T}}\\
+\end{equation*}
+\begin{equation*} 
+\large{(A^{-1})^{T} = (A^{T})^{-1}}\\
+\end{equation*}
+\begin{equation*} 
+\large{(A+B)^{T} = A^{T} + B^{T}}\\
+\end{equation*}
+\begin{equation*} 
+\large{\text{det}(A) = \text{det}(A^{T})}\\
+\end{equation*}
+\begin{equation*} 
+\large{\text{det}(AB) = \text{det}(A)\text{det}(B)}\\
+\end{equation*}
+\large{Seja $A$ uma matriz NxN:}
+\begin{equation*} 
+\large{\text{det}(kA) = K^N\text{det}(A)}\\
+\end{equation*}\newpage
 
 %%%%%%
 %
@@ -2971,7 +3375,7 @@ int main() {
 \subsection{Hungaro}
 
 
-Resolve o problema de Matching para uma matriz \lstinline{A[n][m]}, onde $n \leq m$.
+Resolve o problema de Matching para uma matriz \texttt{A[n][m]}, onde $n \leq m$.
 
 
 
@@ -2983,7 +3387,7 @@ A implementação minimiza os custos, para maximizar basta multiplicar os pesos 
 
 
 
-O vetor \lstinline{result} guarda os pares do matching.
+O vetor \texttt{result} guarda os pares do matching.
 
 
 
@@ -3612,14 +4016,29 @@ Implementação PB-DS, extremamente curta e confusa:
 
 
 \begin{itemize}
-\item Criar: \lstinline{patricia_tree pat;}
-\item Inserir: \lstinline{pat.insert("sei la");}
-\item Remover: \lstinline{pat.erase("sei la");}
-\item Verificar existência: \lstinline{pat.find("sei la") != pat.end();}
-\item Pegar palavras que começam com um prefixo: \lstinline{auto match = pat.prefix_range("sei");}
-\item Percorrer *match* : \lstinline{for(auto it = match.first; it != match.second; ++it);}
-\item Pegar menor elemento lexicográfico *maior ou igual* ao prefixo: \lstinline{*pat.lower_bound("sei");}
-\item Pegar menor elemento lexicográfico *maior* ao prefixo: \lstinline{*pat.upper_bound("sei");}
+\item Criar: \texttt{patricia\_tree pat;}
+\item Inserir: \texttt{pat.insert("sei la");}
+\item Remover: \texttt{pat.erase("sei la");}
+\item Verificar existência:
+\end{itemize}
+
+\texttt{pat.find("sei la") != pat.end();}
+
+\begin{itemize}
+\item Pegar palavras que começam com um prefixo:
+\end{itemize}
+
+\texttt{auto match = pat.prefix\_range("sei");}
+
+\begin{itemize}
+\item Percorrer \textbf{match} :
+\end{itemize}
+
+\texttt{for(auto it = match.first; it != match.second; ++it);}
+
+\begin{itemize}
+\item Pegar menor elemento lexicográfico *maior ou igual* ao prefixo: \texttt{*pat.lower\_bound("sei");}
+\item Pegar menor elemento lexicográfico *maior* ao prefixo: \texttt{*pat.upper\_bound("sei");}
 \end{itemize}
 
 
@@ -4868,13 +5287,16 @@ template <int mod> struct Mint {
     int val;
     Mint() : val(0) { }
     Mint(ll v) {
-        if (v < -mod || v >= 2 * mod)
+        if (v < -mod || v >= 2 * mod) {
             v %= mod;
-        if (v >= mod)
+        }
+        if (v >= mod) {
             v -= mod;
-        if (v < 0)
+        }
+        if (v < 0) {
             v += mod;
-        val = v;
+        }
+        val = (int)v;
     }
     m pwr(m b, ll e) {
         m res = 1;
@@ -4886,13 +5308,15 @@ template <int mod> struct Mint {
         return res;
     }
     m &operator+=(const m &o) {
-        if ((val += o.val) >= mod)
+        if ((val += o.val) >= mod) {
             val -= mod;
+        }
         return *this;
     }
     m &operator-=(const m &o) {
-        if ((val -= o.val) < 0)
+        if ((val -= o.val) < 0) {
             val += mod;
+        }
         return *this;
     }
     m &operator*=(const m &o) {
@@ -4910,6 +5334,11 @@ template <int mod> struct Mint {
     friend m operator/(m a, const m &b) { return a /= b; }
     friend m operator^(m a, ll e) { return a ^= e; }
     friend ostream &operator<<(ostream &os, const m &a) { return os << a.val; }
+    friend istream &operator>>(istream &is, m &a) {
+        ll x;
+        is >> x, a = m(x);
+        return is;
+    }
 };
 
 const int mod = 998244353;
@@ -5085,7 +5514,7 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
 \section{Exponenciação Modular Rápida}
 
 
-Computa $(base^{exp}) \% mod$.
+Computa $(base ^ {exp}) \mod MOD$.
 
 
 
@@ -5463,15 +5892,11 @@ ll extended_gcd(ll a, ll b, ll &x, ll &y) {
 \section{Inverso Modular}
 
 
-<!-- DESCRIÇÃO -->
-
 Algoritmos para calcular o inverso modular de um número. O inverso modular de um inteiro $a$ é outro inteiro $x$ tal que $a \cdot x \equiv 1 \pmod{MOD}$
 
-<!-- DESCRIÇÃO -->
 
 
-
-O inverso modular de um inteiro \lstinline{a} é outro inteiro \lstinline{x} tal que \lstinline{a * x} é congruente a \lstinline{1 (mod MOD)}.
+O inverso modular de um inteiro $a$ é outro inteiro $x$ tal que $a * x$ é congruente a $1 \mod MOD$.
 
 
 
@@ -5479,11 +5904,11 @@ O inverso modular de um inteiro \lstinline{a} é outro inteiro \lstinline{x} tal
 
 
 
-Calcula o inverso modular de \lstinline{a}.
+Calcula o inverso modular de $a$.
 
 
 
-Utiliza o algoritmo Exp Mod, portanto, espera-se que \lstinline{MOD} seja um número primo.
+Utiliza o algoritmo Exp Mod, portanto, espera-se que $MOD$ seja um número primo.
 
 
 
@@ -5497,15 +5922,15 @@ Utiliza o algoritmo Exp Mod, portanto, espera-se que \lstinline{MOD} seja um nú
 
 
 
-Calcula o inverso modular de \lstinline{a}.
+Calcula o inverso modular de $a$.
 
 
 
-Utiliza o algoritmo Euclides Extendido, portanto, espera-se que \lstinline{MOD} seja coprimo com \lstinline{a}.
+Utiliza o algoritmo Euclides Extendido, portanto, espera-se que $MOD$ seja coprimo com $a$.
 
 
 
-Retorna \lstinline{-1} se essa suposição for quebrada.
+Retorna $-1$ se essa suposição for quebrada.
 
 
 
@@ -5519,11 +5944,11 @@ Retorna \lstinline{-1} se essa suposição for quebrada.
 
 
 
-Calcula o inverso modular para todos os números entre \lstinline{1} e \lstinline{MAX}.
+Calcula o inverso modular para todos os números entre $1$ e $MAX$.
 
 
 
-Espera-se que \lstinline{MOD} seja primo.
+Espera-se que $MOD$ seja primo.
 
 
 
@@ -5537,19 +5962,19 @@ Espera-se que \lstinline{MOD} seja primo.
 
 
 
-Seja \lstinline{b} um número inteiro qualquer.
+Seja $b$ um número inteiro qualquer.
 
 
 
-Calcula o inverso modular para todas as potências de \lstinline{b} entre \lstinline{b^0} e \lstinline{b^MAX}.
+Calcula o inverso modular para todas as potências de $b$ entre $b^0$ e $b^MAX$.
 
 
 
-É necessário calcular antecipadamente o inverso modular de \lstinline{b}, para 2 é sempre \lstinline{(MOD+1)/2}.
+É necessário calcular antecipadamente o inverso modular de $b$, para 2 é sempre $(MOD+1)/2$.
 
 
 
-Espera-se que \lstinline{MOD} seja coprimo com \lstinline{b}.
+Espera-se que $MOD$ seja coprimo com $b$.
 
 
 
@@ -5613,11 +6038,7 @@ int inv(int a) {
 \section{NTT}
 
 
-<!-- DESCRIÇÃO -->
-
 Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo.
-
-<!-- DESCRIÇÃO -->
 
 
 
@@ -6044,188 +6465,4 @@ int phi(int n) {
 \end{lstlisting}
 \hfill
 
-\chapter{Teórico}
-
-\twocolumn
-
-\section{Alguns Números Primos}
-
-\subsection{Primo com Truncamento à Esquerda}
-\large{Número primo tal que qualquer sufixo dele é um número primo} \\
-\Large{357,686,312,646,216,567,629,137}
-
-\subsection{Números Primos de Mersenne}
-\large{Números primos da forma $2^m-1$}
-\begin{table}[h]
-  \centering
-  \begin{tabular}{|c|c|}
-    \hline
-    \textbf{Expoente ($m$)} & \textbf{Representação Decimal} \\
-    \hline
-    \(2\) & 3 \\
-    \hline
-    \(3\) & 7 \\
-    \hline
-    \(5\) & 31 \\
-    \hline
-    \(7\) & 127 \\
-    \hline
-    \(13\) & 8,191 \\
-    \hline
-    \(17\) & 131,071 \\
-    \hline
-    \(19\) & 524,287 \\
-    \hline
-    \(31\) & 2,147,483,647 \\
-    \hline
-    \(61\) & $2,3 * 10^{18}$ \\
-    \hline
-    \(89\) & $6,1 * 10^{26}$ \\
-    \hline
-    \(107\) & $1,6 * 10^{32}$ \\
-    \hline
-    \(127\) & $1,7 * 10^{38}$ \\
-    \hline
-  \end{tabular}
-\end{table}
-
-\section{Constantes em C++}
-
-\begin{center}
-\begin{tabular}{|c|c|c|}
-  \hline
-  Constante & Nome em C++ & Valor \\
-  \hline
-  $\pi$ & \texttt{M\_PI} & 3.141592... \\
-  \hline
-  $\pi / 2$ & \texttt{M\_PI\_2} & 1.570796... \\
-  \hline
-  $\pi / 4$ & \texttt{M\_PI\_4} & 0.785398... \\
-  \hline
-  $1 / \pi$ & \texttt{M\_1\_PI} & 0.318309... \\
-  \hline
-  $2 / \pi$ & \texttt{M\_2\_PI} & 0.636619... \\
-  \hline
-  $2 / \sqrt{\pi}$ & \texttt{M\_2\_SQRTPI} & 1.128379... \\
-  \hline
-  $\sqrt{2}$ & \texttt{M\_SQRT2} & 1.414213... \\
-  \hline
-  $1 / \sqrt{2}$ & \texttt{M\_SQRT1\_2} & 0.707106... \\
-  \hline
-  $e$ & \texttt{M\_E} & 2.718281... \\
-  \hline
-  $\log_2{e}$ & \texttt{M\_LOG2E} & 1.442695... \\
-  \hline
-  $\log_{10}{e}$ & \texttt{M\_LOG10E} & 0.434294... \\
-  \hline
-  $\ln{2}$ & \texttt{M\_LN2} & 0.693147... \\
-  \hline
-  $\ln{10}$ & \texttt{M\_LN10} & 2.302585... \\
-  \hline
-\end{tabular}
-\end{center}
-
-\section{Operadores Lineares}
-
-\subsection{Rotação no sentido anti-horário por $\theta ^\circ$}
-\begin{equation*} 
-\Large{
-\begin{bmatrix}
-    \cos \theta & -\sin \theta \\
-    \sin \theta & \cos \theta
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsection{Reflexão em relação à reta $y = mx$ }
-\begin{equation*}
-\LARGE{\frac{1}{m^2+1}}
-\large{
-\begin{bmatrix}
-    1 - m^2 & 2m \\
-    2m & m^2 - 1
-\end{bmatrix}
-}  
-\end{equation*} 
-
-\subsection{Inversa de uma matriz 2x2 A}
-\begin{equation*} 
-\large{
-\begin{bmatrix}
-    a & b \\
-    c & d
-\end{bmatrix}^{-1} =
-\LARGE{\frac{1}{\text{det}(A)}}
-\large{
-\begin{bmatrix}
-    d & -b \\
-    -c & a
-\end{bmatrix}
-}
-}
-\end{equation*}
-
-\subsection{Cisalhamento horizontal por K}
-\begin{equation*} 
-\Large{
-\begin{bmatrix}
-    1 & K \\
-    0 & 1
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsection{Cisalhamento vertical por K}
-\begin{equation*} 
-\Large{
-\begin{bmatrix}
-    1 & 0 \\
-    K & 1
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsection{Mudança de base}
-\Large {$\vec{a}_\beta$ são as coordenadas do vetor $\vec{a}$ na base $\beta$.\\}
-\Large {$\vec{a}$ são as coordenadas do vetor $\vec{a}$ na base canônica.\\}
-\Large {$\vec{b1}$ e $\vec{b2}$ são os vetores de base para $\beta$.\\}
-\Large {$C$ é uma matriz que muda da base $\beta$ para a base canônica.}
-\begin{equation*}
-\Large{C \vec{a}_\beta = \vec{a}}
-\end{equation*} 
-\begin{equation*}
-\Large{C^{-1} \vec{a} = \vec{a}_\beta}
-\end{equation*} 
-\begin{equation*} 
-\Large{
-C = 
-\begin{bmatrix}
-    b1_x & b2_x \\
-    b1_y & b2_y
-\end{bmatrix}
-}
-\end{equation*}
-
-\subsection{Propriedades das operações de matriz}
-\begin{equation*} 
-\large{(AB)^{-1} = A^{-1}B^{-1}}\\
-\end{equation*}
-\begin{equation*} 
-\large{(AB)^{T} = B^{T}A^{T}}\\
-\end{equation*}
-\begin{equation*} 
-\large{(A^{-1})^{T} = (A^{T})^{-1}}\\
-\end{equation*}
-\begin{equation*} 
-\large{(A+B)^{T} = A^{T} + B^{T}}\\
-\end{equation*}
-\begin{equation*} 
-\large{\text{det}(A) = \text{det}(A^{T})}\\
-\end{equation*}
-\begin{equation*} 
-\large{\text{det}(AB) = \text{det}(A)\text{det}(B)}\\
-\end{equation*}
-\large{Seja $A$ uma matriz NxN:}
-\begin{equation*} 
-\large{\text{det}(kA) = K^N\text{det}(A)}\\
-\end{equation*}\end{document}
+\end{document}

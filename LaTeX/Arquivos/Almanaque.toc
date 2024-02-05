@@ -1,92 +1,108 @@
 \babel@toc {brazil}{}\relax 
-\contentsline {chapter}{\numberline {1}Estruturas de Dados}{6}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Disjoint Set Union}{6}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}DSU}{6}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}DSU Bipartido}{6}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}DSU Rollback}{7}{subsection.1.1.3}%
-\contentsline {subsection}{\numberline {1.1.4}DSU Rollback Bipartido}{7}{subsection.1.1.4}%
-\contentsline {subsection}{\numberline {1.1.5}Offline DSU}{8}{subsection.1.1.5}%
-\contentsline {section}{\numberline {1.2}Fenwick Tree}{9}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Fenwick}{9}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Kd Fenwick Tree}{10}{subsection.1.2.2}%
-\contentsline {section}{\numberline {1.3}Interval Tree}{10}{section.1.3}%
-\contentsline {section}{\numberline {1.4}LiChao Tree}{11}{section.1.4}%
-\contentsline {section}{\numberline {1.5}MergeSort Tree}{12}{section.1.5}%
-\contentsline {section}{\numberline {1.6}Operation Queue}{14}{section.1.6}%
-\contentsline {section}{\numberline {1.7}Operation Stack}{15}{section.1.7}%
-\contentsline {section}{\numberline {1.8}Ordered Set}{15}{section.1.8}%
-\contentsline {section}{\numberline {1.9}Segment Tree}{16}{section.1.9}%
-\contentsline {subsection}{\numberline {1.9.1}Segment Tree}{16}{subsection.1.9.1}%
-\contentsline {subsection}{\numberline {1.9.2}Segment Tree 2D}{17}{subsection.1.9.2}%
-\contentsline {subsection}{\numberline {1.9.3}Segment Tree Beats Max And Sum Update}{18}{subsection.1.9.3}%
-\contentsline {subsection}{\numberline {1.9.4}Segment Tree Beats Max Update}{20}{subsection.1.9.4}%
-\contentsline {subsection}{\numberline {1.9.5}Segment Tree Esparsa}{21}{subsection.1.9.5}%
-\contentsline {subsection}{\numberline {1.9.6}Segment Tree Kadani}{22}{subsection.1.9.6}%
-\contentsline {subsection}{\numberline {1.9.7}Segment Tree Lazy}{23}{subsection.1.9.7}%
-\contentsline {subsection}{\numberline {1.9.8}Segment Tree Persisente}{24}{subsection.1.9.8}%
-\contentsline {section}{\numberline {1.10}Sparse Table}{25}{section.1.10}%
-\contentsline {subsection}{\numberline {1.10.1}Disjoint Sparse Table}{25}{subsection.1.10.1}%
-\contentsline {subsection}{\numberline {1.10.2}Sparse Table}{25}{subsection.1.10.2}%
-\contentsline {chapter}{\numberline {2}Grafos}{27}{chapter.2}%
-\contentsline {section}{\numberline {2.1}2 SAT}{27}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Binary Lifting}{28}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Bridge}{29}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Fluxo}{29}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Graph Center}{32}{section.2.5}%
-\contentsline {section}{\numberline {2.6}HLD}{33}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Inverse Graph}{34}{section.2.7}%
-\contentsline {section}{\numberline {2.8}Kruskal}{35}{section.2.8}%
-\contentsline {section}{\numberline {2.9}LCA}{35}{section.2.9}%
-\contentsline {section}{\numberline {2.10}Matching}{36}{section.2.10}%
-\contentsline {subsection}{\numberline {2.10.1}Hungaro}{36}{subsection.2.10.1}%
-\contentsline {section}{\numberline {2.11}Shortest Paths}{37}{section.2.11}%
-\contentsline {subsection}{\numberline {2.11.1}Dijkstra}{37}{subsection.2.11.1}%
-\contentsline {subsection}{\numberline {2.11.2}SPFA}{38}{subsection.2.11.2}%
-\contentsline {section}{\numberline {2.12}Stoer–Wagner Min Cut}{39}{section.2.12}%
-\contentsline {chapter}{\numberline {3}String}{40}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Aho Corasick}{40}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Hashing}{41}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Lyndon}{41}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Manacher}{42}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Patricia Tree}{43}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Prefix Function}{43}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Suffix Array}{45}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Trie}{46}{section.3.8}%
-\contentsline {chapter}{\numberline {4}Paradigmas}{47}{chapter.4}%
-\contentsline {section}{\numberline {4.1}All Submasks}{47}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Busca Binaria Paralela}{47}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Busca Ternaria}{48}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Convex Hull Trick}{49}{section.4.4}%
-\contentsline {section}{\numberline {4.5}DP de Permutacao}{49}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Divide and Conquer}{50}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Exponenciação de Matriz}{52}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Mo}{53}{section.4.8}%
-\contentsline {chapter}{\numberline {5}Primitivas}{56}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Modular Int}{56}{section.5.1}%
-\contentsline {chapter}{\numberline {6}Matemática}{58}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Eliminação Gaussiana}{58}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Gauss}{58}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Gauss Mod 2}{59}{subsection.6.1.2}%
-\contentsline {section}{\numberline {6.2}Exponenciação Modular Rápida}{59}{section.6.2}%
-\contentsline {section}{\numberline {6.3}FFT}{60}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Fatoração}{61}{section.6.4}%
-\contentsline {section}{\numberline {6.5}GCD}{62}{section.6.5}%
-\contentsline {section}{\numberline {6.6}Inverso Modular}{63}{section.6.6}%
-\contentsline {section}{\numberline {6.7}NTT}{64}{section.6.7}%
-\contentsline {section}{\numberline {6.8}Primos}{65}{section.6.8}%
-\contentsline {section}{\numberline {6.9}Sum of floor (n div i)}{67}{section.6.9}%
-\contentsline {section}{\numberline {6.10}Teorema do Resto Chinês}{67}{section.6.10}%
-\contentsline {section}{\numberline {6.11}Totiente de Euler}{67}{section.6.11}%
-\contentsline {chapter}{\numberline {7}Teórico}{69}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Alguns Números Primos}{70}{section.7.1}%
-\contentsline {subsection}{\numberline {7.1.1}Primo com Truncamento à Esquerda}{70}{subsection.7.1.1}%
-\contentsline {subsection}{\numberline {7.1.2}Números Primos de Mersenne}{70}{subsection.7.1.2}%
-\contentsline {section}{\numberline {7.2}Constantes em C++}{70}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Operadores Lineares}{70}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}Rotação no sentido anti-horário por $\theta ^\circ $}{70}{subsection.7.3.1}%
-\contentsline {subsection}{\numberline {7.3.2}Reflexão em relação à reta $y = mx$ }{70}{subsection.7.3.2}%
-\contentsline {subsection}{\numberline {7.3.3}Inversa de uma matriz 2x2 A}{71}{subsection.7.3.3}%
-\contentsline {subsection}{\numberline {7.3.4}Cisalhamento horizontal por K}{71}{subsection.7.3.4}%
-\contentsline {subsection}{\numberline {7.3.5}Cisalhamento vertical por K}{71}{subsection.7.3.5}%
-\contentsline {subsection}{\numberline {7.3.6}Mudança de base}{71}{subsection.7.3.6}%
-\contentsline {subsection}{\numberline {7.3.7}Propriedades das operações de matriz}{71}{subsection.7.3.7}%
+\contentsline {chapter}{\numberline {1}Introdução}{6}{chapter.1}%
+\contentsline {section}{\numberline {1.1}STL (Standard Template Library - C++)}{6}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Vector}{6}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Pair}{6}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Set}{6}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Map}{7}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}Queue}{7}{subsection.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.6}Priority Queue}{7}{subsection.1.1.6}%
+\contentsline {subsection}{\numberline {1.1.7}Stack}{8}{subsection.1.1.7}%
+\contentsline {subsection}{\numberline {1.1.8}Funções úteis}{8}{subsection.1.1.8}%
+\contentsline {subsection}{\numberline {1.1.9}Funções úteis para vetores}{8}{subsection.1.1.9}%
+\contentsline {section}{\numberline {1.2}Templates}{8}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Template C++}{8}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Template Debug}{9}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Vimrc}{9}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Run}{9}{subsection.1.2.4}%
+\contentsline {section}{\numberline {1.3}Teórico}{9}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Alguns Números Primos}{9}{subsection.1.3.1}%
+\contentsline {subsubsection}{Primo com Truncamento à Esquerda}{9}{section*.2}%
+\contentsline {subsubsection}{Números Primos de Mersenne}{9}{section*.3}%
+\contentsline {section}{\numberline {1.4}Constantes em C++}{10}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Operadores Lineares}{10}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Rotação no sentido anti-horário por $\theta ^\circ $}{10}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Reflexão em relação à reta $y = mx$ }{10}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Inversa de uma matriz 2x2 A}{10}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Cisalhamento horizontal por K}{10}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}Cisalhamento vertical por K}{10}{subsection.1.5.5}%
+\contentsline {subsubsection}{Mudança de base}{11}{section*.4}%
+\contentsline {subsubsection}{Propriedades das operações de matriz}{11}{section*.5}%
+\contentsline {chapter}{\numberline {2}Estruturas de Dados}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Disjoint Set Union}{12}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}DSU}{12}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}DSU Bipartido}{12}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}DSU Rollback}{13}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}DSU Rollback Bipartido}{14}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Offline DSU}{14}{subsection.2.1.5}%
+\contentsline {section}{\numberline {2.2}Fenwick Tree}{16}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Fenwick}{16}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Kd Fenwick Tree}{16}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Interval Tree}{17}{section.2.3}%
+\contentsline {section}{\numberline {2.4}LiChao Tree}{18}{section.2.4}%
+\contentsline {section}{\numberline {2.5}MergeSort Tree}{18}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Operation Queue}{21}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Operation Stack}{21}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Ordered Set}{21}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Segment Tree}{23}{section.2.9}%
+\contentsline {subsection}{\numberline {2.9.1}Segment Tree}{23}{subsection.2.9.1}%
+\contentsline {subsection}{\numberline {2.9.2}Segment Tree 2D}{23}{subsection.2.9.2}%
+\contentsline {subsection}{\numberline {2.9.3}Segment Tree Beats Max And Sum Update}{24}{subsection.2.9.3}%
+\contentsline {subsection}{\numberline {2.9.4}Segment Tree Beats Max Update}{26}{subsection.2.9.4}%
+\contentsline {subsection}{\numberline {2.9.5}Segment Tree Esparsa}{28}{subsection.2.9.5}%
+\contentsline {subsection}{\numberline {2.9.6}Segment Tree Kadani}{28}{subsection.2.9.6}%
+\contentsline {subsection}{\numberline {2.9.7}Segment Tree Lazy}{29}{subsection.2.9.7}%
+\contentsline {subsection}{\numberline {2.9.8}Segment Tree Persisente}{30}{subsection.2.9.8}%
+\contentsline {section}{\numberline {2.10}Sparse Table}{31}{section.2.10}%
+\contentsline {subsection}{\numberline {2.10.1}Disjoint Sparse Table}{31}{subsection.2.10.1}%
+\contentsline {subsection}{\numberline {2.10.2}Sparse Table}{32}{subsection.2.10.2}%
+\contentsline {chapter}{\numberline {3}Grafos}{33}{chapter.3}%
+\contentsline {section}{\numberline {3.1}2 SAT}{33}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Binary Lifting}{34}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Bridge}{35}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Fluxo}{36}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Graph Center}{38}{section.3.5}%
+\contentsline {section}{\numberline {3.6}HLD}{39}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Inverse Graph}{40}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Kruskal}{41}{section.3.8}%
+\contentsline {section}{\numberline {3.9}LCA}{41}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Matching}{43}{section.3.10}%
+\contentsline {subsection}{\numberline {3.10.1}Hungaro}{43}{subsection.3.10.1}%
+\contentsline {section}{\numberline {3.11}Shortest Paths}{43}{section.3.11}%
+\contentsline {subsection}{\numberline {3.11.1}Dijkstra}{43}{subsection.3.11.1}%
+\contentsline {subsection}{\numberline {3.11.2}SPFA}{45}{subsection.3.11.2}%
+\contentsline {section}{\numberline {3.12}Stoer–Wagner Min Cut}{45}{section.3.12}%
+\contentsline {chapter}{\numberline {4}String}{47}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Aho Corasick}{47}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Hashing}{48}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Lyndon}{48}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Manacher}{49}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Patricia Tree}{50}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Prefix Function}{50}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Suffix Array}{52}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Trie}{53}{section.4.8}%
+\contentsline {chapter}{\numberline {5}Paradigmas}{55}{chapter.5}%
+\contentsline {section}{\numberline {5.1}All Submasks}{55}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Busca Binaria Paralela}{55}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Busca Ternaria}{56}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Convex Hull Trick}{57}{section.5.4}%
+\contentsline {section}{\numberline {5.5}DP de Permutacao}{58}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Divide and Conquer}{58}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Exponenciação de Matriz}{60}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Mo}{61}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Primitivas}{64}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Modular Int}{64}{section.6.1}%
+\contentsline {chapter}{\numberline {7}Matemática}{66}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Eliminação Gaussiana}{66}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Gauss}{66}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Gauss Mod 2}{67}{subsection.7.1.2}%
+\contentsline {section}{\numberline {7.2}Exponenciação Modular Rápida}{68}{section.7.2}%
+\contentsline {section}{\numberline {7.3}FFT}{68}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Fatoração}{69}{section.7.4}%
+\contentsline {section}{\numberline {7.5}GCD}{70}{section.7.5}%
+\contentsline {section}{\numberline {7.6}Inverso Modular}{71}{section.7.6}%
+\contentsline {section}{\numberline {7.7}NTT}{72}{section.7.7}%
+\contentsline {section}{\numberline {7.8}Primos}{74}{section.7.8}%
+\contentsline {section}{\numberline {7.9}Sum of floor (n div i)}{75}{section.7.9}%
+\contentsline {section}{\numberline {7.10}Teorema do Resto Chinês}{75}{section.7.10}%
+\contentsline {section}{\numberline {7.11}Totiente de Euler}{76}{section.7.11}%

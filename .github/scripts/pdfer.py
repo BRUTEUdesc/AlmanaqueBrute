@@ -38,7 +38,7 @@ def printa_readme(path: Path, FILE: Path):
                 if in_inline_code:
                     dest.write("}")
                 else:
-                    dest.write("\\lstinline{")
+                    dest.write("\\texttt{")
                 in_inline_code = not in_inline_code
             elif line[i] == '$' and i + 1 < len(line) and line[i + 1] == '$':
                 in_math = not in_math
@@ -71,6 +71,8 @@ def printa_readme(path: Path, FILE: Path):
             else:
                 if line[i] in ['%', '&', '~', '_'] and not in_math and not in_inline_code:
                     dest.write('\\')
+                if line[i] in ['_', '^'] and in_inline_code:
+                    dest.write("\\")
                 dest.write(line[i])
             i += 1
         dest.write("\n")
@@ -216,14 +218,13 @@ if __name__ == "__main__":
     with open(ALMANAQUE, "w") as f:
         INICIO = Path("LaTeX/INICIO_LATEX.tex")
         printa_arquivo(INICIO, f)
+        INTRODUCAO = Path("Introducao/Introducao.tex")
+        printa_arquivo(INTRODUCAO, f)
 
         for child in DIR.iterdir():
             if child.is_dir():
                 dfs(child, f, 0)
         
-        THEORETICAL = Path("Theoretical/THEORETICAL.tex")
-        printa_arquivo(THEORETICAL, f)
-
         f.write("\\end{document}\n")
 
     os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")

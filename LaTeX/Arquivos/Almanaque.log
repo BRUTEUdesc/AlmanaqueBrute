@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  5 FEB 2024 00:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022/MacPorts 2022.62882_2) (preloaded format=pdflatex 2023.5.3)  5 FEB 2024 02:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -762,7 +762,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.20 ...9.2}Segment Tree 2D}{17}{subsection.1.9.2}
+l.22 ...e {1.4}Constantes em C++}{10}{section.1.4}
                                                   % [1
 
 
@@ -774,232 +774,252 @@ l.20 ...9.2}Segment Tree 2D}{17}{subsection.1.9.2}
  [5]
 Cap\'{\i }tulo 1.
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 1
-56.
+43.
 (/opt/local/share/texmf-texlive/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ) [6
 
 
-] [7] [8] [9]
-Overfull \hbox (30.2237pt too wide) in paragraph at lines 552--553
-[]\T1/cmr/m/n/10 Capaz de re-tor-nar to-dos os in-ter-va-los que in-ter-sec-tam
- $\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 L; R\OT1/cmr/m/n/10 ]$\T1/cmr/m/n/10 . Con-
-tém mé-to-dos $\OML/cmm/m/it/10 insert\OT1/cmr/m/n/10 ([])$\T1/cmr/m/n/10 ,
- []
+] [7] [8]
 
-[10] [11] [12] [13] [14] [15] [16] [17] [18] [19] [20] [21] [22] [23] [24]
-[25] [26
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 437.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\theta' on input line 437.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `superscript' on input line 437.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\circ' on input line 437.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 437.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 439.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 447.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 447.
+
+
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 449.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 450.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 460.
+
+
+LaTeX Font Warning: Command \LARGE invalid in math mode on input line 465.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 466.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 477.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 487.
+
+[10]
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 501.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 504.
+
+
+LaTeX Font Warning: Command \Large invalid in math mode on input line 507.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 518.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 521.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 524.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 527.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 530.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 533.
+
+
+LaTeX Font Warning: Command \large invalid in math mode on input line 537.
+
+[11
 
 ]
 Cap\'{\i }tulo 2.
-[27
+[12
 
-] [28] [29]
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2301
-.
-
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2301
-.
-
-Missing character: There is no ² in font cmr10!
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2312
-.
-
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2312
-.
-
-Missing character: There is no ² in font cmr10!
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2323
-.
-
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2323
-.
-
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2323
-.
-
-
-LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2323
-.
-
-Missing character: There is no ² in font cmr10!
-Missing character: There is no ² in font cmr10!
-[30] [31] [32] [33] [34] [35] [36] [37] [38] [39]
-Cap\'{\i }tulo 3.
-[40
-
-] [41] [42]
-Overfull \hbox (20.61502pt too wide) in paragraph at lines 3621--3622
-[]\T1/cmr/m/n/10 Pegar me-nor ele-mento le-xi-co-grá-fico *maior ou igual* ao p
-re-fixo: [][][][][][][][][][][][] 
+] [13] [14] [15] [16] [17] [18] [19] [20] [21]
+Overfull \hbox (27.43098pt too wide) in paragraph at lines 1422--1423
+[]\T1/cmr/m/n/12 Criar o $\OML/cmm/m/it/12 ordered[]set$ \T1/cmr/m/n/12 subs-ti
+-tuindo o pa-râ-me-tro $\OML/cmm/m/it/12 less < T >$ \T1/cmr/m/n/12 por $\OML/c
+mm/m/it/12 less[]equal <
  []
 
-[43] [44] [45] [46]
+
+Overfull \hbox (19.8039pt too wide) in paragraph at lines 1422--1423
+\OML/cmm/m/it/12 T >$\T1/cmr/m/n/12 . Isso faz com que o set aceite ele-men-tos
+ re-pe-ti-dos, e $\OML/cmm/m/it/12 order[]of[]key\OT1/cmr/m/n/12 (\OML/cmm/m/it
+/12 k\OT1/cmr/m/n/12 )$
+ []
+
+[22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32]
+Cap\'{\i }tulo 3.
+[33
+
+] [34] [35]
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2705
+.
+
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2705
+.
+
+Missing character: There is no ² in font cmr12!
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2716
+.
+
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2716
+.
+
+Missing character: There is no ² in font cmr12!
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2727
+.
+
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2727
+.
+
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2727
+.
+
+
+LaTeX Warning: Command \texttwosuperior invalid in math mode on input line 2727
+.
+
+Missing character: There is no ² in font cmr12!
+Missing character: There is no ² in font cmr12!
+[36] [37] [38]
+Overfull \hbox (33.28156pt too wide) in paragraph at lines 3052--3053
+[]\T1/cmr/m/n/12 Range Query/Up-date: $\OMS/cmsy/m/n/12 O\OT1/cmr/m/n/12 (\OML/
+cmm/m/it/12 Log\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 N\OT1/cmr/m/n/12 )) \OMS/cmsy/
+m/n/12 ^^C O\OT1/cmr/m/n/12 ([])$ 
+ []
+
+[39] [40] [41] [42] [43] [44] [45] [46
+
+]
 Cap\'{\i }tulo 4.
 [47
 
-] [48] [49] [50] [51] [52] [53] [54] [55
+] [48] [49]
+Overfull \hbox (114.80042pt too wide) in paragraph at lines 4040--4041
+[]\T1/cmr/m/n/12 Pegar me-nor ele-mento le-xi-co-grá-fico *maior ou igual* ao p
+re-fixo: \T1/cmtt/m/n/12 *pat.lower_bound("sei"); 
+ []
+
+
+Overfull \hbox (72.38022pt too wide) in paragraph at lines 4041--4042
+[]\T1/cmr/m/n/12 Pegar me-nor ele-mento le-xi-co-grá-fico *maior* ao pre-fixo: 
+\T1/cmtt/m/n/12 *pat.upper_bound("sei"); 
+ []
+
+[50] [51] [52] [53] [54
 
 ]
 Cap\'{\i }tulo 5.
-[56
+[55
 
-] [57
-
-]
+] [56] [57] [58] [59] [60] [61] [62] [63]
 Cap\'{\i }tulo 6.
-[58
+[64
 
-] [59] [60] [61] [62] [63]
-Overfull \hbox (63.42604pt too wide) in paragraph at lines 5636--5637
-[]\T1/cmr/m/n/10 Para cons-tan-tes en-tre $\OT1/cmr/m/n/10 10[]$ \T1/cmr/m/n/10
- e $\OT1/cmr/m/n/10 10[]$ \T1/cmr/m/n/10 é ne-ces-sá-rio co-di-fi-car tam-bém [
-big_convolution](big_convolution.cpp). 
- []
-
-[64] [65] [66] [67] [68
+] [65
 
 ]
 Cap\'{\i }tulo 7.
-[69
+[66
 
+] [67] [68] [69] [70] [71]
+Overfull \hbox (139.69145pt too wide) in paragraph at lines 6057--6058
+[]\T1/cmr/m/n/12 Para cons-tan-tes en-tre $\OT1/cmr/m/n/12 10[]$ \T1/cmr/m/n/12
+ e $\OT1/cmr/m/n/12 10[]$ \T1/cmr/m/n/12 é ne-ces-sá-rio co-di-fi-car tam-bém [
+big_convolution](big_convolution.cpp). 
+ []
 
-]
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6130.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\theta' on input line 6130.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 6130.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\circ' on input line 6130.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6130.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6132.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6140.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 6140.
-
-
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6142.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6143.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6153.
-
-
-LaTeX Font Warning: Command \LARGE invalid in math mode on input line 6158.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6159.
-
-[70
-
-]
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6170.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6180.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6194.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6197.
-
-
-LaTeX Font Warning: Command \Large invalid in math mode on input line 6200.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6211.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6214.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6217.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6220.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6223.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6226.
-
-
-LaTeX Font Warning: Command \large invalid in math mode on input line 6230.
-
-[71] (./Almanaque.aux)
+[72] [73] [74] [75] [76] (./Almanaque.aux)
 Package rerunfilecheck Info: File `Almanaque.out' has not changed.
-(rerunfilecheck)             Checksum: F0269705F4D5F6655FE93BE863E71F8A;12184.
+(rerunfilecheck)             Checksum: 06C67035D68DC85B3E04F29E3F5FF828;13230.
  ) 
 Here is how much of TeX's memory you used:
- 22970 strings out of 479382
- 337660 string characters out of 5869399
- 1052201 words of memory out of 5000000
- 36646 multiletter control sequences out of 15000+600000
- 493473 words of font info for 94 fonts, out of 8000000 for 9000
+ 23138 strings out of 479382
+ 339943 string characters out of 5869399
+ 1073201 words of memory out of 5000000
+ 36731 multiletter control sequences out of 15000+600000
+ 493357 words of font info for 95 fonts, out of 8000000 for 9000
  430 hyphenation exceptions out of 8191
- 74i,12n,100p,3262b,2046s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/op
-t/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</opt/loc
+ 74i,12n,100p,3262b,2140s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/opt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-ts1.enc}{/o
+pt/local/share/texmf-texlive/fonts/enc/dvips/cm-super/cm-super-t1.enc}</opt/loc
 al/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/local/sh
 are/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/local/share/t
 exmf-texlive/fonts/type1/public/amsfonts/cm/cmmi12.pfb></opt/local/share/texmf-
-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></opt/local/share/texmf-texliv
-e/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/local/share/texmf-texlive/font
-s/type1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/fonts/type
-1/public/amsfonts/cm/cmr12.pfb></opt/local/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsf
-onts/cm/cmr8.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
-7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-</opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-</opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1000.pfb></opt/
-local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1200.pfb></opt/local/
-share/texmf-texlive/fonts/type1/public/cm-super/sfbx1440.pfb></opt/local/share/
-texmf-texlive/fonts/type1/public/cm-super/sfbx2074.pfb></opt/local/share/texmf-
-texlive/fonts/type1/public/cm-super/sfbx2488.pfb></opt/local/share/texmf-texliv
-e/fonts/type1/public/cm-super/sfrm0800.pfb></opt/local/share/texmf-texlive/font
-s/type1/public/cm-super/sfrm1000.pfb></opt/local/share/texmf-texlive/fonts/type
-1/public/cm-super/sfrm1200.pfb></opt/local/share/texmf-texlive/fonts/type1/publ
-ic/cm-super/sfrm1440.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-
-super/sfrm1728.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/
-sfsl1000.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sftt08
+texlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></opt/local/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/local/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmr12.pfb></opt/local/share/texmf-texlive/fonts/type
+1/public/amsfonts/cm/cmr7.pfb></opt/local/share/texmf-texlive/fonts/type1/publi
+c/amsfonts/cm/cmr8.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/c
+m/cmsy7.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy
+8.pfb></opt/local/share/texmf-texlive/fonts/type1/public/amsfonts/symbols/msbm1
+0.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1000.pfb>
+</opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1200.pfb></opt/
+local/share/texmf-texlive/fonts/type1/public/cm-super/sfbx1440.pfb></opt/local/
+share/texmf-texlive/fonts/type1/public/cm-super/sfbx2074.pfb></opt/local/share/
+texmf-texlive/fonts/type1/public/cm-super/sfbx2488.pfb></opt/local/share/texmf-
+texlive/fonts/type1/public/cm-super/sfrm0800.pfb></opt/local/share/texmf-texliv
+e/fonts/type1/public/cm-super/sfrm1000.pfb></opt/local/share/texmf-texlive/font
+s/type1/public/cm-super/sfrm1200.pfb></opt/local/share/texmf-texlive/fonts/type
+1/public/cm-super/sfrm1440.pfb></opt/local/share/texmf-texlive/fonts/type1/publ
+ic/cm-super/sfrm1728.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-
+super/sfsl1000.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/
+sftt0800.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sftt10
 00.pfb></opt/local/share/texmf-texlive/fonts/type1/public/cm-super/sftt1200.pfb
 >
-Output written on Almanaque.pdf (72 pages, 678105 bytes).
+Output written on Almanaque.pdf (77 pages, 723649 bytes).
 PDF statistics:
- 5652 PDF objects out of 6186 (max. 8388607)
- 5470 compressed objects within 55 object streams
- 4049 named destinations out of 4296 (max. 500000)
- 729 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5821 PDF objects out of 6186 (max. 8388607)
+ 5631 compressed objects within 57 object streams
+ 4131 named destinations out of 4296 (max. 500000)
+ 825 words of extra memory for PDF output out of 10000 (max. 10000000)
 
