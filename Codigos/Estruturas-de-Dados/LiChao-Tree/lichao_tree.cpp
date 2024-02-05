@@ -1,23 +1,28 @@
 typedef long long ll;
 
-const ll MAXN = 1e5 + 5, INF = 1e18 + 9;
+const ll MAXN = 2e5 + 5, INF = 1e18 + 9, MAXR = 1e18;
 
 struct Line {
     ll a, b = -INF;
-    ll operator()(ll x) {
-        return a * x + b;
-    }
+    __int128 operator()(ll x) { return (__int128)a * x + b; }
 } tree[4 * MAXN];
+int idx = 0, L[4 * MAXN], R[4 * MAXN];
 
 int le(int n) {
-    return 2 * n + 1;
+    if (!L[n]) {
+        L[n] = ++idx;
+    }
+    return L[n];
 }
 int ri(int n) {
-    return 2 * n + 2;
+    if (!R[n]) {
+        R[n] = ++idx;
+    }
+    return R[n];
 }
 
-void insert(Line line, int n = 0, int l = 0, int r = MAXN) {
-    int mid = (l + r) / 2;
+void insert(Line line, int n = 0, ll l = -MAXR, ll r = MAXR) {
+    ll mid = (l + r) / 2;
     bool bl = line(l) < tree[n](l);
     bool bm = line(mid) < tree[n](mid);
     if (!bm) {
@@ -33,11 +38,11 @@ void insert(Line line, int n = 0, int l = 0, int r = MAXN) {
     }
 }
 
-ll query(int x, int n = 0, int l = 0, int r = MAXN) {
+__int128 query(int x, int n = 0, ll l = -MAXR, ll r = MAXR) {
     if (l == r) {
         return tree[n](x);
     }
-    int mid = (l + r) / 2;
+    ll mid = (l + r) / 2;
     if (x < mid) {
         return max(tree[n](x), query(x, le(n), l, mid));
     } else {

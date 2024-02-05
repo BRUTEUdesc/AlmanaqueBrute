@@ -178,6 +178,10 @@ python3 .github/scripts/pdfer.py
 
 - [All Submasks](Codigos/Paradigmas/All-Submasks)
 
+### [Primitivas](Codigos/Primitivas)
+
+- [Modular Int](Codigos/Primitivas/Modular-Int)
+
 ### [Matemática](Codigos/Matemática)
 
 - [Primos](Codigos/Matemática/Primos)

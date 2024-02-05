@@ -35,20 +35,14 @@ struct Node {
         soma = a.soma + b.soma;
     }
 
-    void print() {
-        printf("%d %d %d %lld\n", m1, m2, cont, soma);
-    }
+    void print() { printf("%d %d %d %lld\n", m1, m2, cont, soma); }
 };
 
 int n, q;
 vector<Node> tree;
 
-int le(int n) {
-    return 2 * n + 1;
-}
-int ri(int n) {
-    return 2 * n + 2;
-}
+int le(int n) { return 2 * n + 1; }
+int ri(int n) { return 2 * n + 2; }
 
 void push(int n, int esq, int dir) {
     while (!tree[n].lazy.empty()) {
@@ -87,9 +81,7 @@ void build(int n, int esq, int dir, vector<int> &v) {
         tree[n].merge(tree[le(n)], tree[ri(n)]);
     }
 }
-void build(vector<int> &v) {
-    build(0, 0, n - 1, v);
-}
+void build(vector<int> &v) { build(0, 0, n - 1, v); }
 
 // ai = max(ai, mi) em [l, r]
 void update(int n, int esq, int dir, int l, int r, int mi) {
@@ -111,9 +103,7 @@ void update(int n, int esq, int dir, int l, int r, int mi) {
         tree[n].merge(tree[le(n)], tree[ri(n)]);
     }
 }
-void update(int l, int r, int mi) {
-    update(0, 0, n - 1, l, r, mi);
-}
+void update(int l, int r, int mi) { update(0, 0, n - 1, l, r, mi); }
 
 // soma v em [l, r]
 void upsoma(int n, int esq, int dir, int l, int r, int v) {
@@ -136,9 +126,7 @@ void upsoma(int n, int esq, int dir, int l, int r, int v) {
         tree[n].merge(tree[le(n)], tree[ri(n)]);
     }
 }
-void upsoma(int l, int r, int v) {
-    upsoma(0, 0, n - 1, l, r, v);
-}
+void upsoma(int l, int r, int v) { upsoma(0, 0, n - 1, l, r, v); }
 
 // soma de [l, r]
 int query(int n, int esq, int dir, int l, int r) {
@@ -152,9 +140,7 @@ int query(int n, int esq, int dir, int l, int r) {
     int mid = (esq + dir) / 2;
     return query(le(n), esq, mid, l, r) + query(ri(n), mid + 1, dir, l, r);
 }
-int query(int l, int r) {
-    return query(0, 0, n - 1, l, r);
-}
+int query(int l, int r) { return query(0, 0, n - 1, l, r); }
 
 int main() {
     cin >> n;

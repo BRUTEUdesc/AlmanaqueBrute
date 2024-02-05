@@ -6,7 +6,7 @@ Algoritmo de Lowest Common Ancestor usando EulerTour e Sparse Table
 
 Complexidade de tempo:
 
-- O(Nlog(N)) Preprocessing
-- O(1) Query LCA
+- $\mathcal{O}(Nlog(N))$ Preprocessing
+- $\mathcal{O}(1)$ Query LCA
 
-Complexidade de espaço: O(Nlog(N))
+Complexidade de espaço: $\mathcal{O}(Nlog(N))$

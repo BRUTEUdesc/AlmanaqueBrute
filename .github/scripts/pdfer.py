@@ -121,8 +121,10 @@ def printa_readme(path: Path, FILE: Path):
 
 
 def printa_codigo(path: Path, FILE: Path):
-    max_lenght = 100
-    two_columns = True
+    clean_name = path.name.replace("_", "\\_")
+    FILE.write("Codigo: " + clean_name + "\n\n")
+    max_lenght = 120
+    two_columns = False
     with open(path, "r") as f:
         for line in f.readlines():
             if len(line) > max_lenght:
@@ -141,6 +143,15 @@ def printa_codigo(path: Path, FILE: Path):
 
     FILE.write("\\hfill\n\n")
 
+def fix_readme(path: Path):
+    # check if it has an empty line at the end
+    lines = []
+    with open(path, "r") as f:
+        lines = f.readlines()
+        while lines[-1].strip() in ["", "\n"]:
+            lines.pop()
+    with open(path, "w") as f:
+        f.write("".join(lines))
 
 def dfs(path: Path, FILE: Path, level: int = 0):
     printa_section(path, FILE, level)
@@ -160,6 +171,8 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         if not (path / "README.md").exists():
             raise Exception(f"README.md not found in {path}")
         readme = path / "README.md"
+
+        fix_readme(readme)
         printa_readme(readme, FILE)
 
         CODIGOS = list(path.glob("*.cpp"))

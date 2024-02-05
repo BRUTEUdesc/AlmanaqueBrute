@@ -5,9 +5,7 @@ struct seg {
     ll tree[SEGMAX];
     int R[SEGMAX], L[SEGMAX],
         ptr = 2; // 0 is NULL; 1 is First Root
-    ll op(ll a, ll b) {
-        return (a + b) % MOD;
-    }
+    ll op(ll a, ll b) { return (a + b) % MOD; }
     int le(int i) {
         if (L[i] == 0) {
             L[i] = ptr++;

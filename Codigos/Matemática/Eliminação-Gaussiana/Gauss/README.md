@@ -2,4 +2,4 @@
 
 Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes reais.
 
-- Complexidade de tempo: $O(n^3)$
+- Complexidade de tempo: $\mathcal{O}(n^3)$

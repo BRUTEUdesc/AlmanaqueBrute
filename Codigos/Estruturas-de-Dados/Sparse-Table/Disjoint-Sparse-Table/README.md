@@ -1,5 +1,5 @@
 # [Disjoint Sparse Table](dst.cpp)
 
-Resolve query de range para qualquer operação associativa em $O(1)$.
+Resolve query de range para qualquer operação associativa em $\mathcal{O}(1)$.
 
-Pré-processamento em $O(n \log n)$.
+Pré-processamento em $\mathcal{O}(n \log n)$.

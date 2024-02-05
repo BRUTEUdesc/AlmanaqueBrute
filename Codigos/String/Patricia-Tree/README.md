@@ -15,5 +15,5 @@ Implementação PB-DS, extremamente curta e confusa:
 - Pegar menor elemento lexicográfico *maior ou igual* ao prefixo: `*pat.lower_bound("sei");` 
 - Pegar menor elemento lexicográfico *maior* ao prefixo: `*pat.upper_bound("sei");` 
 
-**TODAS AS OPERAÇÕES EM O( |S| )**  
+**TODAS AS OPERAÇÕES EM $\mathcal{O}(|S|)$**  
 **NÃO ACEITA ELEMENTOS REPETIDOS**

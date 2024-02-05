@@ -24,9 +24,7 @@ namespace st {
         st.assign(n, vector<int>(me + 1, 0));
         et_dfs(root, root);
     }
-    bool is_ancestor(int u, int v) {
-        return tin[u] <= tin[v] && tout[u] >= tout[v];
-    }
+    bool is_ancestor(int u, int v) { return tin[u] <= tin[v] && tout[u] >= tout[v]; }
     int lca(int u, int v) {
         if (is_ancestor(u, v)) {
             return u;

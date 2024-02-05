@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper, oneside]{book}
+\documentclass[10pt, a4paper, oneside]{book}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb,amsmath}
@@ -12,12 +12,17 @@
 \addtolength{\parskip}{.5\baselineskip}
 \setlength{\parindent}{0pt}
 
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{colortbl}
 \usepackage{xcolor}
+\definecolor{commentgreen}{RGB}{2,112,10}
+\definecolor{eminence}{RGB}{210,31,60}
 \usepackage{listings} %biblioteca pro codigo
 
 \usepackage{multicol} %biblioteca pra duas colunas
 \setlength{\columnseprule}{0.5pt}
-\setlength{\columnsep}{10pt} %distancia do texto ate a barra
+\setlength{\columnsep}{25pt} %distancia do texto ate a barra
 \def\columnseprulecolor{\color{black}}
 
 % \usepackage{color}    %deixa o codigo colorido bonitinho
@@ -32,43 +37,94 @@
 \definecolor{gray}{rgb}{0.2, 0.2, 0.2} %cor pros comentarios
 % \renewcommand{\footnotesize}{\small} %isso eh pra mudar o tamanho da fonte do codigo
 
-\lstset{ %opcoes pro codigo
-	language=C++,
+\lstset{
+	numbers=left,
 	breaklines=true,
-	keywordstyle=\color{black}\bfseries,
-	commentstyle=\color{darkgray},
 	breakatwhitespace=true,
+	numbersep=5pt,
+	%rulecolor=\color{black},
+	%   xleftmargin=\parindent,
 	% frame=single,
-	% numbers=left,
-	% xleftmargin=0.50cm,
-	rulecolor=\color{black},
-	showstringspaces=false
-	stringstyle=\color{purple},
-	tabsize=2,
-	basicstyle=\footnotesize,
-	% basicstyle=\ttfamily\footnotesize, % fonte pro codigo, nao sei qual dos dois eu prefiro
+	xleftmargin=0.4cm,
+	basicstyle=\footnotesize\ttfamily,
+	showspaces=false,
+	showstringspaces=false,
+	language=C++,
+	columns=fullflexible,
+	commentstyle=\color{commentgreen},
+	keywordstyle=\color{eminence},
+	escapeinside={<@}{@>},
+	tabsize=4,
 }
+% \lstset{ %opcoes pro codigo
+% 	language=C++,
+% 	breaklines=true,
+% 	keywordstyle=\color{blue}\bfseries,
+% 	commentstyle=\color{darkgray},
+% 	breakatwhitespace=true,
+% 	% frame=single,
+% 	% numbers=left,
+% 	% xleftmargin=0.50cm,
+% 	rulecolor=\color{black},
+% 	showstringspaces=false
+% 	stringstyle=\color{purple},
+% 	tabsize=2,
+% 	basicstyle=\footnotesize,
+% 	basicstyle=\ttfamily\footnotesize, % fonte pro codigo, nao sei qual dos dois eu prefiro
+% }
 \lstset{literate=
-%   *{0}{{{\color{red!20!violet}0}}}1
-%    {1}{{{\color{red!20!violet}1}}}1
-%    {2}{{{\color{red!20!violet}2}}}1
-%    {3}{{{\color{red!20!violet}3}}}1
-%    {4}{{{\color{red!20!violet}4}}}1
-%    {5}{{{\color{red!20!violet}5}}}1
-%    {6}{{{\color{red!20!violet}6}}}1
-%    {7}{{{\color{red!20!violet}7}}}1
-%    {8}{{{\color{red!20!violet}8}}}1
-%    {9}{{{\color{red!20!violet}9}}}1
-%	 {l}{$\text{l}$}1
-	{~}{$\sim$}{1} % ~ bonitinho
+	{á}{{\'a\lst@whitespacefalse}}1 {é}{{\'e\lst@whitespacefalse}}1
+	{í}{{\'i\lst@whitespacefalse}}1 {ó}{{\'o\lst@whitespacefalse}}1
+	{ú}{{\'u\lst@whitespacefalse}}1
+	{Á}{{\'A\lst@whitespacefalse}}1 {É}{{\'E\lst@whitespacefalse}}1
+	{Í}{{\'I\lst@whitespacefalse}}1 {Ó}{{\'O\lst@whitespacefalse}}1
+	{Ú}{{\'U\lst@whitespacefalse}}1
+	{à}{{\`a\lst@whitespacefalse}}1 {è}{{\`e\lst@whitespacefalse}}1
+	{ì}{{\`i\lst@whitespacefalse}}1 {ò}{{\`o\lst@whitespacefalse}}1
+	{ù}{{\`u\lst@whitespacefalse}}1
+	{À}{{\`A\lst@whitespacefalse}}1
+	{È}{{\'E\lst@whitespacefalse}}1 {Ì}{{\`I\lst@whitespacefalse}}1
+	{Ò}{{\`O\lst@whitespacefalse}}1 {Ù}{{\`U\lst@whitespacefalse}}1
+	{ä}{{\"a\lst@whitespacefalse}}1 {ë}{{\"e\lst@whitespacefalse}}1
+	{ï}{{\"i\lst@whitespacefalse}}1 {ö}{{\"o\lst@whitespacefalse}}1
+	{ü}{{\"u\lst@whitespacefalse}}1
+	{Ä}{{\"A\lst@whitespacefalse}}1 {Ë}{{\"E\lst@whitespacefalse}}1
+	{Ï}{{\"I\lst@whitespacefalse}}1 {Ö}{{\"O\lst@whitespacefalse}}1
+	{Ü}{{\"U\lst@whitespacefalse}}1
+	{â}{{\^a\lst@whitespacefalse}}1 {ê}{{\^e\lst@whitespacefalse}}1
+	{î}{{\^i\lst@whitespacefalse}}1 {ô}{{\^o\lst@whitespacefalse}}1
+	{û}{{\^u\lst@whitespacefalse}}1
+	{Â}{{\^A\lst@whitespacefalse}}1 {Ê}{{\^E\lst@whitespacefalse}}1
+	{Î}{{\^I\lst@whitespacefalse}}1 {Ô}{{\^O\lst@whitespacefalse}}1
+	{Û}{{\^U\lst@whitespacefalse}}1
+	{Ã}{{\~A\lst@whitespacefalse}}1 {ã}{{\~a\lst@whitespacefalse}}1
+	{Õ}{{\~O\lst@whitespacefalse}}1 {õ}{{\~o\lst@whitespacefalse}}1
+	{œ}{{\oe\lst@whitespacefalse}}1 {Œ}{{\OE\lst@whitespacefalse}}1
+	{æ}{{\ae\lst@whitespacefalse}}1 {Æ}{{\AE\lst@whitespacefalse}}1
+	{ß}{{\ss\lst@whitespacefalse}}1
+	{ű}{{\H{u}\lst@whitespacefalse}}1 {Ű}{{\H{U}\lst@whitespacefalse}}1
+	{ő}{{\H{o}\lst@whitespacefalse}}1 {Ő}{{\H{O}\lst@whitespacefalse}}1
+	{ç}{{\c c\lst@whitespacefalse}}1 {Ç}{{\c C\lst@whitespacefalse}}1
+	{ø}{{\o\lst@whitespacefalse}}1
+	{å}{{\r a\lst@whitespacefalse}}1 {Å}{{\r A\lst@whitespacefalse}}1
+	{€}{{\euro\lst@whitespacefalse}}1 {£}{{\pounds\lst@whitespacefalse}}1
+	{«}{{\guillemotleft\lst@whitespacefalse}}1
+	{»}{{\guillemotright\lst@whitespacefalse}}1
+	{ñ}{{\~n\lst@whitespacefalse}}1 {Ñ}{{\~N\lst@whitespacefalse}}1
+	{¿}{{?`\lst@whitespacefalse}}1
+	{º}{{\textordmasculine\lst@whitespacefalse}}1
+	%{~}{{\raisebox{0.5ex}{\texttildelow}\lst@whitespacefalse}}1
+	%{^}{{\raisebox{-0.75ex}{\^{}}\lst@whitespacefalse}}1
 }
 
 \title{BRUTE \\ UDESC}
-\author{Eliton Machado da Silva, Enzo de Almeida Rodrigues, Eric Grochowicz, Igor Froehner\\ João Vitor Frölich, João Marcos de Oliveira e Rafael Granza de Mello}	
+\author{Eduardo Scharwz Moreira, Eliton Machado da Silva, Enzo de Almeida Rodrigues,\\
+Eric Grochowicz, Igor Froehner, João Vitor Frölich,\\
+João Marcos de Oliveira, Rafael Granza de Mello e Vinicius Gasparini}
 
 \begin{document}
 
-% \twocolumn
+\twocolumn
 \date{\today}
 \maketitle
 

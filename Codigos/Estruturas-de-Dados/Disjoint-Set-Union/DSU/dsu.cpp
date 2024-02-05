@@ -4,9 +4,7 @@ struct DSU {
     DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
         iota(par.begin(), par.end(), 0);
     }
-    int find(int a) {
-        return a == par[a] ? a : par[a] = find(par[a]);
-    }
+    int find(int a) { return a == par[a] ? a : par[a] = find(par[a]); }
     bool unite(int a, int b) {
         a = find(a), b = find(b);
         if (a == b) {

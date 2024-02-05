@@ -8,4 +8,4 @@ A implementação minimiza os custos, para maximizar basta multiplicar os pesos 
 
 O vetor `result` guarda os pares do matching.
 
-Complexidade de tempo: $O(n^2 * m)$
+Complexidade de tempo: $\mathcal{O}(n^2 * m)$

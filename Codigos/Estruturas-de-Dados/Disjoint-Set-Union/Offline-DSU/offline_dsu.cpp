@@ -1,7 +1,6 @@
 struct Offline_DSU : Full_DSU {
     int time;
-    Offline_DSU(int n = 0) : Full_DSU(n), time(0) {
-    }
+    Offline_DSU(int n = 0) : Full_DSU(n), time(0) { }
     struct query {
         int type, a, b;
     };

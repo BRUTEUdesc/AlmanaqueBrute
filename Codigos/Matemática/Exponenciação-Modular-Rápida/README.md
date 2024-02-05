@@ -4,5 +4,5 @@
 Computa $(base^{exp}) \% mod$.
 <!-- DESCRIPTION -->
 
-- Complexidade de tempo: $O(log(exp))$.
-- Complexidade de espaço: $O(1)$
+- Complexidade de tempo: $\mathcal{O}(log(exp))$.
+- Complexidade de espaço: $\mathcal{O}(1)$

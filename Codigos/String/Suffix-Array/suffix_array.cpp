@@ -61,7 +61,5 @@ struct suffix_array {
         // printf("%2d: %s\n", sa[i], s.c_str() +
         // sa[i]);
     }
-    int operator[](int i) {
-        return sa[i];
-    }
+    int operator[](int i) { return sa[i]; }
 } sa;

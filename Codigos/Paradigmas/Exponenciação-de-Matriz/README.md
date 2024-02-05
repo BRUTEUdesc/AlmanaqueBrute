@@ -4,7 +4,7 @@
 Otimização para DP de prefixo quando o valor atual está em função dos últimos $K$ valores já calculados.   
 <!-- DESCRIPTION -->
 
-* Complexidade de tempo: $O(log(n)*k^3)$
+* Complexidade de tempo: $\mathcal{O}(log(n)*k^3)$
 
 É preciso mapear a DP para uma exponenciação de matriz.
 

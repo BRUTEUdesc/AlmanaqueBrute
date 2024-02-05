@@ -7,21 +7,11 @@ struct Full_DSU {
         iota(par.begin(), par.end(), 0);
         changes.emplace();
     }
-    int find(int a) {
-        return a == par[a] ? a : find(par[a]);
-    }
-    int color(int a) {
-        return a == par[a] ? c[a] : c[a] ^ color(par[a]);
-    }
-    bool bipartite(int a) {
-        return bip[find(a)];
-    }
-    void checkpoint() {
-        changes.emplace();
-    }
-    void save(int &a) {
-        changes.top().emplace(a, a);
-    }
+    int find(int a) { return a == par[a] ? a : find(par[a]); }
+    int color(int a) { return a == par[a] ? c[a] : c[a] ^ color(par[a]); }
+    bool bipartite(int a) { return bip[find(a)]; }
+    void checkpoint() { changes.emplace(); }
+    void save(int &a) { changes.top().emplace(a, a); }
     bool unite(int a, int b) {
         bool equal_color = color(a) == color(b);
         a = find(a), b = find(b);

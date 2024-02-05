@@ -5,8 +5,7 @@ const ll INF = 1e18;
 struct FlowEdge {
     int u, v;
     ll cap, flow = 0;
-    FlowEdge(int u, int v, ll cap) : u(u), v(v), cap(cap) {
-    }
+    FlowEdge(int u, int v, ll cap) : u(u), v(v), cap(cap) { }
 };
 
 struct Dinic {
