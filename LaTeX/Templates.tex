@@ -20,7 +20,7 @@ signed main() {
 
 \section{Template Debug}
 
-Template para debugar variáveis em C++. As primeiras linhas são opcionais, é pra permitir que seja possível debugar pair e vector.
+Template para debugar variáveis em C++. Até a linha 17 é opcional, é pra permitir que seja possível debugar pair e vector.
 Para usar, basta compilar com a flag \texttt{-DBRUTE} (o \texttt{run} já tem essa flag). E no código usar \texttt{debug(x, y, z)}.
 
 \begin{lstlisting}[language=C++]
@@ -112,7 +112,8 @@ cat ok
 \section{Números aleatórios em C++}
 
 É possível usar a função \texttt{rand()} para gerar números aleatórios em C++.
-Útil para gerar casos aleatórios em stress test.
+Útil para gerar casos aleatórios em stress test, não é recomendado para usar em soluções.
+\texttt{rand()} gera números entre \texttt{0} e \texttt{RAND\_MAX} (que é pelo menos \texttt{32767}), mas costuma ser \texttt{2147483647} (depende do sistema/arquitetura).
 
 \begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
@@ -128,6 +129,9 @@ int main() {
 \end{lstlisting}
 
 Para usar números aleatórios em soluções, recomenda-se o uso do \texttt{mt19937}.
+A função \texttt{rng()} gera números entre \texttt{0} e \texttt{UINT\_MAX} (que é \texttt{4294967295}).
+Para gerar números aleatórios de 64 bits, usar \texttt{mt19937\_64} como tipo do \texttt{rng}.
+Recomenda-se o uso da função \texttt{uniform(l, r)} para gerar números aleatórios no intervalo fechado \texttt{[l, r]}.
 
 \begin{lstlisting}[language=C++]
 #include <bits/stdc++.h>
@@ -135,9 +139,13 @@ using namespace std;
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
+int uniform(int l, int r) {
+    return uniform_int_distribution<int>(l, r)(rng);
+}
+
 int main() {
     for (int i = 0; i < 10; i++) {
-        cout << rng() << endl;
+        cout << uniform(0, 100) << endl;
     }
 }
 

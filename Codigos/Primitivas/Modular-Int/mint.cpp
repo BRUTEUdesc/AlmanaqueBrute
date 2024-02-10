@@ -12,7 +12,7 @@ template <int mod> struct Mint {
         if (v < 0) {
             v += mod;
         }
-        val = (int)v;
+        val = int(v);
     }
     m pwr(m b, ll e) {
         m res = 1;
@@ -24,19 +24,21 @@ template <int mod> struct Mint {
         return res;
     }
     m &operator+=(const m &o) {
-        if ((val += o.val) >= mod) {
+        val += o.val;
+        if (val >= mod) {
             val -= mod;
         }
         return *this;
     }
     m &operator-=(const m &o) {
-        if ((val -= o.val) < 0) {
+        val -= o.val;
+        if (val < 0) {
             val += mod;
         }
         return *this;
     }
     m &operator*=(const m &o) {
-        val = (ll)val * o.val % mod;
+        val = int((ll)val * o.val % mod);
         return *this;
     }
     m &operator/=(const m &o) { return *this *= pwr(o, mod - 2); }

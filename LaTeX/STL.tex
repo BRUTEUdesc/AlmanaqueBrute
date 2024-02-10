@@ -119,8 +119,14 @@ Uma pilha (último a entrar, primeiro a sair).
 
 \section{Funções úteis para vetores}
 
-Para usar em \texttt{std::vector}, sempre passar \texttt{v.begin()} e \texttt{v.end()} como argumentos.
-Se for um vetor estilo \texttt{C} (ex: \texttt{int a[10]}), passar \texttt{a} e \texttt{a + 10}.
+Para usar em \texttt{std::vector}, sempre passar \texttt{v.begin()} e \texttt{v.end()} como argumentos pra essas funções.
+
+Se for um vetor estilo \texttt{C}, usar \texttt{v} e \texttt{v + n}. 
+Exemplo:
+\begin{lstlisting}[language=C++]
+    int v[10];
+    sort(v, v + 10);
+\end{lstlisting}
 
 \begin{itemize}
     \item \texttt{fill(v.begin(), v.end(), x)}: Preenche o vetor \texttt{v} com o valor \texttt{x} - $\mathcal{O}(n)$
