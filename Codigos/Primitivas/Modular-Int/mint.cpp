@@ -24,13 +24,15 @@ template <int mod> struct Mint {
         return res;
     }
     m &operator+=(const m &o) {
-        if ((val += o.val) >= mod) {
+        val += o.val;
+        if (val >= mod) {
             val -= mod;
         }
         return *this;
     }
     m &operator-=(const m &o) {
-        if ((val -= o.val) < 0) {
+        val -= o.val;
+        if (val < 0) {
             val += mod;
         }
         return *this;
