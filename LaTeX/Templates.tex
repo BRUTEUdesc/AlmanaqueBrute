@@ -100,11 +100,11 @@ for((i = 1; ; ++i)); do
     echo "Passed test: " $i
 done
 
-echo "WA on the following test:"
+echo "WA no seguinte teste:"
 cat in
-echo "Your answer is:"
+echo "Sua resposta eh:"
 cat out
-echo "Correct answer is:"
+echo "A resposta correta eh:"
 cat ok
 
 \end{lstlisting}
@@ -137,7 +137,7 @@ Recomenda-se o uso da função \texttt{uniform(l, r)} para gerar números aleat�
 #include <bits/stdc++.h>
 using namespace std;
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
 
 int uniform(int l, int r) {
     return uniform_int_distribution<int>(l, r)(rng);

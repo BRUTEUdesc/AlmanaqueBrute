@@ -1,9 +1,9 @@
 template <int mod> struct Mint {
     using m = Mint;
-    int val;
-    Mint() : val(0) { }
+    int v;
+    Mint() : v(0) { }
     Mint(ll v) {
-        if (v < -mod || v >= 2 * mod) {
+        if (v < -mod or v >= 2 * mod) {
             v %= mod;
         }
         if (v >= mod) {
@@ -12,33 +12,35 @@ template <int mod> struct Mint {
         if (v < 0) {
             v += mod;
         }
-        val = int(v);
+        v = int(v);
     }
+    bool operator==(const m &o) const { return v == o.v; }
+    bool operator!=(const m &o) const { return v != o.v; }
+    bool operator<(const m &o) const { return v < o.v; }
     m pwr(m b, ll e) {
         m res = 1;
-        while (e) {
-            if (e & 1)
+        while (e > 0) {
+            if (e & 1) {
                 res *= b;
+            }
             b *= b, e >>= 1;
         }
         return res;
     }
     m &operator+=(const m &o) {
-        val += o.val;
-        if (val >= mod) {
-            val -= mod;
+        if ((v += o.v) >= mod) {
+            v -= mod;
         }
         return *this;
     }
     m &operator-=(const m &o) {
-        val -= o.val;
-        if (val < 0) {
-            val += mod;
+        if ((v -= o.v) < 0) {
+            v += mod;
         }
         return *this;
     }
     m &operator*=(const m &o) {
-        val = int((ll)val * o.val % mod);
+        v = int(ll(v) * o.v % mod);
         return *this;
     }
     m &operator/=(const m &o) { return *this *= pwr(o, mod - 2); }
@@ -51,7 +53,7 @@ template <int mod> struct Mint {
     friend m operator*(m a, const m &b) { return a *= b; }
     friend m operator/(m a, const m &b) { return a /= b; }
     friend m operator^(m a, ll e) { return a ^= e; }
-    friend ostream &operator<<(ostream &os, const m &a) { return os << a.val; }
+    friend ostream &operator<<(ostream &os, const m &a) { return os << a.v; }
     friend istream &operator>>(istream &is, m &a) {
         ll x;
         is >> x, a = m(x);
