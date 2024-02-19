@@ -1,10 +1,5 @@
 # [Soma do floor (n/i)](sum_of_floor.cpp)
 
-<!-- DESCRIPTION -->
-Computa
+Esse código computa, em $\mathcal{O}(\sqrt{n})$, o seguinte somatório:
 
-$$ \sum_{i=1}^{n} \lfloor\frac{n}{i}\rfloor $$
-
-<!-- DESCRIPTION -->
-
-- Complexidade de tempo: $\mathcal{O}(\sqrt{n})$
+$$ \sum_{i=1}^{n} \left\lfloor \frac{n}{i}\right\rfloor $$

@@ -1,51 +1,65 @@
-typedef long long ll;
+template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)> struct LichaoTree {
+    const ll INF = ll(2e18) + 10;
+    struct Line {
+        ll a, b;
+        Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
+        ll operator()(ll x) { return a * x + b; }
+    };
+    vector<Line> tree;
+    vector<int> L, R;
 
-const ll MAXN = 2e5 + 5, INF = 1e18 + 9, MAXR = 1e18;
+    int newnode() {
+        tree.push_back(Line());
+        L.push_back(-1);
+        R.push_back(-1);
+        return int(tree.size() - 1);
+    }
 
-struct Line {
-    ll a, b = -INF;
-    __int128 operator()(ll x) { return (__int128)a * x + b; }
-} tree[4 * MAXN];
-int idx = 0, L[4 * MAXN], R[4 * MAXN];
+    LichaoTree() { newnode(); }
 
-int le(int n) {
-    if (!L[n]) {
-        L[n] = ++idx;
+    int le(int u) {
+        if (L[u] == -1) {
+            L[u] = newnode();
+        }
+        return L[u];
     }
-    return L[n];
-}
-int ri(int n) {
-    if (!R[n]) {
-        R[n] = ++idx;
-    }
-    return R[n];
-}
 
-void insert(Line line, int n = 0, ll l = -MAXR, ll r = MAXR) {
-    ll mid = (l + r) / 2;
-    bool bl = line(l) < tree[n](l);
-    bool bm = line(mid) < tree[n](mid);
-    if (!bm) {
-        swap(tree[n], line);
+    int ri(int u) {
+        if (R[u] == -1) {
+            R[u] = newnode();
+        }
+        return R[u];
     }
-    if (l == r) {
-        return;
-    }
-    if (bl != bm) {
-        insert(line, le(n), l, mid);
-    } else {
-        insert(line, ri(n), mid + 1, r);
-    }
-}
 
-__int128 query(int x, int n = 0, ll l = -MAXR, ll r = MAXR) {
-    if (l == r) {
-        return tree[n](x);
+    void insert(Line line, int n = 0, ll l = MINL, ll r = MAXR) {
+        ll mid = (l + r) / 2;
+        bool bl = line(l) > tree[n](l);
+        bool bm = line(mid) > tree[n](mid);
+        bool br = line(r) > tree[n](r);
+        if (bm) {
+            swap(tree[n], line);
+        }
+        if (line.b == -INF) {
+            return;
+        }
+        if (bl != bm) {
+            insert(line, le(n), l, mid - 1);
+        } else if (br != bm) {
+            insert(line, ri(n), mid + 1, r);
+        }
     }
-    ll mid = (l + r) / 2;
-    if (x < mid) {
-        return max(tree[n](x), query(x, le(n), l, mid));
-    } else {
-        return max(tree[n](x), query(x, ri(n), mid + 1, r));
+
+    ll query(int x, int n = 0, ll l = MINL, ll r = MAXR) {
+        if (tree[n](x) == -INF || (l > r))
+            return -INF;
+        if (l == r) {
+            return tree[n](x);
+        }
+        ll mid = (l + r) / 2;
+        if (x < mid) {
+            return max(tree[n](x), query(x, le(n), l, mid - 1));
+        } else {
+            return max(tree[n](x), query(x, ri(n), mid + 1, r));
+        }
     }
-}
+};
