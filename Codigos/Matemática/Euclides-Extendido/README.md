@@ -1,4 +1,4 @@
-# Máximo divisor comum
+# Euclides Extendido
 
 <!-- DESCRIPTION -->
 Computa gcd(a, b) e valores x e y | a*x + b*y = gcd(a, b) 
