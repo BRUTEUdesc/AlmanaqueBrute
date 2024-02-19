@@ -1,5 +1,8 @@
 \chapter{STL (Standard Template Library - C++)}
 
+Os templates da STL são estruturas de dados e algoritmos já implementadas em \texttt{C++} que facilitam as implementações, além de serem muito eficients.
+Em geral, todas estão incluídas no cabeçalho \texttt{<bits/stdc++.h>}. As estruturas são templates genéricos, podem ser usadas com qualquer tipo, todos os exemplos a seguir são com \texttt{int} apenas por motivos de simplicidade.
+
 \section{Vector}
 
 Um vetor dinâmico (que pode crescer e diminuir de tamanho).
@@ -48,6 +51,14 @@ Um conjunto de elementos únicos. Por baixo, é uma árvore de busca binária ba
     \item \texttt{s.end()}: Retorna um iterador para o elemento seguinte ao último do conjunto - $\mathcal{O}(1)$
 \end{itemize}
 
+\section{Multiset}
+
+Basicamente um \texttt{set}, mas permite elementos repetidos. Possui todos os métodos de um \texttt{set}.
+
+Declaração: \texttt{multiset<int> ms}.
+
+Um detalhe é que, ao usar o método \texttt{erase}, ele remove todas as ocorrências do elemento. Para remover apenas uma ocorrência, usar \texttt{ms.erase(ms.find(x))}.
+
 \section{Map}
 
 Um conjunto de pares chave-valor, onde as chaves são únicas. Por baixo, é uma árvore de busca binária balanceada.
@@ -90,6 +101,8 @@ Uma fila de prioridade (o maior elemento é o primeiro a sair).
     \item \texttt{pq.size()}: Retorna o tamanho da fila de prioridade - $\mathcal{O}(1)$
     \item \texttt{pq.empty()}: Retorna \texttt{true} se a fila de prioridade estiver vazia - $\mathcal{O}(1)$
 \end{itemize}
+
+Para fazer uma fila de prioridade que o menor elemento é o primeiro a sair, usar \texttt{priority\_queue<int, vector<int>, greater<>> pq}.
 
 \section{Stack}
 

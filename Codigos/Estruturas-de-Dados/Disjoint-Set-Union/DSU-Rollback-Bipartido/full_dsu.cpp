@@ -11,36 +11,31 @@ struct Full_DSU {
     int color(int a) { return a == par[a] ? c[a] : c[a] ^ color(par[a]); }
     bool bipartite(int a) { return bip[find(a)]; }
     void checkpoint() { changes.emplace(); }
-    void save(int &a) { changes.top().emplace(a, a); }
+    void change(int &a, int b) {
+        changes.top().emplace(a, a);
+        a = b;
+    }
     bool unite(int a, int b) {
         bool equal_color = color(a) == color(b);
         a = find(a), b = find(b);
         if (a == b) {
             if (equal_color) {
-                save(bip[a]);
-                save(all_bipartite);
-                bip[a] = 0;
-                all_bipartite = 0;
+                change(bip[a], 0);
+                change(all_bipartite, 0);
             }
             return false;
         }
         if (sz[a] < sz[b]) {
             swap(a, b);
         }
-        save(number_of_sets);
-        save(par[b]);
-        save(sz[a]);
-        save(c[b]);
-        save(bip[a]);
-        save(all_bipartite);
-        number_of_sets--;
-        par[b] = a;
-        sz[a] += sz[b];
+        change(number_of_sets, number_of_sets - 1);
+        change(par[b], a);
+        change(sz[a], sz[a] + sz[b]);
+        change(bip[a], bip[a] && bip[b]);
+        change(all_bipartite, all_bipartite && bip[a]);
         if (equal_color) {
-            c[b] = 1;
+            change(c[b], 1);
         }
-        bip[a] &= bip[b];
-        all_bipartite &= bip[a];
         return true;
     }
     void rollback() {

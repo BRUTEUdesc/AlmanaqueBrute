@@ -8,7 +8,10 @@ struct Rollback_DSU {
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
     void checkpoint() { changes.emplace(); }
-    void save(int &a) { changes.top().emplace(a, a); }
+    void change(int &a, int b) {
+        changes.top().emplace(a, a);
+        a = b;
+    }
     bool unite(int a, int b) {
         a = find(a), b = find(b);
         if (a == b) {
@@ -17,12 +20,9 @@ struct Rollback_DSU {
         if (sz[a] < sz[b]) {
             swap(a, b);
         }
-        save(number_of_sets);
-        save(par[b]);
-        save(sz[a]);
-        number_of_sets--;
-        par[b] = a;
-        sz[a] += sz[b];
+        change(number_of_sets, number_of_sets - 1);
+        change(par[b], a);
+        change(sz[a], sz[a] + sz[b]);
         return true;
     }
     void rollback() {
