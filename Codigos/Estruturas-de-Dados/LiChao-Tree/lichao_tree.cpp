@@ -12,7 +12,7 @@ template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)> struct LichaoTree {
         tree.push_back(Line());
         L.push_back(-1);
         R.push_back(-1);
-        return int(tree.size() - 1);
+        return int(tree.size()) - 1;
     }
 
     LichaoTree() { newnode(); }
