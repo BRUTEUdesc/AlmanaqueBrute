@@ -24,7 +24,7 @@ struct SparseTable {
         }
         return res;
     }
-    // O(1) Query for overlab friendly operations
+    // O(1) Query for overlap friendly operations
     // ex: max(), min(), gcd(), f(x, y) = x
     int query(int l, int r) {
         // if (l > r) return 2e9;

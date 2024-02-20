@@ -1,7 +1,5 @@
 # [Sparse Table](sparse_table.cpp)
 
-*Read in [English](README.en.md)*
-
 Responde consultas de maneira eficiente em um conjunto de dados estáticos.\
 Realiza um pré-processamento para diminuir o tempo de cada consulta.
 
