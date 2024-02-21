@@ -1,4 +1,4 @@
-template<typename T> struct point {
+template <typename T> struct point {
     T x, y;
     point(T _x = 0, T _y = 0) : x(_x), y(_y) { }
 
@@ -18,7 +18,9 @@ template<typename T> struct point {
         return dx * dx + dy * dy;
     }
 
-    friend ostream &operator<<(ostream &out, const p &a) { return out << "(" << a.x << "," << a.y << ")"; }
+    friend ostream &operator<<(ostream &out, const p &a) {
+        return out << "(" << a.x << "," << a.y << ")";
+    }
     friend istream &operator>>(istream &in, p &a) { return in >> a.x >> a.y; }
 };
 

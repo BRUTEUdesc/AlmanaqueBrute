@@ -4,8 +4,8 @@ bool ccw(pt &p, pt &a, pt &b, bool include_collinear = 0) {
     return include_collinear ? (p2 ^ p1) <= 0 : (p2 ^ p1) < 0;
 }
 
-void sort_by_angle(vector<pt>& v) { // sorta o vetor por angulo em relacao ao pivo
-    pt p0 = *min_element(begin(v), end(v)); 
+void sort_by_angle(vector<pt> &v) { // sorta o vetor por angulo em relacao ao pivo
+    pt p0 = *min_element(begin(v), end(v));
     sort(begin(v), end(v), [&](pt &l, pt &r) { // sorta clockwise
         pt p1 = l - p0;
         pt p2 = r - p0;
@@ -30,7 +30,9 @@ vector<pt> convex_hull(vector<pt> v, bool include_collinear = 0) {
 
     vector<pt> ch{v[0], v[1]};
     for (int i = 2; i < n; i++) {
-        while (ch.size() > 2 && (ccw(ch.end()[-2], ch.end()[-1], v[i], !include_collinear))) ch.pop_back();
+        while (ch.size() > 2 &&
+               (ccw(ch.end()[-2], ch.end()[-1], v[i], !include_collinear)))
+            ch.pop_back();
         ch.emplace_back(v[i]);
     }
 
