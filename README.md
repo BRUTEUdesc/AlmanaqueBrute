@@ -152,6 +152,10 @@ python3 .github/scripts/pdfer.py
 
 - [Hashing](Codigos/String/Hashing)
 
+    - [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
+
+    - [Hashing Estático](Codigos/String/Hashing/Hashing-Estático)
+
 - [Trie](Codigos/String/Trie)
 
 - [Manacher](Codigos/String/Manacher)
@@ -181,6 +185,12 @@ python3 .github/scripts/pdfer.py
 ### [Primitivas](Codigos/Primitivas)
 
 - [Modular Int](Codigos/Primitivas/Modular-Int)
+
+- [Ponto 2D](Codigos/Primitivas/Ponto-2D)
+
+### [Geometria](Codigos/Geometria)
+
+- [Convex Hull](Codigos/Geometria/Convex-Hull)
 
 ### [Matemática](Codigos/Matemática)
 
