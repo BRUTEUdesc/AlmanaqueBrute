@@ -1,7 +1,3 @@
-# [Seg Tree](seg_tree.cpp)
-Implementação padrão de Seg Tree
+# [Segment Tree](seg_tree.cpp)
 
-- Complexidade de tempo (Pré-processamento): $\mathcal{O}(N)$
-- Complexidade de tempo (Consulta em intervalo): $\mathcal{O}(log(N))$
-- Complexidade de tempo (Update em ponto): $\mathcal{O}(log(N))$
-- Complexidade de espaço: $4 * N = \mathcal{O}(N)$
+Implementação padrão de Segment Tree, suporta operações de consulta em intervalo e update pontual. Está implementada para soma, mas pode ser facilmente modificada para outras operações. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(log(n))$.

@@ -1,18 +1,20 @@
-template <int mod> struct Mint {
+template <int MOD> struct Mint {
     using m = Mint;
     int v;
     Mint() : v(0) { }
-    Mint(ll v) {
-        if (v < -mod or v >= 2 * mod) {
-            v %= mod;
+    Mint(ll val) {
+        if (val < -MOD or val >= 2 * MOD) {
+            val %= MOD;
         }
-        if (v >= mod) {
-            v -= mod;
+        val -= (MOD * (val >= MOD));
+        val += (MOD * (val < 0));
+        if (val >= MOD) {
+            val -= MOD;
         }
-        if (v < 0) {
-            v += mod;
+        if (val < 0) {
+            val += MOD;
         }
-        v = int(v);
+        v = int(val);
     }
     bool operator==(const m &o) const { return v == o.v; }
     bool operator!=(const m &o) const { return v != o.v; }
@@ -28,22 +30,22 @@ template <int mod> struct Mint {
         return res;
     }
     m &operator+=(const m &o) {
-        if ((v += o.v) >= mod) {
-            v -= mod;
+        if ((v += o.v) >= MOD) {
+            v -= MOD;
         }
         return *this;
     }
     m &operator-=(const m &o) {
         if ((v -= o.v) < 0) {
-            v += mod;
+            v += MOD;
         }
         return *this;
     }
     m &operator*=(const m &o) {
-        v = int(ll(v) * o.v % mod);
+        v = int(ll(v) * o.v % MOD);
         return *this;
     }
-    m &operator/=(const m &o) { return *this *= pwr(o, mod - 2); }
+    m &operator/=(const m &o) { return *this *= pwr(o, MOD - 2); }
     m &operator^=(ll e) {
         assert(e >= 0);
         return *this = pwr(*this, e);
@@ -61,5 +63,5 @@ template <int mod> struct Mint {
     }
 };
 
-const int mod = 998244353;
-using mint = Mint<mod>;
+const int MOD = 998244353; // o MOD tem que ser primo
+using mint = Mint<MOD>;

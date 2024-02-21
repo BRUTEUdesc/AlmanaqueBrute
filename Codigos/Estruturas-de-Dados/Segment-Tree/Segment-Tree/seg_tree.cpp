@@ -1,50 +1,69 @@
-namespace seg {
-    const int MAX = 2e5 + 5;
-    int n;
-    ll tree[4 * MAX];
+struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
-    int le(int n) { return 2 * n + 1; }
-    int ri(int n) { return 2 * n + 2; }
-    void build(int n, int esq, int dir, const vector<ll> &v) {
-        if (esq == dir) {
-            tree[n] = v[esq];
+    const ll neutral = 0;
+
+    int n;
+    vector<ll> t;
+
+    void build(int u, int l, int r, const vector<ll> &v) {
+        if (l == r) {
+            t[u] = v[l];
         } else {
-            int mid = (esq + dir) / 2;
-            build(le(n), esq, mid, v);
-            build(ri(n), mid + 1, dir, v);
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+            int mid = (l + r) >> 1;
+            build(u << 1, l, mid, v);
+            build(u << 1 | 1, mid + 1, r, v);
+            t[u] = merge(t[u << 1], t[u << 1 | 1]);
         }
     }
-    void build(const vector<ll> &v) {
-        n = v.size();
-        build(0, 0, n - 1, v);
+
+    void build(int _n) { // pra construir com tamanho, mas vazia
+        n = _n;
+        t.assign(n << 2, neutral);
     }
-    ll query(int n, int esq, int dir, int l, int r) {
-        if (esq > r || dir < l) {
-            return 0;
+
+    void build(ll *bg, ll *en) { // pra construir com array estatico
+        n = int(en - bg);
+        t.assign(n << 2, neutral);
+        vector<ll> aux(n);
+        for (int i = 0; i < n; i++) {
+            aux[i] = bg[i];
         }
-        if (l <= esq && dir <= r) {
-            return tree[n];
-        }
-        int mid = (esq + dir) / 2;
-        return merge(query(le(n), esq, mid, l, r), query(ri(n), mid + 1, dir, l, r));
+        build(1, 0, n - 1, aux);
     }
-    ll query(int l, int r) { return query(0, 0, n - 1, l, r); }
-    void update(int n, int esq, int dir, int x, ll v) {
-        if (esq > x || dir < x) {
-            return;
+
+    void build(const vector<ll> &v) { // pra construir com vector
+        n = int(v.size());
+        t.assign(n << 2, neutral);
+        build(1, 0, n - 1, v);
+    }
+
+    ll query(int u, int l, int r, int L, int R) {
+        if (l > R || r < L) {
+            return neutral;
         }
-        if (esq == dir) {
-            tree[n] = v;
+        if (l >= L && r <= R) {
+            return t[u];
+        }
+        int mid = (l + r) >> 1;
+        ll ql = query(u << 1, l, mid, L, R);
+        ll qr = query(u << 1 | 1, mid + 1, r, L, R);
+        return merge(ql, qr);
+    }
+    ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
+
+    void update(int u, int l, int r, int i, ll x) {
+        if (l == r) {
+            t[u] += x; // soma
+            // t[u] = x; // substitui
         } else {
-            int mid = (esq + dir) / 2;
-            if (x <= mid) {
-                update(le(n), esq, mid, x, v);
+            int mid = (l + r) >> 1;
+            if (i <= mid) {
+                update(u << 1, l, mid, i, x);
             } else {
-                update(ri(n), mid + 1, dir, x, v);
+                update(u << 1 | 1, mid + 1, r, i, x);
             }
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+            t[u] = merge(t[u << 1], t[u << 1 | 1]);
         }
     }
-    void update(int x, ll v) { update(0, 0, n - 1, x, v); }
-}
+    void update(int i, ll x) { update(1, 0, n - 1, i, x); }
+};

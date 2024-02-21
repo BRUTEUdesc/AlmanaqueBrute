@@ -1,62 +1,76 @@
-namespace seg {
-    const int MAX = 1e5 + 5;
+struct SegTree {
     struct node {
-        ll pref, suff, sum, best;
+        ll sum, pref, suf, ans;
     };
-    node new_node(ll v) { return node{v, v, v, v}; }
-    const node NEUTRAL = {0, 0, 0, 0};
-    node tree[4 * MAX];
-    node merge(node a, node b) {
-        ll pref = max(a.pref, a.sum + b.pref);
-        ll suff = max(b.suff, b.sum + a.suff);
-        ll sum = a.sum + b.sum;
-        ll best = max(a.suff + b.pref, max(a.best, b.best));
-        return node{pref, suff, sum, best};
+    const node neutral = {0, 0, 0, 0};
+    node merge(const node &a, const node &b) {
+        return {a.sum + b.sum,
+                max(a.pref, a.sum + b.pref),
+                max(b.suf, b.sum + a.suf),
+                max({a.ans, b.ans, a.suf + b.pref})};
     }
 
     int n;
-    int le(int n) { return 2 * n + 1; }
-    int ri(int n) { return 2 * n + 2; }
-    void build(int n, int esq, int dir, const vector<ll> &v) {
-        if (esq == dir) {
-            tree[n] = new_node(v[esq]);
+    vector<node> t;
+
+    void build(int u, int l, int r, const vector<ll> &v) {
+        if (l == r) {
+            t[u] = {v[l], v[l], v[l], v[l]};
         } else {
-            int mid = (esq + dir) / 2;
-            build(le(n), esq, mid, v);
-            build(ri(n), mid + 1, dir, v);
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+            int mid = (l + r) >> 1;
+            build(u << 1, l, mid, v);
+            build(u << 1 | 1, mid + 1, r, v);
+            t[u] = merge(t[u << 1], t[u << 1 | 1]);
         }
     }
-    void build(const vector<ll> &v) {
-        n = v.size();
-        build(0, 0, n - 1, v);
+
+    void build(int _n) { // pra construir com tamanho, mas vazia
+        n = _n;
+        t.assign(n << 2, neutral);
     }
-    node query(int n, int esq, int dir, int l, int r) {
-        if (esq > r || dir < l) {
-            return NEUTRAL;
+
+    void build(ll *bg, ll *en) { // pra construir com array estatico
+        n = int(en - bg);
+        t.assign(n << 2, neutral);
+        vector<ll> aux(n);
+        for (int i = 0; i < n; i++) {
+            aux[i] = bg[i];
         }
-        if (l <= esq && dir <= r) {
-            return tree[n];
-        }
-        int mid = (esq + dir) / 2;
-        return merge(query(le(n), esq, mid, l, r), query(ri(n), mid + 1, dir, l, r));
+        build(1, 0, n - 1, aux);
     }
-    ll query(int l, int r) { return query(0, 0, n - 1, l, r).best; }
-    void update(int n, int esq, int dir, int x, ll v) {
-        if (esq > x || dir < x) {
-            return;
+
+    void build(const vector<ll> &v) { // pra construir com vector
+        n = int(v.size());
+        t.assign(n << 2, neutral);
+        build(1, 0, n - 1, v);
+    }
+
+    node query(int u, int l, int r, int L, int R) {
+        if (l > R || r < L) {
+            return neutral;
         }
-        if (esq == dir) {
-            tree[n] = new_node(v);
+        if (l >= L && r <= R) {
+            return t[u];
+        }
+        int mid = (l + r) >> 1;
+        node ql = query(u << 1, l, mid, L, R);
+        node qr = query(u << 1 | 1, mid + 1, r, L, R);
+        return merge(ql, qr);
+    }
+    ll query(int l, int r) { return query(1, 0, n - 1, l, r).ans; }
+
+    void update(int u, int l, int r, int i, ll x) {
+        if (l == r) {
+            t[u] = {x, x, x, x};
         } else {
-            int mid = (esq + dir) / 2;
-            if (x <= mid) {
-                update(le(n), esq, mid, x, v);
+            int mid = (l + r) >> 1;
+            if (i <= mid) {
+                update(u << 1, l, mid, i, x);
             } else {
-                update(ri(n), mid + 1, dir, x, v);
+                update(u << 1 | 1, mid + 1, r, i, x);
             }
-            tree[n] = merge(tree[le(n)], tree[ri(n)]);
+            t[u] = merge(t[u << 1], t[u << 1 | 1]);
         }
     }
-    void update(int x, ll v) { update(0, 0, n - 1, x, v); }
-}
+    void update(int i, ll x) { update(1, 0, n - 1, i, x); }
+};

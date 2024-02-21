@@ -2,7 +2,7 @@
 
 Resolve problema do 2-SAT.
 
-- Complexidade de tempo (caso médio): $\mathcal{O}(N + M)$
+- Complexidade de tempo: $\mathcal{O}(N + M)$
 
 N é o número de variáveis e M é o número de cláusulas.  
 A configuração da solução fica guardada no vetor **assignment**. 
