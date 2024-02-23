@@ -4,7 +4,8 @@ struct dst {
     vector<vector<int>> t;
     dst(vector<int> v) {
         int n, k, sz = v.size();
-        for (n = 1, k = 0; n < sz; n <<= 1, k++);
+        for (n = 1, k = 0; n < sz; n <<= 1, k++)
+            ;
         t.assign(k, vector<int>(n));
         for (int i = 0; i < n; i++) {
             t[0][i] = i < sz ? v[i] : neutral;

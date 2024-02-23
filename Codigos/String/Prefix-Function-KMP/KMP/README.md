@@ -2,7 +2,7 @@
 
 O algoritmo de Knuth-Morris-Pratt (KMP) computa em $\mathcal{O}(|s|)$ a Prefix Function de uma string, cuja definição é dada por:
 
-$pi[i] = \max\{k: k < i \land s[0:k] = s[i-k:i]\}$
+$$ pi[i] = \max\{k: k < i \land s[0:k] = s[i-k:i]\} $$
 
 Em outras palavras, $pi[i]$ é o tamanho do maior prefixo de $s$ que é sufixo de $s[0:i]$.
 

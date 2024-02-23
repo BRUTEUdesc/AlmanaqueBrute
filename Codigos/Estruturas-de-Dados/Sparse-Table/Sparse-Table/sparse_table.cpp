@@ -13,7 +13,8 @@ struct SparseTable {
         }
     }
     int query(int l, int r) {
-        if (l > r) return 2e9;
+        if (l > r)
+            return 2e9;
         int i = ilogb(r - l + 1);
         return min(st[i][l], st[i][r - (1 << i) + 1]);
     }

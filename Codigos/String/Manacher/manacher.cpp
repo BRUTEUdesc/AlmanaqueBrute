@@ -41,8 +41,8 @@ struct Manacher {
             }
         }
     }
-    bool query(int i, int j) { // returns if s[i..j] is palindrome
-        assert(man.size()); // tem que chamar o solve(s) antes
-		return man[i + j] >= j - i + 1;
-	}
+    bool query(int i, int j) {
+        assert(man.size());
+        return man[i + j] >= j - i + 1;
+    }
 } mana;
