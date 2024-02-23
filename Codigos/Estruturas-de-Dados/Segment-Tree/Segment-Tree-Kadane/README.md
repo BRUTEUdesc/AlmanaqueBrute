@@ -1,4 +1,4 @@
-# [Seg Tree Kadani](seg_tree_kadani.cpp)
+# [Seg Tree Kadane](seg_tree_kadane.cpp)
 
 Implementação de uma Segment Tree que suporta update de soma em intervalo e query de soma máxima de um subarray em um intervalo. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(log(n))$.
 

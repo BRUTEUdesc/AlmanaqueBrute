@@ -6,8 +6,6 @@ template <int MOD> struct Mint {
         if (val < -MOD or val >= 2 * MOD) {
             val %= MOD;
         }
-        val -= (MOD * (val >= MOD));
-        val += (MOD * (val < 0));
         if (val >= MOD) {
             val -= MOD;
         }
@@ -20,23 +18,24 @@ template <int MOD> struct Mint {
     bool operator!=(const m &o) const { return v != o.v; }
     bool operator<(const m &o) const { return v < o.v; }
     m pwr(m b, ll e) {
-        m res = 1;
-        while (e > 0) {
+        m res;
+        for (res = 1; e > 0; e >>= 1, b *= b) {
             if (e & 1) {
                 res *= b;
             }
-            b *= b, e >>= 1;
         }
         return res;
     }
     m &operator+=(const m &o) {
-        if ((v += o.v) >= MOD) {
+        v += o.v;
+        if (v >= MOD) {
             v -= MOD;
         }
         return *this;
     }
     m &operator-=(const m &o) {
-        if ((v -= o.v) < 0) {
+        v -= o.v;
+        if (v < 0) {
             v += MOD;
         }
         return *this;

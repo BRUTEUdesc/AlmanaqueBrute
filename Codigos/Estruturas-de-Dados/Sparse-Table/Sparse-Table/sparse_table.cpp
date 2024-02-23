@@ -12,22 +12,8 @@ struct SparseTable {
             }
         }
     }
-    // O(log(N)) Query for non overlap friendly
-    // operations
-    int logquery(int l, int r) {
-        int res = 2e9;
-        for (int i = e; i >= 0; i--) {
-            if ((1 << i) <= r - l + 1) {
-                res = min(res, st[i][l]);
-                l += 1 << i;
-            }
-        }
-        return res;
-    }
-    // O(1) Query for overlap friendly operations
-    // ex: max(), min(), gcd(), f(x, y) = x
     int query(int l, int r) {
-        // if (l > r) return 2e9;
+        if (l > r) return 2e9;
         int i = ilogb(r - l + 1);
         return min(st[i][l], st[i][r - (1 << i) + 1]);
     }

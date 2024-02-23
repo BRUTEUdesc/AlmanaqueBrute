@@ -34,7 +34,7 @@ namespace hld {
         head[root] = root;
         dfs_hld(root);
     }
-    void build(int root, vector<ll> &v) {
+    void build(int root, vector<ll> v, vector<vector<int>> adj2) {
         build(root);
         vector<ll> aux(v.size());
         for (int i = 0; i < (int)v.size(); i++) {
@@ -42,8 +42,7 @@ namespace hld {
         }
         seg::build(aux);
     }
-    void build(int root,
-               vector<i3> &edges) { // use this if
+    void build(int root, vector<i3> &edges) { // use this if
                                     // weighted edges
         build(root);
         e = 1;

@@ -1,9 +1,3 @@
-# [Algoritmo de Manacher](manacher.cpp)
+# [Manacher](manacher.cpp)
 
-<!-- DESCRIPTION -->
-Encontra todos os palindromos de uma string.
-<!-- DESCRIPTION -->
-
-Dada uma string s de tamanho n, encontra todos os pares (i,j) tal que a substring $s[i...j]$ seja um palindromo.
-
-* Complexidade de tempo: $\mathcal{O}(N)$
+O algoritmo de manacher encontra todos os palíndromos de uma string em $\mathcal{O}(n)$. Para cada centro, ele conta quantos palíndromos de tamanho ímpar e par existem (nos vetores `d1` e `d2` respectivamente). O método `solve` computa os palíndromos e retorna o número de substrings palíndromas. O método `query` retorna se a substring `s[i...j]` é palíndroma em $\mathcal{O}(1)$.
