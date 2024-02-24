@@ -1,11 +1,13 @@
 # [Sparse Table](sparse_table.cpp)
 
-Responde consultas de maneira eficiente em um conjunto de dados estáticos.\
-Realiza um pré-processamento para diminuir o tempo de cada consulta.
+Precomputa em $\mathcal{O}(n \log n)$ uma tabela que permite responder consultas de mínimo/máximo em intervalos em $\mathcal{O}(1)$.
 
-- Complexidade de tempo (Pré-processamento): $\mathcal{O}(N * log(N))$
-- Complexidade de tempo (Consulta para operações sem sobreposição amigável): $\mathcal{O}(N * log(N))$
-- Complexidade de tempo (Consulta para operações com sobreposição amigável): $\mathcal{O}(1)$
-- Complexidade de espaço: $\mathcal{O}(N * log(N))$
+A implementação atual é para mínimo, mas pode ser facilmente modificada para máximo ou outras operações.
 
-Exemplo de operações com sobreposição amigável: max(), min(), gcd(), f(x, y) = x
+A restrição é de que a operação deve ser associativa e idempotente (ou seja, $f(x, x) = x$).
+
+Exemplos de operações idempotentes: `min`, `max`, `gcd`, `lcm`.
+
+Exemplos de operações não idempotentes: `soma`, `xor`, `produto`.
+
+**Obs**: não suporta updates.

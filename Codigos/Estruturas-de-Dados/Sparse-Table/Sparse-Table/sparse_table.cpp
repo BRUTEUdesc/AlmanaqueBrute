@@ -1,21 +1,25 @@
 struct SparseTable {
-    int n, e;
-    vector<vector<int>> st;
-    SparseTable(vector<int> &v) : n(v.size()), e(floor(log2(n))) {
-        st.assign(e + 1, vector<int>(n));
+    int n, LG;
+    vector<vector<ll>> st;
+    ll merge(ll a, ll b) { return min(a, b); }
+    const ll neutral = 1e18;
+    void build(vector<ll> &v) {
+        n = (int)v.size();
+        LG = 32 - __builtin_clz(n);
+        st = vector<vector<ll>>(LG, vector<ll>(n));
         for (int i = 0; i < n; i++) {
             st[0][i] = v[i];
         }
-        for (int i = 1; i <= e; i++) {
-            for (int j = 0; j + (1 << i) <= n; j++) {
-                st[i][j] = min(st[i - 1][j], st[i - 1][j + (1 << (i - 1))]);
+        for (int i = 0; i < LG - 1; i++) {
+            for (int j = 0; j + (1 << i) < n; j++) {
+                st[i + 1][j] = merge(st[i][j], st[i][j + (1 << i)]);
             }
         }
     }
-    int query(int l, int r) {
+    ll query(int l, int r) {
         if (l > r)
-            return 2e9;
-        int i = ilogb(r - l + 1);
-        return min(st[i][l], st[i][r - (1 << i) + 1]);
+            return neutral;
+        int i = 31 - __builtin_clz(r - l + 1);
+        return merge(st[i][l], st[i][r - (1 << i) + 1]);
     }
 };
