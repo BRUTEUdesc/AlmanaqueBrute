@@ -80,6 +80,8 @@ python3 .github/scripts/pdfer.py
 
     - [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
 
+    - [Segment Tree Kadane](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadane)
+
     - [Segment Tree Beats Max And Sum Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-And-Sum-Update)
 
     - [Segment Tree Beats Max Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-Update)
@@ -87,8 +89,6 @@ python3 .github/scripts/pdfer.py
     - [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
 
     - [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
-
-    - [Segment Tree Kadani](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadani)
 
 - [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
 
@@ -144,11 +144,15 @@ python3 .github/scripts/pdfer.py
 
 ### [String](Codigos/String)
 
+- [Prefix Function KMP](Codigos/String/Prefix-Function-KMP)
+
+    - [KMP](Codigos/String/Prefix-Function-KMP/KMP)
+
+    - [Automato KMP](Codigos/String/Prefix-Function-KMP/Automato-KMP)
+
 - [Aho Corasick](Codigos/String/Aho-Corasick)
 
 - [Patricia Tree](Codigos/String/Patricia-Tree)
-
-- [Prefix Function](Codigos/String/Prefix-Function)
 
 - [Hashing](Codigos/String/Hashing)
 

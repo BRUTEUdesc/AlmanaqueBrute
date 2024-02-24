@@ -1,31 +1,34 @@
-struct dst {
-    const int neutral = 1;
-#define comp(a, b) (a | b)
-    vector<vector<int>> t;
-    dst(vector<int> v) {
-        int n, k, sz = v.size();
-        for (n = 1, k = 0; n < sz; n <<= 1, k++)
-            ;
-        t.assign(k, vector<int>(n));
-        for (int i = 0; i < n; i++) {
-            t[0][i] = i < sz ? v[i] : neutral;
+struct DisjointSparseTable {
+    int n, LG;
+    vector<vector<ll>> st;
+    ll merge(ll a, ll b) { return a + b; }
+    const ll neutral = 0;
+    void build(vector<ll> &v) {
+        int sz = (int)v.size();
+        n = 1, LG = 1;
+        while (n < sz) {
+            n <<= 1, LG++;
         }
-        for (int j = 0, len = 1; j <= k; j++, len <<= 1) {
-            for (int s = len; s < n; s += (len << 1)) {
-                t[j][s] = v[s];
-                t[j][s - 1] = v[s - 1];
-                for (int i = 1; i < len; i++) {
-                    t[j][s + i] = comp(t[j][s + i - 1], v[s + i]);
-                    t[j][s - 1 - i] = comp(v[s - 1 - i], t[j][s - i]);
+        st = vector<vector<ll>>(LG, vector<ll>(n));
+        for (int i = 0; i < n; i++) {
+            st[0][i] = i < sz ? v[i] : neutral;
+        }
+        for (int i = 1; i < LG - 1; i++) {
+            for (int j = (1 << i); j < n; j += (1 << (i + 1))) {
+                st[i][j] = st[0][j];
+                st[i][j - 1] = st[0][j - 1];
+                for (int k = 1; k < (1 << i); k++) {
+                    st[i][j + k] = merge(st[i][j + k - 1], st[0][j + k]);
+                    st[i][j - 1 - k] = merge(st[0][j - k - 1], st[i][j - k]);
                 }
             }
         }
     }
-    int query(int l, int r) {
+    ll query(int l, int r) {
         if (l == r) {
-            return t[0][r];
+            return st[0][l];
         }
         int i = 31 - __builtin_clz(l ^ r);
-        return comp(t[i][l], t[i][r]);
+        return merge(st[i][l], st[i][r]);
     }
-};
+} dst;

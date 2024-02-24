@@ -18,14 +18,10 @@ struct Hash {
 };
 
 const int PRIME = 1001003; // qualquer primo na ordem do alfabeto
-
 const int MAXN = 1e6 + 5;
-
 Hash PR = {PRIME, PRIME};
 Hash invPR = {mint1(1) / PRIME, mint2(1) / PRIME};
-
 Hash pot[MAXN], invpot[MAXN];
-
 void precalc() {
     pot[0] = invpot[0] = Hash(1, 1);
     for (int i = 1; i < MAXN; i++) {

@@ -18,12 +18,11 @@ template <int MOD> struct Mint {
     bool operator!=(const m &o) const { return v != o.v; }
     bool operator<(const m &o) const { return v < o.v; }
     m pwr(m b, ll e) {
-        m res = 1;
-        while (e > 0) {
+        m res;
+        for (res = 1; e > 0; e >>= 1, b *= b) {
             if (e & 1) {
                 res *= b;
             }
-            b *= b, e >>= 1;
         }
         return res;
     }
