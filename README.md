@@ -134,6 +134,14 @@ python3 .github/scripts/pdfer.py
 
 - [Binary Lifting](Codigos/Grafos/Binary-Lifting)
 
+    - [Binary Lifting Query Aresta](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-Aresta)
+
+    - [Binary Lifting LCA](Codigos/Grafos/Binary-Lifting/Binary-Lifting-LCA)
+
+    - [Binary Lifting Query](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query)
+
+    - [Binary Lifting Query 2](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-2)
+
 - [Fluxo](Codigos/Grafos/Fluxo)
 
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
