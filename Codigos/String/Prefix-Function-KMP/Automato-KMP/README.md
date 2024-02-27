@@ -2,7 +2,7 @@
 
 O autômato de KMP computa em $\mathcal{O}(|s| \cdot \Sigma)$ a função de transição de uma string, que é definida por:
 
-$$ nxt[i][c] = \max\{k: k \leq i \land s[0:k] = s[i-k:i-1]c\} $$
+$$ nxt[i][c] = \max\{k: k \leq i \land s[0:k] = s[i-k:i-1]c\} + 1 $$
 
 Em outras palavras, $nxt[i][c]$ é o tamanho do maior prefixo de $s$ que é sufixo de $s[0:i-1]c$.
 

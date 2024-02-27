@@ -35,8 +35,9 @@ struct BinaryLifting {
     bool ancestor(int u, int v) { return tin[u] <= tin[v] && tout[u] >= tout[v]; }
 
     int query2(int u, int v) {
-        if (ancestor(u, v))
+        if (ancestor(u, v)) {
             return neutral;
+        }
         int ans = neutral;
         for (int i = LG - 1; i >= 0; i--) {
             if (!ancestor(up[u][i], v)) {
@@ -48,9 +49,10 @@ struct BinaryLifting {
     }
 
     int query(int u, int v) {
-        if (u == v)
+        if (u == v) {
             return neutral;
 #warning TRATAR ESSE CASO ACIMA
+        }
         return merge(query2(u, v), query2(v, u));
     }
 } bl;

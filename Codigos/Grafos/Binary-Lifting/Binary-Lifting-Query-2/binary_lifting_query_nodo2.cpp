@@ -54,8 +54,9 @@ struct BinaryLifting {
     bool ancestor(int u, int v) { return tin[u] <= tin[v] && tout[u] >= tout[v]; }
 
     node query2(int u, int v, bool include_lca, bool invert) {
-        if (ancestor(u, v))
+        if (ancestor(u, v)) {
             return include_lca ? node(val[u]) : node();
+        }
         node ans = node(val[u]);
         for (int i = LG - 1; i >= 0; i--) {
             if (!ancestor(up[u][i], v)) {
@@ -67,24 +68,25 @@ struct BinaryLifting {
                 u = up[u][i];
             }
         }
-        if (!include_lca)
-            return ans;
-        return merge(ans, st[u][0]);
+        return include_lca ? merge(ans, st[u][0]) : ans;
     }
 
     node query(int u, int v) {
-        if (u == v)
+        if (u == v) {
             return node(val[u]);
+        }
         node l = query2(u, v, 1, 0);
         node r = query2(v, u, 0, 1);
         return merge(l, r);
     }
 
     int lca(int u, int v) {
-        if (ancestor(u, v))
+        if (ancestor(u, v)) {
             return u;
-        if (ancestor(v, u))
+        }
+        if (ancestor(v, u)) {
             return v;
+        }
         for (int i = LG - 1; i >= 0; i--) {
             if (!ancestor(up[u][i], v)) {
                 u = up[u][i];

@@ -164,15 +164,17 @@ python3 .github/scripts/pdfer.py
 
 - [Hashing](Codigos/String/Hashing)
 
-    - [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
+    - [Hashing](Codigos/String/Hashing/Hashing)
 
-    - [Hashing Estático](Codigos/String/Hashing/Hashing-Estático)
+    - [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
 
 - [Trie](Codigos/String/Trie)
 
 - [Manacher](Codigos/String/Manacher)
 
 - [Lyndon](Codigos/String/Lyndon)
+
+- [Z function](Codigos/String/Z-function)
 
 - [Suffix Array](Codigos/String/Suffix-Array)
 

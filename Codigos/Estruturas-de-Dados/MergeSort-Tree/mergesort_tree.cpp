@@ -1,8 +1,8 @@
 namespace mergesort {
-    const int MAX = 1e5 + 5;
+    const int MAX = 2e5 + 5;
 
     int n;
-    vi mgtree[4 * MAX];
+    vector<int> mgtree[4 * MAX];
 
     int le(int n) { return 2 * n + 1; }
     int ri(int n) { return 2 * n + 2; }
@@ -22,7 +22,7 @@ namespace mergesort {
                   mgtree[n].begin());
         }
     }
-    void build(vi &v) {
+    void build(vector<int> &v) {
         n = v.size();
         build(0, 0, n - 1, v);
     }
