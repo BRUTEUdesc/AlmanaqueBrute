@@ -100,9 +100,13 @@ python3 .github/scripts/pdfer.py
 
 - [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
 
-- [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
+- [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
 
-- [MergeSort Tree](Codigos/Estruturas-de-Dados/MergeSort-Tree)
+    - [Merge Sort Tree Update](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree-Update)
+
+    - [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree)
+
+- [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
 
 - [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table)
 
@@ -149,6 +153,22 @@ python3 .github/scripts/pdfer.py
 - [2 SAT](Codigos/Grafos/2-SAT)
 
 - [Graph Center](Codigos/Grafos/Graph-Center)
+
+### [Extra](Codigos/Extra)
+
+- [Vim](Codigos/Extra/Vim)
+
+- [Stress Test](Codigos/Extra/Stress-Test)
+
+- [Unordered Custom Hash](Codigos/Extra/Unordered-Custom-Hash)
+
+- [CPP](Codigos/Extra/CPP)
+
+- [Run](Codigos/Extra/Run)
+
+- [Random](Codigos/Extra/Random)
+
+- [Debug](Codigos/Extra/Debug)
 
 ### [String](Codigos/String)
 

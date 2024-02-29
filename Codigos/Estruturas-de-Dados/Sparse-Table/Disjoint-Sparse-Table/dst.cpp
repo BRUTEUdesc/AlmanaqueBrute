@@ -3,7 +3,7 @@ struct DisjointSparseTable {
     vector<vector<ll>> st;
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
-    void build(vector<ll> &v) {
+    void build(const vector<ll> &v) {
         int sz = (int)v.size();
         n = 1, LG = 1;
         while (n < sz) {
@@ -24,6 +24,7 @@ struct DisjointSparseTable {
             }
         }
     }
+    void build(ll *bg, ll *en) { build(vector<ll>(bg, en)); }
     ll query(int l, int r) {
         if (l == r) {
             return st[0][l];
