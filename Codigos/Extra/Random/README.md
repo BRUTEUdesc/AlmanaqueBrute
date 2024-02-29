@@ -1,4 +1,4 @@
-# [Random em C++](random.cpp)
+# [Random em C++](rand.cpp)
 
 É possível usar a função `rand()` para gerar números aleatórios em `C++`.
 Útil para gerar casos aleatórios em stress test, porém não é recomendado para usar em soluções.
