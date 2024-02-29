@@ -100,9 +100,13 @@ python3 .github/scripts/pdfer.py
 
 - [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
 
-- [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
+- [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
 
-- [MergeSort Tree](Codigos/Estruturas-de-Dados/MergeSort-Tree)
+    - [Merge Sort Tree Update](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree-Update)
+
+    - [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree)
+
+- [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
 
 - [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table)
 
@@ -134,6 +138,14 @@ python3 .github/scripts/pdfer.py
 
 - [Binary Lifting](Codigos/Grafos/Binary-Lifting)
 
+    - [Binary Lifting Query Aresta](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-Aresta)
+
+    - [Binary Lifting LCA](Codigos/Grafos/Binary-Lifting/Binary-Lifting-LCA)
+
+    - [Binary Lifting Query](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query)
+
+    - [Binary Lifting Query 2](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-2)
+
 - [Fluxo](Codigos/Grafos/Fluxo)
 
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
@@ -141,6 +153,22 @@ python3 .github/scripts/pdfer.py
 - [2 SAT](Codigos/Grafos/2-SAT)
 
 - [Graph Center](Codigos/Grafos/Graph-Center)
+
+### [Extra](Codigos/Extra)
+
+- [Vim](Codigos/Extra/Vim)
+
+- [Stress Test](Codigos/Extra/Stress-Test)
+
+- [Unordered Custom Hash](Codigos/Extra/Unordered-Custom-Hash)
+
+- [CPP](Codigos/Extra/CPP)
+
+- [Run](Codigos/Extra/Run)
+
+- [Random](Codigos/Extra/Random)
+
+- [Debug](Codigos/Extra/Debug)
 
 ### [String](Codigos/String)
 
@@ -156,15 +184,17 @@ python3 .github/scripts/pdfer.py
 
 - [Hashing](Codigos/String/Hashing)
 
-    - [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
+    - [Hashing](Codigos/String/Hashing/Hashing)
 
-    - [Hashing Estático](Codigos/String/Hashing/Hashing-Estático)
+    - [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
 
 - [Trie](Codigos/String/Trie)
 
 - [Manacher](Codigos/String/Manacher)
 
 - [Lyndon](Codigos/String/Lyndon)
+
+- [Z function](Codigos/String/Z-function)
 
 - [Suffix Array](Codigos/String/Suffix-Array)
 

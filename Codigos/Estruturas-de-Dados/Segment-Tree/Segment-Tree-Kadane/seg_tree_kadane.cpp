@@ -29,20 +29,13 @@ struct SegTree {
         t.assign(n << 2, neutral);
     }
 
-    void build(ll *bg, ll *en) { // pra construir com array estatico
-        n = int(en - bg);
-        t.assign(n << 2, neutral);
-        vector<ll> aux(n);
-        for (int i = 0; i < n; i++) {
-            aux[i] = bg[i];
-        }
-        build(1, 0, n - 1, aux);
-    }
-
     void build(const vector<ll> &v) { // pra construir com vector
         n = int(v.size());
         t.assign(n << 2, neutral);
         build(1, 0, n - 1, v);
+    }
+    void build(ll *bg, ll *en) { // pra construir com array de C
+        build(vector<ll>(bg, en));
     }
 
     node query(int u, int l, int r, int L, int R) {

@@ -3,7 +3,7 @@ struct SparseTable {
     vector<vector<ll>> st;
     ll merge(ll a, ll b) { return min(a, b); }
     const ll neutral = 1e18;
-    void build(vector<ll> &v) {
+    void build(const vector<ll> &v) {
         n = (int)v.size();
         LG = 32 - __builtin_clz(n);
         st = vector<vector<ll>>(LG, vector<ll>(n));
@@ -16,6 +16,7 @@ struct SparseTable {
             }
         }
     }
+    void build(ll *bg, ll *en) { build(vector<ll>(bg, en)); }
     ll query(int l, int r) {
         if (l > r)
             return neutral;

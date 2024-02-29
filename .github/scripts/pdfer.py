@@ -121,12 +121,12 @@ def printa_readme(path: Path, FILE: Path):
 
         FILE.write("\\hfill\n\n")
 
-
 def printa_codigo(path: Path, FILE: Path):
     clean_name = path.name.replace("_", "\\_")
     FILE.write("Codigo: " + clean_name + "\n\n")
-    max_lenght = 120
+    max_lenght = 100000
     two_columns = False
+
     with open(path, "r") as f:
         for line in f.readlines():
             if len(line) > max_lenght:
@@ -166,7 +166,7 @@ def dfs(path: Path, FILE: Path, level: int = 0):
     for child in dirs:
         if child.is_dir():
             dfs(child, FILE, level + 1)
-        elif child.name.endswith(".cpp"):
+        else:
             endpoint = True
 
     if endpoint:
@@ -177,15 +177,10 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         fix_readme(readme)
         printa_readme(readme, FILE)
 
-        CODIGOS = list(path.glob("*.cpp"))
+        CODIGOS = list(path.glob("*"))
+        CODIGOS = [x for x in CODIGOS if not ".md" in str(x)]
 
         for codigo in CODIGOS:
-            # print("CODIGO: ", codigo)
-            # if "matrix" in str(codigo):
-            #     with open(codigo, "r") as f:
-            #         lines = f.readlines()
-            #         for line in lines:
-            #             print(line)
             printa_codigo(codigo, FILE)
         # FILE.write("\\rule{\\textwidth}{0.4pt}\n\n")
 
@@ -221,13 +216,16 @@ if __name__ == "__main__":
 
         STL = Path("LaTeX/STL.tex")
         printa_arquivo(STL, f)
-        TEMPLATES = Path("LaTeX/Templates.tex")
-        printa_arquivo(TEMPLATES, f)
+        # TEMPLATES = Path("LaTeX/Templates.tex")
+        # printa_arquivo(TEMPLATES, f)
+        EXTRA = Path("Codigos/Extra")
+        printa_section(EXTRA, f, 0)
+        dfs(EXTRA, f, 1)
         TEORICO = Path("LaTeX/Teorico.tex")
         printa_arquivo(TEORICO, f)
 
         for child in DIR.iterdir():
-            if child.is_dir():
+            if child.is_dir() and child.name != "Extra":
                 dfs(child, f, 0)
         
         f.write("\\end{document}\n")

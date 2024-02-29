@@ -12,7 +12,7 @@ template <int MOD> struct Mint {
         if (val < 0) {
             val += MOD;
         }
-        v = int(val);
+        v = (int)val;
     }
     bool operator==(const m &o) const { return v == o.v; }
     bool operator!=(const m &o) const { return v != o.v; }
@@ -40,10 +40,7 @@ template <int MOD> struct Mint {
         }
         return *this;
     }
-    m &operator*=(const m &o) {
-        v = int(ll(v) * o.v % MOD);
-        return *this;
-    }
+    m &operator*=(const m &o) { return *this = m((ll)v * o.v % MOD); }
     m &operator/=(const m &o) { return *this *= pwr(o, MOD - 2); }
     m &operator^=(ll e) {
         assert(e >= 0);
