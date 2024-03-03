@@ -216,11 +216,10 @@ if __name__ == "__main__":
 
         STL = Path("LaTeX/STL.tex")
         printa_arquivo(STL, f)
-        # TEMPLATES = Path("LaTeX/Templates.tex")
-        # printa_arquivo(TEMPLATES, f)
+
         EXTRA = Path("Codigos/Extra")
-        printa_section(EXTRA, f, 0)
-        dfs(EXTRA, f, 1)
+        dfs(EXTRA, f, 0)
+
         TEORICO = Path("LaTeX/Teorico.tex")
         printa_arquivo(TEORICO, f)
 
