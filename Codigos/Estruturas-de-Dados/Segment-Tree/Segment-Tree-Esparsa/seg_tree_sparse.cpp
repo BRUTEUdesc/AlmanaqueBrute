@@ -1,33 +1,33 @@
-template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)> struct SegTree {
-    const ll neutral = 0;
-    struct node {
-        ll val;
-        int L, R;
-        node(ll v) : val(v), L(-1), R(-1) { }
-    };
+template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
+    const ll neutral = 0;
 
-    vector<node> t;
+    vector<ll> t;
+    vector<int> Lc, Rc;
 
-    int newnode() {
-        t.push_back(node(neutral));
-        return int(t.size() - 1);
+    inline int newnode() {
+        t.push_back(neutral);
+        Lc.push_back(-1);
+        Rc.push_back(-1);
+        return (int)t.size() - 1;
     }
 
-    SegTree() { newnode(); }
-
-    int le(int u) {
-        if (t[u].L == -1) {
-            t[u].L = newnode();
+    inline int le(int u) {
+        if (Lc[u] == -1) {
+            Lc[u] = newnode();
         }
-        return t[u].L;
+        return Lc[u];
     }
 
-    int ri(int u) {
-        if (t[u].R == -1) {
-            t[u].R = newnode();
+    inline int ri(int u) {
+        if (Rc[u] == -1) {
+            Rc[u] = newnode();
         }
-        return t[u].R;
+        return Rc[u];
+    }
+
+    SegTree() {
+        newnode();
     }
 
     ll query(int u, ll l, ll r, ll L, ll R) {
@@ -35,7 +35,7 @@ template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)> struct SegTree {
             return neutral;
         }
         if (l >= L && r <= R) {
-            return t[u].val;
+            return t[u];
         }
         ll mid = l + (r - l) / 2;
         ll ql = query(le(u), l, mid, L, R);
@@ -45,10 +45,9 @@ template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)> struct SegTree {
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
 
     void update(int u, ll l, ll r, ll i, ll x) {
-        debug(u, l, r);
         if (l == r) {
-            t[u].val += x; // soma
-            // t[u].val = x; // substitui
+            t[u] += x; // soma
+            // t[u] = x; // substitui
             return;
         }
         ll mid = l + (r - l) / 2;
@@ -57,7 +56,7 @@ template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)> struct SegTree {
         } else {
             update(ri(u), mid + 1, r, i, x);
         }
-        t[u].val = merge(t[le(u)].val, t[ri(u)].val);
+        t[u] = merge(t[le(u)], t[ri(u)]);
     }
     void update(ll i, ll x) { update(0, MINL, MAXR, i, x); }
 };
