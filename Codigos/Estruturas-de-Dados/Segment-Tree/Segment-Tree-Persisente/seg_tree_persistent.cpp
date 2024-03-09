@@ -1,75 +1,81 @@
-namespace seg {
-    const ll ESQ = 0, DIR = 1e9 + 7;
-    struct node {
-        ll v = 0;
-        node *l = NULL, *r = NULL;
-        node() { }
-        node(ll v) : v(v) { }
-        node(node *l, node *r) : l(l), r(r) { v = l->v + r->v; }
-        void apply() {
-            if (l == NULL) {
-                l = new node();
-            }
-            if (r == NULL) {
-                r = new node();
-            }
-        }
-    };
-    vector<node *> roots;
-    void build() { roots.push_back(new node()); }
-    void push(node *n, int esq, int dir) {
-        if (esq != dir) {
-            n->apply();
-        }
+template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
+    ll merge(ll a, ll b) { return a + b; }
+    const ll neutral = 0;
+ 
+    vector<ll> t;
+    vector<int> Lc, Rc, roots;
+ 
+    inline int newnode() {
+        t.push_back(neutral);
+        Lc.push_back(-1);
+        Rc.push_back(-1);
+        return (int)t.size() - 1;
     }
-    // sum v on x
-    node *update(node *n, int esq, int dir, int x, int v) {
-        push(n, esq, dir);
-        if (esq == dir) {
-            return new node(n->v + v);
+ 
+    inline int le(int u) {
+        if (Lc[u] == -1) {
+            Lc[u] = newnode();
         }
-        int mid = (esq + dir) / 2;
-        if (x <= mid) {
-            return new node(update(n->l, esq, mid, x, v), n->r);
+        return Lc[u];
+    }
+ 
+    inline int ri(int u) {
+        if (Rc[u] == -1) {
+            Rc[u] = newnode();
+        }
+        return Rc[u];
+    }
+ 
+    SegTree() {
+        roots.push_back(newnode());
+    }
+ 
+    ll query(int u, ll l, ll r, ll L, ll R) {
+        if (l > R || r < L) {
+            return neutral;
+        }
+        if (l >= L && r <= R) {
+            return t[u];
+        }
+        ll mid = l + (r - l) / 2;
+        ll ql = query(le(u), l, mid, L, R);
+        ll qr = query(ri(u), mid + 1, r, L, R);
+        return merge(ql, qr);
+    }
+    ll query(ll l, ll r, int root = -1) {
+        if (root == -1) root = roots.back();
+        debug(root, MINL, MAXR, l, r);
+        return query(root, MINL, MAXR, l, r);
+    }
+ 
+    void update(int u, int old, ll l, ll r, ll i, ll x) {
+        if (l == r) {
+            t[u] = x; // substitui
+            // t[u] += x; // soma
+            return;
+        }
+        ll mid = l + (r - l) / 2;
+        if (i <= mid) {
+            Rc[u] = ri(old);
+            update(le(u), le(old), l, mid, i, x);
         } else {
-            return new node(n->l, update(n->r, mid + 1, dir, x, v));
+            Lc[u] = le(old);
+            update(ri(u), ri(old), mid + 1, r, i, x);
         }
+        t[u] = merge(t[le(u)], t[ri(u)]);
     }
-    int update(int root, int pos, int val) {
-        node *novo = update(roots[root], ESQ, DIR, pos, val);
-        roots.push_back(novo);
-        return roots.size() - 1;
+    int update(ll i, ll x, int root = -1) {
+        int new_root = newnode();
+        if (root == -1) root = roots.back();
+        update(new_root, root, MINL, MAXR, i, x);
+        roots.push_back(new_root);
+        return roots.back();
     }
-    // sum in [L, R]
-    ll query(node *n, int esq, int dir, int l, int r) {
-        push(n, esq, dir);
-        if (esq > r || dir < l) {
-            return 0;
-        }
-        if (l <= esq && dir <= r) {
-            return n->v;
-        }
-        int mid = (esq + dir) / 2;
-        return query(n->l, esq, mid, l, r) + query(n->r, mid + 1, dir, l, r);
-    }
-    ll query(int root, int l, int r) { return query(roots[root], ESQ, DIR, l, r); }
-    // kth min number in [L, R] (l_root can not be
-    // 0)
-    int kth(node *L, node *R, int esq, int dir, int k) {
-        push(L, esq, dir);
-        push(R, esq, dir);
-        if (esq == dir) {
-            return esq;
-        }
-        int mid = (esq + dir) / 2;
-        int cont = R->l->v - L->l->v;
-        if (cont >= k) {
-            return kth(L->l, R->l, esq, mid, k);
-        } else {
-            return kth(L->r, R->r, mid + 1, dir, k - cont);
-        }
-    }
-    int kth(int l_root, int r_root, int k) {
-        return kth(roots[l_root - 1], roots[r_root], ESQ, DIR, k);
+    int copy_root(int root) {
+        int new_root = newnode();
+        Lc[new_root] = le(root);
+        Rc[new_root] = ri(root);
+        roots.push_back(new_root);
+        return roots.back();
     }
 };

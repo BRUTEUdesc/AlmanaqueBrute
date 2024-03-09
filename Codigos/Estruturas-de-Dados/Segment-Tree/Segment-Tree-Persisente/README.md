@@ -1,9 +1,7 @@
 # [Seg Tree Persistente](seg_tree_persistent.cpp)
 
-Seg Tree Esparsa com histórico de Updates:
+Uma Seg Tree Esparsa, só que com persistência, ou seja, pode voltar para qualquer estado anterior da árvore, antes de qualquer modificação.
 
-- Complexidade de tempo (Pré-processamento): $\mathcal{O}(N *log(N))$
-- Complexidade de tempo (Consulta em intervalo): $\mathcal{O}(log(N))$
-- Complexidade de tempo (Update em ponto): $\mathcal{O}(log(N))$
+Os métodos `query` e `update` agora recebem um parâmetro a mais, que é o índice da root (versão da árvore) que se deja modificar.
 
-- **Para fazer consulta em um tempo específico basta indicar o tempo na query**
+O vetor `roots` guarda na posição `i` a root da árvore após o `i`-ésimo update.

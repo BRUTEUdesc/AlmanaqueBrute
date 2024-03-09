@@ -45,7 +45,7 @@ struct SegTree {
     }
 
     void build(const vector<ll> &v) { // pra construir com vector
-        n = int(v.size());
+        n = (int)v.size();
         t.assign(n << 2, neutral);
         lazy.assign(n << 2, 0);
         replace.assign(n << 2, false);
