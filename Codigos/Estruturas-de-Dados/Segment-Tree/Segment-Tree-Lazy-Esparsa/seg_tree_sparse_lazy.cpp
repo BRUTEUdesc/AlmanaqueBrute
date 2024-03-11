@@ -29,9 +29,7 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
         return Rc[u];
     }
 
-    SegTree() {
-        newnode();
-    }
+    SegTree() { newnode(); }
 
     void push(int u, ll l, ll r) {
         if (replace[u]) {
