@@ -40,7 +40,7 @@ struct AC {
 
     int get_link(int u) {
         if (link[u] == -1) {
-            link[u] = par[u] ? go(get_link(par[u]), pch[u]) : 0;
+            link[u] = par[u] > 0 ? go(get_link(par[u]), pch[u]) : 0;
         }
         return link[u];
     }
@@ -59,4 +59,7 @@ struct AC {
         }
         return out_link[u];
     }
+
+    bool matched(int u) { return out[u] || exit(u) != 0; }
+
 } aho;

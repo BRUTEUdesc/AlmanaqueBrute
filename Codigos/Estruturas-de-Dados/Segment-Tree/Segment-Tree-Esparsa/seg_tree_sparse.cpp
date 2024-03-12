@@ -26,9 +26,7 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
         return Rc[u];
     }
 
-    SegTree() {
-        newnode();
-    }
+    SegTree() { newnode(); }
 
     ll query(int u, ll l, ll r, ll L, ll R) {
         if (l > R || r < L) {

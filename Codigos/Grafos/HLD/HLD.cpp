@@ -2,8 +2,8 @@ struct HLD {
     int n, t;
     vector<vector<int>> adj;
     vector<int> sz, pos, par, head, who;
-    bool e = 0;
-    SegTree seg;
+    bool e = 0;  // flag pra dizer se eh de aresta ou nao
+    SegTree seg; // pode usar qualquer estrutura de dados aqui
 
     void dfs_sz(int u, int p = -1) {
         sz[u] = 1;
@@ -18,7 +18,8 @@ struct HLD {
         }
     }
     void dfs_hld(int u, int p = -1) {
-        who[pos[u] = t++] = u;
+        who[t] = u;
+        pos[u] = t++;
         for (int v : adj[u]) {
             if (v != p) {
                 par[v] = u;
@@ -73,6 +74,7 @@ struct HLD {
 
     ll query(int u, int v) {
         if (e && u == v) {
+#warning "Tratar esse caso"
             return seg.neutral;
         }
         if (pos[u] > pos[v]) {
@@ -90,7 +92,7 @@ struct HLD {
         if (e && sz[u] == 1) {
             return seg.neutral;
         }
-        return seg.query(pos[u], pos[u] + sz[u] - 1);
+        return seg.query(pos[u] + e, pos[u] + sz[u] - 1);
     }
 
     void update(int u, int v, ll k, bool replace = false) {
@@ -111,7 +113,7 @@ struct HLD {
         if (e && sz[u] == 1) {
             return;
         }
-        seg.update(pos[u], pos[u] + sz[u] - 1, k, replace);
+        seg.update(pos[u] + e, pos[u] + sz[u] - 1, k, replace);
     }
 
     int lca(int u, int v) {
