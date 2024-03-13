@@ -7,4 +7,4 @@ Resolve problema do 2-SAT.
 N é o número de variáveis e M é o número de cláusulas.  
 A configuração da solução fica guardada no vetor **assignment**. 
 
-Em relaçõa ao sinal, tanto faz se 0 liga ou desliga, apenas siga o mesmo padrão.
+Em relação ao sinal, tanto faz se 0 liga ou desliga, apenas siga o mesmo padrão.

@@ -1,4 +1,4 @@
-\documentclass[11pt, a4paper, oneside]{book}
+\documentclass[10pt, a4paper, oneside]{book}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb,amsmath}
@@ -38,23 +38,27 @@
 % \renewcommand{\footnotesize}{\small} %isso eh pra mudar o tamanho da fonte do codigo
 
 \lstset{
-	numbers=left,
+	language=C++,
 	breaklines=true,
+	numbers=left,
 	breakatwhitespace=true,
 	numbersep=5pt,
-	%rulecolor=\color{black},
+	rulecolor=\color{black},
 	%   xleftmargin=\parindent,
 	% frame=single,
 	xleftmargin=0.4cm,
-	basicstyle=\footnotesize\ttfamily,
+	commentstyle=\color{commentgreen},
+	keywordstyle=\color{blue},
+ 	basicstyle=\ttfamily\footnotesize,
 	showspaces=false,
 	showstringspaces=false,
-	language=C++,
 	columns=fullflexible,
-	commentstyle=\color{commentgreen},
-	keywordstyle=\color{eminence},
 	escapeinside={<@}{@>},
 	tabsize=4,
+	captionpos=b,                    
+	extendedchars=true,              
+	numberstyle=\tiny\color{blue}, 
+	stringstyle=\color{purple},
 }
 % \lstset{ %opcoes pro codigo
 % 	language=C++,
