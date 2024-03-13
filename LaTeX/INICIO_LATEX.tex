@@ -37,6 +37,7 @@
 \definecolor{gray}{rgb}{0.2, 0.2, 0.2} %cor pros comentarios
 % \renewcommand{\footnotesize}{\small} %isso eh pra mudar o tamanho da fonte do codigo
 
+\usepackage{courier}
 \lstset{
 	language=C++,
 	breaklines=true,
@@ -47,13 +48,14 @@
 	%   xleftmargin=\parindent,
 	% frame=single,
 	xleftmargin=0.4cm,
- 	basicstyle=\footnotesize,
- 	% basicstyle=\ttfamily\footnotesize, % fonte pro codigo, nao sei qual dos dois eu prefiro
+ 	% basicstyle=\footnotesize,
+ 	basicstyle=\ttfamily\footnotesize
+	% fonte pro codigo, nao sei qual dos dois eu prefiro
 	showspaces=false,
 	showstringspaces=false,
 	columns=fullflexible,
 	commentstyle=\color{commentgreen},
-	keywordstyle=\color{eminence}\bfseries,
+	keywordstyle=\color{black}\bfseries,
 	escapeinside={<@}{@>},
 	tabsize=4,
 }
