@@ -36,7 +36,7 @@ struct Hashing {
     Hashing() { }
     Hashing(string s) : N(int(s.size())), hsh(N + 1) {
         for (int i = 0; i < N; i++) {
-            int c = int(s[i] - 'a');
+            int c = int(s[i] - 'a' + 1);
             hsh[i + 1] = hsh[i] + (pot[i + 1] * Hash(c, c));
         }
     }

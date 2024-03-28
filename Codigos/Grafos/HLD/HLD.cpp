@@ -1,9 +1,9 @@
 struct HLD {
     int n, t;
     vector<vector<int>> adj;
-    vector<int> sz, pos, par, head, who;
-    bool e = 0;  // flag pra dizer se eh de aresta ou nao
-    SegTree seg; // pode usar qualquer estrutura de dados aqui
+    vector<int> sz, pos, par, head;
+    bool e = 0; // flag pra dizer se eh de aresta ou nao
+    SegTree ds; // pode usar qualquer estrutura de dados aqui
 
     void dfs_sz(int u, int p = -1) {
         sz[u] = 1;
@@ -18,7 +18,6 @@ struct HLD {
         }
     }
     void dfs_hld(int u, int p = -1) {
-        who[t] = u;
         pos[u] = t++;
         for (int v : adj[u]) {
             if (v != p) {
@@ -29,7 +28,7 @@ struct HLD {
         }
     }
     void build_hld(int u) {
-        sz = pos = par = head = who = vector<int>(n);
+        sz = pos = par = head = vector<int>(n);
         dfs_sz(u);
         t = 0;
         par[u] = u;
@@ -46,11 +45,11 @@ struct HLD {
         for (int i = 0; i < (int)v.size(); i++) {
             aux[pos[i]] = v[i];
         }
-        seg.build(aux);
+        ds.build(aux);
     }
     void build(int root, vector<vector<int>> adj2) {
         // esse build eh para iniciar vazia
-        build(root, vector<ll>(adj2.size(), seg.neutral), adj2);
+        build(root, vector<ll>(adj2.size(), ds.neutral), adj2);
     }
     void build(int root, vector<tuple<int, int, ll>> edges) {
         // usar esse build se os pesos estiverem nas arestas
@@ -62,37 +61,36 @@ struct HLD {
         }
         build_hld(root);
         e = 1;
-        vector<ll> aux(n);
+        vector<ll> aux(n, ds.neutral);
         for (auto [u, v, w] : edges) {
             if (pos[u] > pos[v]) {
                 swap(u, v);
             }
             aux[pos[v]] = w;
         }
-        seg.build(aux);
+        ds.build(aux);
     }
 
     ll query(int u, int v) {
         if (e && u == v) {
-#warning "Tratar esse caso"
-            return seg.neutral;
+            return ds.neutral;
         }
         if (pos[u] > pos[v]) {
             swap(u, v);
         }
         if (head[u] == head[v]) {
-            return seg.query(pos[u] + e, pos[v]);
+            return ds.query(pos[u] + e, pos[v]);
         } else {
-            ll qv = seg.query(pos[head[v]], pos[v]);
+            ll qv = ds.query(pos[head[v]], pos[v]);
             ll qu = query(u, par[head[v]]);
-            return seg.merge(qu, qv);
+            return ds.merge(qu, qv);
         }
     }
     ll query_subtree(int u) {
         if (e && sz[u] == 1) {
-            return seg.neutral;
+            return ds.neutral;
         }
-        return seg.query(pos[u] + e, pos[u] + sz[u] - 1);
+        return ds.query(pos[u] + e, pos[u] + sz[u] - 1);
     }
 
     void update(int u, int v, ll k, bool replace = false) {
@@ -103,9 +101,9 @@ struct HLD {
             swap(u, v);
         }
         if (head[u] == head[v]) {
-            seg.update(pos[u] + e, pos[v], k, replace);
+            ds.update(pos[u] + e, pos[v], k, replace);
         } else {
-            seg.update(pos[head[v]], pos[v], k, replace);
+            ds.update(pos[head[v]], pos[v], k, replace);
             update(u, par[head[v]], k, replace);
         }
     }
@@ -113,7 +111,7 @@ struct HLD {
         if (e && sz[u] == 1) {
             return;
         }
-        seg.update(pos[u] + e, pos[u] + sz[u] - 1, k, replace);
+        ds.update(pos[u] + e, pos[u] + sz[u] - 1, k, replace);
     }
 
     int lca(int u, int v) {
