@@ -122,13 +122,15 @@ python3 .github/scripts/pdfer.py
 
     - [Hungaro](Codigos/Grafos/Matching/Hungaro)
 
+- [Centro e Diametro](Codigos/Grafos/Centro-e-Diametro)
+
+- [Pontos de Articulacao](Codigos/Grafos/Pontos-de-Articulacao)
+
 - [LCA](Codigos/Grafos/LCA)
 
 - [HLD](Codigos/Grafos/HLD)
 
 - [Kruskal](Codigos/Grafos/Kruskal)
-
-- [Bridge](Codigos/Grafos/Bridge)
 
 - [Stoer–Wagner Min Cut](Codigos/Grafos/Stoer–Wagner-Min-Cut)
 
@@ -150,11 +152,11 @@ python3 .github/scripts/pdfer.py
 
 - [Fluxo](Codigos/Grafos/Fluxo)
 
+- [Pontes](Codigos/Grafos/Pontes)
+
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
 
 - [2 SAT](Codigos/Grafos/2-SAT)
-
-- [Graph Center](Codigos/Grafos/Graph-Center)
 
 ### [Extra](Codigos/Extra)
 

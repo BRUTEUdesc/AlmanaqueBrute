@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 set<int> nodes;
 vector<set<int>> adj;
 
