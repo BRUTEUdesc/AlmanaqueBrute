@@ -28,9 +28,7 @@ struct sat2 {
         rg[u ^ 1].push_back(v ^ 1);
     }
 
-    void add_or(int u, int v) {
-        add_impl(~u, v);
-    }
+    void add_or(int u, int v) { add_impl(~u, v); }
 
     void add_and(int u, int v) {
         add_or(u, u);
