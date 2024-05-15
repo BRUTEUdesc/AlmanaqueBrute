@@ -1,63 +1,98 @@
 struct sat2 {
     int n;
-    vector<vector<int>> g, gt;
-    vector<bool> used;
-    vector<int> order, comp;
-    vector<bool> assignment;
+    vector<vector<int>> g, rg;
+    vector<bool> vis, assignment;
+    vector<int> topo, comp;
 
-    // number of variables
     sat2(int _n) {
-        n = 2 * (_n + 5);
+        n = (2 * _n) + 2;
+        // a true = 2 * a
+        // a false = 2 * a + 1
         g.assign(n, vector<int>());
-        gt.assign(n, vector<int>());
+        rg.assign(n, vector<int>());
     }
-    void add_edge(int v, int u, bool v_sign, bool u_sign) {
-        g[2 * v + v_sign].push_back(2 * u + !u_sign);
-        g[2 * u + u_sign].push_back(2 * v + !v_sign);
-        gt[2 * u + !u_sign].push_back(2 * v + v_sign);
-        gt[2 * v + !v_sign].push_back(2 * u + u_sign);
-    }
-    void dfs1(int v) {
-        used[v] = true;
-        for (int u : g[v]) {
-            if (!used[u]) {
-                dfs1(u);
-            }
-        }
-        order.push_back(v);
-    }
-    void dfs2(int v, int cl) {
-        comp[v] = cl;
-        for (int u : gt[v]) {
-            if (comp[u] == -1) {
-                dfs2(u, cl);
-            }
+
+    int get(int u) {
+        if (u < 0) {
+            return 2 * (~u) + 1;
+        } else {
+            return 2 * u;
         }
     }
-    bool solve() {
-        order.clear();
-        used.assign(n, false);
-        for (int i = 0; i < n; ++i) {
-            if (!used[i]) {
-                dfs1(i);
+
+    void add_impl(int u, int v) {
+        u = get(u), v = get(v);
+        g[u].push_back(v);
+        rg[v].push_back(u);
+        g[v ^ 1].push_back(u ^ 1);
+        rg[u ^ 1].push_back(v ^ 1);
+    }
+
+    void add_or(int u, int v) {
+        add_impl(~u, v);
+    }
+
+    void add_and(int u, int v) {
+        add_or(u, u);
+        add_or(v, v);
+    }
+
+    void add_xor(int u, int v) {
+        add_impl(u, ~v);
+        add_impl(~u, v);
+    }
+
+    void add_equals(int u, int v) {
+        add_impl(u, v);
+        add_impl(~u, ~v);
+    }
+
+    void toposort(int u) {
+        vis[u] = true;
+        for (int v : g[u]) {
+            if (!vis[v]) {
+                toposort(v);
             }
         }
+        topo.push_back(u);
+    }
+
+    void dfs(int u, int cc) {
+        comp[u] = cc;
+        for (int v : rg[u]) {
+            if (comp[v] == -1) {
+                dfs(v, cc);
+            }
+        }
+    }
+
+    pair<bool, vector<bool>> solve() {
+        topo.clear();
+        vis.assign(n, false);
+
+        for (int i = 0; i < n; i++) {
+            if (!vis[i]) {
+                toposort(i);
+            }
+        }
+        reverse(topo.begin(), topo.end());
 
         comp.assign(n, -1);
-        for (int i = 0, j = 0; i < n; ++i) {
-            int v = order[n - i - 1];
-            if (comp[v] == -1) {
-                dfs2(v, j++);
+        int cc = 0;
+        for (auto u : topo) {
+            if (comp[u] == -1) {
+                dfs(u, cc++);
             }
         }
 
         assignment.assign(n / 2, false);
         for (int i = 0; i < n; i += 2) {
             if (comp[i] == comp[i + 1]) {
-                return false;
+                return {false, {}};
             }
             assignment[i / 2] = comp[i] > comp[i + 1];
         }
-        return true;
+
+        return {true, assignment};
     }
 };
