@@ -1,27 +1,27 @@
-const int MAX = 1e4 + 4;
-const ll INF = 1e18 + 18;
+const int N = 1e4 + 5;
+const ll INF = 1e18;
 
-vector<ii> adj[MAX];
-ll dist[MAX];
+int n;
+vector<pair<int, int>> adj[N];
 
-void spfa(int s, int n) {
-    fill(dist, dist + n, INF);
+vector<ll> spfa(int s) {
+    vector<ll> dist(n, INF);
     vector<int> cnt(n, 0);
     vector<bool> inq(n, false);
-    queue<int> fila;
-    fila.push(s);
+    queue<int> q;
+    q.push(s);
     inq[s] = true;
     dist[s] = 0;
-    while (!fila.empty()) {
-        int u = fila.front();
-        fila.pop();
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
         inq[u] = false;
         for (auto [w, v] : adj[u]) {
             ll newd = (dist[u] == -INF ? -INF : max(w + dist[u], -INF));
             if (newd < dist[v]) {
                 dist[v] = newd;
                 if (!inq[v]) {
-                    fila.push(v);
+                    q.push(v);
                     inq[v] = true;
                     cnt[v]++;
                     if (cnt[v] > n) { // negative cycle
@@ -31,4 +31,5 @@ void spfa(int s, int n) {
             }
         }
     }
+    return dist;
 }

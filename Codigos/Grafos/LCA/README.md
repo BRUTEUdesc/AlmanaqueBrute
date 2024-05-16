@@ -1,10 +1,5 @@
-# LCA
+# LCA (Lowest Common Ancestor)
 
-Algoritmo de Lowest Common Ancestor usando EulerTour e Sparse Table
+Algoritmo para computar Lowest Common Ancestor usando EulerTour e Sparse Table (descrita na seção Estruturas de Dados), com pré-processamento em $\mathcal{O}(N \log N)$ e consulta em $\mathcal{O}(1)$.
 
-Complexidade de tempo:
-
-- $\mathcal{O}(Nlog(N))$ Preprocessing
-- $\mathcal{O}(1)$ Query LCA
-
-Complexidade de espaço: $\mathcal{O}(Nlog(N))$
+No código, `st_lca` é uma Sparse Table idêntica a da seção de Estruturas de Dados, porém adaptada para guardar e retornar `pair<int, int>` ao invés de `long long`.

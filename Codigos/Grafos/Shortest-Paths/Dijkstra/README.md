@@ -1,23 +1,9 @@
 # Dijkstra
 
-<!-- DESCRIPTION -->
-Computa o menor caminho entre nós de um grafo.
-<!-- DESCRIPTION -->
+Computa o menor caminho entre nós de um grafo com pesos quaisquer nas arestas.
 
-## Dijkstra 1:1
+Dado um nó $s$, computa o menor caminho de $s$ para todos os outros nós em $\mathcal{O}((V + E) * log(E))$.
 
-Dado dois nós u e v, computa o menor caminho de u para v.
+Muito semelhante a uma BFS, mas usa uma fila de prioridade ao invés de uma fila comum.
 
-Complexidade de tempo: $\mathcal{O}((E + V) * log(E))$
-
-## Dijkstra 1:N
-
-Dado um nó u, computa o menor caminho de u para todos os nós.
-
-Complexidade de tempo: $\mathcal{O}((E + V) * log(E))$
-
-## Dijkstra N:N
-
-Computa o menor caminho de todos os nós para todos os nós
-
-Complexidade de tempo: $\mathcal{O}(V * ((E + V) * log(E)))$
+**Importante**: O grafo não pode conter ciclos de peso negativo.
