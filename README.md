@@ -136,6 +136,14 @@ python3 .github/scripts/pdfer.py
 
 - [Shortest Paths](Codigos/Grafos/Shortest-Paths)
 
+    - [Floyd Warshall](Codigos/Grafos/Shortest-Paths/Floyd-Warshall)
+
+    - [01 BFS](Codigos/Grafos/Shortest-Paths/01-BFS)
+
+    - [Belmann Ford](Codigos/Grafos/Shortest-Paths/Belmann-Ford)
+
+    - [BFS](Codigos/Grafos/Shortest-Paths/BFS)
+
     - [Dijkstra](Codigos/Grafos/Shortest-Paths/Dijkstra)
 
     - [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
