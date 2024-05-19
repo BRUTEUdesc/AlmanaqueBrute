@@ -1,13 +1,13 @@
 ll dp[100];
-mat T;
+mat T; // mat é tipo vector<vector<ll>>
 
 #define MOD 1000000007
 
 mat *operator(mat a, mat b) {
     mat resp(a.size(), vector<ll>(b[0].size()));
-    for (int i=0; i < a.size(); i++) {
-        for (int j=0; j < b[0].size(); j++) {
-            for (int k=0; k < b.size(); k++) {
+    for (int i = 0; i < a.size(); i++) {
+        for (int j = 0; j < b[0].size(); j++) {
+            for (int k = 0; k < b.size(); k++) {
                 resp[i][j] += a[i][k] * b[k][j] % mod;
                 resp[i][j] %= mod;
             }
@@ -17,8 +17,8 @@ mat *operator(mat a, mat b) {
 }
 
 mat operator^(mat a, ll k) {
-    mat resp (a.size(), vector<ll>(a.size()));
-    for (int i=0; i < a.size(); i++) {
+    mat resp(a.size(), vector<ll>(a.size()));
+    for (int i = 0; i < a.size(); i++) {
         resp[i][i] = 1;
     }
 
