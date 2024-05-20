@@ -33,7 +33,7 @@ clang-format -i -style=FILE Codigos/.../a.cpp
 Para executar o clang-format em todos os arquivos `.cpp` da pasta `Codigos` digite:
 
 ```
-find Codigos/ -type f -name "*.cpp" -exec clang-format -style=file -i {} \;
+find Codigos/ -type f -name "*.cpp" -exec clang-format -style=FILE -i {} \;
 ```
 
 Opcional: clone o repositório e execute o comando `.github/scripts/git-pre-commit-format install`, isso vai instalar um hook que vai executar o clang-format a cada commit.
