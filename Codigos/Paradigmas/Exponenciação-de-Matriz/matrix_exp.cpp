@@ -4,34 +4,34 @@ mat T; // mat é tipo vector<vector<ll>>
 #define MOD 1000000007
 
 mat *operator(mat a, mat b) {
-    mat resp(a.size(), vector<ll>(b[0].size()));
+    mat res(a.size(), vector<ll>(b[0].size()));
     for (int i = 0; i < a.size(); i++) {
         for (int j = 0; j < b[0].size(); j++) {
             for (int k = 0; k < b.size(); k++) {
-                resp[i][j] += a[i][k] * b[k][j] % mod;
-                resp[i][j] %= mod;
+                res[i][j] += a[i][k] * b[k][j] % mod;
+                res[i][j] %= mod;
             }
         }
     }
-    return resp;
+    return res;
 }
 
 mat operator^(mat a, ll k) {
-    mat resp(a.size(), vector<ll>(a.size()));
+    mat res(a.size(), vector<ll>(a.size()));
     for (int i = 0; i < a.size(); i++) {
-        resp[i][i] = 1;
+        res[i][i] = 1;
     }
 
     while (k) {
         if (k & 1) {
-            resp = resp * a;
+            res = res * a;
         }
 
         a = a * a;
         k >>= 1;
     }
 
-    return resp;
+    return res;
 }
 
 // MUDA MUITO DE ACORDO COM O PROBLEMA
