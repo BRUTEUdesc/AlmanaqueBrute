@@ -1,34 +1,36 @@
 ll dp[100];
-mat T;
+mat T; // mat é tipo vector<vector<ll>>
 
 #define MOD 1000000007
 
-mat mult(mat a, mat b) {
-    mat res(a.size(), vi(b[0].size()));
+mat *operator(mat a, mat b) {
+    mat res(a.size(), vector<ll>(b[0].size()));
     for (int i = 0; i < a.size(); i++) {
         for (int j = 0; j < b[0].size(); j++) {
             for (int k = 0; k < b.size(); k++) {
-                res[i][j] += a[i][k] * b[k][j] % MOD;
-                res[i][j] %= MOD;
+                res[i][j] += a[i][k] * b[k][j] % mod;
+                res[i][j] %= mod;
             }
         }
     }
     return res;
 }
 
-mat exp_mod(mat b, ll exp) {
-    mat res(b.size(), vi(b.size()));
-    for (int i = 0; i < b.size(); i++) {
+mat operator^(mat a, ll k) {
+    mat res(a.size(), vector<ll>(a.size()));
+    for (int i = 0; i < a.size(); i++) {
         res[i][i] = 1;
     }
 
-    while (exp) {
-        if (exp & 1) {
-            res = mult(res, b);
+    while (k) {
+        if (k & 1) {
+            res = res * a;
         }
-        b = mult(b, b);
-        exp /= 2;
+
+        a = a * a;
+        k >>= 1;
     }
+
     return res;
 }
 
@@ -44,7 +46,7 @@ ll solve(ll exp, ll dim) {
     // exponenciada T[0][1] = 1; T[1][0] = 1;
     // T[1][1] = 1;
 
-    mat prod = exp_mod(T, exp);
+    mat prod = T ^ exp;
 
     mat vec;
     vec.assign(dim, vi(1));
@@ -52,6 +54,6 @@ ll solve(ll exp, ll dim) {
         vec[i][0] = dp[i]; // Valores iniciais
     }
 
-    mat ans = mult(prod, vec);
+    mat ans = prod * vec;
     return ans[0][0];
 }
