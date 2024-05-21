@@ -3,7 +3,7 @@ mat T; // mat é tipo vector<vector<ll>>
 
 #define MOD 1000000007
 
-mat *operator(mat a, mat b) {
+mat operator*(mat a, mat b) {
     mat res(a.size(), vector<ll>(b[0].size()));
     for (int i = 0; i < a.size(); i++) {
         for (int j = 0; j < b[0].size(); j++) {
