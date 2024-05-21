@@ -22,7 +22,7 @@ Aqui está o `.pdf` do Almanaque.
 
 ## Para fazer contribuições
 
-Faça um fork do repositório e depois faça um Pull Request para mergear.
+Clone o repositório, crie uma nova branch e depois faça um Pull Request para mergear.
 
 Os códigos devem seguir a formatação especificada no arquivo `.clang-format`, para executar o clang-format usando esse arquivo como entrada digite:
 
