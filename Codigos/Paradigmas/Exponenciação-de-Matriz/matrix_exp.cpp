@@ -1,5 +1,6 @@
+using mat = vector<vector<ll>>;
 ll dp[100];
-mat T; // mat é tipo vector<vector<ll>>
+mat T;
 
 #define MOD 1000000007
 
@@ -8,8 +9,8 @@ mat *operator(mat a, mat b) {
     for (int i = 0; i < a.size(); i++) {
         for (int j = 0; j < b[0].size(); j++) {
             for (int k = 0; k < b.size(); k++) {
-                res[i][j] += a[i][k] * b[k][j] % mod;
-                res[i][j] %= mod;
+                res[i][j] += a[i][k] * b[k][j] % MOD;
+                res[i][j] %= MOD;
             }
         }
     }

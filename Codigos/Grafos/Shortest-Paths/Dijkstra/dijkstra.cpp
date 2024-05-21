@@ -6,7 +6,7 @@ vector<pair<int, int>> adj[N];
 
 vector<ll> dijkstra(int s) {
     vector<ll> dist(n, INF);
-    using T = pair<int, int>;
+    using T = pair<ll, int>;
     priority_queue<T, vector<T>, greater<>> pq;
     dist[s] = 0;
     pq.emplace(dist[s], s);

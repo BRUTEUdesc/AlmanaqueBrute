@@ -1,15 +1,5 @@
 # Totiente de Euler
 
-<!-- DESCRIPTION -->
-Código para computar o totiente de Euler.
-<!-- DESCRIPTION -->
+Código para computar a  função Totiente de Euler, que conta quantos números inteiros positivos menores que N são coprimos com N. A função é denotada por $\phi(N)$.
 
-# [Totiente de Euler (Phi) para um número](phi.cpp)
-Computa o totiente para um único número N.
-
-- Complexidade de tempo: $\mathcal{O}(N^(1/2))$
-
-# [Totiente de Euler (Phi) entre 1 e N](phi_1_to_n.cpp)
-Computa o totiente entre 1 e N.
-
-- Complexidade de tempo: $\mathcal{O}(N * log(log(N)))$
+É possível computar o totiente de Euler para um único número em $\mathcal{O}(\sqrt{N})$ e para todos os números entre $1$ e $N$ em $\mathcal{O}(N \log(\log(N)))$.

@@ -7,6 +7,7 @@ Propriedades básicas de aritmética modular:
 - $(a - b) \mod m \equiv (a \mod m - b \mod m) \mod m$
 - $(a \cdot b) \mod m \equiv (a \mod m \cdot b \mod m) \mod m$
 - $a^b \mod m \equiv (a \mod m)^b \mod m$
+- Adicionalmente, $a^b \mod m \equiv (a \mod m)^{b \mod \phi(m)} \mod m$, onde $\phi(m)$ é a função totiente de Euler.
 
 Divisões funcionam um pouco diferente, para realizar $a/b$ deve-se fazer $a \cdot b^{-1}$, onde $b^{-1}$ é o **inverso multiplicativo** de $b$ módulo $m$, tal que $b \cdot b^{-1} \equiv 1 \mod m$. No código, basta usar o operador de divisão normal pois a classe já está implementada com o inverso multiplicativo.
 
