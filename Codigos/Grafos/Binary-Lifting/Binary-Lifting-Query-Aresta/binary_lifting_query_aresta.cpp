@@ -1,8 +1,10 @@
+const int N = 3e5 + 5, LG = 20;
+
+vector<pair<int, int>> adj[N];
+int n, up[N][LG], st[N][LG], tin[N], tout[N], val[N];
+
 struct BinaryLifting {
-    vector<vector<pair<int, int>>> adj;
-    vector<vector<int>> up, st;
-    vector<int> tin, tout;
-    int N, LG, t;
+    int t;
 
     const int neutral = 0;
     int merge(int l, int r) { return l + r; }
@@ -21,14 +23,10 @@ struct BinaryLifting {
         tout[u] = t++;
     }
 
-    void build(int root, vector<vector<pair<int, int>>> adj2) {
+    void build(int root) {
         t = 1;
-        N = (int)adj2.size();
-        LG = 32 - __builtin_clz(N);
-        adj = adj2;
-        tin = tout = vector<int>(N);
-        up = st = vector(N, vector<int>(LG, neutral));
         up[root][0] = root;
+        st[root][0] = neutral;
         dfs(root);
     }
 

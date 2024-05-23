@@ -1,7 +1,10 @@
+const int N = 3e5 + 5, LG = 20;
+
+vector<int> adj[N];
+int n, up[N][LG], tin[N], tout[N];
+
 struct BinaryLifting {
-    vector<vector<int>> adj, up;
-    vector<int> tin, tout;
-    int N, LG, t;
+    int t;
 
     void dfs(int u, int p = -1) {
         tin[u] = t++;
@@ -16,13 +19,8 @@ struct BinaryLifting {
         tout[u] = t++;
     }
 
-    void build(int root, vector<vector<int>> adj2) {
+    void build(int root, int n) {
         t = 1;
-        N = (int)adj2.size();
-        LG = 32 - __builtin_clz(N);
-        adj = adj2;
-        tin = tout = vector<int>(N);
-        up = vector(N, vector<int>(LG));
         up[root][0] = root;
         dfs(root);
     }

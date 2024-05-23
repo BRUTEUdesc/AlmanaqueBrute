@@ -12,13 +12,13 @@ struct AC {
     AC() { node(); }
 
     int node(int p = -1, char c = -1) {
-        link.emplace_back(-1);
-        out_link.emplace_back(-1);
-        par.emplace_back(p);
-        pch.emplace_back(c);
-        next.emplace_back(K, -1);
-        out.emplace_back(0);
-        output.emplace_back();
+        link.push_back(-1);
+        out_link.push_back(-1);
+        par.push_back(p);
+        pch.push_back(c);
+        next.push_back(vector<int>(K, -1));
+        out.push_back(false);
+        output.push_back(vector<int>());
         return (int)link.size() - 1;
     }
 
