@@ -214,6 +214,10 @@ python3 .github/scripts/pdfer.py
 
 - [Mo](Codigos/Paradigmas/Mo)
 
+    - [Mo Normal](Codigos/Paradigmas/Mo/Mo-Normal)
+
+    - [Mo Update](Codigos/Paradigmas/Mo/Mo-Update)
+
 - [Exponenciação de Matriz](Codigos/Paradigmas/Exponenciação-de-Matriz)
 
 - [Busca Binaria Paralela](Codigos/Paradigmas/Busca-Binaria-Paralela)
