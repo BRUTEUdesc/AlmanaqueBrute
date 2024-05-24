@@ -3,60 +3,36 @@ template <int MOD> struct Mint {
     int v;
     Mint() : v(0) { }
     Mint(ll val) {
-        if (val < -MOD or val >= 2 * MOD) {
-            val %= MOD;
+        v = (-MOD <= val && val < MOD) ? (int)val : (int)(val % MOD);
+        if (v < 0) {
+            v += MOD;
         }
-        if (val >= MOD) {
-            val -= MOD;
-        }
-        if (val < 0) {
-            val += MOD;
-        }
-        v = (int)val;
     }
     bool operator==(const m &o) const { return v == o.v; }
     bool operator!=(const m &o) const { return v != o.v; }
     bool operator<(const m &o) const { return v < o.v; }
-    m pwr(m b, ll e) {
-        m res;
-        for (res = 1; e > 0; e >>= 1, b *= b) {
+    m pwr(m b, ll e) const {
+        m res = 1;
+        while (e > 0) {
             if (e & 1) {
-                res *= b;
+                res = res * b;
             }
+            b = b * b;
+            e >>= 1;
         }
         return res;
     }
-    m &operator+=(const m &o) {
-        v += o.v;
-        if (v >= MOD) {
-            v -= MOD;
-        }
-        return *this;
+    friend m operator+(m a, const m &b) {
+        a.v += b.v;
+        return a.v >= MOD ? a.v - MOD : a.v;
     }
-    m &operator-=(const m &o) {
-        v -= o.v;
-        if (v < 0) {
-            v += MOD;
-        }
-        return *this;
+    friend m operator-(m a, const m &b) {
+        a.v -= b.v;
+        return a.v < 0 ? a.v + MOD : a.v;
     }
-    m &operator*=(const m &o) { return *this = m((ll)v * o.v % MOD); }
-    m &operator/=(const m &o) { return *this *= pwr(o, MOD - 2); }
-    m &operator^=(ll e) {
-        assert(e >= 0);
-        return *this = pwr(*this, e);
-    }
-    friend m operator+(m a, const m &b) { return a += b; }
-    friend m operator-(m a, const m &b) { return a -= b; }
-    friend m operator*(m a, const m &b) { return a *= b; }
-    friend m operator/(m a, const m &b) { return a /= b; }
-    friend m operator^(m a, ll e) { return a ^= e; }
-    friend ostream &operator<<(ostream &os, const m &a) { return os << a.v; }
-    friend istream &operator>>(istream &is, m &a) {
-        ll x;
-        is >> x, a = m(x);
-        return is;
-    }
+    friend m operator*(m a, const m &b) { return (ll)a.v * b.v % MOD; }
+    friend m operator/(m a, const m &b) { return a * b.pwr(b, MOD - 2); }
+    friend m operator^(m a, ll e) { return a.pwr(a, e); }
 };
 
 const int MOD = 998244353; // o MOD tem que ser primo
