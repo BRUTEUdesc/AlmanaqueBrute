@@ -134,6 +134,12 @@ python3 .github/scripts/pdfer.py
 
 - [Stoer–Wagner Min Cut](Codigos/Grafos/Stoer–Wagner-Min-Cut)
 
+- [Centroids](Codigos/Grafos/Centroids)
+
+    - [Centroid](Codigos/Grafos/Centroids/Centroid)
+
+    - [Centroid Decomposition](Codigos/Grafos/Centroids/Centroid-Decomposition)
+
 - [Shortest Paths](Codigos/Grafos/Shortest-Paths)
 
     - [Floyd Warshall](Codigos/Grafos/Shortest-Paths/Floyd-Warshall)
