@@ -32,11 +32,9 @@ template <typename T = int> struct MergeSortTree {
         if (l > R || r < L || a > b)
             return 0;
         if (l >= L && r <= R) {
-            int ub =
-                (int)(upper_bound(tree[u].begin(), tree[u].end(), b) - begin(tree[u]));
-            int lb = (int)(upper_bound(tree[u].begin(), tree[u].end(), a - 1) -
-                           begin(tree[u]));
-            return (ub - lb);
+            auto ub = upper_bound(tree[u].begin(), tree[u].end(), b);
+            auto lb = upper_bound(tree[u].begin(), tree[u].end(), a - 1);
+            return (int)(ub - lb);
         }
         int mid = (l + r) >> 1;
         return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);

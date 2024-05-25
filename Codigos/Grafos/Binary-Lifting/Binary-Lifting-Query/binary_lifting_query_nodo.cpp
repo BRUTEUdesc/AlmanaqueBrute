@@ -1,10 +1,8 @@
 const int N = 3e5 + 5, LG = 20;
-
 vector<int> adj[N];
-int n, up[N][LG], st[N][LG], tin[N], tout[N], val[N];
 
-struct BinaryLifting {
-    int t;
+namespace bl {
+    int t, up[N][LG], st[N][LG], tin[N], tout[N], val[N];
 
     const int neutral = 0;
     int merge(int l, int r) { return l + r; }
@@ -33,9 +31,8 @@ struct BinaryLifting {
     bool ancestor(int u, int v) { return tin[u] <= tin[v] && tout[u] >= tout[v]; }
 
     int query2(int u, int v, bool include_lca) {
-        if (ancestor(u, v)) {
+        if (ancestor(u, v))
             return include_lca ? val[u] : neutral;
-        }
         int ans = val[u];
         for (int i = LG - 1; i >= 0; i--) {
             if (!ancestor(up[u][i], v)) {
@@ -54,12 +51,10 @@ struct BinaryLifting {
     }
 
     int lca(int u, int v) {
-        if (ancestor(u, v)) {
+        if (ancestor(u, v))
             return u;
-        }
-        if (ancestor(v, u)) {
+        if (ancestor(v, u))
             return v;
-        }
         for (int i = LG - 1; i >= 0; i--) {
             if (!ancestor(up[u][i], v)) {
                 u = up[u][i];
@@ -77,4 +72,4 @@ struct BinaryLifting {
         return u;
     }
 
-} bl;
+}
