@@ -1,7 +1,10 @@
-struct HLD {
-    int n, t;
-    vector<vector<int>> adj;
-    vector<int> sz, pos, par, head;
+const int N = 3e5 + 5;
+
+vector<int> adj[N];
+int sz[N], pos[N], par[N], head[N];
+
+namespace HLD {
+    int t;
     bool e = 0; // flag pra dizer se eh de aresta ou nao
     SegTree ds; // pode usar qualquer estrutura de dados aqui
 
@@ -28,7 +31,6 @@ struct HLD {
         }
     }
     void build_hld(int u) {
-        sz = pos = par = head = vector<int>(n);
         dfs_sz(u);
         t = 0;
         par[u] = u;
@@ -36,32 +38,27 @@ struct HLD {
         dfs_hld(u);
     }
 
-    void build(int root, vector<ll> v, vector<vector<int>> adj2) {
+    void build(int root, vector<ll> v) {
         // usar esse build pra iniciar com valores nos nodos
-        n = (int)adj2.size();
-        adj = adj2;
+        // (para iniciar vazia, passar o vetor com valores neutros)
         build_hld(root);
-        vector<ll> aux(n);
+        vector<ll> aux(v.size());
         for (int i = 0; i < (int)v.size(); i++) {
             aux[pos[i]] = v[i];
         }
         ds.build(aux);
     }
-    void build(int root, vector<vector<int>> adj2) {
-        // esse build eh para iniciar vazia
-        build(root, vector<ll>(adj2.size(), ds.neutral), adj2);
-    }
+
     void build(int root, vector<tuple<int, int, ll>> edges) {
-        // usar esse build se os pesos estiverem nas arestas
-        n = (int)edges.size() + 1;
-        adj = vector<vector<int>>(n);
+        // usar esse build se os valores estiverem nas arestas
         for (auto [u, v, w] : edges) {
             adj[u].push_back(v);
             adj[v].push_back(u);
         }
         build_hld(root);
         e = 1;
-        vector<ll> aux(n, ds.neutral);
+        assert(edges.size() >= 1);
+        vector<ll> aux(edges.size() - 1);
         for (auto [u, v, w] : edges) {
             if (pos[u] > pos[v]) {
                 swap(u, v);
@@ -120,4 +117,4 @@ struct HLD {
         }
         return (head[u] == head[v] ? u : lca(u, par[head[v]]));
     }
-} hld;
+}
