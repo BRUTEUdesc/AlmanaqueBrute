@@ -1,6 +1,5 @@
 const int N = 5e5 + 5;
-int n, timer;
-int tin[N];
+int timer, tin[N];
 vector<int> adj[N];
 vector<pair<int, int>> prof;
 
