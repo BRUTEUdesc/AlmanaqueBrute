@@ -4,7 +4,7 @@ mat T;
 
 #define MOD 1000000007
 
-mat *operator(mat a, mat b) {
+mat operator*(mat a, mat b) {
     mat res(a.size(), vector<ll>(b[0].size()));
     for (int i = 0; i < a.size(); i++) {
         for (int j = 0; j < b[0].size(); j++) {
@@ -22,16 +22,13 @@ mat operator^(mat a, ll k) {
     for (int i = 0; i < a.size(); i++) {
         res[i][i] = 1;
     }
-
     while (k) {
         if (k & 1) {
             res = res * a;
         }
-
         a = a * a;
         k >>= 1;
     }
-
     return res;
 }
 
