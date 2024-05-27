@@ -1,4 +1,4 @@
-# [Z Function](z.cpp
+# [Z Function](z.cpp)
 
 O algoritmo abaixo computa o vetor Z de uma string, definido por:
 

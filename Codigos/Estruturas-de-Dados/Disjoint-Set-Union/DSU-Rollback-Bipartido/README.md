@@ -1,3 +1,3 @@
-# [DSU Rollback Bipartido](full_dsu.cpp)
+# [DSU Rollback Bipartido](bipartite_rollback_dsu.cpp)
 
 DSU com rollback e bipartido.

@@ -1,4 +1,4 @@
-# Centroid Decomposition
+# [Centroid Decomposition](centroid_decomposition.cpp)
 
 Algoritmo que constrói a decomposição por centróides de uma árvore em $\mathcal{O}(N \log N)$.
 
