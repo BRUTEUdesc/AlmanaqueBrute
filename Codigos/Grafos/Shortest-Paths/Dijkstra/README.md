@@ -1,4 +1,4 @@
-# Dijkstra
+# [Dijkstra](dijkstra.cpp)
 
 Computa o menor caminho entre nós de um grafo com pesos quaisquer nas arestas.
 

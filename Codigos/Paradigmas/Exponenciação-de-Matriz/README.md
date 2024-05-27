@@ -1,8 +1,6 @@
 # [Exponenciação de Matriz](matrix_exp.cpp)
 
-<!-- DESCRIPTION -->
 Otimização para DP de prefixo quando o valor atual está em função dos últimos $K$ valores já calculados.   
-<!-- DESCRIPTION -->
 
 * Complexidade de tempo: $\mathcal{O}(log(n)*k^3)$
 
