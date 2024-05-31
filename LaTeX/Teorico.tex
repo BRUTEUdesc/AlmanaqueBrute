@@ -116,7 +116,6 @@ São os números primos da forma $2^m - 1$, onde $m$ é um número inteiro posit
   \end{tabular}
 \end{table}
 
-
 \section{Constantes em C++}
 
 \begin{center}
@@ -265,3 +264,129 @@ C =
 \begin{equation*} 
 \large \text{det}(kA) = K^N\text{det}(A) \\
 \end{equation*}
+
+\section{Sequências numéricas}
+
+\subsection{Sequência de Fibonacci}
+
+Primeiros termos: \textbf{1, 1, 2, 3, 5, 8, 13, 21, 34, \ldots}
+
+\begin{equation*}
+\large
+F_0 = F_1 = 1
+\end{equation*}
+
+\begin{equation*}
+\large
+F_n = F_{n-1} + F_{n-2}
+\end{equation*}
+
+Matriz de recorrência:
+
+\begin{equation*}
+\large
+\begin{bmatrix}
+    F_{n-1} \\
+    F_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+    0 & 1 \\
+    1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    F_{n-2} \\
+    F_{n-1}
+\end{bmatrix}
+\end{equation*}
+
+\subsection{Sequência de Catalan}
+
+Primeiros termos: \textbf{1, 1, 2, 5, 14, 42, 132, 429, 1430, \ldots}
+
+\begin{equation*}
+\large
+C_0 = C_1 = 1
+\end{equation*}
+
+\begin{equation*}
+\large
+C_n = \sum_{i=0}^{n-1} C_i \cdot C_{n-1-i}
+\end{equation*}
+
+Definição analítica:
+\begin{equation*}
+\large
+C_n = \frac{1}{n+1} \binom{2n}{n}
+\end{equation*}
+
+Propriedades úteis:
+\begin{itemize}
+  \item $C_n$ é o número de árvores binárias com $n+1$ folhas.
+  \item $C_n$ é o número de sequências de parênteses bem formadas com $n$ pares de parênteses.
+\end{itemize}
+
+\section{Análise combinatória}
+
+\subsection{Fatorial}
+
+O fatorial de um número $n$ é o produto de todos os inteiros positivos menores ou iguais a $n$.
+
+O fatorial conta o número de permutações de $n$ elementos.
+
+\begin{equation*}
+\large
+n! = n \cdot (n-1)!
+\end{equation*}
+
+Em particular, $0! = 1$.
+
+\subsection{Combinação}
+
+Conta o número de maneiras de escolher $k$ elementos de um conjunto de $n$ elementos.
+
+\begin{equation*}
+\large
+\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!}
+\end{equation*}
+
+\subsection{Arranjo}
+
+Conta o número de maneiras de escolher $k$ elementos de um conjunto de $n$ elementos, onde a ordem importa.
+
+\begin{equation*}
+\large
+P(n, k) = \frac{n!}{(n-k)!}
+\end{equation*}
+
+\subsection{Estrelas e barras}
+
+Conta o número de maneiras de distribuir $n$ elementos idênticos em $k$ recipientes distintos.
+
+\begin{equation*}
+\large
+\binom{n+k-1}{k-1}
+\end{equation*}
+
+\subsection{Princípio da inclusão-exclusão}
+
+O princípio da inclusão-exclusão é uma técnica para contar o número de elementos em uma união de conjuntos.
+
+\begin{equation*}
+\large
+\left| \bigcup_{i=1}^{n} A_i \right| = \sum_{k=1}^{n} (-1)^{k+1} \left( \sum_{1 \leq i_1 < i_2 < \ldots < i_k \leq n} \left| A_{i_1} \cap A_{i_2} \cap \ldots \cap A_{i_k} \right| \right)
+\end{equation*}
+
+\subsection{Princípio da casa dos pombos}
+
+Se $n$ pombos são colocados em $m$ casas, então pelo menos uma casa terá $\lceil \frac{n}{m} \rceil$ pombos ou mais.
+
+\section{Teoria dos números}
+
+\subsection{Pequeno teorema de Fermat}
+
+Se $p$ é um número primo e $a$ é um inteiro não divisível por $p$, então $a^{p-1} \equiv 1 \pmod{p}$.
+
+\subsection{Teorema de Euler}
+
+Se $m$ e $a$ são inteiros positivos coprimos, então $a^{\phi(m)} \equiv 1 \pmod{m}$, onde $\phi(m)$ é a função totiente de Euler.

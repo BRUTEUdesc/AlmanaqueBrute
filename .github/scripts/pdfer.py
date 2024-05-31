@@ -250,6 +250,8 @@ if __name__ == "__main__":
             os.remove("LaTeX/Almanaque.toc")
         if Path("LaTeX/Almanaque.tex").exists():
             os.remove("LaTeX/Almanaque.tex")
+        if Path("LaTeX/Almanaque.rubbercache").exists():
+            os.remove("LaTeX/Almanaque.rubbercache")
 
 
     README = Path("README.md")

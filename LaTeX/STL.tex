@@ -1,14 +1,37 @@
-\chapter{STL (Standard Template Library - C++)}
+\chapter{C++}
+
+\section{Compilador}
+
+Para compilar um arquivo \texttt{.cpp} com o compilador \texttt{g++}, usar o comando:
+
+\begin{lstlisting}[language=bash]
+    g++ -std=c++20 -O2 arquivo.cpp
+\end{lstlisting}
+
+\textbf{Obs:} a flag \texttt{-std=c++20} é para usar a versão 20 do C++, os códigos desse Almanaque são testados com essa versão.
+
+Algumas flags úteis para o \texttt{g++} são:
+
+\begin{itemize}
+    \item \texttt{-O2}: Otimizações de compilação
+    \item \texttt{-Wall}: Mostra todos os warnings
+    \item \texttt{-Wextra}: Mostra mais warnings
+    \item \texttt{-Wconversion}: Mostra warnings para conversões implícitas
+    \item \texttt{-fsanitize=address}: Habilita o AddressSanitizer
+    \item \texttt{-fsanitize=undefined}: Habilita o UndefinedBehaviorSanitizer
+\end{itemize}
+
+\section{STL (Standard Template Library)}
 
 Os templates da STL são estruturas de dados e algoritmos já implementadas em \texttt{C++} que facilitam as implementações, além de serem muito eficients.
 Em geral, todas estão incluídas no cabeçalho \texttt{<bits/stdc++.h>}. As estruturas são templates genéricos, podem ser usadas com qualquer tipo, todos os exemplos a seguir são com \texttt{int} apenas por motivos de simplicidade.
 
-\section{Vector}
+\subsection{Vector}
 
 Um vetor dinâmico (que pode crescer e diminuir de tamanho).
 
 \begin{itemize}
-    \item \texttt{vector<int> v(n, 0)}: Cria um vetor de inteiros com \texttt{n} elementos, todos inicializados com 0 - $\mathcal{O}(n)$
+    \item \texttt{vector<int> v(n, x)}: Cria um vetor de inteiros com \texttt{n} elementos, todos inicializados com x - $\mathcal{O}(n)$
     \item \texttt{v.push\_back(x)}: Adiciona o elemento \texttt{x} no final do vetor - $\mathcal{O}(1)$
     \item \texttt{v.pop\_back()}: Remove o último elemento do vetor - $\mathcal{O}(1)$
     \item \texttt{v.size()}: Retorna o tamanho do vetor - $\mathcal{O}(1)$
@@ -25,7 +48,7 @@ Um vetor dinâmico (que pode crescer e diminuir de tamanho).
     \item \texttt{v.resize(n, x)}: Redimensiona o vetor para \texttt{n} elementos, todos inicializados com \texttt{x} - $\mathcal{O}(n)$
 \end{itemize}
 
-\section{Pair}
+\subsection{Pair}
 
 Um par de elementos (de tipos possivelmente diferentes).
 
@@ -35,7 +58,7 @@ Um par de elementos (de tipos possivelmente diferentes).
     \item \texttt{p.second}: Retorna o segundo elemento do par - $\mathcal{O}(1)$
 \end{itemize}
 
-\section{Set}
+\subsection{Set}
 
 Um conjunto de elementos únicos. Por baixo, é uma árvore de busca binária balanceada.
 
@@ -51,7 +74,7 @@ Um conjunto de elementos únicos. Por baixo, é uma árvore de busca binária ba
     \item \texttt{s.end()}: Retorna um iterador para o elemento seguinte ao último do conjunto - $\mathcal{O}(1)$
 \end{itemize}
 
-\section{Multiset}
+\subsection{Multiset}
 
 Basicamente um \texttt{set}, mas permite elementos repetidos. Possui todos os métodos de um \texttt{set}.
 
@@ -59,7 +82,7 @@ Declaração: \texttt{multiset<int> ms}.
 
 Um detalhe é que, ao usar o método \texttt{erase}, ele remove todas as ocorrências do elemento. Para remover apenas uma ocorrência, usar \texttt{ms.erase(ms.find(x))}.
 
-\section{Map}
+\subsection{Map}
 
 Um conjunto de pares chave-valor, onde as chaves são únicas. Por baixo, é uma árvore de busca binária balanceada.
 
@@ -76,7 +99,7 @@ Um conjunto de pares chave-valor, onde as chaves são únicas. Por baixo, é uma
     \item \texttt{m.end()}: Retorna um iterador para o par chave-valor seguinte ao último do mapa - $\mathcal{O}(1)$
 \end{itemize}
 
-\section{Queue}
+\subsection{Queue}
 
 Uma fila (primeiro a entrar, primeiro a sair).
 
@@ -89,7 +112,7 @@ Uma fila (primeiro a entrar, primeiro a sair).
     \item \texttt{q.empty()}: Retorna \texttt{true} se a fila estiver vazia - $\mathcal{O}(1)$
 \end{itemize}
 
-\section{Priority Queue}
+\subsection{Priority Queue}
 
 Uma fila de prioridade (o maior elemento é o primeiro a sair).
 
@@ -104,7 +127,7 @@ Uma fila de prioridade (o maior elemento é o primeiro a sair).
 
 Para fazer uma fila de prioridade que o menor elemento é o primeiro a sair, usar \texttt{priority\_queue<int, vector<int>, greater<>> pq}.
 
-\section{Stack}
+\subsection{Stack}
 
 Uma pilha (último a entrar, primeiro a sair).
 
@@ -117,7 +140,7 @@ Uma pilha (último a entrar, primeiro a sair).
     \item \texttt{s.empty()}: Retorna \texttt{true} se a pilha estiver vazia - $\mathcal{O}(1)$
 \end{itemize}
 
-\section{Funções úteis}
+\subsection{Funções úteis}
 
 \begin{itemize}
     \item \texttt{min(a, b)}: Retorna o menor entre \texttt{a} e \texttt{b} - $\mathcal{O}(1)$
@@ -130,7 +153,7 @@ Uma pilha (último a entrar, primeiro a sair).
     \item \texttt{round(a)}: Retorna o inteiro mais próximo de \texttt{a} - $\mathcal{O}(1)$
 \end{itemize}
 
-\section{Funções úteis para vetores}
+\subsection{Funções úteis para vetores}
 
 Para usar em \texttt{std::vector}, sempre passar \texttt{v.begin()} e \texttt{v.end()} como argumentos pra essas funções.
 
@@ -141,6 +164,10 @@ Exemplo:
     sort(v, v + 10);
 \end{lstlisting}
 
+\textbf{Lembrete:} \texttt{v.end()} é um iterador para o elemento seguinte ao último do vetor, então não é um iterador válido.
+
+As funções de vetor em geral são da forma \texttt{[L, R)}, ou seja, \texttt{L} é incluso e \texttt{R} é excluso.
+
 \begin{itemize}
     \item \texttt{fill(v.begin(), v.end(), x)}: Preenche o vetor \texttt{v} com o valor \texttt{x} - $\mathcal{O}(n)$
     \item \texttt{sort(v.begin(), v.end())}: Ordena o vetor \texttt{v} - $\mathcal{O}(n \log n)$
@@ -150,7 +177,76 @@ Exemplo:
     \item \texttt{min\_element(v.begin(), v.end())}: Retorna um iterador para o menor elemento do vetor \texttt{v} - $\mathcal{O}(n)$
     \item \texttt{count(v.begin(), v.end(), x)}: Retorna o número de ocorrências do elemento \texttt{x} no vetor \texttt{v} - $\mathcal{O}(n)$
     \item \texttt{find(v.begin(), v.end(), x)}: Retorna um iterador para a primeira ocorrência do elemento \texttt{x} no vetor \texttt{v}, ou \texttt{v.end()} se não existir - $\mathcal{O}(n)$
-    \item \texttt{lower\_bound(v.begin(), v.end(), x)}: Retorna um iterador para o primeiro elemento maior ou igual a \texttt{x} no vetor \texttt{v} (o vetor deve estar ordenado) - $\mathcal{O}(\log n)$
+    I\item \texttt{lower\_bound(v.begin(), v.end(), x)}: Retorna um iterador para o primeiro elemento maior ou igual a \texttt{x} no vetor \texttt{v} (o vetor deve estar ordenado) - $\mathcal{O}(\log n)$
     \item \texttt{upper\_bound(v.begin(), v.end(), x)}: Retorna um iterador para o primeiro elemento estritamente maior que \texttt{x} no vetor \texttt{v} (o vetor deve estar ordenado) - $\mathcal{O}(\log n)$
     \item \texttt{next\_permutation(a.begin(), a.end())}: Rearranja os elementos do vetor \texttt{a} para a próxima permutação lexicograficamente maior - $\mathcal{O}(n)$
 \end{itemize}
+
+\section{Pragmas}
+
+Os pragmas são diretivas para o compilador, que podem ser usadas para otimizar o código.
+
+Temos os pragmas de otimização, como por exemplo:
+
+\begin{itemize}
+    \item \texttt{\#pragma GCC optimize("O2")}: Otimizações de nível 2 (padrão de competições)
+    \item \texttt{\#pragma GCC optimize("O3")}: Otimizações de nível 3 (seguro para usar)
+    \item \texttt{\#pragma GCC optimize("Ofast")}: Otimizações agressivas (perigoso!)
+    \item \texttt{\#pragma GCC optimize("unroll-loops")}: Otimiza os loops mas pode levar a cache misses
+\end{itemize}
+
+E também os pragmas de target, que são usados para otimizar o código para um certo processador:
+
+\begin{itemize}
+    \item \texttt{\#pragma GCC target("avx2")}: Otimiza instruções para processadores com suporte a AVX2
+    \item \texttt{\#pragma GCC target("sse4")}: Parecido com o de cima, mas mais antigo
+    \item \texttt{\#pragma GCC target("popcnt")}: Otimiza o popcount em processadores que suportam
+    \item \texttt{\#pragma GCC target("lzcnt")}: Otimiza o leading zero count em processadores que suportam
+    \item \texttt{\#pragma GCC target("bmi")}: Otimiza instruções de bit manipulation em processadores que suportam
+    \item \texttt{\#pragma GCC target("bmi2")}: Mesmo que o de cima, mas mais recente
+\end{itemize}
+
+Em geral, esses pragmas são usados para otimizar o código em competições, mas é importante usálos com certa sabedoria, em alguns casos eles podem piorar o desempenho do código.
+
+Uma opção relativamente segura de se usar é a seguinte:
+
+\begin{lstlisting}[language=C++]
+    #pragma GCC optimize("O3,unroll-loops")
+    #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+\end{lstlisting}
+
+\section{Constantes em C++}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+  \hline
+  Constante & Nome em \texttt{C++} & Valor \\
+  \hline
+  $\pi$ & \texttt{M\_PI} & 3.141592... \\
+  \hline
+  $\pi / 2$ & \texttt{M\_PI\_2} & 1.570796... \\
+  \hline
+  $\pi / 4$ & \texttt{M\_PI\_4} & 0.785398... \\
+  \hline
+  $1 / \pi$ & \texttt{M\_1\_PI} & 0.318309... \\
+  \hline
+  $2 / \pi$ & \texttt{M\_2\_PI} & 0.636619... \\
+  \hline
+  $2 / \sqrt{\pi}$ & \texttt{M\_2\_SQRTPI} & 1.128379... \\
+  \hline
+  $\sqrt{2}$ & \texttt{M\_SQRT2} & 1.414213... \\
+  \hline
+  $1 / \sqrt{2}$ & \texttt{M\_SQRT1\_2} & 0.707106... \\
+  \hline
+  $e$ & \texttt{M\_E} & 2.718281... \\
+  \hline
+  $\log_2{e}$ & \texttt{M\_LOG2E} & 1.442695... \\
+  \hline
+  $\log_{10}{e}$ & \texttt{M\_LOG10E} & 0.434294... \\
+  \hline
+  $\ln{2}$ & \texttt{M\_LN2} & 0.693147... \\
+  \hline
+  $\ln{10}$ & \texttt{M\_LN10} & 2.302585... \\
+  \hline
+\end{tabular}
+\end{center}
