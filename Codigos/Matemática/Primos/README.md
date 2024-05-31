@@ -17,4 +17,4 @@ Teste de primalidade garantido para números até $10^24$.
 # [Teste Ingênuo](naive_is_prime.cpp)
 Computa a primalidade de um número N.
 
-- Complexidade de tempo: $\mathcal{O}(N^(1/2))$
+- Complexidade de tempo: $\mathcal{O}(\sqrt{N})$
