@@ -6,84 +6,84 @@ struct SegTree {
     vector<ll> t, lazy;
     vector<bool> replace;
 
-    void push(int u, int l, int r) {
-        if (replace[u]) {
-            t[u] = lazy[u] * (r - l + 1);
+    void push(int p, int l, int r) {
+        if (replace[p]) {
+            t[p] = lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[u << 1] = lazy[u];
-                lazy[u << 1 | 1] = lazy[u];
-                replace[u << 1] = replace[u];
-                replace[u << 1 | 1] = replace[u];
+                lazy[p * 2] = lazy[p];
+                lazy[p * 2 + 1] = lazy[p];
+                replace[p * 2] = replace[p];
+                replace[p * 2 + 1] = replace[p];
             }
-        } else if (lazy[u] != 0) {
-            t[u] += lazy[u] * (r - l + 1);
+        } else if (lazy[p] != 0) {
+            t[p] += lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[u << 1] += lazy[u];
-                lazy[u << 1 | 1] += lazy[u];
+                lazy[p * 2] += lazy[p];
+                lazy[p * 2 + 1] += lazy[p];
             }
         }
-        replace[u] = false;
-        lazy[u] = 0;
+        replace[p] = false;
+        lazy[p] = 0;
     }
 
-    void build(int u, int l, int r, const vector<ll> &v) {
+    void build(int p, int l, int r, const vector<ll> &v) {
         if (l == r) {
-            t[u] = v[l];
+            t[p] = v[l];
         } else {
             int mid = (l + r) / 2;
-            build(u << 1, l, mid, v);
-            build(u << 1 | 1, mid + 1, r, v);
-            t[u] = merge(t[u << 1], t[u << 1 | 1]);
+            build(p * 2, l, mid, v);
+            build(p * 2 + 1, mid + 1, r, v);
+            t[p] = merge(t[p * 2], t[p * 2 + 1]);
         }
     }
 
     void build(int _n) { // pra construir com tamanho, mas vazia
         n = _n;
-        t.assign(n << 2, neutral);
-        lazy.assign(n << 2, 0);
-        replace.assign(n << 2, false);
+        t.assign(n * 4, neutral);
+        lazy.assign(n * 4, 0);
+        replace.assign(n * 4, false);
     }
 
     void build(const vector<ll> &v) { // pra construir com vector
         n = (int)v.size();
-        t.assign(n << 2, neutral);
-        lazy.assign(n << 2, 0);
-        replace.assign(n << 2, false);
+        t.assign(n * 4, neutral);
+        lazy.assign(n * 4, 0);
+        replace.assign(n * 4, false);
         build(1, 0, n - 1, v);
     }
     void build(ll *bg, ll *en) { // pra construir com array de C
         build(vector<ll>(bg, en));
     }
 
-    ll query(int u, int l, int r, int L, int R) {
-        push(u, l, r);
+    ll query(int p, int l, int r, int L, int R) {
+        push(p, l, r);
         if (l > R || r < L) {
             return neutral;
         }
         if (l >= L && r <= R) {
-            return t[u];
+            return t[p];
         }
-        int mid = (l + r) >> 1;
-        ll ql = query(u << 1, l, mid, L, R);
-        ll qr = query(u << 1 | 1, mid + 1, r, L, R);
+        int mid = (l + r) / 2;
+        ll ql = query(p * 2, l, mid, L, R);
+        ll qr = query(p * 2 + 1, mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
 
-    void update(int u, int l, int r, int L, int R, ll val, bool repl) {
-        push(u, l, r);
+    void update(int p, int l, int r, int L, int R, ll val, bool repl) {
+        push(p, l, r);
         if (l > R || r < L) {
             return;
         }
         if (l >= L && r <= R) {
-            lazy[u] = val;
-            replace[u] = repl;
-            push(u, l, r);
+            lazy[p] = val;
+            replace[p] = repl;
+            push(p, l, r);
         } else {
-            int mid = (l + r) >> 1;
-            update(u << 1, l, mid, L, R, val, repl);
-            update(u << 1 | 1, mid + 1, r, L, R, val, repl);
-            t[u] = merge(t[u << 1], t[u << 1 | 1]);
+            int mid = (l + r) / 2;
+            update(p * 2, l, mid, L, R, val, repl);
+            update(p * 2 + 1, mid + 1, r, L, R, val, repl);
+            t[p] = merge(t[p * 2], t[p * 2 + 1]);
         }
     }
     void update(int l, int r, ll val, bool repl = false) {

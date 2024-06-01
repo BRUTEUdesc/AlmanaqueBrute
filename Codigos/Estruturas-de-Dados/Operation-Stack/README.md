@@ -19,8 +19,8 @@ void test() {
     st.push(1);
     st2.push(1);
     st2.push(1);
-    cout << st.get() << endl;
-    cout << st2.get() << endl;
+    cout << st.get() << endl; // 2
+    cout << st2.get() << endl; // 0
 }
 ```
 
