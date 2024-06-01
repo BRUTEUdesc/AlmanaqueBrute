@@ -217,11 +217,11 @@ if __name__ == "__main__":
         STL = Path("LaTeX/STL.tex")
         printa_arquivo(STL, f)
 
-        EXTRA = Path("Codigos/Extra")
-        dfs(EXTRA, f, 0)
-
         TEORICO = Path("LaTeX/Teorico.tex")
         printa_arquivo(TEORICO, f)
+
+        EXTRA = Path("Codigos/Extra")
+        dfs(EXTRA, f, 0)
 
         for child in DIR.iterdir():
             if child.is_dir() and child.name != "Extra":
