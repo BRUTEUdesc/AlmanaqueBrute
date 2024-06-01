@@ -13,56 +13,56 @@ struct SegTree {
     int n;
     vector<node> t;
 
-    void build(int u, int l, int r, const vector<ll> &v) {
+    void build(int p, int l, int r, const vector<ll> &v) {
         if (l == r) {
-            t[u] = {v[l], v[l], v[l], v[l]};
+            t[p] = {v[l], v[l], v[l], v[l]};
         } else {
-            int mid = (l + r) >> 1;
-            build(u << 1, l, mid, v);
-            build(u << 1 | 1, mid + 1, r, v);
-            t[u] = merge(t[u << 1], t[u << 1 | 1]);
+            int mid = (l + r) / 2;
+            build(p * 2, l, mid, v);
+            build(p * 2 + 1, mid + 1, r, v);
+            t[p] = merge(t[p * 2], t[p * 2 + 1]);
         }
     }
 
     void build(int _n) { // pra construir com tamanho, mas vazia
         n = _n;
-        t.assign(n << 2, neutral);
+        t.assign(n * 4, neutral);
     }
 
     void build(const vector<ll> &v) { // pra construir com vector
         n = int(v.size());
-        t.assign(n << 2, neutral);
+        t.assign(n * 4, neutral);
         build(1, 0, n - 1, v);
     }
     void build(ll *bg, ll *en) { // pra construir com array de C
         build(vector<ll>(bg, en));
     }
 
-    node query(int u, int l, int r, int L, int R) {
+    node query(int p, int l, int r, int L, int R) {
         if (l > R || r < L) {
             return neutral;
         }
         if (l >= L && r <= R) {
-            return t[u];
+            return t[p];
         }
-        int mid = (l + r) >> 1;
-        node ql = query(u << 1, l, mid, L, R);
-        node qr = query(u << 1 | 1, mid + 1, r, L, R);
+        int mid = (l + r) / 2;
+        node ql = query(p * 2, l, mid, L, R);
+        node qr = query(p * 2 + 1, mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r).ans; }
 
-    void update(int u, int l, int r, int i, ll x) {
+    void update(int p, int l, int r, int i, ll x) {
         if (l == r) {
-            t[u] = {x, x, x, x};
+            t[p] = {x, x, x, x};
         } else {
-            int mid = (l + r) >> 1;
+            int mid = (l + r) / 2;
             if (i <= mid) {
-                update(u << 1, l, mid, i, x);
+                update(p * 2, l, mid, i, x);
             } else {
-                update(u << 1 | 1, mid + 1, r, i, x);
+                update(p * 2 + 1, mid + 1, r, i, x);
             }
-            t[u] = merge(t[u << 1], t[u << 1 | 1]);
+            t[p] = merge(t[p * 2], t[p * 2 + 1]);
         }
     }
     void update(int i, ll x) { update(1, 0, n - 1, i, x); }

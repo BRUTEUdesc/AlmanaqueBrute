@@ -15,72 +15,71 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int u) {
-        if (Lc[u] == -1) {
-            Lc[u] = newnode();
+    inline int le(int p) {
+        if (Lc[p] == -1) {
+            Lc[p] = newnode();
         }
-        return Lc[u];
+        return Lc[p];
     }
 
-    inline int ri(int u) {
-        if (Rc[u] == -1) {
-            Rc[u] = newnode();
+    inline int ri(int p) {
+        if (Rc[p] == -1) {
+            Rc[p] = newnode();
         }
-        return Rc[u];
+        return Rc[p];
     }
 
     SegTree() { newnode(); }
 
-    void push(int u, ll l, ll r) {
-        if (replace[u]) {
-            t[u] = lazy[u] * (r - l + 1);
+    void push(int p, ll l, ll r) {
+        if (replace[p]) {
+            t[p] = lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(u)] = lazy[u];
-                lazy[ri(u)] = lazy[u];
-                replace[le(u)] = replace[u];
-                replace[ri(u)] = replace[u];
+                lazy[le(p)] = lazy[p];
+                lazy[ri(p)] = lazy[p];
+                replace[le(p)] = replace[p];
+                replace[ri(p)] = replace[p];
             }
-        } else if (lazy[u] != 0) {
-            t[u] += lazy[u] * (r - l + 1);
+        } else if (lazy[p] != 0) {
+            t[p] += lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(u)] += lazy[u];
-                lazy[ri(u)] += lazy[u];
+                lazy[le(p)] += lazy[p];
+                lazy[ri(p)] += lazy[p];
             }
         }
-        replace[u] = false;
-        lazy[u] = 0;
+        replace[p] = false;
+        lazy[p] = 0;
     }
 
-    ll query(int u, ll l, ll r, ll L, ll R) {
-        push(u, l, r);
-        debug(u, l, r, L, R, t[u]);
+    ll query(int p, ll l, ll r, ll L, ll R) {
+        push(p, l, r);
         if (l > R || r < L) {
             return neutral;
         }
         if (l >= L && r <= R) {
-            return t[u];
+            return t[p];
         }
         ll mid = l + (r - l) / 2;
-        ll ql = query(le(u), l, mid, L, R);
-        ll qr = query(ri(u), mid + 1, r, L, R);
+        ll ql = query(le(p), l, mid, L, R);
+        ll qr = query(ri(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
 
-    void update(int u, ll l, ll r, ll L, ll R, ll val, bool repl) {
-        push(u, l, r);
+    void update(int p, ll l, ll r, ll L, ll R, ll val, bool repl) {
+        push(p, l, r);
         if (l > R || r < L) {
             return;
         }
         if (l >= L && r <= R) {
-            lazy[u] = val;
-            replace[u] = repl;
-            push(u, l, r);
+            lazy[p] = val;
+            replace[p] = repl;
+            push(p, l, r);
         } else {
             ll mid = l + (r - l) / 2;
-            update(le(u), l, mid, L, R, val, repl);
-            update(ri(u), mid + 1, r, L, R, val, repl);
-            t[u] = merge(t[le(u)], t[ri(u)]);
+            update(le(p), l, mid, L, R, val, repl);
+            update(ri(p), mid + 1, r, L, R, val, repl);
+            t[p] = merge(t[le(p)], t[ri(p)]);
         }
     }
     void update(ll l, ll r, ll val, bool repl = false) {

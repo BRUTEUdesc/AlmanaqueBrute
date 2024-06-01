@@ -12,32 +12,32 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int u) {
-        if (Lc[u] == -1) {
-            Lc[u] = newnode();
+    inline int le(int p) {
+        if (Lc[p] == -1) {
+            Lc[p] = newnode();
         }
-        return Lc[u];
+        return Lc[p];
     }
 
-    inline int ri(int u) {
-        if (Rc[u] == -1) {
-            Rc[u] = newnode();
+    inline int ri(int p) {
+        if (Rc[p] == -1) {
+            Rc[p] = newnode();
         }
-        return Rc[u];
+        return Rc[p];
     }
 
     SegTree() { roots.push_back(newnode()); }
 
-    ll query(int u, ll l, ll r, ll L, ll R) {
+    ll query(int p, ll l, ll r, ll L, ll R) {
         if (l > R || r < L) {
             return neutral;
         }
         if (l >= L && r <= R) {
-            return t[u];
+            return t[p];
         }
         ll mid = l + (r - l) / 2;
-        ll ql = query(le(u), l, mid, L, R);
-        ll qr = query(ri(u), mid + 1, r, L, R);
+        ll ql = query(le(p), l, mid, L, R);
+        ll qr = query(ri(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r, int root = -1) {
@@ -47,21 +47,21 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
         return query(root, MINL, MAXR, l, r);
     }
 
-    void update(int u, int old, ll l, ll r, ll i, ll x) {
+    void update(int p, int old, ll l, ll r, ll i, ll x) {
         if (l == r) {
-            t[u] = x; // substitui
-            // t[u] += x; // soma
+            t[p] = x; // substitui
+            // t[p] += x; // soma
             return;
         }
         ll mid = l + (r - l) / 2;
         if (i <= mid) {
-            Rc[u] = ri(old);
-            update(le(u), le(old), l, mid, i, x);
+            Rc[p] = ri(old);
+            update(le(p), le(old), l, mid, i, x);
         } else {
-            Lc[u] = le(old);
-            update(ri(u), ri(old), mid + 1, r, i, x);
+            Lc[p] = le(old);
+            update(ri(p), ri(old), mid + 1, r, i, x);
         }
-        t[u] = merge(t[le(u)], t[ri(u)]);
+        t[p] = merge(t[le(p)], t[ri(p)]);
     }
     int update(ll i, ll x, int root = -1) {
         int new_root = newnode();
