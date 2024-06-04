@@ -6,14 +6,14 @@ vector<tuple<int, int, int>> edges;
 vector<ll> bellman_ford(int s) {
     vector<ll> dist(n, INF);
     dist[s] = 0;
-    for (int i = 0; i < n - 1; i++) {
+    for (int i = 0; i < n; i++) {
         for (auto [u, v, w] : edges) {
             if (dist[u] < INF) {
                 dist[v] = min(dist[v], dist[u] + w);
             }
         }
     }
-    for (int i = 0; i < n + 1; i++) {
+    for (int i = 0; i < n; i++) {
         for (auto [u, v, w] : edges) {
             if (dist[u] < INF && dist[u] + w < dist[v]) {
                 dist[v] = -INF;
