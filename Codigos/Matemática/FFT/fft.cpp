@@ -1,74 +1,84 @@
-typedef complex<double> cd;
-typedef vector<cd> poly;
+struct base {
+    double a, b;
+    base(double _a = 0, double _b = 0) : a(_a), b(_b) { }
+    const base operator+(const base &c) const { return base(a + c.a, b + c.b); }
+    const base operator-(const base &c) const { return base(a - c.a, b - c.b); }
+    const base operator*(const base &c) const {
+        return base(a * c.a - b * c.b, a * c.b + b * c.a);
+    }
+};
+typedef vector<base> poly;
 const double PI = acos(-1);
 
-void fft(poly &a, bool invert = 0) {
-    int n = a.size(), log_n = 0;
-    while ((1 << log_n) < n) {
-        log_n++;
-    }
+void fft(poly &a, bool inv = 0) {
+    int n = int(a.size());
 
-    for (int i = 1, j = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         int bit = n >> 1;
-        for (; j >= bit; bit >>= 1) {
-            j -= bit;
+        int j = 0, k = i;
+        while (bit > 0) {
+            if (k & 1)
+                j += bit;
+            k >>= 1;
+            bit >>= 1;
         }
-        j += bit;
         if (i < j) {
             swap(a[i], a[j]);
         }
     }
 
-    double angle = 2 * PI / n * (invert ? -1 : 1);
-    poly root(n / 2);
-    for (int i = 0; i < n / 2; ++i) {
-        root[i] = cd(cos(angle * i), sin(angle * i));
+    double angle = 2 * PI / n * (inv ? -1 : 1);
+    vector<base> wn(n / 2);
+    for (int i = 0; i < n / 2; i++) {
+        wn[i] = {cos(angle * i), sin(angle * i)};
     }
 
-    for (long long len = 2; len <= n; len <<= 1) {
-        long long step = n / len;
-        long long aux = len / 2;
-        for (long long i = 0; i < n; i += len) {
-            for (int j = 0; j < aux; ++j) {
-                cd u = a[i + j], v = a[i + j + aux] * root[step * j];
-                a[i + j] = u + v;
-                a[i + j + aux] = u - v;
+    for (int len = 2; len <= n; len <<= 1) {
+        int aux = len / 2;
+        int step = n / len;
+        for (int i = 0; i < n; i += len) {
+            for (int j = 0; j < aux; j++) {
+                base v = a[i + j + aux] * wn[step * j];
+                a[i + j + aux] = a[i + j] - v;
+                a[i + j] = a[i + j] + v;
             }
         }
     }
-    if (invert) {
-        for (int i = 0; i < n; ++i) {
-            a[i] /= n;
-        }
+    for (int i = 0; (inv) && i < n; i++) {
+        a[i].a /= n;
+        a[i].b /= n;
     }
 }
 
-vector<long long> convolution(vector<long long> &a, vector<long long> &b) {
-    int n = 1, len = a.size() + b.size();
-    while (n < len) {
-        n <<= 1;
+vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
+    int n = int(ta.size()), m = int(tb.size());
+    int t = n + m - 1;
+    int sz = 1;
+    while (sz < t) {
+        sz <<= 1;
     }
-    a.resize(n);
-    b.resize(n);
-    poly fft_a(a.begin(), a.end());
-    fft(fft_a);
-    poly fft_b(b.begin(), b.end());
-    fft(fft_b);
 
-    poly c(n);
-    for (int i = 0; i < n; ++i) {
-        c[i] = fft_a[i] * fft_b[i];
+    poly a(sz), b(sz), c(sz);
+
+    for (int i = 0; i < sz; i++) {
+        a[i] = i < n ? base((double)ta[i]) : base(0);
+        b[i] = i < m ? base((double)tb[i]) : base(0);
+    }
+
+    fft(a, 0), fft(b, 0);
+    for (int i = 0; i < sz; i++) {
+        c[i] = a[i] * b[i];
     }
     fft(c, 1);
 
-    vector<long long> res(n);
-    for (int i = 0; i < n; ++i) {
-        res[i] = round(c[i].real()); //  res = c[i].real();
-                                     //  se for vector de
-                                     //  double
+    vector<ll> res(sz);
+    for (int i = 0; i < sz; i++) {
+        res[i] = ll(round(c[i].a));
     }
-    // while(size(res) > 1 && res.back() == 0)
-    // res.pop_back(); // apenas para quando os
-    // zeros direita nao importarem
+
+    while (int(res.size()) > 1 && res.back() == 0) {
+        res.pop_back();
+    }
+
     return res;
 }
