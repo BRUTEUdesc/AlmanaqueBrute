@@ -28,7 +28,7 @@ void fft(poly &a, bool inv = 0) {
     }
 
     double angle = 2 * PI / n * (inv ? -1 : 1);
-    vector<base> wn(n / 2);
+    poly wn(n / 2);
     for (int i = 0; i < n / 2; i++) {
         wn[i] = {cos(angle * i), sin(angle * i)};
     }
