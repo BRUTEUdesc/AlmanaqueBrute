@@ -1,4 +1,4 @@
-# [Belmann-Ford](belmann_ford.cpp)
+# [Bellman-Ford](bellman_ford.cpp)
 
 Encontra o caminho mais curto entre um vértice e todos os outros vértices de um grafo em $\mathcal{O}(|V| * |E|)$.
 
