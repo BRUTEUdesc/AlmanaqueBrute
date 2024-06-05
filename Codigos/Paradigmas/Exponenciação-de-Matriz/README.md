@@ -2,7 +2,7 @@
 
 Otimização para DP de prefixo quando o valor atual está em função dos últimos $K$ valores já calculados.   
 
-* Complexidade de tempo: $\mathcal{O}(log(n)*k^3)$
+* Complexidade de tempo: $\mathcal{O}(k^3 \cdot \log n)$
 
 É preciso mapear a DP para uma exponenciação de matriz.
 
@@ -33,11 +33,11 @@ $$ \begin{pmatrix} 1&5&3&2 \\\ 0&1&0&0 \\\ 0&1&1&0 \\\ 0&1&2&1 \end{pmatrix}^n \
 
 Exemplo de DP:
 
-$$ dp[n] =  c\times \prod_{i=1}^{k} dp[n-i] $$
+$$ dp[n] = c \cdot \prod_{i=1}^{k} dp[n-i] $$
 
 Nesses casos é preciso trabalhar com o logaritmo e temos o caso padrão:
 
 
-$$ \log(dp[n]) =  log(c) + \sum_{i=1}^{k} log(dp[n-i]) $$
+$$ \log(dp[n]) = \log(c) + \sum_{i=1}^{k} \log(dp[n-i]) $$
 
 Se a resposta precisar ser inteira, deve-se fatorar a constante e os valores inicias e então fazer uma exponenciação para cada fator primo. Depois é só juntar a resposta no final.

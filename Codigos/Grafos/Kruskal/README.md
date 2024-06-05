@@ -2,7 +2,7 @@
 
 Algoritimo que utiliza DSU (Disjoint Set Union, descrita na seção de Estrutura de Dados) para encontrar a MST (Minimum Spanning Tree) de um grafo em $\mathcal{O}(E \log E)$.
 
-A Minimum Spanning Tree é a árvore geradora mínima de um grafo, ou seja, um conjunto de arestas que conecta todos os vértices do grafo com o menor custo possível.
+A Minimum Spanning Tree é a árvore geradora mínima de um grafo, ou seja, um conjunto de arestas que conecta todos os nodos do grafo com o menor custo possível.
 
 Propriedades importantes da MST:
 

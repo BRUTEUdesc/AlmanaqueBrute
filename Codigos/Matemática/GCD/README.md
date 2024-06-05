@@ -1,8 +1,6 @@
 # Máximo divisor comum
 
-<!-- DESCRIPTION -->
 Algoritmo Euclides para computar o Máximo Divisor Comum (MDC em português; GCD em inglês), e variações.
-<!-- DESCRIPTION -->
 
 *Read in [English](README.en.md)*
 
@@ -10,12 +8,12 @@ Algoritmo Euclides para computar o Máximo Divisor Comum (MDC em português; GCD
 
 Computa o Máximo Divisor Comum (MDC em português; GCD em inglês).
 
-- Complexidade de tempo: $\mathcal{O}(log(n))$
+- Complexidade de tempo: $\mathcal{O}(\log n)$
 
-Mais demorado que usar a função do compilador C++ __gcd(a,b).
+Mais demorado que usar a função do compilador C++ `__gcd(a,b)`.
 
 # [Algoritmo de Euclides Estendido](extended_gcd.cpp)
 
 Algoritmo extendido de euclides que computa o Máximo Divisor Comum e os valores x e y tal que a * x + b * y = gcd(a, b).
 
-- Complexidade de tempo: $\mathcal{O}(log(n))$
+- Complexidade de tempo: $\mathcal{O}(\log n)$
