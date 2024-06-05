@@ -7,7 +7,7 @@ Pode ser usado como um `std::set` normal, a principal diferença são duas novas
 - `find_by_order(k)`: retorna um iterador para o $k$-ésimo menor elemento no set (indexado em 0).
 - `order_of_key(k)`: retorna o número de elementos menores que $k$. (ou seja, o índice de $k$ no set)
 
-Ambas as operações são $\mathcal{O}(log(n))$.
+Ambas as operações são $\mathcal{O}(\log n)$.
 
 Também é possível criar um `ordered_map`, funciona como um `std::map`, mas com as operações de busca por ordem e índice. `find_by_order(k)` retorna um iterador para a $k$-ésima menor **key** no mapa (indexado em 0). `order_of_key(k)` retorna o número de **keys** no mapa menores que $k$. (ou seja, o índice de $k$ no map).
 
