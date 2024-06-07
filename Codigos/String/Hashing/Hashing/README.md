@@ -8,9 +8,13 @@ Exemplo de uso:
 
 ```cpp  
 string s = "abacabab";
-Hashing a(s);
-cout << (a(0, 1) == a(2, 3)) << endl; // 0
-cout << (a(0, 1) == a(4, 5)) << endl; // 1
-cout << (a(0, 2) == a(4, 6)) << endl; // 1
-cout << (a(0, 3) == a(4, 7)) << endl; // 0
+Hashing h(s);
+cout << (h(0, 1) == h(2, 3)) << endl; // 0
+cout << (h(0, 1) == h(4, 5)) << endl; // 1
+cout << (h(0, 2) == h(4, 6)) << endl; // 1
+cout << (h(0, 3) == h(4, 7)) << endl; // 0
+cout << (h(0, 3) + h(4, n - 1) * pot[4] == h(0, n - 1)) << endl; // 1, da pra shiftar o hash
+string t = "abacabab";
+Hashing h2(t);
+cout << (h() == h2()) << endl; // 1, pode comparar os hashes diretamente
 ```

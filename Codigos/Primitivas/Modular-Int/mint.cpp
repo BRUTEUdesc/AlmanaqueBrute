@@ -1,5 +1,5 @@
 template <int MOD> struct Mint {
-    using m = Mint;
+    using m = Mint<MOD>;
     int v;
     Mint() : v(0) { }
     Mint(ll val) {
@@ -19,9 +19,9 @@ template <int MOD> struct Mint {
         }
         return res;
     }
-    friend m operator+(m a, m &b) { return (a.v += b.v) >= MOD ? a.v - MOD : a.v; }
-    friend m operator-(m a, m &b) { return (a.v -= b.v) < 0 ? a.v + MOD : a.v; }
-    friend m operator*(m a, m &b) { return (ll)a.v * b.v; }
-    friend m operator/(m a, m &b) { return a * b.pwr(b, MOD - 2); }
+    friend m operator+(m a, m b) { return (a.v += b.v) >= MOD ? a.v - MOD : a.v; }
+    friend m operator-(m a, m b) { return (a.v -= b.v) < 0 ? a.v + MOD : a.v; }
+    friend m operator*(m a, m b) { return (ll)a.v * b.v; }
+    friend m operator/(m a, m b) { return a * b.pwr(b, MOD - 2); }
     friend m operator^(m a, ll e) { return a.pwr(a, e); }
 };
