@@ -76,7 +76,7 @@ vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
         res[i] = ll(round(c[i].a));
     }
 
-    while (int(res.size()) > 1 && res.back() == 0) {
+    while (int(res.size()) > t && res.back() == 0) {
         res.pop_back();
     }
 
