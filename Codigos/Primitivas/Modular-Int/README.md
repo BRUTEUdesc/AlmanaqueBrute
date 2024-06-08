@@ -3,7 +3,7 @@
 O Mint é uma classe que representa um número inteiro módulo um **número primo**. Ela é útil para evitar overflow em operações de multiplicação e exponenciação, e também para facilitar a implementações.
 
 Propriedades básicas de aritmética modular:
-- $(a + b) \mod m \equiv (a \mod m + b \mod m) \mod m$
+- $(a + b) \space \text{mod} \space m \equiv (a \space \text{mod} \space m + b \space \text{mod} \space m) \space \text{mod} \space m$
 - $(a - b) \mod m \equiv (a \mod m - b \mod m) \mod m$
 - $(a \cdot b) \mod m \equiv (a \mod m \cdot b \mod m) \mod m$
 - $a^b \mod m \equiv (a \mod m)^b \mod m$
