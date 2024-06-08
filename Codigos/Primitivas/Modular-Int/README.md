@@ -4,12 +4,13 @@ O Mint é uma classe que representa um número inteiro módulo um **número prim
 
 Propriedades básicas de aritmética modular:
 - $(a + b) \space \text{mod} \space m \equiv (a \space \text{mod} \space m + b \space \text{mod} \space m) \space \text{mod} \space m$
-- $(a - b) \mod m \equiv (a \mod m - b \mod m) \mod m$
-- $(a \cdot b) \mod m \equiv (a \mod m \cdot b \mod m) \mod m$
-- $a^b \mod m \equiv (a \mod m)^b \mod m$
-- Adicionalmente, $a^b \mod m \equiv (a \mod m)^{b \mod \phi(m)} \mod m$, onde $\phi(m)$ é a função totiente de Euler.
+- $(a - b) \space \text{mod} \space m \equiv (a \space \text{mod} \space m - b \space \text{mod} \space m) \space \text{mod} \space m$
+    - Note que o resultado pode ser negativo, então é necessário fazer uma correção para que o resultado esteja no intervalo $[0, m)$. Geralmente fazemos $(a - b + m) \space \text{mod} \space m$ (assumindo que $a$ e $b$ já estão no intervalo $[0, m)$).
+- $(a \cdot b) \space \text{mod} \space m \equiv (a \space \text{mod} \space m \cdot b \space \text{mod} \space m) \space \text{mod} \space m$
+- $a^b \space \text{mod} \space m \equiv (a \space \text{mod} \space m)^b \space \text{mod} \space m$
+    - Adicionalmente, $a^b \space \text{mod} \space m \equiv (a \space \text{mod} \space m)^{b \space \text{mod} \space \phi(m)} \space \text{mod} \space m$, onde $\phi$ é a função totiente de Euler.
 
-Divisões funcionam um pouco diferente, para realizar $a/b$ deve-se fazer $a \cdot b^{-1}$, onde $b^{-1}$ é o **inverso multiplicativo** de $b$ módulo $m$, tal que $b \cdot b^{-1} \equiv 1 \mod m$. No código, basta usar o operador de divisão normal pois a classe já está implementada com o inverso multiplicativo.
+Divisões funcionam um pouco diferente, para realizar $a/b$ deve-se fazer $a \cdot b^{-1}$, onde $b^{-1}$ é o **inverso multiplicativo** de $b$ módulo $m$, tal que $b \cdot b^{-1} \equiv 1 \mod m$. No código, basta usar o operador de divisão normal pois a classe já está implementada com o inverso multiplicativo. Há uma seção apenas sobre inversos multiplicativos na seção Matemática.
 
 Para usar o Mint, basta declarar o tipo e usar como se fosse um inteiro normal. Exemplo:
 
