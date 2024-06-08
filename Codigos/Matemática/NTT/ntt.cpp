@@ -1,72 +1,89 @@
-typedef long long ll;
-typedef vector<ll> poly;
+const int MOD = 998244353;
 
-ll mod[3] = {998244353LL, 1004535809LL, 1092616193LL};
-ll root[3] = {102292LL, 12289LL, 23747LL};
-ll root_1[3] = {116744195LL, 313564925LL, 642907570LL};
-ll root_pw[3] = {1LL << 23, 1LL << 21, 1LL << 21};
+using mint = Mint<MOD>;
+typedef vector<mint> poly;
 
-ll modInv(ll b, ll m) {
-    ll e = m - 2;
-    ll res = 1;
-    while (e) {
-        if (e & 1) {
-            res = (res * b) % m;
+void ntt(poly &a, bool inv = 0) {
+    int n = int(a.size());
+
+    for (int i = 0; i < n; i++) {
+        int bit = n >> 1;
+        int j = 0, k = i;
+        while (bit > 0) {
+            if (k & 1)
+                j += bit;
+            k >>= 1;
+            bit >>= 1;
         }
-        e /= 2;
-        b = (b * b) % m;
-    }
-    return res;
-}
-
-void ntt(poly &a, bool invert, int id) {
-    ll n = (ll)a.size(), m = mod[id];
-    for (ll i = 1, j = 0; i < n; ++i) {
-        ll bit = n >> 1;
-        for (; j >= bit; bit >>= 1) {
-            j -= bit;
-        }
-        j += bit;
         if (i < j) {
             swap(a[i], a[j]);
         }
     }
-    for (ll len = 2, wlen; len <= n; len <<= 1) {
-        wlen = invert ? root_1[id] : root[id];
-        for (ll i = len; i < root_pw[id]; i <<= 1) {
-            wlen = (wlen * wlen) % m;
-        }
-        for (ll i = 0; i < n; i += len) {
-            ll w = 1;
-            for (ll j = 0; j < len / 2; j++) {
-                ll u = a[i + j], v = (a[i + j + len / 2] * w) % m;
-                a[i + j] = (u + v) % m;
-                a[i + j + len / 2] = (u - v + m) % m;
-                w = (w * wlen) % m;
+
+    poly wn(n / 2);
+    mint root = 102292;
+    int root_len = 1 << 23;
+
+    while (root_len > n) {
+        root = root * root;
+        root_len >>= 1;
+    }
+
+    if (inv) {
+        root = mint(1) / root;
+    }
+    for (int i = 0; i < n / 2; i++) {
+        wn[i] = (i == 0) ? 1 : wn[i - 1] * root;
+    }
+
+    for (int len = 2; len <= n; len <<= 1) {
+        int aux = len / 2;
+        int step = n / len;
+        for (int i = 0; i < n; i += len) {
+            for (int j = 0; j < aux; j++) {
+                mint v = a[i + j + aux] * wn[step * j];
+                a[i + j + aux] = a[i + j] - v;
+                a[i + j] = a[i + j] + v;
             }
         }
     }
-    if (invert) {
-        ll inv = modInv(n, m);
-        for (ll i = 0; i < n; i++) {
-            a[i] = (a[i] * inv) % m;
+    if (inv) {
+        mint invn = mint(1) / n;
+        for (int i = 0; i < n; i++) {
+            a[i] = a[i] * invn;
         }
     }
 }
 
-poly convolution(poly a, poly b, int id = 0) {
-    ll n = 1LL, len = (1LL + a.size() + b.size());
-    while (n < len) {
-        n *= 2;
+vector<int> multiply(vector<int> &ta, vector<int> &tb) {
+    int n = int(ta.size()), m = int(tb.size());
+    int t = n + m - 1;
+    int sz = 1;
+    while (sz < t) {
+        sz <<= 1;
     }
-    a.resize(n);
-    b.resize(n);
-    ntt(a, 0, id);
-    ntt(b, 0, id);
-    poly answer(n);
-    for (ll i = 0; i < n; i++) {
-        answer[i] = (a[i] * b[i]);
+
+    poly a(sz), b(sz), c(sz);
+
+    for (int i = 0; i < sz; i++) {
+        a[i] = i < n ? mint(ta[i]) : mint(0);
+        b[i] = i < m ? mint(tb[i]) : mint(0);
     }
-    ntt(answer, 1, id);
-    return answer;
+
+    ntt(a, 0), ntt(b, 0);
+    for (int i = 0; i < sz; i++) {
+        c[i] = a[i] * b[i];
+    }
+    ntt(c, 1);
+
+    vector<int> res(sz);
+    for (int i = 0; i < sz; i++) {
+        res[i] = c[i].v;
+    }
+
+    while (int(res.size()) > t && res.back() == 0) {
+        res.pop_back();
+    }
+
+    return res;
 }
