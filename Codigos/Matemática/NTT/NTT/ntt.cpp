@@ -22,7 +22,7 @@ void ntt(poly &a, bool inv = 0) {
     }
 
     poly wn(n / 2);
-    mint root = root_ntt; // change according to MOD
+    mint root = root_ntt;   // change according to MOD
     int root_len = len_ntt; // change according to MOD
 
     while (root_len > n) {
