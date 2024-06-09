@@ -7,11 +7,12 @@ struct base {
         return base(a * c.a - b * c.b, a * c.b + b * c.a);
     }
 };
-typedef vector<base> poly;
+
+using poly = vector<base>;
 const double PI = acos(-1);
 
 void fft(poly &a, bool inv = 0) {
-    int n = int(a.size());
+    int n = (int)a.size();
 
     for (int i = 0; i < n; i++) {
         int bit = n >> 1;
@@ -22,9 +23,8 @@ void fft(poly &a, bool inv = 0) {
             k >>= 1;
             bit >>= 1;
         }
-        if (i < j) {
+        if (i < j)
             swap(a[i], a[j]);
-        }
     }
 
     double angle = 2 * PI / n * (inv ? -1 : 1);
@@ -44,19 +44,16 @@ void fft(poly &a, bool inv = 0) {
             }
         }
     }
-    for (int i = 0; (inv) && i < n; i++) {
-        a[i].a /= n;
-        a[i].b /= n;
-    }
+
+    for (int i = 0; inv && i < n; i++)
+        a[i].a /= n, a[i].b /= n;
 }
 
 vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
     int n = int(ta.size()), m = int(tb.size());
-    int t = n + m - 1;
-    int sz = 1;
-    while (sz < t) {
+    int t = n + m - 1, sz = 1;
+    while (sz < t)
         sz <<= 1;
-    }
 
     poly a(sz), b(sz), c(sz);
 
@@ -66,19 +63,16 @@ vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
     }
 
     fft(a, 0), fft(b, 0);
-    for (int i = 0; i < sz; i++) {
+    for (int i = 0; i < sz; i++)
         c[i] = a[i] * b[i];
-    }
     fft(c, 1);
 
     vector<ll> res(sz);
-    for (int i = 0; i < sz; i++) {
+    for (int i = 0; i < sz; i++)
         res[i] = ll(round(c[i].a));
-    }
 
-    while (int(res.size()) > t && res.back() == 0) {
+    while ((int)res.size() > t && res.back() == 0)
         res.pop_back();
-    }
 
     return res;
 }

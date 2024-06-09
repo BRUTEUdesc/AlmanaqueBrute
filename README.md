@@ -254,6 +254,10 @@ python3 .github/scripts/pdfer.py
 
 - [NTT](Codigos/Matemática/NTT)
 
+    - [NTT](Codigos/Matemática/NTT/NTT)
+
+    - [NTT BigMod](Codigos/Matemática/NTT/NTT-BigMod)
+
 - [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
 
     - [Gauss Mod 2](Codigos/Matemática/Eliminação-Gaussiana/Gauss-Mod-2)
