@@ -32,30 +32,21 @@ struct EdmondsKarp {
         vector<int> pego(n, -1);
         while (!fila.empty()) {
             int u = fila.front();
-            if (u == t) {
-                break;
-            }
+            if (u == t) break;
             fila.pop();
             visto[u] = vistoken;
             for (int id : adj[u]) {
-                if (edges[id].cap - edges[id].flow < 1) {
-                    continue;
-                }
+                if (edges[id].cap - edges[id].flow < 1) continue;
                 int v = edges[id].v;
-                if (visto[v] == -1) {
-                    continue;
-                }
+                if (visto[v] == -1) continue;
                 fila.push(v);
                 pego[v] = id;
             }
         }
-        if (pego[t] == -1) {
-            return 0;
-        }
+        if (pego[t] == -1) return 0;
         long long f = INF;
-        for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
+        for (int id = pego[t]; id != -1; id = pego[edges[id].u])
             f = min(f, edges[id].cap - edges[id].flow);
-        }
         for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
             edges[id].flow += f;
             edges[id ^ 1].flow -= f;
@@ -65,9 +56,7 @@ struct EdmondsKarp {
 
     long long flow() {
         long long maxflow = 0;
-        while (long long f = bfs()) {
-            maxflow += f;
-        }
+        while (long long f = bfs()) maxflow += f;
         return maxflow;
     }
 };

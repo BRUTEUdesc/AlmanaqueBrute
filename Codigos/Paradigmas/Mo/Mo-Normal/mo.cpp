@@ -39,18 +39,10 @@ namespace mo {
         int L = 0;
         int R = -1;
         for (query q : queries) {
-            while (L > q.l) {
-                add(--L);
-            }
-            while (R < q.r) {
-                add(++R);
-            }
-            while (L < q.l) {
-                remove(L++);
-            }
-            while (R > q.r) {
-                remove(R--);
-            }
+            while (L > q.l) add(--L);
+            while (R < q.r) add(++R);
+            while (L < q.l) remove(L++);
+            while (R > q.r) remove(R--);
             answers[q.idx] = get_answer();
         }
         return answers;

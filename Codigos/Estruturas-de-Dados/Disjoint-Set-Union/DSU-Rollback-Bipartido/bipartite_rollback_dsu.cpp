@@ -25,17 +25,13 @@ struct BipartiteRollback_DSU {
             }
             return false;
         }
-        if (sz[a] < sz[b]) {
-            swap(a, b);
-        }
+        if (sz[a] < sz[b]) swap(a, b);
         change(number_of_sets, number_of_sets - 1);
         change(par[b], a);
         change(sz[a], sz[a] + sz[b]);
         change(bip[a], bip[a] && bip[b]);
         change(all_bipartite, all_bipartite && bip[a]);
-        if (equal_color) {
-            change(c[b], 1);
-        }
+        if (equal_color) change(c[b], 1);
         return true;
     }
     void rollback() {

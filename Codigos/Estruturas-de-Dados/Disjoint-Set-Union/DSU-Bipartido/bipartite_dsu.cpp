@@ -18,15 +18,11 @@ struct Bipartite_DSU {
             }
             return false;
         }
-        if (sz[a] < sz[b]) {
-            swap(a, b);
-        }
+        if (sz[a] < sz[b]) swap(a, b);
         number_of_sets--;
         par[b] = a;
         sz[a] += sz[b];
-        if (equal_color) {
-            c[b] = 1;
-        }
+        if (equal_color) c[b] = 1;
         bip[a] &= bip[b];
         all_bipartite &= bip[a];
         return true;

@@ -24,20 +24,12 @@ struct intervals_node_update {
         while (!q.empty()) {
             CNI it = q.front();
             q.pop();
-            if (it == node_end()) {
-                continue;
-            }
-            if (r >= (*it)->lo && l <= (*it)->hi) {
-                vec.push_back((*it)->id);
-            }
+            if (it == node_end()) continue;
+            if (r >= (*it)->lo && l <= (*it)->hi) vec.push_back((*it)->id);
             CNI l_it = it.get_l_child();
             long long l_max = (l_it == node_end()) ? -INF : l_it.get_metadata();
-            if (l_max >= l) {
-                q.push(l_it);
-            }
-            if ((*it)->lo <= r) {
-                q.push(it.get_r_child());
-            }
+            if (l_max >= l) q.push(l_it);
+            if ((*it)->lo <= r) q.push(it.get_r_child());
         }
         return vec;
     }
