@@ -1,5 +1,6 @@
+const int N = 3e5 + 5;
 #warning nao esqueca de copiar o codigo de LCA
-vector<int> vir_tree[maxn];
+vector<int> vir_tree[N];
 vector<int> vir_nodes;
 
 void build_virtual_tree(vector<int> S) {
