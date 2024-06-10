@@ -115,6 +115,6 @@ namespace HLD {
         if (pos[u] > pos[v]) {
             swap(u, v);
         }
-        return (head[u] == head[v] ? u : lca(u, par[head[v]]));
+        return head[u] == head[v] ? u : lca(u, par[head[v]]);
     }
 }

@@ -36,7 +36,7 @@ template <typename T = int> struct MergeSortTree {
         if (l >= L && r <= R) {
             int ub = (int)tree[u].order_of_key({b + 1, INT_MIN});
             int lb = (int)tree[u].order_of_key({a, INT_MIN});
-            return (ub - lb);
+            return ub - lb;
         }
         int mid = (l + r) >> 1;
         return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);

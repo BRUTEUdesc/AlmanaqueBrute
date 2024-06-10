@@ -1,3 +1,4 @@
+BasedOnStyle: LLVM
 UseTab: Never
 IndentWidth: 4
 TabWidth: 4
@@ -5,9 +6,14 @@ ColumnLimit: 90
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: true
-AllowShortLambdasOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: All
+# RemoveBracesLLVM: true
+RemoveParentheses: ReturnStatement
+RemoveSemicolon: true
 NamespaceIndentation: All
 FixNamespaceComments: false
 BinPackArguments: false
+BinPackParameters: false
 AllowShortBlocksOnASingleLine: Always
 SpaceInEmptyBlock: true
+AlignAfterOpenBracket: BlockIndent

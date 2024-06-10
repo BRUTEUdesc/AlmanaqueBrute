@@ -12,11 +12,13 @@ template <typename T = int> struct MergeSortTree {
         int mid = (l + r) >> 1;
         build(le(u), l, mid, a);
         build(ri(u), mid + 1, r, a);
-        merge(tree[le(u)].begin(),
-              tree[le(u)].end(),
-              tree[ri(u)].begin(),
-              tree[ri(u)].end(),
-              tree[u].begin());
+        merge(
+            tree[le(u)].begin(),
+            tree[le(u)].end(),
+            tree[ri(u)].begin(),
+            tree[ri(u)].end(),
+            tree[u].begin()
+        );
     }
 
     void build(const vector<T> &a) { // para construir com vector

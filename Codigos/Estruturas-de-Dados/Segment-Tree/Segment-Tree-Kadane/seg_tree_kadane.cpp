@@ -4,10 +4,12 @@ struct SegTree {
     };
     const node neutral = {0, 0, 0, 0};
     node merge(const node &a, const node &b) {
-        return {a.sum + b.sum,
-                max(a.pref, a.sum + b.pref),
-                max(b.suf, b.sum + a.suf),
-                max({a.ans, b.ans, a.suf + b.pref})};
+        return {
+            a.sum + b.sum,
+            max(a.pref, a.sum + b.pref),
+            max(b.suf, b.sum + a.suf),
+            max({a.ans, b.ans, a.suf + b.pref})
+        };
     }
 
     int n;
