@@ -18,39 +18,24 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
                 break;
             }
         }
-        if (!a[row][col]) {
-            continue;
-        }
+        if (!a[row][col]) continue;
         where[col] = row;
 
-        for (int i = 0; i < n; i++) {
-            if (i != row && a[i][col]) {
-                a[i] ^= a[row];
-            }
-        }
+        for (int i = 0; i < n; i++)
+            if (i != row && a[i][col]) a[i] ^= a[row];
         row++;
     }
 
-    for (int i = 0; i < m; i++) {
-        if (where[i] != -1) {
-            ans[i] = a[where[i]][m] / a[where[i]][i];
-        }
-    }
+    for (int i = 0; i < m; i++)
+        if (where[i] != -1) ans[i] = a[where[i]][m] / a[where[i]][i];
     for (int i = 0; i < n; i++) {
         int sum = 0;
-        for (int j = 0; j < m; j++) {
-            sum += ans[j] * a[i][j];
-        }
-        if (abs(sum - a[i][m]) > 0) {
-            return 0; // Sem solucao
-        }
+        for (int j = 0; j < m; j++) sum += ans[j] * a[i][j];
+        if (abs(sum - a[i][m]) > 0) return 0; // Sem solucao
     }
 
-    for (int i = 0; i < m; i++) {
-        if (where[i] == -1) {
-            return INF; // Infinitas solucoes
-        }
-    }
-    return 1; // Unica solucao (retornada no
-              // bitset ans)
+    for (int i = 0; i < m; i++)
+        if (where[i] == -1) return INF; // Infinitas solucoes
+    // Unica solucao (retornada no bitset ans)
+    return 1;
 }

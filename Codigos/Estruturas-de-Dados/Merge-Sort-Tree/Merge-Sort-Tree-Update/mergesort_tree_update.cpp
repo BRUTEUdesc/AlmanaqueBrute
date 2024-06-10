@@ -1,4 +1,5 @@
-template <typename T = int> struct MergeSortTree {
+template <typename T = int>
+struct MergeSortTree {
     vector<ordered_set<pair<T, int>>> tree;
     vector<T> v;
     int n;
@@ -12,12 +13,8 @@ template <typename T = int> struct MergeSortTree {
         int mid = (l + r) >> 1;
         build(le(u), l, mid, a);
         build(ri(u), mid + 1, r, a);
-        for (auto x : tree[le(u)]) {
-            tree[u].insert(x);
-        }
-        for (auto x : tree[ri(u)]) {
-            tree[u].insert(x);
-        }
+        for (auto x : tree[le(u)]) tree[u].insert(x);
+        for (auto x : tree[ri(u)]) tree[u].insert(x);
     }
 
     void build(const vector<T> &a) { // para construir com vector
@@ -31,12 +28,11 @@ template <typename T = int> struct MergeSortTree {
     }
 
     int count(int u, int l, int r, int L, int R, int a, int b) {
-        if (l > R || r < L || a > b)
-            return 0;
+        if (l > R || r < L || a > b) return 0;
         if (l >= L && r <= R) {
             int ub = (int)tree[u].order_of_key({b + 1, INT_MIN});
             int lb = (int)tree[u].order_of_key({a, INT_MIN});
-            return (ub - lb);
+            return ub - lb;
         }
         int mid = (l + r) >> 1;
         return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
@@ -49,11 +45,8 @@ template <typename T = int> struct MergeSortTree {
             v[i] = x;
         } else {
             int mid = (l + r) >> 1;
-            if (i <= mid) {
-                update(le(u), l, mid, i, x);
-            } else {
-                update(ri(u), mid + 1, r, i, x);
-            }
+            if (i <= mid) update(le(u), l, mid, i, x);
+            else update(ri(u), mid + 1, r, i, x);
         }
         tree[u].insert({v[i], i});
     }

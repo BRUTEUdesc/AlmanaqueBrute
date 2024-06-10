@@ -1,4 +1,5 @@
-template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
+template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5>
+struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
 
@@ -13,36 +14,27 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
     }
 
     inline int le(int p) {
-        if (Lc[p] == -1) {
-            Lc[p] = newnode();
-        }
+        if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
     inline int ri(int p) {
-        if (Rc[p] == -1) {
-            Rc[p] = newnode();
-        }
+        if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
 
     SegTree() { roots.push_back(newnode()); }
 
     ll query(int p, ll l, ll r, ll L, ll R) {
-        if (l > R || r < L) {
-            return neutral;
-        }
-        if (l >= L && r <= R) {
-            return t[p];
-        }
+        if (l > R || r < L) return neutral;
+        if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
         ll ql = query(le(p), l, mid, L, R);
         ll qr = query(ri(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r, int root = -1) {
-        if (root == -1)
-            root = roots.back();
+        if (root == -1) root = roots.back();
         debug(root, MINL, MAXR, l, r);
         return query(root, MINL, MAXR, l, r);
     }
@@ -65,8 +57,7 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
     }
     int update(ll i, ll x, int root = -1) {
         int new_root = newnode();
-        if (root == -1)
-            root = roots.back();
+        if (root == -1) root = roots.back();
         update(new_root, root, MINL, MAXR, i, x);
         roots.push_back(new_root);
         return roots.back();

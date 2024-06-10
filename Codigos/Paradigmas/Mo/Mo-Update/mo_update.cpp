@@ -35,13 +35,9 @@ namespace mo {
     }
     inline void update(int l, int r, int t) {
         auto &[x, v] = updates[t];
-        if (l <= x && x <= r) {
-            remove(x);
-        }
+        if (l <= x && x <= r) remove(x);
         swap(vec[x], v);
-        if (l <= x && x <= r) {
-            add(x);
-        }
+        if (l <= x && x <= r) add(x);
     }
     inline int get_answer() {
         // TODO: extract the current answer from
@@ -56,24 +52,12 @@ namespace mo {
         int R = -1;
         int T = 0;
         for (query q : queries) {
-            while (T < q.t) {
-                update(L, R, T++);
-            }
-            while (T > q.t) {
-                update(L, R, --T);
-            }
-            while (L > q.l) {
-                add(--L);
-            }
-            while (R < q.r) {
-                add(++R);
-            }
-            while (L < q.l) {
-                remove(L++);
-            }
-            while (R > q.r) {
-                remove(R--);
-            }
+            while (T < q.t) update(L, R, T++);
+            while (T > q.t) update(L, R, --T);
+            while (L > q.l) add(--L);
+            while (R < q.r) add(++R);
+            while (L < q.l) remove(L++);
+            while (R > q.r) remove(R--);
             answers[q.idx] = get_answer();
         }
         return answers;

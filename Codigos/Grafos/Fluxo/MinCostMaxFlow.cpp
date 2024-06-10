@@ -27,9 +27,7 @@ struct MinCostMaxFlow {
             fila.pop();
             inq[u] = false;
             for (int id : adj[u]) {
-                if (edges[id].cap - edges[id].flow < 1) {
-                    continue;
-                }
+                if (edges[id].cap - edges[id].flow < 1) continue;
                 int v = edges[id].v;
                 if (dis[v] > dis[u] + edges[id].cost) {
                     dis[v] = dis[u] + edges[id].cost;
@@ -42,9 +40,7 @@ struct MinCostMaxFlow {
             }
         }
 
-        if (pego[t] == -1) {
-            return 0;
-        }
+        if (pego[t] == -1) return 0;
         ll f = INF;
         for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
             f = min(f, edges[id].cap - edges[id].flow);
@@ -59,8 +55,7 @@ struct MinCostMaxFlow {
     }
 
     ll flow() {
-        while (spfa())
-            ;
+        while (spfa());
         return maxflow;
     }
 };

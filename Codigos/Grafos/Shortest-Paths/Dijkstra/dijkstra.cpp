@@ -13,9 +13,7 @@ vector<ll> dijkstra(int s) {
     while (!pq.empty()) {
         auto [d, u] = pq.top();
         pq.pop();
-        if (d != dist[u]) {
-            continue;
-        }
+        if (d != dist[u]) continue;
         for (auto [w, v] : adj[u]) {
             if (dist[v] > d + w) {
                 dist[v] = d + w;

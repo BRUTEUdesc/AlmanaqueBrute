@@ -23,9 +23,7 @@ namespace aho {
         int u = 1;
         for (int i = 0; i < (int)s.size(); i++) {
             auto v = next[u][get(s[i])];
-            if (v == 0) {
-                next[u][get(s[i])] = v = node(u, s[i]);
-            }
+            if (v == 0) next[u][get(s[i])] = v = node(u, s[i]);
             u = v;
         }
         out[u] = true;
@@ -36,16 +34,12 @@ namespace aho {
     int go(int u, char c);
 
     int get_link(int u) {
-        if (link[u] == 0) {
-            link[u] = par[u] > 1 ? go(get_link(par[u]), pch[u]) : 1;
-        }
+        if (link[u] == 0) link[u] = par[u] > 1 ? go(get_link(par[u]), pch[u]) : 1;
         return link[u];
     }
 
     int go(int u, char c) {
-        if (next[u][get(c)] == 0) {
-            next[u][get(c)] = u > 1 ? go(get_link(u), c) : 1;
-        }
+        if (next[u][get(c)] == 0) next[u][get(c)] = u > 1 ? go(get_link(u), c) : 1;
         return next[u][get(c)];
     }
 

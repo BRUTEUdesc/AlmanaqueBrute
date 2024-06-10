@@ -1,4 +1,5 @@
-template <typename T, auto OP> struct op_stack {
+template <typename T, auto OP>
+struct op_stack {
     vector<pair<T, T>> st;
     T get() { return st.back().second; }
     T top() { return st.back().first; }

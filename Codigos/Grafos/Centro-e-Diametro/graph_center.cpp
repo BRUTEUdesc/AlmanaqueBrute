@@ -15,9 +15,7 @@ struct GraphCenter {
         while (!q.empty()) {
             int u = q.front();
             q.pop();
-            if (dist[u] >= maxidist) {
-                maxidist = dist[u], maxinode = u;
-            }
+            if (dist[u] >= maxidist) maxidist = dist[u], maxinode = u;
             for (int v : adj[u]) {
                 if (dist[u] + 1 < dist[v]) {
                     dist[v] = dist[u] + 1;
@@ -33,9 +31,7 @@ struct GraphCenter {
         int d1 = bfs(st);
         int d2 = bfs(d1);
         vector<int> path;
-        for (int u = d2; u != -1; u = pai[u]) {
-            path.push_back(u);
-        }
+        for (int u = d2; u != -1; u = pai[u]) path.push_back(u);
         int len = path.size();
         if (len % 2 == 1) {
             centros.push_back(path[len / 2]);

@@ -7,13 +7,9 @@ struct DSU {
     int find(int a) { return a == par[a] ? a : par[a] = find(par[a]); }
     bool unite(int a, int b) {
         a = find(a), b = find(b);
-        if (a == b) {
-            return false;
-        }
+        if (a == b) return false;
         number_of_sets--;
-        if (sz[a] < sz[b]) {
-            swap(a, b);
-        }
+        if (sz[a] < sz[b]) swap(a, b);
         par[b] = a;
         sz[a] += sz[b];
         return true;

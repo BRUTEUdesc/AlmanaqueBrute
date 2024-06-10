@@ -15,11 +15,8 @@ vector<int> bfs01(int s) {
         for (auto [w, v] : adj[u]) {
             if (dist[u] + w < dist[v]) {
                 dist[v] = dist[u] + w;
-                if (w == 0) {
-                    q.push_front(v);
-                } else {
-                    q.push_back(v);
-                }
+                if (w == 0) q.push_front(v);
+                else q.push_back(v);
             }
         }
     }

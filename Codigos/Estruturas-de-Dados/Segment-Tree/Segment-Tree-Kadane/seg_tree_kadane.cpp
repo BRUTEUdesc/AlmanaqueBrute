@@ -4,10 +4,12 @@ struct SegTree {
     };
     const node neutral = {0, 0, 0, 0};
     node merge(const node &a, const node &b) {
-        return {a.sum + b.sum,
-                max(a.pref, a.sum + b.pref),
-                max(b.suf, b.sum + a.suf),
-                max({a.ans, b.ans, a.suf + b.pref})};
+        return {
+            a.sum + b.sum,
+            max(a.pref, a.sum + b.pref),
+            max(b.suf, b.sum + a.suf),
+            max({a.ans, b.ans, a.suf + b.pref})
+        };
     }
 
     int n;
@@ -39,12 +41,8 @@ struct SegTree {
     }
 
     node query(int p, int l, int r, int L, int R) {
-        if (l > R || r < L) {
-            return neutral;
-        }
-        if (l >= L && r <= R) {
-            return t[p];
-        }
+        if (l > R || r < L) return neutral;
+        if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
         node ql = query(p * 2, l, mid, L, R);
         node qr = query(p * 2 + 1, mid + 1, r, L, R);
@@ -57,11 +55,8 @@ struct SegTree {
             t[p] = {x, x, x, x};
         } else {
             int mid = (l + r) / 2;
-            if (i <= mid) {
-                update(p * 2, l, mid, i, x);
-            } else {
-                update(p * 2 + 1, mid + 1, r, i, x);
-            }
+            if (i <= mid) update(p * 2, l, mid, i, x);
+            else update(p * 2 + 1, mid + 1, r, i, x);
             t[p] = merge(t[p * 2], t[p * 2 + 1]);
         }
     }

@@ -1,4 +1,5 @@
-template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
+template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5>
+struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
 
@@ -16,16 +17,12 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
     }
 
     inline int le(int p) {
-        if (Lc[p] == -1) {
-            Lc[p] = newnode();
-        }
+        if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
     inline int ri(int p) {
-        if (Rc[p] == -1) {
-            Rc[p] = newnode();
-        }
+        if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
 
@@ -53,12 +50,8 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
 
     ll query(int p, ll l, ll r, ll L, ll R) {
         push(p, l, r);
-        if (l > R || r < L) {
-            return neutral;
-        }
-        if (l >= L && r <= R) {
-            return t[p];
-        }
+        if (l > R || r < L) return neutral;
+        if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
         ll ql = query(le(p), l, mid, L, R);
         ll qr = query(ri(p), mid + 1, r, L, R);
@@ -68,9 +61,7 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
 
     void update(int p, ll l, ll r, ll L, ll R, ll val, bool repl) {
         push(p, l, r);
-        if (l > R || r < L) {
-            return;
-        }
+        if (l > R || r < L) return;
         if (l >= L && r <= R) {
             lazy[p] = val;
             replace[p] = repl;
