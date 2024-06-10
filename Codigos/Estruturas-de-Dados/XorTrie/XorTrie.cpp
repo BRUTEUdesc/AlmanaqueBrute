@@ -36,7 +36,9 @@ struct XorTrie {
     }
     int min_xor(int x) {
         int flipped = x ^ ((1 << bits) - 1);
-        return x ^ flipped ^ max_xor(flipped);
+        int query = max_xor(flipped);
+        if (query == -1) return -1;
+        return x ^ flipped ^ query;
     }
     XorTrie(int n) {
         go.assign((n + 1) * bits, vector<int>(2));
