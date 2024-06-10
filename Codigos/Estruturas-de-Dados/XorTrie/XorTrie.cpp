@@ -37,7 +37,8 @@ struct XorTrie {
     int min_xor(int x) {
         int flipped = x ^ ((1 << bits) - 1);
         int query = max_xor(flipped);
-        if (query == -1) return -1;
+        if (query == -1)
+            return -1;
         return x ^ flipped ^ query;
     }
     XorTrie(int n) {
