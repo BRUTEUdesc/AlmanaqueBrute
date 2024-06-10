@@ -6,9 +6,7 @@ struct Offline_DSU : BipartiteRollback_DSU {
     };
     vector<query> queries;
     void askConnect(int a, int b) {
-        if (a > b) {
-            swap(a, b);
-        }
+        if (a > b) swap(a, b);
         queries.push_back({0, a, b});
         time++;
     }
@@ -21,24 +19,18 @@ struct Offline_DSU : BipartiteRollback_DSU {
         time++;
     }
     void addEdge(int a, int b) {
-        if (a > b) {
-            swap(a, b);
-        }
+        if (a > b) swap(a, b);
         queries.push_back({3, a, b});
         time++;
     }
     void removeEdge(int a, int b) {
-        if (a > b) {
-            swap(a, b);
-        }
+        if (a > b) swap(a, b);
         queries.push_back({4, a, b});
         time++;
     }
     vector<vector<pair<int, int>>> lazy;
     void update(int l, int r, pair<int, int> edge, int u, int L, int R) {
-        if (R < l || L > r) {
-            return;
-        }
+        if (R < l || L > r) return;
         if (L >= l && R <= r) {
             lazy[u].push_back(edge);
             return;
@@ -48,22 +40,14 @@ struct Offline_DSU : BipartiteRollback_DSU {
         update(l, r, edge, 2 * u + 1, mid + 1, R);
     }
     void dfs(int u, int L, int R, vector<int> &ans) {
-        if (L > R) {
-            return;
-        }
+        if (L > R) return;
         checkpoint();
-        for (auto [a, b] : lazy[u]) {
-            unite(a, b);
-        }
+        for (auto [a, b] : lazy[u]) unite(a, b);
         if (L == R) {
             auto [type, a, b] = queries[L];
-            if (type == 0) {
-                ans.push_back(find(a) == find(b));
-            } else if (type == 1) {
-                ans.push_back(bipartite(a));
-            } else if (type == 2) {
-                ans.push_back(all_bipartite);
-            }
+            if (type == 0) ans.push_back(find(a) == find(b));
+            else if (type == 1) ans.push_back(bipartite(a));
+            else if (type == 2) ans.push_back(all_bipartite);
         } else {
             int mid = (L + R) / 2;
             dfs(2 * u, L, mid, ans);
@@ -83,9 +67,7 @@ struct Offline_DSU : BipartiteRollback_DSU {
                 edges.erase({a, b});
             }
         }
-        for (auto [k, v] : edges) {
-            update(v, time - 1, k, 1, 0, time - 1);
-        }
+        for (auto [k, v] : edges) update(v, time - 1, k, 1, 0, time - 1);
         vector<int> ans;
         dfs(1, 0, time - 1, ans);
         return ans;

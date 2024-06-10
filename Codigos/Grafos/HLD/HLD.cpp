@@ -14,9 +14,7 @@ namespace HLD {
             if (v != p) {
                 dfs_sz(v, u);
                 sz[u] += sz[v];
-                if (sz[v] > sz[adj[u][0]] || adj[u][0] == p) {
-                    swap(v, adj[u][0]);
-                }
+                if (sz[v] > sz[adj[u][0]] || adj[u][0] == p) swap(v, adj[u][0]);
             }
         }
     }
@@ -43,9 +41,7 @@ namespace HLD {
         // (para iniciar vazia, passar o vetor com valores neutros)
         build_hld(root);
         vector<ll> aux(v.size());
-        for (int i = 0; i < (int)v.size(); i++) {
-            aux[pos[i]] = v[i];
-        }
+        for (int i = 0; i < (int)v.size(); i++) aux[pos[i]] = v[i];
         ds.build(aux);
     }
 
@@ -60,21 +56,15 @@ namespace HLD {
         assert(edges.size() >= 1);
         vector<ll> aux(edges.size() - 1);
         for (auto [u, v, w] : edges) {
-            if (pos[u] > pos[v]) {
-                swap(u, v);
-            }
+            if (pos[u] > pos[v]) swap(u, v);
             aux[pos[v]] = w;
         }
         ds.build(aux);
     }
 
     ll query(int u, int v) {
-        if (e && u == v) {
-            return ds.neutral;
-        }
-        if (pos[u] > pos[v]) {
-            swap(u, v);
-        }
+        if (e && u == v) return ds.neutral;
+        if (pos[u] > pos[v]) swap(u, v);
         if (head[u] == head[v]) {
             return ds.query(pos[u] + e, pos[v]);
         } else {
@@ -84,19 +74,13 @@ namespace HLD {
         }
     }
     ll query_subtree(int u) {
-        if (e && sz[u] == 1) {
-            return ds.neutral;
-        }
+        if (e && sz[u] == 1) return ds.neutral;
         return ds.query(pos[u] + e, pos[u] + sz[u] - 1);
     }
 
     void update(int u, int v, ll k, bool replace = false) {
-        if (e && u == v) {
-            return;
-        }
-        if (pos[u] > pos[v]) {
-            swap(u, v);
-        }
+        if (e && u == v) return;
+        if (pos[u] > pos[v]) swap(u, v);
         if (head[u] == head[v]) {
             ds.update(pos[u] + e, pos[v], k, replace);
         } else {
@@ -105,16 +89,12 @@ namespace HLD {
         }
     }
     void update_subtree(int u, ll k, bool replace = false) {
-        if (e && sz[u] == 1) {
-            return;
-        }
+        if (e && sz[u] == 1) return;
         ds.update(pos[u] + e, pos[u] + sz[u] - 1, k, replace);
     }
 
     int lca(int u, int v) {
-        if (pos[u] > pos[v]) {
-            swap(u, v);
-        }
-        return (head[u] == head[v] ? u : lca(u, par[head[v]]));
+        if (pos[u] > pos[v]) swap(u, v);
+        return head[u] == head[v] ? u : lca(u, par[head[v]]);
     }
 }

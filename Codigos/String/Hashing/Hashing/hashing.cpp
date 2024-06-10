@@ -43,8 +43,7 @@ struct Hashing {
     Hash operator()(int l = 0, int r = -1) const {
 #warning Chamou o precalc()?
         // se ja chamou o precalc() pode apagar essa linha de cima
-        if (r == -1)
-            r = N - 1;
+        if (r == -1) r = N - 1;
         return (hsh[r + 1] - hsh[l]) * invpot[l];
     }
 };
