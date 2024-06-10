@@ -1,4 +1,4 @@
-# [Number Theoric Transform](ntt.cpp)
+# [Number Theoretic Transform](ntt.cpp)
 
 Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo em $\mathcal{O}(n \log n)$. Exatamente o mesmo algoritmo da FFT, mas com inteiros.
 
