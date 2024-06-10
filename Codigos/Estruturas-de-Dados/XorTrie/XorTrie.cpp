@@ -1,29 +1,29 @@
 struct XorTrie {
     const int bits = 30;
     vector<vector<int>> go;
-    int root, cnt;
-    int new_node() {
-        go[cnt][0] = go[cnt][1] = -1;
+    int root = 0, cnt = 1;
+    inline int new_node() {
         return cnt++;
     }
     void insert(int x) {
         int v = root;
         for (int i = bits - 1; i >= 0; i--) {
-            int now = x >> i & 1;
-            if (go[v][now] == -1) {
-                go[v][now] = new_node();
+            int b = x >> i & 1;
+            if (go[v][b] == -1) {
+                go[v][b] = new_node();
             }
-            v = go[v][now];
+            v = go[v][b];
         }
     }
-#warning se a trie estiver vazia, a query retornara -1
     int max_xor(int x) {
         int v = root;
         int ans = 0;
+        if (cnt <= 1) 
+            return -1;
         for (int i = bits - 1; i >= 0; i--) {
-            int now = x >> i & 1;
-            int good = go[v][!now];
-            int bad = go[v][now];
+            int b = x >> i & 1;
+            int good = go[v][!b];
+            int bad = go[v][b];
             if (good != -1) {
                 v = good;
                 ans |= 1 << i;
@@ -42,8 +42,6 @@ struct XorTrie {
         return x ^ flipped ^ query;
     }
     XorTrie(int n) {
-        go.assign((n + 1) * bits, vector<int>(2));
-        cnt = 0;
-        root = new_node();
+        go.assign((n + 1) * bits, vector<int>(2, -1));
     }
 };
