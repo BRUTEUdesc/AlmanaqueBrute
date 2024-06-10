@@ -2,6 +2,10 @@ struct XorTrie {
     const int bits = 30;
     vector<vector<int>> go;
     int root = 0, cnt = 1;
+    XorTrie(int n) {
+        go.assign((n + 1) * bits, vector<int>(2, -1));
+    }
+    XorTrie() {}
     inline int new_node() {
         return cnt++;
     }
@@ -29,19 +33,15 @@ struct XorTrie {
                 ans |= 1 << i;
             } else if (bad != -1) {
                 v = bad;
-            } else
-                return -1;
+            }
         }
         return ans;
     }
     int min_xor(int x) {
         int flipped = x ^ ((1 << bits) - 1);
         int query = max_xor(flipped);
-        if (query == -1)
+        if (query == -1) 
             return -1;
         return x ^ flipped ^ query;
-    }
-    XorTrie(int n) {
-        go.assign((n + 1) * bits, vector<int>(2, -1));
     }
 };
