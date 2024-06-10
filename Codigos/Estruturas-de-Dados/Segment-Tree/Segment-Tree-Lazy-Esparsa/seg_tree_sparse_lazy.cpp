@@ -60,8 +60,8 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5> struct SegTree {
             return t[p];
         }
         ll mid = l + (r - l) / 2;
-        ll ql = query(le(p), l, mid, L, R);
-        ll qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(le(p), l, mid, L, R);
+        auto qr = query(ri(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
