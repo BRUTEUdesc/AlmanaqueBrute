@@ -1,86 +1,62 @@
 template <int bits = 30> struct XorTrie {
-    vector<int> o, z;
+    vector<vector<int>> go;
     int root, cnt;
 
     int new_node() {
-        o[cnt] = -1;
-        z[cnt] = -1;
+        go[0][cnt] = -1;
+        go[1][cnt] = -1;
         return cnt++;
     }
 
     void insert(int x) {
         int v = root;
-        for (int i = bits; i >= 0; i--) {
-            if (x >> i & 1) {
-                if (o[v] == -1) {
-                    o[v] = new_node();
-                }
-                v = o[v];
-            } else {
-                if (z[v] == -1) {
-                    z[v] = new_node();
-                }
-                v = z[v];
+        for (int i = bits - 1; i >= 0; i--) {
+            if (go[x >> i & 1][v] == -1) {
+                go[x >> i & 1][v] = new_node();
             }
+            v = go[x >> i & 1][v];
         }
     }
 
-    ll max_xor(ll x) {
+#warning se a trie estiver vazia, a query retornara -1
+    int max_xor(int x) {
         int v = root;
-        ll ans = 0;
-        for (int i = bits; i >= 0; i--) {
-            if (x >> i & 1) {
-                if (z[v] != -1) {
-                    v = z[v];
-                } else if (o[v] != -1) {
-                    v = o[v];
-                    ans |= 1LL << i;
-                } else {
-                    return ans;
-                }
-            } else {
-                if (o[v] != -1) {
-                    v = o[v];
-                    ans |= 1LL << i;
-                } else if (z[v] != -1) {
-                    v = z[v];
-                } else {
-                    return ans;
-                }
-            }
+        int ans = 0;
+        for (int i = bits - 1; i >= 0; i--) {
+            int good = go[~x >> i & 1][v];
+            int bad = go[x >> i & 1][v];
+            if (good != -1) {
+                v = good;
+                ans |= 1 << i;
+            } else if (bad != -1) {
+                v = bad;
+            } else
+                return -1;
         }
         return ans;
     }
 
-    ll min_xor(ll x) {
+    int min_xor(int x) {
         int v = root;
-        ll ans = 0;
-        for (int i = bits; i >= 0; i--) {
-            if (x >> i & 1) {
-                if (o[v] != -1) {
-                    v = o[v];
-                    ans |= 1LL << i;
-                } else if (z[v] != -1) {
-                    v = z[v];
-                } else {
-                    return ans;
-                }
-            } else {
-                if (z[v] != -1) {
-                    v = z[v];
-                } else if (o[v] != -1) {
-                    v = o[v];
-                    ans |= 1LL << i;
-                } else {
-                    return ans;
-                }
-            }
+        int ans = 0;
+        for (int i = bits - 1; i >= 0; i--) {
+            int good = go[x >> i & 1][v];
+            int bad = go[~x >> i & 1][v];
+            if (good != -1) {
+                v = good;
+            } else if (bad != -1) {
+                v = bad;
+                ans |= 1 << i;
+            } else
+                return -1;
         }
         return ans;
     }
+
     XorTrie(int n) {
-        o.resize(n * (bits + 1));
-        z.resize(n * (bits + 1));
+        go.resize(2);
+        go[0].resize(n * (bits + 1));
+        go[1].resize(n * (bits + 1));
         cnt = 0;
         root = new_node();
     }
