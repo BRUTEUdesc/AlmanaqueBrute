@@ -3,7 +3,8 @@ ostream &operator<<(ostream &os, const pair<T, U> &p) { // opcional
     os << "(" << p.first << ", " << p.second << ")";
     return os;
 }
-template <typename T> ostream &operator<<(ostream &os, const vector<T> &v) { // opcional
+template <typename T>
+ostream &operator<<(ostream &os, const vector<T> &v) { // opcional
     os << "{";
     int n = (int)v.size();
     for (int i = 0; i < n; i++) {
@@ -16,7 +17,8 @@ template <typename T> ostream &operator<<(ostream &os, const vector<T> &v) { // 
 }
 
 void _print() { }
-template <typename T, typename... U> void _print(T a, U... b) {
+template <typename T, typename... U>
+void _print(T a, U... b) {
     if (sizeof...(b)) {
         cerr << a << ", ";
         _print(b...);

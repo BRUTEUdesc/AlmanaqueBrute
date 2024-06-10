@@ -1,4 +1,5 @@
-template <typename T = int> struct MergeSortTree {
+template <typename T = int>
+struct MergeSortTree {
     vector<vector<T>> tree;
     int n;
     int le(int u) { return u << 1; }

@@ -1,4 +1,5 @@
-template <typename T = int> struct MergeSortTree {
+template <typename T = int>
+struct MergeSortTree {
     vector<ordered_set<pair<T, int>>> tree;
     vector<T> v;
     int n;

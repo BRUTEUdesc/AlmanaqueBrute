@@ -1,4 +1,5 @@
-template <typename T> struct FenwickTree {
+template <typename T>
+struct FenwickTree {
     int n;
     vector<T> bit, arr;
     FenwickTree(int _n = 0) : n(_n), bit(n), arr(n) { }

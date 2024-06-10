@@ -1,4 +1,5 @@
-template <typename T, auto OP> struct op_queue {
+template <typename T, auto OP>
+struct op_queue {
     op_stack<T, OP> in, out;
     void push(T x) { in.push(x); }
     void pop() {

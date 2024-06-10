@@ -5,7 +5,7 @@ TabWidth: 4
 ColumnLimit: 90
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
 AllowShortLambdasOnASingleLine: All
 # RemoveBracesLLVM: true
 RemoveParentheses: ReturnStatement
@@ -17,3 +17,4 @@ BinPackParameters: false
 AllowShortBlocksOnASingleLine: Always
 SpaceInEmptyBlock: true
 AlignAfterOpenBracket: BlockIndent
+AlwaysBreakTemplateDeclarations: true

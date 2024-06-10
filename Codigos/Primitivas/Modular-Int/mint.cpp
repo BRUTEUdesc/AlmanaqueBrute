@@ -1,4 +1,5 @@
-template <int MOD> struct Mint {
+template <int MOD>
+struct Mint {
     using m = Mint<MOD>;
     int v;
     Mint() : v(0) { }

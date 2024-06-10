@@ -1,4 +1,5 @@
-template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)> struct LichaoTree {
+template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)>
+struct LichaoTree {
     const ll INF = ll(2e18) + 10;
     struct Line {
         ll a, b;
