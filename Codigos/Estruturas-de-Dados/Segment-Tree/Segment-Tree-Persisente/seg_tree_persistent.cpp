@@ -29,8 +29,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        ll ql = query(le(p), l, mid, L, R);
-        ll qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(le(p), l, mid, L, R);
+        auto qr = query(ri(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r, int root = -1) {

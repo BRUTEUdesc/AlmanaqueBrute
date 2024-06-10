@@ -1,12 +1,8 @@
-template <int MOD>
+template <auto MOD, typename T = decltype(MOD)>
 struct Mint {
-    using m = Mint<MOD>;
-    int v;
-    Mint() : v(0) { }
-    Mint(ll val) {
-        v = (-MOD <= val && val < MOD) ? (int)val : (int)(val % MOD);
-        v += (v < 0) * MOD;
-    }
+    using m = Mint<MOD, T>;
+    T v;
+    Mint(T val = 0) : v(val) { }
     bool operator==(m o) const { return v == o.v; }
     bool operator!=(m o) const { return v != o.v; }
     bool operator<(m o) const { return v < o.v; }
@@ -20,7 +16,8 @@ struct Mint {
     }
     friend m operator-(m a, m b) { return (a.v -= b.v) < 0 ? a.v + MOD : a.v; }
     friend m operator+(m a, m b) { return a - (MOD - b.v); }
-    friend m operator*(m a, m b) { return (ll)a.v * b.v; }
+    friend m operator*(m a, m b) { return (T)((__int128)a.v * b.v % MOD); }
+    // se quiser otimizar constante, ao inves de (__int128) use (ll) se o T for `int`
     friend m operator/(m a, m b) { return a * b.pwr(b, MOD - 2); }
     friend m operator^(m a, ll e) { return a.pwr(a, e); }
 };

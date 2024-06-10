@@ -9,12 +9,10 @@ void ntt(poly &a, bool inv = 0) {
     int n = (int)a.size();
 
     for (int i = 0; i < n; i++) {
-        int bit = n >> 1;
-        int j = 0, k = i;
+        int bit = n >> 1, j = 0, k = i;
         while (bit > 0) {
             if (k & 1) j += bit;
-            k >>= 1;
-            bit >>= 1;
+            k >>= 1, bit >>= 1;
         }
         if (i < j) swap(a[i], a[j]);
     }
