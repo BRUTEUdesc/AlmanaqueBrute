@@ -17,15 +17,9 @@ struct Node {
     void merge(Node a, Node b) {
         m1 = min(a.m1, b.m1);
         m2 = INF;
-        if (a.m1 != b.m1) {
-            m2 = min(m2, max(a.m1, b.m1));
-        }
-        if (a.m2 != m1) {
-            m2 = min(m2, a.m2);
-        }
-        if (b.m2 != m1) {
-            m2 = min(m2, b.m2);
-        }
+        if (a.m1 != b.m1) m2 = min(m2, max(a.m1, b.m1));
+        if (a.m2 != m1) m2 = min(m2, a.m2);
+        if (b.m2 != m1) m2 = min(m2, b.m2);
         cont = (a.m1 == m1 ? a.cont : 0) + (b.m1 == m1 ? b.cont : 0);
         soma = a.soma + b.soma;
     }
@@ -40,9 +34,7 @@ int le(int n) { return 2 * n + 1; }
 int ri(int n) { return 2 * n + 2; }
 
 void push(int n, int esq, int dir) {
-    if (tree[n].lazy <= tree[n].m1) {
-        return;
-    }
+    if (tree[n].lazy <= tree[n].m1) return;
     tree[n].soma += (ll)abs(tree[n].m1 - tree[n].lazy) * tree[n].cont;
     tree[n].m1 = tree[n].lazy;
     if (esq != dir) {
@@ -67,9 +59,7 @@ void build(vector<int> &v) { build(0, 0, n - 1, v); }
 // ai = max(ai, mi) em [l, r]
 void update(int n, int esq, int dir, int l, int r, int mi) {
     push(n, esq, dir);
-    if (esq > r || dir < l || mi <= tree[n].m1) {
-        return;
-    }
+    if (esq > r || dir < l || mi <= tree[n].m1) return;
     if (l <= esq && dir <= r && mi < tree[n].m2) {
         tree[n].lazy = mi;
         push(n, esq, dir);
@@ -85,12 +75,8 @@ void update(int l, int r, int mi) { update(0, 0, n - 1, l, r, mi); }
 // soma de [l, r]
 int query(int n, int esq, int dir, int l, int r) {
     push(n, esq, dir);
-    if (esq > r || dir < l) {
-        return 0;
-    }
-    if (l <= esq && dir <= r) {
-        return tree[n].soma;
-    }
+    if (esq > r || dir < l) return 0;
+    if (l <= esq && dir <= r) return tree[n].soma;
     int mid = (esq + dir) / 2;
     return query(le(n), esq, mid, l, r) + query(ri(n), mid + 1, dir, l, r);
 }

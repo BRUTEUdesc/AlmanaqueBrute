@@ -12,11 +12,8 @@ double ternary_search(double l, double r) {
 
         // minimizing. To maximize use >= to
         // compare
-        if (eval(mid_1) <= eval(mid_2)) {
-            r = mid_2;
-        } else {
-            l = mid_1;
-        }
+        if (eval(mid_1) <= eval(mid_2)) r = mid_2;
+        else l = mid_1;
     }
     return l;
 }

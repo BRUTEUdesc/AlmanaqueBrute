@@ -3,18 +3,18 @@ UseTab: Never
 IndentWidth: 4
 TabWidth: 4
 ColumnLimit: 90
-AllowShortIfStatementsOnASingleLine: Never
-AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Always
 AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
 AllowShortLambdasOnASingleLine: All
-# RemoveBracesLLVM: true
+AllowShortLoopsOnASingleLine: true
+RemoveBracesLLVM: true
 RemoveParentheses: ReturnStatement
 RemoveSemicolon: true
 NamespaceIndentation: All
 FixNamespaceComments: false
 BinPackArguments: false
 BinPackParameters: false
-AllowShortBlocksOnASingleLine: Always
 SpaceInEmptyBlock: true
 AlignAfterOpenBracket: BlockIndent
 AlwaysBreakTemplateDeclarations: true

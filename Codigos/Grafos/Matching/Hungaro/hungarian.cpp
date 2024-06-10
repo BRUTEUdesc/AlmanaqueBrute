@@ -15,21 +15,13 @@ ll hungarian(int n, int m, vector<vector<int>> &A) {
             for (int j = 1; j <= m; j++) {
                 if (!used[j]) {
                     int cur = A[i0][j] - u[i0] - v[j];
-                    if (cur < minv[j]) {
-                        minv[j] = cur, way[j] = j0;
-                    }
-                    if (minv[j] < delta) {
-                        delta = minv[j], j1 = j;
-                    }
+                    if (cur < minv[j]) minv[j] = cur, way[j] = j0;
+                    if (minv[j] < delta) delta = minv[j], j1 = j;
                 }
             }
-            for (int j = 0; j <= m; j++) {
-                if (used[j]) {
-                    u[p[j]] += delta, v[j] -= delta;
-                } else {
-                    minv[j] -= delta;
-                }
-            }
+            for (int j = 0; j <= m; j++)
+                if (used[j]) u[p[j]] += delta, v[j] -= delta;
+                else minv[j] -= delta;
             j0 = j1;
         } while (p[j0] != 0);
         do {
@@ -38,8 +30,6 @@ ll hungarian(int n, int m, vector<vector<int>> &A) {
             j0 = j1;
         } while (j0);
     }
-    for (int i = 1; i <= m; i++) {
-        result.emplace_back(p[i], i);
-    }
+    for (int i = 1; i <= m; i++) result.emplace_back(p[i], i);
     return -v[0];
 }

@@ -9,8 +9,7 @@ ostream &operator<<(ostream &os, const vector<T> &v) { // opcional
     int n = (int)v.size();
     for (int i = 0; i < n; i++) {
         os << v[i];
-        if (i < n - 1)
-            os << ", ";
+        if (i < n - 1) os << ", ";
     }
     os << "}";
     return os;
@@ -22,8 +21,7 @@ void _print(T a, U... b) {
     if (sizeof...(b)) {
         cerr << a << ", ";
         _print(b...);
-    } else
-        cerr << a;
+    } else cerr << a;
 }
 #ifdef BRUTE
 #define debug(x...) cerr << "[" << #x << "] = [", _print(x), cerr << "]" << endl

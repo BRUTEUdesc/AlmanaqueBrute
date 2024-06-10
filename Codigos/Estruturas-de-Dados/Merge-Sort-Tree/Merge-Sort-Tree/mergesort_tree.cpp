@@ -32,8 +32,7 @@ struct MergeSortTree {
     }
 
     int count(int u, int l, int r, int L, int R, int a, int b) {
-        if (l > R || r < L || a > b)
-            return 0;
+        if (l > R || r < L || a > b) return 0;
         if (l >= L && r <= R) {
             auto ub = upper_bound(tree[u].begin(), tree[u].end(), b);
             auto lb = upper_bound(tree[u].begin(), tree[u].end(), a - 1);

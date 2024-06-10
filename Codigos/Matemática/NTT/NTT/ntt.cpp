@@ -12,13 +12,11 @@ void ntt(poly &a, bool inv = 0) {
         int bit = n >> 1;
         int j = 0, k = i;
         while (bit > 0) {
-            if (k & 1)
-                j += bit;
+            if (k & 1) j += bit;
             k >>= 1;
             bit >>= 1;
         }
-        if (i < j)
-            swap(a[i], a[j]);
+        if (i < j) swap(a[i], a[j]);
     }
 
     poly wn(n / 2);
@@ -30,11 +28,9 @@ void ntt(poly &a, bool inv = 0) {
         root_len >>= 1;
     }
 
-    if (inv)
-        root = mint(1) / root;
+    if (inv) root = mint(1) / root;
 
-    for (int i = 0; i < n / 2; i++)
-        wn[i] = (i == 0) ? 1 : wn[i - 1] * root;
+    for (int i = 0; i < n / 2; i++) wn[i] = (i == 0) ? 1 : wn[i - 1] * root;
 
     for (int len = 2; len <= n; len <<= 1) {
         int aux = len / 2;
@@ -49,16 +45,14 @@ void ntt(poly &a, bool inv = 0) {
     }
     if (inv) {
         mint invn = mint(1) / n;
-        for (int i = 0; i < n; i++)
-            a[i] = a[i] * invn;
+        for (int i = 0; i < n; i++) a[i] = a[i] * invn;
     }
 }
 
 vector<int> multiply(vector<int> &ta, vector<int> &tb) {
     int n = int(ta.size()), m = int(tb.size());
     int t = n + m - 1, sz = 1;
-    while (sz < t)
-        sz <<= 1;
+    while (sz < t) sz <<= 1;
 
     poly a(sz), b(sz), c(sz);
 
@@ -68,16 +62,13 @@ vector<int> multiply(vector<int> &ta, vector<int> &tb) {
     }
 
     ntt(a, 0), ntt(b, 0);
-    for (int i = 0; i < sz; i++)
-        c[i] = a[i] * b[i];
+    for (int i = 0; i < sz; i++) c[i] = a[i] * b[i];
     ntt(c, 1);
 
     vector<int> res(sz);
-    for (int i = 0; i < sz; i++)
-        res[i] = c[i].v;
+    for (int i = 0; i < sz; i++) res[i] = c[i].v;
 
-    while ((int)res.size() > t && res.back() == 0)
-        res.pop_back();
+    while ((int)res.size() > t && res.back() == 0) res.pop_back();
 
     return res;
 }

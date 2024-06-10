@@ -24,9 +24,7 @@ vector<ll> spfa(int s) {
                     q.push(v);
                     inq[v] = true;
                     cnt[v]++;
-                    if (cnt[v] > n) { // negative cycle
-                        dist[v] = -INF;
-                    }
+                    if (cnt[v] > n) dist[v] = -INF; // negative cycle
                 }
             }
         }

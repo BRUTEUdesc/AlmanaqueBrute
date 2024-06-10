@@ -25,12 +25,7 @@ void dfs(int u, int p = -1) {
 
 void find_articulation_points() {
     timer = 0;
-    for (int i = 0; i < n; i++) {
-        tin[i] = low[i] = 0;
-    }
-    for (int i = 0; i < n; i++) {
-        if (tin[i] == 0) {
-            dfs(i);
-        }
-    }
+    for (int i = 0; i < n; i++) tin[i] = low[i] = 0;
+    for (int i = 0; i < n; i++)
+        if (tin[i] == 0) dfs(i);
 }

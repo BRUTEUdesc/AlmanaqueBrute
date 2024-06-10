@@ -13,8 +13,7 @@ struct Mint {
     m pwr(m b, ll e) {
         m res = 1;
         while (e > 0) {
-            if (e & 1)
-                res = res * b;
+            if (e & 1) res = res * b;
             b = b * b, e >>= 1;
         }
         return res;

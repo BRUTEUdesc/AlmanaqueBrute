@@ -57,12 +57,8 @@ struct SegTree {
 
     ll query(int p, int l, int r, int L, int R) {
         push(p, l, r);
-        if (l > R || r < L) {
-            return neutral;
-        }
-        if (l >= L && r <= R) {
-            return t[p];
-        }
+        if (l > R || r < L) return neutral;
+        if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
         ll ql = query(p * 2, l, mid, L, R);
         ll qr = query(p * 2 + 1, mid + 1, r, L, R);
@@ -72,9 +68,7 @@ struct SegTree {
 
     void update(int p, int l, int r, int L, int R, ll val, bool repl) {
         push(p, l, r);
-        if (l > R || r < L) {
-            return;
-        }
+        if (l > R || r < L) return;
         if (l >= L && r <= R) {
             lazy[p] = val;
             replace[p] = repl;

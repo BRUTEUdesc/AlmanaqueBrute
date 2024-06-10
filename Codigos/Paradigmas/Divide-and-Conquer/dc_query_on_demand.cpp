@@ -38,24 +38,14 @@ namespace DC {
 
     vi dp_before, dp_cur;
     void compute(int l, int r, int optl, int optr) {
-        if (l > r) {
-            return;
-        }
+        if (l > r) return;
         int mid = (l + r) >> 1;
         pair<ll, int> best = {0, -1}; // {INF, -1} se quiser minimizar
 
-        while (s.l < optl) {
-            s.advance_l(v[s.l]);
-        }
-        while (s.l > optl) {
-            s.back_l(v[s.l - 1]);
-        }
-        while (s.r < mid) {
-            s.advance_r(v[s.r + 1]);
-        }
-        while (s.r > mid) {
-            s.back_r(v[s.r]);
-        }
+        while (s.l < optl) s.advance_l(v[s.l]);
+        while (s.l > optl) s.back_l(v[s.l - 1]);
+        while (s.r < mid) s.advance_r(v[s.r + 1]);
+        while (s.r > mid) s.back_r(v[s.r]);
 
         vi removed;
         for (int i = optl; i <= min(mid, optr); i++) {
@@ -65,9 +55,7 @@ namespace DC {
             removed.push_back(v[s.l]);
             s.advance_l(v[s.l]);
         }
-        for (int rem : removed) {
-            s.back_l(v[s.l - 1]);
-        }
+        for (int rem : removed) s.back_l(v[s.l - 1]);
 
         dp_cur[mid] = best.first;
         int opt = best.second;
