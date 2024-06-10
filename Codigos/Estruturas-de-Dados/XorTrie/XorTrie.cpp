@@ -1,4 +1,5 @@
-template <int bits = 30> struct XorTrie {
+struct XorTrie {
+    const int bits = 30;
     vector<vector<int>> go;
     int root, cnt;
     int new_node() {
@@ -8,10 +9,11 @@ template <int bits = 30> struct XorTrie {
     void insert(int x) {
         int v = root;
         for (int i = bits - 1; i >= 0; i--) {
-            if (go[v][x >> i & 1] == -1) {
-                go[v][x >> i & 1] = new_node();
+            int now = x >> i & 1;
+            if (go[v][now] == -1) {
+                go[v][now] = new_node();
             }
-            v = go[v][x >> i & 1];
+            v = go[v][now];
         }
     }
 #warning se a trie estiver vazia, a query retornara -1
@@ -19,8 +21,9 @@ template <int bits = 30> struct XorTrie {
         int v = root;
         int ans = 0;
         for (int i = bits - 1; i >= 0; i--) {
-            int good = go[v][~x >> i & 1];
-            int bad = go[v][x >> i & 1];
+            int now = x >> i & 1;
+            int good = go[v][!now];
+            int bad = go[v][now];
             if (good != -1) {
                 v = good;
                 ans |= 1 << i;
@@ -32,23 +35,11 @@ template <int bits = 30> struct XorTrie {
         return ans;
     }
     int min_xor(int x) {
-        int v = root;
-        int ans = 0;
-        for (int i = bits - 1; i >= 0; i--) {
-            int good = go[v][x >> i & 1];
-            int bad = go[v][~x >> i & 1];
-            if (good != -1) {
-                v = good;
-            } else if (bad != -1) {
-                v = bad;
-                ans |= 1 << i;
-            } else
-                return -1;
-        }
-        return ans;
+        int flipped = x ^ ((1 << bits) - 1);
+        return x ^ flipped ^ max_xor(flipped);
     }
     XorTrie(int n) {
-        go.assign(n * (bits + 1), vector<int>(2));
+        go.assign((n + 1) * bits, vector<int>(2));
         cnt = 0;
         root = new_node();
     }
