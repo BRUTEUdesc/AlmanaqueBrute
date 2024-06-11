@@ -1,4 +1,4 @@
-# [XOR Trie](XorTrie.cpp)
+# [XOR Trie](xor_trie.cpp)
 
 Uma Trie que armazena os números em binario (do bit mais significativo para o menos). Permite realizar inserção de um número $X$ em $\mathcal{O}(\log X)$. O inteiro `bits` no template da estrutura é a quantidade bits dos números você deseja considerar.
 
