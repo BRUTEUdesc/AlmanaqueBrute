@@ -6,7 +6,7 @@ struct CycleFinder {
     const ll INF = 1e18;
     int n;
     vector<int> visto, pai;
-    int cycle_start = -1, cycle_end = -1;
+    int start = -1, end = -1;
     void build(int _n) { n = _n; }
     bool dfs(int u) {
         visto[u] = 1;
@@ -15,8 +15,8 @@ struct CycleFinder {
                 pai[v] = u;
                 if (dfs(v)) return true;
             } else if (visto[v] == 1) {
-                cycle_end = u;
-                cycle_start = v;
+                end = u;
+                start = v;
                 return true;
             }
         }
@@ -29,10 +29,10 @@ struct CycleFinder {
         for (int v = 0; v < n; v++)
             if (visto[v] == 0 && dfs(v)) break;
         vector<int> cycle;
-        if (cycle_start != -1) {
-            cycle.emplace_back(cycle_start);
-            for (int v = cycle_end; v != cycle_start; v = pai[v]) cycle.emplace_back(v);
-            cycle.emplace_back(cycle_start);
+        if (start != -1) {
+            cycle.emplace_back(start);
+            for (int v = end; v != start; v = pai[v]) cycle.emplace_back(v);
+            cycle.emplace_back(start);
             reverse(cycle.begin(), cycle.end());
         }
         return cycle;
