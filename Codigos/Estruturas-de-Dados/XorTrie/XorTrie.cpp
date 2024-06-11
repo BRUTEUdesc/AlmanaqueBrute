@@ -23,9 +23,7 @@ struct XorTrie {
             if (good != -1) {
                 v = good;
                 ans |= 1 << i;
-            } else if (bad != -1) {
-                v = bad;
-            }
+            } else v = bad;
         }
         return ans;
     }
