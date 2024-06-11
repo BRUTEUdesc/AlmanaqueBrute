@@ -102,6 +102,8 @@ python3 .github/scripts/pdfer.py
 
 - [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
 
+- [XorTrie](Codigos/Estruturas-de-Dados/XorTrie)
+
 - [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
 
     - [Merge Sort Tree Update](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree-Update)
