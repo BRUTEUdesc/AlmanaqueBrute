@@ -9,17 +9,14 @@ struct XorTrie {
         int v = root;
         for (int i = bits - 1; i >= 0; i--) {
             int b = x >> i & 1;
-            if (go[v][b] == -1) {
-                go[v][b] = new_node();
-            }
+            if (go[v][b] == -1) go[v][b] = new_node();
             v = go[v][b];
         }
     }
     int max_xor(int x) {
         int v = root;
         int ans = 0;
-        if (cnt <= 1)
-            return -1;
+        if (cnt <= 1) return -1;
         for (int i = bits - 1; i >= 0; i--) {
             int b = x >> i & 1;
             int good = go[v][!b];
@@ -36,8 +33,7 @@ struct XorTrie {
     int min_xor(int x) {
         int flipped = x ^ ((1 << bits) - 1);
         int query = max_xor(flipped);
-        if (query == -1)
-            return -1;
+        if (query == -1) return -1;
         return x ^ flipped ^ query;
     }
 };
