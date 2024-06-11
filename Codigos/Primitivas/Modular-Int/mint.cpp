@@ -2,7 +2,7 @@ template <auto MOD, typename T = decltype(MOD)>
 struct Mint {
     using m = Mint<MOD, T>;
     T v;
-    Mint(T val = 0) : v(val) { }
+    Mint(T val = 0) : v(val) {}
     bool operator==(m o) const { return v == o.v; }
     bool operator!=(m o) const { return v != o.v; }
     bool operator<(m o) const { return v < o.v; }

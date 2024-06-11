@@ -1,6 +1,6 @@
 struct base {
     double a, b;
-    base(double _a = 0, double _b = 0) : a(_a), b(_b) { }
+    base(double _a = 0, double _b = 0) : a(_a), b(_b) {}
     const base operator+(const base &c) const { return base(a + c.a, b + c.b); }
     const base operator-(const base &c) const { return base(a - c.a, b - c.b); }
     const base operator*(const base &c) const {

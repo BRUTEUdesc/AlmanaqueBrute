@@ -15,6 +15,7 @@ NamespaceIndentation: All
 FixNamespaceComments: false
 BinPackArguments: false
 BinPackParameters: false
-SpaceInEmptyBlock: true
 AlignAfterOpenBracket: BlockIndent
 AlwaysBreakTemplateDeclarations: true
+SpaceInEmptyBlock: false
+SpacesBeforeTrailingComments: 1

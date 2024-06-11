@@ -3,7 +3,7 @@ const long long INF = 1e18;
 struct FlowEdge {
     int u, v;
     long long cap, flow = 0;
-    FlowEdge(int u, int v, long long cap) : u(u), v(v), cap(cap) { }
+    FlowEdge(int u, int v, long long cap) : u(u), v(v), cap(cap) {}
 };
 
 struct EdmondsKarp {

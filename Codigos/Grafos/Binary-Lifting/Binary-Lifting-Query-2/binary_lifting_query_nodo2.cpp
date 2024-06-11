@@ -1,8 +1,8 @@
 struct node {
     int pref, suff, sum, best;
-    node() : pref(0), suff(0), sum(0), best(0) { }
-    node(int x) : pref(x), suff(x), sum(x), best(x) { }
-    node(int a, int b, int c, int d) : pref(a), suff(b), sum(c), best(d) { }
+    node() : pref(0), suff(0), sum(0), best(0) {}
+    node(int x) : pref(x), suff(x), sum(x), best(x) {}
+    node(int a, int b, int c, int d) : pref(a), suff(b), sum(c), best(d) {}
 };
 
 node merge(node l, node r) {

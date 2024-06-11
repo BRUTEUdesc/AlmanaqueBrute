@@ -15,7 +15,7 @@ ostream &operator<<(ostream &os, const vector<T> &v) { // opcional
     return os;
 }
 
-void _print() { }
+void _print() {}
 template <typename T, typename... U>
 void _print(T a, U... b) {
     if (sizeof...(b)) {

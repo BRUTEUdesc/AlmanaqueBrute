@@ -3,7 +3,7 @@ struct LichaoTree {
     const ll INF = ll(2e18) + 10;
     struct Line {
         ll a, b;
-        Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
+        Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) {}
         ll operator()(ll x) { return a * x + b; }
     };
     vector<Line> tree;

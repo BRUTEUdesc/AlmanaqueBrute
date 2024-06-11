@@ -6,7 +6,7 @@ using mint2 = Mint<MOD2>;
 struct Hash {
     mint1 h1;
     mint2 h2;
-    Hash(mint1 _h1 = 0, mint2 _h2 = 0) : h1(_h1), h2(_h2) { }
+    Hash(mint1 _h1 = 0, mint2 _h2 = 0) : h1(_h1), h2(_h2) {}
     bool operator==(Hash o) const { return h1 == o.h1 && h2 == o.h2; }
     bool operator!=(Hash o) const { return h1 != o.h1 || h2 != o.h2; }
     bool operator<(Hash o) const { return h1 == o.h1 ? h2 < o.h2 : h1 < o.h1; }
@@ -33,7 +33,7 @@ void precalc() {
 struct Hashing {
     int N;
     vector<Hash> hsh;
-    Hashing() { }
+    Hashing() {}
     Hashing(string s) : N((int)s.size()), hsh(N + 1) {
         for (int i = 0; i < N; i++) {
             int c = (int)(s[i] - 'a' + 1);

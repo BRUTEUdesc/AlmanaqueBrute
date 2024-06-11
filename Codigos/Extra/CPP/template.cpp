@@ -3,7 +3,7 @@
 using namespace std;
 using ll = long long;
 
-void solve() { }
+void solve() {}
 
 signed main() {
     cin.tie(0)->sync_with_stdio(0);

@@ -6,8 +6,8 @@ using mint2 = Mint<MOD2>;
 struct Hash {
     mint1 h1;
     mint2 h2;
-    Hash() { }
-    Hash(mint1 _h1, mint2 _h2) : h1(_h1), h2(_h2) { }
+    Hash() {}
+    Hash(mint1 _h1, mint2 _h2) : h1(_h1), h2(_h2) {}
     bool operator==(Hash o) const { return h1 == o.h1 && h2 == o.h2; }
     bool operator!=(Hash o) const { return h1 != o.h1 || h2 != o.h2; }
     bool operator<(Hash o) const { return h1 == o.h1 ? h2 < o.h2 : h1 < o.h1; }
@@ -33,7 +33,7 @@ void precalc() {
 struct DynamicHashing {
     int N;
     FenwickTree<Hash> hsh;
-    DynamicHashing() { }
+    DynamicHashing() {}
     DynamicHashing(string s) : N(int(s.size())) {
         vector<Hash> v(N);
         for (int i = 0; i < N; i++) {

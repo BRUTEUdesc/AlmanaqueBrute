@@ -1,6 +1,6 @@
 struct Offline_DSU : BipartiteRollback_DSU {
     int time;
-    Offline_DSU(int n = 0) : BipartiteRollback_DSU(n), time(0) { }
+    Offline_DSU(int n = 0) : BipartiteRollback_DSU(n), time(0) {}
     struct query {
         int type, a, b;
     };

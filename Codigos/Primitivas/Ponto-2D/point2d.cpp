@@ -1,7 +1,7 @@
 template <typename T>
 struct point {
     T x, y;
-    point(T _x = 0, T _y = 0) : x(_x), y(_y) { }
+    point(T _x = 0, T _y = 0) : x(_x), y(_y) {}
 
     using p = point;
 
