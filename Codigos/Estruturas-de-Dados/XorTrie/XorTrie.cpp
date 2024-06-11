@@ -9,7 +9,7 @@ struct XorTrie {
         int v = root;
         for (int i = bits - 1; i >= 0; i--) {
             int b = x >> i & 1;
-            if (go[v][b] == -1) go[v][b] = new_node();
+            if (go[v][b] == -1) go[v][b] = cnt++;
             v = go[v][b];
         }
     }
