@@ -4,7 +4,6 @@ struct XorTrie {
     int root = 0, cnt = 1;
     XorTrie() { }
     XorTrie(int n) { go.assign((n + 1) * bits, vector<int>(2, -1)); }
-    inline int new_node() { return cnt++; }
     void insert(int x) {
         int v = root;
         for (int i = bits - 1; i >= 0; i--) {
