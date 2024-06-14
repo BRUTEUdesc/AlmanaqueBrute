@@ -1,11 +1,31 @@
 #!/usr/bin/env python3
 
 import os
+import re
 from pathlib import Path
+
+def gitignore_to_regex(pattern):
+    pattern = pattern.strip()
+    if not pattern or pattern.startswith('#'):
+        return None
+    if pattern.startswith('/'):
+        pattern = pattern[1:]
+    pattern = pattern.replace('.', r'\.').replace('*', '.*').replace('?', '.')
+    return re.compile(pattern)
+
+
+def is_gitignored(file_path):
+    global gitignore
+    for pattern in gitignore:
+        if pattern and pattern.match(str(file_path)):
+            return True
+    return False
+
 
 def printa_arquivo(path: Path, FILE: Path):
     with open(path, "r") as f:
         FILE.write(f.read())
+
 
 def printa_section(path: Path, FILE: Path, level: int):
     name = path.name.replace("-", " ")
@@ -26,6 +46,7 @@ def printa_section(path: Path, FILE: Path, level: int):
         FILE.write(f"\\subsection{{{name}}}\n")
     elif level == 3:
         FILE.write(f"\\subsubsection{{{name}}}\n")
+
 
 def printa_readme(path: Path, FILE: Path):
     def print_linha(line, dest):
@@ -121,6 +142,7 @@ def printa_readme(path: Path, FILE: Path):
 
         FILE.write("\\hfill\n\n")
 
+
 def printa_codigo(path: Path, FILE: Path):
     clean_name = path.name.replace("_", "\\_")
     FILE.write("Codigo: " + clean_name + "\n\n")
@@ -145,6 +167,7 @@ def printa_codigo(path: Path, FILE: Path):
 
     FILE.write("\\hfill\n\n")
 
+
 def fix_readme(path: Path):
     # check if it has an empty line at the end
     lines = []
@@ -154,6 +177,7 @@ def fix_readme(path: Path):
             lines.pop()
     with open(path, "w") as f:
         f.write("".join(lines))
+
 
 def dfs(path: Path, FILE: Path, level: int = 0):
     printa_section(path, FILE, level)
@@ -178,7 +202,8 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         printa_readme(readme, FILE)
 
         CODIGOS = list(path.glob("*"))
-        CODIGOS = [x for x in CODIGOS if len(str(x)) > 4 and str(x)[-4:] == ".cpp" and str(x)[0] != "."]
+        # pick the files whose name does not match any gitignore regex
+        CODIGOS = [x for x in CODIGOS if not is_gitignored(x) and not x.name.endswith(".md")]
 
         for codigo in CODIGOS:
             printa_codigo(codigo, FILE)
@@ -208,6 +233,15 @@ def dfs_readmes(path: Path, FILE: Path, level: int, fullPath: str):
 
 
 if __name__ == "__main__":
+
+    if not Path("Codigos").exists():
+        raise Exception("Esse script deve ser executado na raiz do repositório.")
+    
+    global gitignore
+
+    with open(".gitignore", "r") as f:
+        gitignore = [gitignore_to_regex(line) for line in f]
+
     DIR = Path("Codigos")
     ALMANAQUE = Path("LaTeX/Almanaque.tex")
     with open(ALMANAQUE, "w") as f:
