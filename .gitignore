@@ -7,3 +7,6 @@ Almanaque.html
 .idea
 .vscode
 .DS_Store
+*~
+*.swp
+*.swo
