@@ -126,6 +126,8 @@ python3 .github/scripts/pdfer.py
 
 - [Centro e Diametro](Codigos/Grafos/Centro-e-Diametro)
 
+- [Virtual Tree](Codigos/Grafos/Virtual-Tree)
+
 - [Pontos de Articulacao](Codigos/Grafos/Pontos-de-Articulacao)
 
 - [LCA](Codigos/Grafos/LCA)
@@ -211,6 +213,8 @@ python3 .github/scripts/pdfer.py
 - [Trie](Codigos/String/Trie)
 
 - [Manacher](Codigos/String/Manacher)
+
+- [Suffix Automaton](Codigos/String/Suffix-Automaton)
 
 - [Lyndon](Codigos/String/Lyndon)
 
