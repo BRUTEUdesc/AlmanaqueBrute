@@ -178,7 +178,7 @@ def dfs(path: Path, FILE: Path, level: int = 0):
         printa_readme(readme, FILE)
 
         CODIGOS = list(path.glob("*"))
-        CODIGOS = [x for x in CODIGOS if not ".md" in str(x)]
+        CODIGOS = [x for x in CODIGOS if len(str(x)) > 4 and str(x)[-4:] == ".cpp" and str(x)[0] != "."]
 
         for codigo in CODIGOS:
             printa_codigo(codigo, FILE)

@@ -226,7 +226,7 @@ python3 .github/scripts/pdfer.py
 
 - [Mo](Codigos/Paradigmas/Mo)
 
-    - [Mo Normal](Codigos/Paradigmas/Mo/Mo-Normal)
+    - [Mo](Codigos/Paradigmas/Mo/Mo)
 
     - [Mo Update](Codigos/Paradigmas/Mo/Mo-Update)
 
