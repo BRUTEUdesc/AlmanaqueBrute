@@ -5,9 +5,7 @@ struct trie {
     void insert(string &s, int v) {
         int id = 0;
         for (char c : s) {
-            if (!trie[id].count(c)) {
-                trie[id][c] = ++n_nodes;
-            }
+            if (!trie[id].count(c)) trie[id][c] = ++n_nodes;
             id = trie[id][c];
         }
         value[id] = v;
@@ -15,9 +13,7 @@ struct trie {
     int get_value(string &s) {
         int id = 0;
         for (char c : s) {
-            if (!trie[id].count(c)) {
-                return -1;
-            }
+            if (!trie[id].count(c)) return -1;
             id = trie[id][c];
         }
         return value[id];

@@ -38,9 +38,7 @@ namespace parallel_binary_search {
                 advance_search(i++);
                 for (auto q : vec) {
                     auto [v, id, l, r] = q;
-                    if (l > r) {
-                        continue;
-                    }
+                    if (l > r) continue;
                     go = 1;
                     // return while satisfies
                     if (satisfies(i, v, l, r)) {

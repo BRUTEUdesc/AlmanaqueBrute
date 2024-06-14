@@ -14,12 +14,8 @@ struct Rollback_DSU {
     }
     bool unite(int a, int b) {
         a = find(a), b = find(b);
-        if (a == b) {
-            return false;
-        }
-        if (sz[a] < sz[b]) {
-            swap(a, b);
-        }
+        if (a == b) return false;
+        if (sz[a] < sz[b]) swap(a, b);
         change(number_of_sets, number_of_sets - 1);
         change(par[b], a);
         change(sz[a], sz[a] + sz[b]);

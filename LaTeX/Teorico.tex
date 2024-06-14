@@ -360,3 +360,20 @@ Se $p$ é um número primo e $a$ é um inteiro não divisível por $p$, então $
 \subsection{Teorema de Euler}
 
 Se $m$ e $a$ são inteiros positivos coprimos, então $a^{\phi(m)} \equiv 1 \pmod{m}$, onde $\phi(m)$ é a função totiente de Euler.
+
+\subsection{Aritmética modular}
+
+Quando estamos trabalhando com aritmética módulo um número $p$, todos os valores existentes estão entre $[0, p-1]$. 
+
+Algumas propriedades e equivalências úteis para usar aritmética modular em código são:
+
+\begin{itemize}
+  \item $(a + b) \mod p \equiv ((a \mod p) + (b \mod p)) \mod p$
+  \item $(a - b) \mod p \equiv ((a \mod p) - (b \mod p)) \mod p$
+  \begin{itemize}
+    \item Note que o resultado pode ser negativo, nesse é necessário adicionar $p$ ao resultado. De forma geral, geralmente fazemos $(a - b + p) \mod p$ (assumindo que $a$ e $b$ já estão no intervalo $[0, p-1]$).
+  \end{itemize}
+  \item $(a \cdot b) \mod p \equiv ((a \mod p) \cdot (b \mod p)) \mod p$
+  \item $a^b \mod p \equiv ((a \mod p)^b) \mod p$
+  \item $a^b \mod p \equiv ((a \mod p)^{(b \mod \phi(p))}) \mod p$ se $a$ e $p$ são coprimos
+\end{itemize}

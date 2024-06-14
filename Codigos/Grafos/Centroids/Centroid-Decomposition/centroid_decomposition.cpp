@@ -7,30 +7,21 @@ vector<int> adj[N];
 
 int dfs_sz(int u, int p) {
     sz[u] = 1;
-    for (int v : adj[u]) {
-        if (v != p && !rem[v]) {
-            sz[u] += dfs_sz(v, u);
-        }
-    }
+    for (int v : adj[u])
+        if (v != p && !rem[v]) sz[u] += dfs_sz(v, u);
     return sz[u];
 }
 
 int centroid(int u, int p, int szn) {
-    for (int v : adj[u]) {
-        if (v != p && !rem[v] && sz[v] > szn / 2) {
-            return centroid(v, u, szn);
-        }
-    }
+    for (int v : adj[u])
+        if (v != p && !rem[v] && sz[v] > szn / 2) return centroid(v, u, szn);
     return u;
 }
 
 void dfs_dis(int u, int p, int d = 0) {
     dis[u].push_back(d);
-    for (int v : adj[u]) {
-        if (v != p && !rem[v]) {
-            dfs_dis(v, u, d + 1);
-        }
-    }
+    for (int v : adj[u])
+        if (v != p && !rem[v]) dfs_dis(v, u, d + 1);
 }
 
 void decomp(int u, int p) {
@@ -43,11 +34,8 @@ void decomp(int u, int p) {
 
     // Faz algo na subárvore de c
 
-    for (int v : adj[c]) {
-        if (!rem[v]) {
-            decomp(v, c);
-        }
-    }
+    for (int v : adj[c])
+        if (!rem[v]) decomp(v, c);
 }
 
 void build(int n) {
@@ -56,7 +44,5 @@ void build(int n) {
         dis[i].clear();
     }
     decomp(0, -1);
-    for (int i = 0; i < n; i++) {
-        reverse(dis[i].begin(), dis[i].end());
-    }
+    for (int i = 0; i < n; i++) reverse(dis[i].begin(), dis[i].end());
 }

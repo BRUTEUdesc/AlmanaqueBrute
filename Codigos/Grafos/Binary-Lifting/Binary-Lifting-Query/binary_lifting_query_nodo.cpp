@@ -31,8 +31,7 @@ namespace bl {
     bool ancestor(int u, int v) { return tin[u] <= tin[v] && tout[u] >= tout[v]; }
 
     int query2(int u, int v, bool include_lca) {
-        if (ancestor(u, v))
-            return include_lca ? val[u] : neutral;
+        if (ancestor(u, v)) return include_lca ? val[u] : neutral;
         int ans = val[u];
         for (int i = LG - 1; i >= 0; i--) {
             if (!ancestor(up[u][i], v)) {
@@ -44,31 +43,21 @@ namespace bl {
     }
 
     int query(int u, int v) {
-        if (u == v) {
-            return val[u];
-        }
+        if (u == v) return val[u];
         return merge(query2(u, v, 1), query2(v, u, 0));
     }
 
     int lca(int u, int v) {
-        if (ancestor(u, v))
-            return u;
-        if (ancestor(v, u))
-            return v;
-        for (int i = LG - 1; i >= 0; i--) {
-            if (!ancestor(up[u][i], v)) {
-                u = up[u][i];
-            }
-        }
+        if (ancestor(u, v)) return u;
+        if (ancestor(v, u)) return v;
+        for (int i = LG - 1; i >= 0; i--)
+            if (!ancestor(up[u][i], v)) u = up[u][i];
         return up[u][0];
     }
 
     int kth(int u, int k) {
-        for (int i = 0; i < LG; i++) {
-            if (k & (1 << i)) {
-                u = up[u][i];
-            }
-        }
+        for (int i = 0; i < LG; i++)
+            if (k & (1 << i)) u = up[u][i];
         return u;
     }
 

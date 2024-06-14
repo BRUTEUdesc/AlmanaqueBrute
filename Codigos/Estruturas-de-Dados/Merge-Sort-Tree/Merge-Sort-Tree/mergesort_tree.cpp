@@ -1,4 +1,5 @@
-template <typename T = int> struct MergeSortTree {
+template <typename T = int>
+struct MergeSortTree {
     vector<vector<T>> tree;
     int n;
     int le(int u) { return u << 1; }
@@ -12,11 +13,13 @@ template <typename T = int> struct MergeSortTree {
         int mid = (l + r) >> 1;
         build(le(u), l, mid, a);
         build(ri(u), mid + 1, r, a);
-        merge(tree[le(u)].begin(),
-              tree[le(u)].end(),
-              tree[ri(u)].begin(),
-              tree[ri(u)].end(),
-              tree[u].begin());
+        merge(
+            tree[le(u)].begin(),
+            tree[le(u)].end(),
+            tree[ri(u)].begin(),
+            tree[ri(u)].end(),
+            tree[u].begin()
+        );
     }
 
     void build(const vector<T> &a) { // para construir com vector
@@ -29,8 +32,7 @@ template <typename T = int> struct MergeSortTree {
     }
 
     int count(int u, int l, int r, int L, int R, int a, int b) {
-        if (l > R || r < L || a > b)
-            return 0;
+        if (l > R || r < L || a > b) return 0;
         if (l >= L && r <= R) {
             auto ub = upper_bound(tree[u].begin(), tree[u].end(), b);
             auto lb = upper_bound(tree[u].begin(), tree[u].end(), a - 1);
