@@ -1,5 +1,4 @@
 namespace SA {
-    // maxn = 2 * maximum N
     const int MAXN = 3e5 + 5;
     const int MAXS = 2 * MAXN + 5;
     array<int, 26> to[MAXS];
