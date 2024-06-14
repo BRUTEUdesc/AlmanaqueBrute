@@ -1,4 +1,4 @@
-# [Suffix Automaton](SuffixAutomaton.cpp)
+# [Suffix Automaton](suffix_automaton.cpp)
 
 Constrói o autômato de sufixos de uma string $S$ em $\mathcal{O}(|S|)$ de forma online. 
 
