@@ -70,6 +70,8 @@ python3 .github/scripts/pdfer.py
 
 - [Operation Queue](Codigos/Estruturas-de-Dados/Operation-Queue)
 
+- [XOR Trie](Codigos/Estruturas-de-Dados/XOR-Trie)
+
 - [Interval Tree](Codigos/Estruturas-de-Dados/Interval-Tree)
 
 - [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree)
