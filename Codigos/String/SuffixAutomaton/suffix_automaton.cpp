@@ -1,8 +1,8 @@
 // maxn = 2 * maximum N
-const int maxn = 2e5 + 5;
-const int maxs = 2 * maxn + 5;
-array<int, 26> to[maxs];
-int lnk[maxs], len[maxs];
+const int MAXN = 3e5 + 5;
+const int MAXS = 2 * MAXN + 5;
+array<int, 26> to[MAXS];
+int lnk[MAXS], len[MAXS];
 int last = 1, id = 2;
 
 void insert(int c) {
