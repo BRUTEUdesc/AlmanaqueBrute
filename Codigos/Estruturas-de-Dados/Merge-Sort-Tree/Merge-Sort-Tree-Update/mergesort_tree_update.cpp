@@ -16,7 +16,6 @@ struct MergeSortTree {
         for (auto x : tree[le(u)]) tree[u].insert(x);
         for (auto x : tree[ri(u)]) tree[u].insert(x);
     }
-
     void build(const vector<T> &a) { // para construir com vector
         n = (int)a.size();
         v = a;
@@ -26,7 +25,6 @@ struct MergeSortTree {
     void build(T *bg, T *en) { // para construir com array de C
         build(vector<T>(bg, en));
     }
-
     int count(int u, int l, int r, int L, int R, int a, int b) {
         if (l > R || r < L || a > b) return 0;
         if (l >= L && r <= R) {
