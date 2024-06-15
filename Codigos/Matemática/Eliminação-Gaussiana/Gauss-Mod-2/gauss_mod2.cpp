@@ -1,12 +1,12 @@
 const int N = 105;
-const int INF = 2; // tanto faz
+const int INF = 2;  // nao tem que ser infinito ou um numero grande
+                    // so serve para indicar que tem infinitas solucoes
 
 // n -> numero de equacoes, m -> numero de
 // variaveis a[i][j] para j em [0, m - 1] ->
 // coeficiente da variavel j na iesima equacao
-// a[i][j] para j == m -> resultado da equacao da
-// iesima linha ans -> bitset vazio, que retornara
-// a solucao do sistema (caso exista)
+// a[i][j] para j == m -> resultado da equacao da iesima linha
+// ans -> bitset vazio, que retornara a solucao do sistema (caso exista)
 
 int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
     vector<int> where(m, -1);
