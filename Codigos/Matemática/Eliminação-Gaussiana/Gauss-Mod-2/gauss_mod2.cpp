@@ -1,17 +1,8 @@
-const int N = 105;
+const int M = 105;
 const int INF = 2; // nao tem que ser infinito ou um numero grande
                    // so serve para indicar que tem infinitas solucoes
 
-// n -> numero de equacoes, m -> numero de variaveis
-
-// a[i][j] para j em [0, m - 1] ->
-// coeficiente da variavel j na iesima equacao
-
-// a[i][j] para j == m -> resultado da equacao da iesima linha
-
-// ans -> bitset vazio, que retornara a solucao do sistema (caso exista)
-
-int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
+int gauss(vector<bitset<M>> a, int n, int m, bitset<M> &ans) {
     vector<int> where(m, -1);
 
     for (int col = 0, row = 0; col < m && row < n; col++) {
@@ -29,6 +20,7 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
         row++;
     }
 
+    ans.reset();
     for (int i = 0; i < m; i++)
         if (where[i] != -1) ans[i] = a[where[i]][m] / a[where[i]][i];
     for (int i = 0; i < n; i++) {

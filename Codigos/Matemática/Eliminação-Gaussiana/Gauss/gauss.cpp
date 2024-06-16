@@ -2,12 +2,6 @@ const double EPS = 1e-9;
 const int INF = 2; // nao tem que ser infinito ou um numero grande
                    // so serve para indicar que tem infinitas solucoes
 
-// vector<vector<double>> a deve ser uma matriz n x (m + 1), onde n e m sao o numero de
-// equacoes e variaveis, respectivamente, na ultima coluna de a, deve estar o resultado das
-// equacoes
-
-// ans -> vector zerado, que retornara a solucao do sistema (caso exista)
-
 int gauss(vector<vector<double>> a, vector<double> &ans) {
     int n = (int)a.size();
     int m = (int)a[0].size() - 1;
