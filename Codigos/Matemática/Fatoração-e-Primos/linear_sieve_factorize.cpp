@@ -1,5 +1,5 @@
 namespace sieve {
-    const int MAX = 1e4;
+    const int MAX = 1e6;
     int lp[MAX + 1], factor[MAX + 1];
     vector<int> pr;
     void build() {
