@@ -2,6 +2,7 @@
 
 import os
 import re
+import subprocess
 from pathlib import Path
 
 def gitignore_to_regex(pattern):
@@ -20,6 +21,16 @@ def is_gitignored(file_path):
         if pattern and pattern.match(str(file_path)):
             return True
     return False
+
+
+def is_tracked_by_git(file_path):
+    try:
+        result = subprocess.run(['git', 'ls-files', '--error-unmatch', file_path], 
+                                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        return result.returncode == 0
+    except Exception as e:
+        print(f"Erro ao verificar {file_path}: {e}")
+        return False
 
 
 def printa_arquivo(path: Path, FILE: Path):
@@ -180,6 +191,9 @@ def fix_readme(path: Path):
 
 
 def dfs(path: Path, FILE: Path, level: int = 0):
+    if not is_tracked_by_git(path):
+        return
+
     printa_section(path, FILE, level)
 
     endpoint = False
@@ -211,6 +225,8 @@ def dfs(path: Path, FILE: Path, level: int = 0):
 
 
 def dfs_readmes(path: Path, FILE: Path, level: int, fullPath: str):
+    if not is_tracked_by_git(path):
+        return
     name = path.name.replace("-", " ")
     if level == 0:
         FILE.write(f"### [{name}]({fullPath})\n\n")
@@ -219,14 +235,14 @@ def dfs_readmes(path: Path, FILE: Path, level: int, fullPath: str):
         FILE.write(f"- [{name}]({fullPath})\n\n")
         print(f"- {name}")
     elif level == 2:
-        FILE.write(f"    - [{name}]({fullPath})\n\n")
-        print(f"  - {name}")
+        FILE.write(f"\t- [{name}]({fullPath})\n\n")
+        print(f"\t- {name}")
     elif level == 3:
-        FILE.write(f"        - [{name}]({fullPath})\n\n")
-        print(f"   - {name}")
+        FILE.write(f"\t\t- [{name}]({fullPath})\n\n")
+        print(f"\t\t- {name}")
     elif level == 4:
-        FILE.write(f"            - [{name}]({fullPath})\n\n")
-        print(f"    - {name}")
+        FILE.write(f"\t\t\t- [{name}]({fullPath})\n\n")
+        print(f"\t\t\t- {name}")
     for child in path.iterdir():
         if child.is_dir():
             dfs_readmes(child, FILE, level + 1, fullPath + "/" + child.name)
