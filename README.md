@@ -18,7 +18,7 @@ Os arquivos `STL.tex`, `Templates.tex` e `Teorico.tex` são os arquivos `tex` do
 
 ### Pasta `PDF`
 
-Aqui está o `.pdf` do Almanaque.
+Aqui está o `.tex` do Almanaque e sua versão compilada em `.pdf`.
 
 ## Para fazer contribuições
 
@@ -58,15 +58,15 @@ python3 .github/scripts/pdfer.py
 
 - [Disjoint Set Union](Codigos/Estruturas-de-Dados/Disjoint-Set-Union)
 
-    - [DSU Rollback](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback)
+	- [DSU Rollback](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback)
 
-    - [DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU)
+	- [DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU)
 
-    - [Offline DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/Offline-DSU)
+	- [Offline DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/Offline-DSU)
 
-    - [DSU Rollback Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback-Bipartido)
+	- [DSU Rollback Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback-Bipartido)
 
-    - [DSU Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Bipartido)
+	- [DSU Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Bipartido)
 
 - [Operation Queue](Codigos/Estruturas-de-Dados/Operation-Queue)
 
@@ -76,53 +76,53 @@ python3 .github/scripts/pdfer.py
 
 - [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree)
 
-    - [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
+	- [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
 
-    - [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
+	- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
 
-    - [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
+	- [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
 
-    - [Segment Tree Kadane](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadane)
+	- [Segment Tree Kadane](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadane)
 
-    - [Segment Tree Lazy Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy-Esparsa)
+	- [Segment Tree Lazy Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy-Esparsa)
 
-    - [Segment Tree Beats Max And Sum Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-And-Sum-Update)
+	- [Segment Tree Beats Max And Sum Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-And-Sum-Update)
 
-    - [Segment Tree Beats Max Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-Update)
+	- [Segment Tree Beats Max Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-Update)
 
-    - [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
+	- [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
 
-    - [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
+	- [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
 
 - [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
 
 - [Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree)
 
-    - [Fenwick](Codigos/Estruturas-de-Dados/Fenwick-Tree/Fenwick)
+	- [Fenwick](Codigos/Estruturas-de-Dados/Fenwick-Tree/Fenwick)
 
-    - [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree/Kd-Fenwick-Tree)
+	- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree/Kd-Fenwick-Tree)
 
 - [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
 
 - [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
 
-    - [Merge Sort Tree Update](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree-Update)
+	- [Merge Sort Tree Update](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree-Update)
 
-    - [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree)
+	- [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree)
 
 - [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
 
 - [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table)
 
-    - [Disjoint Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Disjoint-Sparse-Table)
+	- [Disjoint Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Disjoint-Sparse-Table)
 
-    - [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Sparse-Table)
+	- [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Sparse-Table)
 
 ### [Grafos](Codigos/Grafos)
 
 - [Matching](Codigos/Grafos/Matching)
 
-    - [Hungaro](Codigos/Grafos/Matching/Hungaro)
+	- [Hungaro](Codigos/Grafos/Matching/Hungaro)
 
 - [Centro e Diametro](Codigos/Grafos/Centro-e-Diametro)
 
@@ -140,33 +140,33 @@ python3 .github/scripts/pdfer.py
 
 - [Centroids](Codigos/Grafos/Centroids)
 
-    - [Centroid](Codigos/Grafos/Centroids/Centroid)
+	- [Centroid](Codigos/Grafos/Centroids/Centroid)
 
-    - [Centroid Decomposition](Codigos/Grafos/Centroids/Centroid-Decomposition)
+	- [Centroid Decomposition](Codigos/Grafos/Centroids/Centroid-Decomposition)
 
 - [Shortest Paths](Codigos/Grafos/Shortest-Paths)
 
-    - [Bellman Ford](Codigos/Grafos/Shortest-Paths/Bellman-Ford)
+	- [Bellman Ford](Codigos/Grafos/Shortest-Paths/Bellman-Ford)
 
-    - [Floyd Warshall](Codigos/Grafos/Shortest-Paths/Floyd-Warshall)
+	- [Floyd Warshall](Codigos/Grafos/Shortest-Paths/Floyd-Warshall)
 
-    - [01 BFS](Codigos/Grafos/Shortest-Paths/01-BFS)
+	- [01 BFS](Codigos/Grafos/Shortest-Paths/01-BFS)
 
-    - [BFS](Codigos/Grafos/Shortest-Paths/BFS)
+	- [BFS](Codigos/Grafos/Shortest-Paths/BFS)
 
-    - [Dijkstra](Codigos/Grafos/Shortest-Paths/Dijkstra)
+	- [Dijkstra](Codigos/Grafos/Shortest-Paths/Dijkstra)
 
-    - [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
+	- [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
 
 - [Binary Lifting](Codigos/Grafos/Binary-Lifting)
 
-    - [Binary Lifting Query Aresta](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-Aresta)
+	- [Binary Lifting Query Aresta](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-Aresta)
 
-    - [Binary Lifting LCA](Codigos/Grafos/Binary-Lifting/Binary-Lifting-LCA)
+	- [Binary Lifting LCA](Codigos/Grafos/Binary-Lifting/Binary-Lifting-LCA)
 
-    - [Binary Lifting Query](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query)
+	- [Binary Lifting Query](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query)
 
-    - [Binary Lifting Query 2](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-2)
+	- [Binary Lifting Query 2](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-2)
 
 - [Fluxo](Codigos/Grafos/Fluxo)
 
@@ -196,9 +196,9 @@ python3 .github/scripts/pdfer.py
 
 - [Prefix Function KMP](Codigos/String/Prefix-Function-KMP)
 
-    - [KMP](Codigos/String/Prefix-Function-KMP/KMP)
+	- [KMP](Codigos/String/Prefix-Function-KMP/KMP)
 
-    - [Automato KMP](Codigos/String/Prefix-Function-KMP/Automato-KMP)
+	- [Automato KMP](Codigos/String/Prefix-Function-KMP/Automato-KMP)
 
 - [Aho Corasick](Codigos/String/Aho-Corasick)
 
@@ -206,9 +206,9 @@ python3 .github/scripts/pdfer.py
 
 - [Hashing](Codigos/String/Hashing)
 
-    - [Hashing](Codigos/String/Hashing/Hashing)
+	- [Hashing](Codigos/String/Hashing/Hashing)
 
-    - [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
+	- [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
 
 - [Trie](Codigos/String/Trie)
 
@@ -226,9 +226,9 @@ python3 .github/scripts/pdfer.py
 
 - [Mo](Codigos/Paradigmas/Mo)
 
-    - [Mo Normal](Codigos/Paradigmas/Mo/Mo-Normal)
+	- [Mo](Codigos/Paradigmas/Mo/Mo)
 
-    - [Mo Update](Codigos/Paradigmas/Mo/Mo-Update)
+	- [Mo Update](Codigos/Paradigmas/Mo/Mo-Update)
 
 - [Exponenciação de Matriz](Codigos/Paradigmas/Exponenciação-de-Matriz)
 
@@ -260,15 +260,15 @@ python3 .github/scripts/pdfer.py
 
 - [NTT](Codigos/Matemática/NTT)
 
-    - [NTT](Codigos/Matemática/NTT/NTT)
+	- [NTT](Codigos/Matemática/NTT/NTT)
 
-    - [NTT Big Mod](Codigos/Matemática/NTT/NTT-Big-Mod)
+	- [NTT Big Mod](Codigos/Matemática/NTT/NTT-Big-Mod)
 
 - [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
 
-    - [Gauss Mod 2](Codigos/Matemática/Eliminação-Gaussiana/Gauss-Mod-2)
+	- [Gauss Mod 2](Codigos/Matemática/Eliminação-Gaussiana/Gauss-Mod-2)
 
-    - [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
+	- [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
 
 - [Sum of floor (n div i)](Codigos/Matemática/Sum-of-floor-(n-div-i))
 
