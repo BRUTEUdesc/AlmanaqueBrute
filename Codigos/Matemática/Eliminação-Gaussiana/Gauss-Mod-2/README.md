@@ -6,7 +6,7 @@ No código, a constante $M$ deve ser definida como o `(número de variáveis + 1
 
 A função `gauss` recebe como parâmetros:
  - `vector<bitset<M>> a`: um vector de bitsets, representando as equações do sistema. Cada bitset tem tamanho $M$, onde o bit $j$ do bitset $i$ representa o coeficiente da variável $j$ na equação $i$. A última posição do bitset $i$ representa o resultado da equação $i$.
- - $n$ e $m$: inteiros representando o número de equações e variáveis, respectivamente.
+ - `n` e `m`: inteiros representando o número de equações e variáveis, respectivamente.
  - `bitset<M> &ans`: um bitset de tamanho $M$, que será preenchido com a solução do sistema, caso exista.
 
 A função retorna:
