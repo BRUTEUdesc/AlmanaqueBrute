@@ -274,6 +274,14 @@ python3 .github/scripts/pdfer.py
 
 - [GCD](Codigos/Matemática/GCD)
 
+- [Fatoração e Primos](Codigos/Matemática/Fatoração-e-Primos)
+
+    - [Miller Rabin](Codigos/Matemática/Fatoração-e-Primos/Miller-Rabin)
+
+    - [Pollard Rho](Codigos/Matemática/Fatoração-e-Primos/Pollard-Rho)
+
+    - [Crivo](Codigos/Matemática/Fatoração-e-Primos/Crivo)
+
 - [Fatoração](Codigos/Matemática/Fatoração)
 
 - [Teorema do Resto Chinês](Codigos/Matemática/Teorema-do-Resto-Chinês)

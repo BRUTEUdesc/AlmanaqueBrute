@@ -265,11 +265,15 @@ if __name__ == "__main__":
     
     clean = True
 
-    os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+    if Path("LaTeX/Almanaque.tex").exists():
+        os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+    else:
+        raise Exception("Arquivo LaTeX/Almanaque.tex não encontrado.")
 
     if Path("LaTeX/Almanaque.pdf").exists():
         print("\nPDF gerado com sucesso e salvo em PDF/Almanaque.pdf")
         os.replace("LaTeX/Almanaque.pdf", "PDF/Almanaque.pdf")
+        os.replace("LaTeX/Almanaque.tex", "PDF/Almanaque.tex")
     else:
         raise Exception("PDF não foi gerado, ocorreu algum erro.")
 
