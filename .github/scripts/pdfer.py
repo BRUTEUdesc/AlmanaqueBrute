@@ -101,8 +101,10 @@ def printa_readme(path: Path, FILE: Path):
                 dest.write("\\textbf{" + now + "} ")
                 i = it
             else:
-                if line[i] in ['%', '&', '~', '_'] and not in_math and not in_inline_code:
+                if line[i] in ['%', '~', '_'] and not in_math and not in_inline_code:
                     dest.write('\\')
+                if line[i] == '&' and in_inline_code:
+                    dest.write("\\")
                 if line[i] in ['_', '^'] and in_inline_code:
                     dest.write("\\")
                 dest.write(line[i])
@@ -275,6 +277,7 @@ if __name__ == "__main__":
 
         for child in DIR.iterdir():
             if child.is_dir() and child.name != "Extra":
+                pass
                 dfs(child, f, 0)
         
         f.write("\\end{document}\n")
