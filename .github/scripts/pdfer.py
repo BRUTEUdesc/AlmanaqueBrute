@@ -277,7 +277,6 @@ if __name__ == "__main__":
 
         for child in DIR.iterdir():
             if child.is_dir() and child.name != "Extra":
-                pass
                 dfs(child, f, 0)
         
         f.write("\\end{document}\n")
