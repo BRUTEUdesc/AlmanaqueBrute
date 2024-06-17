@@ -1,8 +1,6 @@
 # Fatoração
 
-<!-- DESCRIPTION -->
 Algortimos para fatorar um número.
-<!-- DESCRIPTION -->
 
 # [Fatoração Simples](naive_factorize.cpp)
 Fatora um número N.
