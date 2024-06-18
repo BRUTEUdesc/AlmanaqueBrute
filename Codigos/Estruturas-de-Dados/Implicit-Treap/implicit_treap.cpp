@@ -34,15 +34,13 @@ namespace imp_treap {
     }
     inline void pull(node t) {
         if (t) {
-            push(t->l);
-            push(t->r);
+            push(t->l), push(t->r);
             t->size = size(t->l) + size(t->r) + 1;
             t->acc = merge(t->val, merge(acc(t->l), acc(t->r)));
         }
     }
     void merge(node &t, node L, node R) {
-        push(L);
-        push(R);
+        push(L), push(R);
         if (!L || !R) {
             t = L ? L : R;
         } else if (L->y > R->y) {
@@ -71,17 +69,15 @@ namespace imp_treap {
         pull(t);
     }
     inline void insert(node to, int pos) {
-        node L;
-        node R;
+        node L, *R;
         split(root, pos, L, R);
         merge(L, L, to);
         merge(root, L, R);
     }
     bool remove(node &t, int pos, int add = 0) {
-        push(t);
         if (!t) return false;
+        push(t);
         int imp_key = add + size(t->l);
-        debug(pos, imp_key, add, t->val);
         if (pos == imp_key) {
             node me = t;
             merge(t, t->l, t->r);
@@ -96,10 +92,7 @@ namespace imp_treap {
     }
     inline T query(int l, int r) {
         if (l > r) return neutral;
-        node L1;
-        node R1;
-        node L2;
-        node R2;
+        node L1, *L2, *R1, *R2;
         split(root, r + 1, L1, R1);
         split(L1, l, L2, R2);
         T ans = acc(R2);
@@ -109,10 +102,7 @@ namespace imp_treap {
     }
     inline void update_sum(int l, int r, T val) {
         if (l > r) return;
-        node L1;
-        node R1;
-        node L2;
-        node R2;
+        node L1, *L2, *R1, *R2;
         split(root, r + 1, L1, R1);
         split(L1, l, L2, R2);
         assert(R2);
@@ -122,10 +112,7 @@ namespace imp_treap {
     }
     inline void reverse(int l, int r) {
         if (l > r) return;
-        node L1;
-        node R1;
-        node L2;
-        node R2;
+        node L1, *L2, *R1, *R2;
         split(root, r + 1, L1, R1);
         split(L1, l, L2, R2);
         R2->rev ^= 1;
