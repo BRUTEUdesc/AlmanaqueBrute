@@ -5,12 +5,12 @@ namespace imp_treap {
     T neutral = 0;
     struct node_info {
         node_info *l, *r;
-        int y, size, val;
-        T acc, add;
+        int y, size;
+        T val, acc, add;
         bool rev;
         node_info() { }
-        node_info(int val)
-            : l(0), r(0), y(rng()), size(0), val(val), acc(0), add(0), rev(false) { }
+        node_info(T _val)
+            : l(0), r(0), y(rng()), size(0), val(_val), acc(0), add(0), rev(false) { }
     };
     using node = node_info *;
     node root = 0;
