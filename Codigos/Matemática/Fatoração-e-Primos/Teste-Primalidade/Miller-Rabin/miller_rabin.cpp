@@ -1,7 +1,5 @@
 namespace MillerRabin {
-    inline ll mul_mod(ll a, ll b, ll m) {
-        return (ll)((__int128)a * b % m);
-    }
+    inline ll mul_mod(ll a, ll b, ll m) { return (ll)((__int128)a * b % m); }
     inline ll power(ll b, ll e, ll m) {
         ll r = 1;
         b = b % m;
@@ -22,18 +20,17 @@ namespace MillerRabin {
     }
 
     // com esses "primos", o teste funciona garantido para n <= 2^64
-	int primes[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
+    int primes[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
 
-	// funciona para n <= 3*10^24 com os primos ate 41, mas tem que cuidar com overflow
+    // funciona para n <= 3*10^24 com os primos ate 41, mas tem que cuidar com overflow
     // int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41};
 
     bool prime(ll n) {
         if (n <= 2 || (n % 2 == 0)) return n == 2;
         ll d = n - 1, r = 0;
         while (d % 2 == 0) d /= 2, r++;
-        for (int a : primes) {
+        for (int a : primes)
             if (composite(n, a, d, r)) return false;
-        }
         return true;
     }
 }
