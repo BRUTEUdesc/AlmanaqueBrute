@@ -37,14 +37,14 @@ struct DynamicHashing {
     DynamicHashing(string s) : N(int(s.size())) {
         vector<Hash> v(N);
         for (int i = 0; i < N; i++) {
-            int c = int(s[i] - 'a' + 1);
+            int c = (int)s[i];
             v[i] = pot[i + 1] * Hash(c, c);
         }
         hsh = FenwickTree<Hash>(v);
     }
     Hash operator()(int l, int r) { return hsh.query(l, r) * invpot[l]; }
     void update(int i, char ch) {
-        int c = int(ch - 'a' + 1);
+        int c = (int)ch;
         hsh.updateSet(i, pot[i + 1] * Hash(c, c));
     }
 };
