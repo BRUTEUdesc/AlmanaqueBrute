@@ -10,4 +10,3 @@ A função retorna:
 - `0`: se o sistema não tem solução.
 - `1`: se o sistema tem uma única solução.
 - `INF`: se o sistema tem infinitas soluções. Nesse caso, as variáveis em que `where[i] == -1` são as variáveis livres.
-
