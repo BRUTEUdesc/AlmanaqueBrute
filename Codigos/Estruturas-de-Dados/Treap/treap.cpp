@@ -4,7 +4,7 @@ namespace treap {
         node_info *l, *r;
         int x, y, size;
         node_info() { }
-        node_info(int x) : l(0), r(0), x(x), y(rng()), size(0) { }
+        node_info(int _x) : l(0), r(0), x(_x), y(rng()), size(0) { }
     };
     using node = node_info *;
     node root = 0;
