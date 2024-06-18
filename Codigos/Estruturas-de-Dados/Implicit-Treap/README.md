@@ -1,6 +1,6 @@
 # [Implicit Treap](implicit_treap.cpp)
 
-Simula um array com as seguintes operações em $\mathcal{O}(log(N))$:
+Simula um array com as seguintes operações em $\mathcal{O}(\log N)$:
 
 - Inserir um elemento $X$ na posição $i$ (todos os elementos em posições maiores que $i$ serão "empurrados" para a direita).
 - Remover o elemento na posição $i$ (todos os elementos em posições maiores que $i$ serão "puxados" para a esquerda).
