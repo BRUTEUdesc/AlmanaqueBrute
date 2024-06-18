@@ -1,4 +1,4 @@
-mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
 namespace imp_treap {
     using T = ll; // mudar pra int se nao precisar pra melhorar a performance
     T merge(T a, T b) { return a + b; }
