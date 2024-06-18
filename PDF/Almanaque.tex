@@ -6251,12 +6251,24 @@ vector<pt> convex_hull(vector<pt> v, bool include_collinear = 0) {
 \subsection{Gauss}
 
 
-Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes reais.
+Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes reais, a complexidade é $\mathcal{O}(n^3)$.
 
 
+
+A função \texttt{gauss} recebe como parâmetros:
+
+ - \texttt{vector<vector<double>> a}: uma matriz $N \times (M + 1)$, onde $N$ é o número de equações e $M$ é o número de variáveis, a última coluna de \texttt{a} deve conter o resultado das equações.
+
+ - \texttt{vector<double> \&ans}: um vetor de tamanho $M$, que será preenchido com a solução do sistema, caso exista.
+
+
+
+A função retorna:
 
 \begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(n^3)$
+\item \texttt{0}: se o sistema não tem solução.
+\item \texttt{1}: se o sistema tem uma única solução.
+\item \texttt{INF}: se o sistema tem infinitas soluções. Nesse caso, as variáveis em que \texttt{where[i] == -1} são as variáveis livres.
 \end{itemize}
 
 \hfill
@@ -6265,41 +6277,41 @@ Codigo: gauss.cpp
 
 \begin{lstlisting}[language=C++]
 const double EPS = 1e-9;
-const int INF = 2; // it doesn't actually have to
-                   // be infinity or a big number
+const int INF = 2; // nao tem que ser infinito ou um numero grande
+                   // so serve para indicar que tem infinitas solucoes
 
 int gauss(vector<vector<double>> a, vector<double> &ans) {
     int n = (int)a.size();
     int m = (int)a[0].size() - 1;
 
     vector<int> where(m, -1);
-    for (int col = 0, row = 0; col < m && row < n; ++col) {
+    for (int col = 0, row = 0; col < m && row < n; col++) {
         int sel = row;
-        for (int i = row; i < n; ++i)
+        for (int i = row; i < n; i++)
             if (abs(a[i][col]) > abs(a[sel][col])) sel = i;
         if (abs(a[sel][col]) < EPS) continue;
-        for (int i = col; i <= m; ++i) swap(a[sel][i], a[row][i]);
+        for (int i = col; i <= m; i++) swap(a[sel][i], a[row][i]);
         where[col] = row;
 
-        for (int i = 0; i < n; ++i) {
+        for (int i = 0; i < n; i++) {
             if (i != row) {
                 double c = a[i][col] / a[row][col];
-                for (int j = col; j <= m; ++j) a[i][j] -= a[row][j] * c;
+                for (int j = col; j <= m; j++) a[i][j] -= a[row][j] * c;
             }
         }
-        ++row;
+        row++;
     }
 
     ans.assign(m, 0);
-    for (int i = 0; i < m; ++i)
+    for (int i = 0; i < m; i++)
         if (where[i] != -1) ans[i] = a[where[i]][m] / a[where[i]][i];
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         double sum = 0;
-        for (int j = 0; j < m; ++j) sum += ans[j] * a[i][j];
+        for (int j = 0; j < m; j++) sum += ans[j] * a[i][j];
         if (abs(sum - a[i][m]) > EPS) return 0;
     }
 
-    for (int i = 0; i < m; ++i)
+    for (int i = 0; i < m; i++)
         if (where[i] == -1) return INF;
     return 1;
 }
@@ -6309,12 +6321,30 @@ int gauss(vector<vector<double>> a, vector<double> &ans) {
 \subsection{Gauss Mod 2}
 
 
-Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes em $\mathbb{Z}_2$ (inteiros módulo 2).
+Método de eliminação gaussiana para resolução de sistemas lineares com coeficientes em $\mathbb{Z}_2$ (inteiros módulo 2), a complexidade é $\mathcal{O}(n^3 / \mathcal{w})$, onde $\mathcal{w}$ é a palavra do processador (geralmente 32 ou 64 bits, dependendo da arquitetura).
 
 
+
+No código, a constante $M$ deve ser definida como o \texttt{(número de variáveis + 1)}.
+
+
+
+A função \texttt{gauss} recebe como parâmetros:
+
+ - \texttt{vector<bitset<M>> a}: um vector de bitsets, representando as equações do sistema. Cada bitset tem tamanho $M$, onde o bit $j$ do bitset $i$ representa o coeficiente da variável $j$ na equação $i$. A última posição do bitset $i$ representa o resultado da equação $i$.
+
+ - \texttt{n} e \texttt{m}: inteiros representando o número de equações e variáveis, respectivamente.
+
+ - \texttt{bitset<M> \&ans}: um bitset de tamanho $M$, que será preenchido com a solução do sistema, caso exista.
+
+
+
+A função retorna:
 
 \begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(n^3/32)$
+\item \texttt{0}: se o sistema não tem solução.
+\item \texttt{1}: se o sistema tem uma única solução.
+\item \texttt{INF}: se o sistema tem infinitas soluções. Nesse caso, as variáveis em que \texttt{where[i] == -1} são as variáveis livres. Note que, pela natureza de $\mathbb{Z}_2$, o sistema não terá de fato infinitas soluções, mas sim $2^L$ soluções, onde $L$ é o número de variáveis livres.
 \end{itemize}
 
 \hfill
@@ -6322,17 +6352,11 @@ Método de eliminação gaussiana para resolução de sistemas lineares com coef
 Codigo: gauss\_mod2.cpp
 
 \begin{lstlisting}[language=C++]
-const int N = 105;
-const int INF = 2; // tanto faz
+const int M = 105;
+const int INF = 2; // nao tem que ser infinito ou um numero grande
+                   // so serve para indicar que tem infinitas solucoes
 
-// n -> numero de equacoes, m -> numero de
-// variaveis a[i][j] para j em [0, m - 1] ->
-// coeficiente da variavel j na iesima equacao
-// a[i][j] para j == m -> resultado da equacao da
-// iesima linha ans -> bitset vazio, que retornara
-// a solucao do sistema (caso exista)
-
-int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
+int gauss(vector<bitset<M>> a, int n, int m, bitset<M> &ans) {
     vector<int> where(m, -1);
 
     for (int col = 0, row = 0; col < m && row < n; col++) {
@@ -6350,6 +6374,7 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
         row++;
     }
 
+    ans.reset();
     for (int i = 0; i < m; i++)
         if (where[i] != -1) ans[i] = a[where[i]][m] / a[where[i]][i];
     for (int i = 0; i < n; i++) {
@@ -6369,15 +6394,7 @@ int gauss(vector<bitset<N>> a, int n, int m, bitset<N> &ans) {
 \section{Exponenciação Modular Rápida}
 
 
-Computa $(\text{base} ^ \text{exp}) \mod MOD$.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(\log(\text{exp}))$.
-\item Complexidade de espaço: $\mathcal{O}(1)$
-\end{itemize}
-
+Computa $(\text{base} ^ \text{exp}) \mod MOD$ em $\mathcal{O}(\log(\text{exp}))$.
 \hfill
 
 Codigo: exp\_mod.cpp
@@ -6483,64 +6500,172 @@ vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
 \end{lstlisting}
 \hfill
 
-\section{Fatoração}
+\section{Fatoração e Primos}
+\subsection{Crivo}
+\subsubsection{Crivo}
 
 
-Algortimos para fatorar um número.
-
-
-
-\textbf{Fatoração Simples} 
-
-Fatora um número N.
+Crivo de Eratóstenes para encontrar os primos até um limite $P$. O \texttt{vector<bool> is\_prime} é um vetor que diz se um número é primo ou não. A complexidade é $\mathcal{O}(P \log (\log P))$.
 
 
 
-\begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(\sqrt n)$
-\end{itemize}
+\textbf{Obs}: Para aplicações mais complexas ou pra fatorar um número, consulte o Crivo Linear.
 
 
 
-\textbf{Crivo Linear} 
+\textbf{Obs}: Não esquecer de chamar \texttt{Sieve::build()} antes de usar.
+\hfill
 
-Pré-computa todos os fatores primos até MAX.
+Codigo: sieve.cpp
 
-Utilizado para fatorar um número N menor que MAX.
+\begin{lstlisting}[language=C++]
+namespace Sieve {
+    const int P = 5e6 + 1;
+    vector<bool> is_prime(P, true);
+    void build() {
+        is_prime[0] = is_prime[1] = 0;
+        for (int i = 2; i < P; i++) {
+            if (is_prime[i])
+                for (int j = i + i; j < P; j += i) is_prime[j] = 0;
+        }
+    }
+}\end{lstlisting}
+\hfill
 
-
-
-\begin{itemize}
-\item Complexidade de tempo: Pré-processamento $\mathcal{O}(\text{MAX})$
-\item Complexidade de tempo: Fatoraração $\mathcal{O}(\text{quantidade de fatores de N})$
-\item Complexidade de espaço: $\mathcal{O}(\text{MAX})$
-\end{itemize}
-
-
-
-\textbf{Fatoração Rápida} 
-
-Utiliza Pollar-Rho e Miller-Rabin (ver em Primos) para fatorar um número N.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(N^{1/4} \cdot \log N))$
-\end{itemize}
+\subsubsection{Crivo Linear}
 
 
-
-\textbf{Pollard-Rho} 
-
-Descobre um divisor de um número N.
+Crivo de Eratóstenes para encontrar os primos até um limite $P$, mas com complexidade $\mathcal{O}(P)$.
 
 
 
 \begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(\sqrt[4]{N} \cdot \log N)$
-\item Complexidade de espaço: $\mathcal{O}(\sqrt N)$
+\item \texttt{vector<bool> is\_prime} é um vetor que diz se um número é primo ou não.
+\item \texttt{int cnt} é o número de primos encontrados.
+\item \texttt{int primes[P]} é um vetor com \texttt{cnt} os primos encontrados.
+\item \texttt{int lpf[P]} é o menor fator primo de cada número (usado para fatoração).
 \end{itemize}
 
+
+
+A função \texttt{Sieve::factorize()} fatora um número $N$ em tempo $\mathcal{O}(\log N)$.
+
+
+
+\textbf{Obs}: Não esquecer de chamar \texttt{Sieve::build()} antes de usar.
+\hfill
+
+Codigo: linear\_sieve.cpp
+
+\begin{lstlisting}[language=C++]
+namespace Sieve {
+    const int P = 5e6 + 1;
+    vector<bool> is_prime(P, true);
+    int lpf[P], primes[P], cnt = 0;
+    void build() {
+        is_prime[0] = is_prime[1] = 0;
+        for (int i = 2; i < P; i++) {
+            if (is_prime[i]) {
+                lpf[i] = i;
+                primes[cnt++] = i;
+            }
+            for (int j = 0; j < cnt && i * primes[j] < P; j++) {
+                is_prime[i * primes[j]] = 0;
+                lpf[i * primes[j]] = primes[j];
+                if (i % primes[j] == 0) break;
+            }
+        }
+    }
+    vector<int> factorize(int n) {
+#warning lembra de chamar o build() antes de fatorar!
+        vector<int> f;
+        while (n > 1) {
+            f.push_back(lpf[n]);
+            n /= lpf[n];
+        }
+        return f;
+    }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Divisores}
+\subsubsection{Divisores Naive}
+
+
+Algoritmo que obtém todos os divisores de um número $X$ em $\mathcal{O}(\sqrt{X})$. Muito similar ao algoritmo naive de fatoração.
+\hfill
+
+Codigo: get\_divs\_naive.cpp
+
+\begin{lstlisting}[language=C++]
+vector<int> get_divs(int n) {
+    vector<int> divs;
+    for (int d = 1; d * d <= n; d++) {
+        if (n % d == 0) {
+            divs.push_back(d);
+            if (d * d != n) divs.push_back(n / d);
+        }
+    }
+    sort(divs.begin(), divs.end());
+    return divs;
+}
+\end{lstlisting}
+\hfill
+
+\subsubsection{Divisores Rápido}
+
+
+Algoritmo que obtém todos os divisores de um número em $\mathcal{O}(\text{d(X)})$, onde $d(X)$ é a quantidade de divisores do número. Geralmente, para um número $X$, dizemos que a quantidade de divisores é $\mathcal{O}(\sqrt[3]{X})$.
+
+
+
+De fato, para números até $10^{88}$, é verdade que $d(n) < 3.6 \cdot \sqrt[3]{n}$.
+
+
+
+\textbf{Obs}: Usar algum código de fatoração presente nesse almanaque para obter os fatores do número.
+
+\begin{itemize}
+\item \texttt{Crivo/Crivo-Linear/linear\_sieve.cpp} tem uma função de fatoração em $\mathcal{O}(\log X)$.
+\item \texttt{Fatores/Fatoração-Rápida/fast\_factorize.cpp} tem uma função de fatoração em tempo médio $\mathcal{O}(\log X)$ que aceita até inteiros de 64 bits.
+\end{itemize}
+
+\hfill
+
+Codigo: get\_divs.cpp
+
+\begin{lstlisting}[language=C++]
+vector<ll> get_divs(ll n) {
+    vector<ll> divs;
+    auto f = factorize(n); // qualquer código que fatore n
+    sort(f.begin(), f.end());
+    vector<pair<ll, int>> v;
+    for (auto x : f)
+        if (v.empty() || v.back().first != x) v.emplace_back(x, 1);
+        else v.back().second += 1;
+    function<void(int, ll)> dfs = [&](int i, ll cur) {
+        if (i == (int)v.size()) {
+            divs.push_back(cur);
+            return;
+        }
+        ll p = 1;
+        for (int j = 0; j <= v[i].second; j++) {
+            dfs(i + 1, cur * p);
+            p *= v[i].first;
+        }
+    };
+    dfs(0, 1);
+    sort(divs.begin(), divs.end());
+    return divs;
+}\end{lstlisting}
+\hfill
+
+\subsection{Fatores}
+\subsubsection{Fatoração Naive}
+
+
+Fatoração de um número. A função \texttt{factorize(X)} retorna os fatores primos de $X$ em ordem crescente. A complexidade do algoritmo é $\mathcal{O}(\sqrt{X})$.
 \hfill
 
 Codigo: naive\_factorize.cpp
@@ -6548,7 +6673,7 @@ Codigo: naive\_factorize.cpp
 \begin{lstlisting}[language=C++]
 vector<int> factorize(int n) {
     vector<int> factors;
-    for (long long d = 2; d * d <= n; d++) {
+    for (int d = 2; d * d <= n; d++) {
         while (n % d == 0) {
             factors.push_back(d);
             n /= d;
@@ -6560,68 +6685,186 @@ vector<int> factorize(int n) {
 \end{lstlisting}
 \hfill
 
-Codigo: linear\_sieve\_factorize.cpp
+\subsubsection{Fatoração Rápida}
 
-\begin{lstlisting}[language=C++]
-namespace sieve {
-    const int MAX = 1e4;
-    int lp[MAX + 1], factor[MAX + 1];
-    vector<int> pr;
-    void build() {
-        for (int i = 2; i <= MAX; ++i) {
-            if (lp[i] == 0) {
-                lp[i] = i;
-                pr.push_back(i);
-            }
-            for (int j = 0; i * pr[j] <= MAX; ++j) {
-                lp[i * pr[j]] = pr[j];
-                factor[i * pr[j]] = i;
-                if (pr[j] == lp[i]) break;
-            }
-        }
-    }
-    vector<int> factorize(int x) {
-        if (x < 2) return {};
-        vector<int> v;
-        for (int lpx = lp[x]; x >= lpx; x = factor[x]) v.emplace_back(lp[x]);
-        return v;
-    }
-}
-\end{lstlisting}
-\hfill
 
-Codigo: pollard\_rho.cpp
+Algoritmo que combina o Crivo de Eratóstenes Linear, Miller-Rabin e Pollard Rho para fatorar um número $X$ em tempo médio $\mathcal{O}(\log X)$, no pior caso pode ser $\mathcal{O}(\sqrt[4]{X} \cdot \log X)$, mas na prática é seguro considerar $\mathcal{O}(\log X)$.
 
-\begin{lstlisting}[language=C++]
-long long mod_mul(long long a, long long b, long long m) { return (__int128)a * b % m; }
 
-long long pollard_rho(long long n) {
-    auto f = [n](long long x) { return mod_mul(x, x, n) + 1; };
-    long long x = 0, y = 0, t = 30, prd = 2, i = 1, q;
-    while (t++ % 40 || __gcd(prd, n) == 1) {
-        if (x == y) x = ++i, y = f(x);
-        if ((q = mod_mul(prd, max(x, y) - min(x, y), n))) prd = q;
-        x = f(x), y = f(f(y));
-    }
-    return __gcd(prd, n);
-}
-\end{lstlisting}
+
+Esse código deve ser usado quando se deseja fatorar números $> 10^7$, por exemplo. Caso os números não sejam tão grandes assim, usar apenas o Crivo de Eratóstenes Linear sozinho é mais prático.
+
+
+
+\textbf{Obs}: Usa três outros códigos desse Almanaque da seção Matemática:
+
+\begin{itemize}
+\item \texttt{Crivo/Crivo-Linear/linear\_sieve.cpp}
+\item \texttt{Teste-Primalidade/Miller-Rabin/miller\_rabin.cpp}-
+\item \texttt{Pollard-Rho/pollard\_rho.cpp}.
+\end{itemize}
+
 \hfill
 
 Codigo: fast\_factorize.cpp
 
 \begin{lstlisting}[language=C++]
-// usa miller_rabin.cpp!! olhar em
-// matematica/primos usa pollar_rho.cpp!! olhar em
-// matematica/fatoracao
+vector<ll> factorize(ll x) {
+    vector<ll> f;
+    if (x == 1) return f;
+    function<void(ll)> dfs = [&](ll x) {
+        if (x == 1) return;
+        if (x < Sieve::P) {
+            auto fs = Sieve::factorize(x);
+            f.insert(f.end(), fs.begin(), fs.end());
+        } else if (MillerRabin::prime(x)) {
+            f.push_back(x);
+        } else {
+            ll d = PollardRho::rho(x);
+            dfs(d);
+            dfs(x / d);
+        }
+    };
+    dfs(x);
+    sort(f.begin(), f.end());
+    return f;
+}\end{lstlisting}
+\hfill
 
-vector<long long> factorize(long long n) {
-    if (n == 1) return {};
-    if (miller_rabin(n)) return {n};
-    long long x = pollard_rho(n);
-    auto l = factorize(x), r = factorize(n / x);
-    l.insert(l.end(), all(r));
-    return l;
+\subsection{Pollard Rho}
+
+
+Algoritmo de Pollard Rho. A função \texttt{PollardRho::rho(X)} retorna um fator não trivial de $X$. Um fator não trivial é um fator que não é $1$ nem $X$. A complexidade esperada do algoritmo no pior caso é $\mathcal{O}(\sqrt[4]{X})$ (geralmente é mais rápido que isso).
+
+\hfill
+
+Codigo: pollard\_rho.cpp
+
+\begin{lstlisting}[language=C++]
+namespace PollardRho {
+    ll mod_mul(ll a, ll b, ll m) { return (ll)((__int128)a * b % m); }
+    ll rho(ll n) {
+        auto f = [n](ll x) { return mod_mul(x, x, n) + 1; };
+        ll x = 0, y = 0, t = 30, prd = 2, i = 1, q;
+        while (t++ % 40 || gcd(prd, n) == 1) {
+            if (x == y) x = ++i, y = f(x);
+            if ((q = mod_mul(prd, max(x, y) - min(x, y), n))) prd = q;
+            x = f(x), y = f(f(y));
+        }
+        return gcd(prd, n);
+    }
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Teste Primalidade}
+\subsubsection{Miller Rabin}
+
+
+Teste de primalidade Miller-Rabin. A função \texttt{MillerRabin::prime(X)} retorna verdadeiro se $X$ é primo e falso caso contrário. O teste é determinístico para para números até $2^{64}$. A complexixade do algoritmo é $\mathcal{O}(\log X)$, considerando multiplicação e exponenciação constantes.
+
+
+
+Para números até $2^{32}$, é suficiente usar \texttt{primes[] = {2, 3, 5, 7}}.
+\hfill
+
+Codigo: miller\_rabin.cpp
+
+\begin{lstlisting}[language=C++]
+namespace MillerRabin {
+    inline ll mul_mod(ll a, ll b, ll m) { return (ll)((__int128)a * b % m); }
+    inline ll power(ll b, ll e, ll m) {
+        ll r = 1;
+        b = b % m;
+        while (e > 0) {
+            if (e & 1) r = mul_mod(r, b, m);
+            b = mul_mod(b, b, m), e >>= 1;
+        }
+        return r;
+    }
+    inline bool composite(ll n, ll a, ll d, ll s) {
+        ll x = power(a, d, n);
+        if (x == 1 || x == n - 1 || a % n == 0) return false;
+        for (int r = 1; r < s; r++) {
+            x = mul_mod(x, x, n);
+            if (x == n - 1) return false;
+        }
+        return true;
+    }
+
+    // com esses "primos", o teste funciona garantido para n <= 2^64
+    int primes[] = {2, 325, 9375, 28178, 450775, 9780504, 1795265022};
+
+    // funciona para n <= 3*10^24 com os primos ate 41, mas tem que cuidar com overflow
+    // int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41};
+
+    bool prime(ll n) {
+        if (n <= 2 || (n % 2 == 0)) return n == 2;
+        ll d = n - 1, r = 0;
+        while (d % 2 == 0) d /= 2, r++;
+        for (int a : primes)
+            if (composite(n, a, d, r)) return false;
+        return true;
+    }
+}\end{lstlisting}
+\hfill
+
+\subsubsection{Teste Primalidade Naive}
+
+
+Teste de primalidade "ingênuo". A função \texttt{is\_prime(X)} retorna verdadeiro se $X$ é primo e falso caso contrário. A complexidade do algoritmo é $\mathcal{O}(\sqrt{X})$.
+\hfill
+
+Codigo: naive\_is\_prime.cpp
+
+\begin{lstlisting}[language=C++]
+bool is_prime(int n) {
+    for (int d = 2; d * d <= n; d++)
+        if (n % d == 0) return false;
+    return true;
+}
+\end{lstlisting}
+\hfill
+
+\section{Floor Values}
+
+
+Código para encontrar todos os $\mathcal{O}(\sqrt{n})$ valores distintos de $\left\lfloor \frac{n}{i} \right\rfloor$ para $i = 1, 2, \ldots, n$.
+
+
+
+Útil para computar, dentre outras coisas, os seguintes somatórios:
+
+
+
+\begin{itemize}
+\item Somatório de $\left\lfloor \frac{n}{i} \right\rfloor$ para $i = 1, 2, \ldots, n$.
+\end{itemize}
+
+
+
+\begin{itemize}
+\item Somatório de $\sigma(i)$ para $i = 1, 2, \ldots, n$, onde $\sigma(i)$ é a soma dos divisores de $i$.
+\end{itemize}
+
+    - Usa o fato de que um número $i$ é divisor de exatamente $\left\lfloor \frac{n}{i} \right\rfloor$ números entre $1$ e $n$.
+\hfill
+
+Codigo: floor\_values.cpp
+
+\begin{lstlisting}[language=C++]
+void floor_values(ll n) {
+    ll j = 1;
+    while (j <= n) {
+        ll floor_now = n / j;
+        ll last_j = n / floor_now;
+        // j -> primeiro inteiro que tem floor_now como floor
+        // last_j -> ultimo inteiro que tem floor_now como floor
+
+        // faz algo
+
+        j = last_j + 1;
+    }
 }
 \end{lstlisting}
 \hfill
@@ -7010,150 +7253,6 @@ vector<ll> big_multiply(vector<ll> &ta, vector<ll> &tb) {
     // ...
     return res;
 }\end{lstlisting}
-\hfill
-
-\section{Primos}
-
-
-Algortimos relacionados a números primos.
-
-
-
-\textbf{Crivo de Eratóstenes} 
-
-Computa a primalidade de todos os números até N, quase tão rápido quanto o crivo linear.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(N \cdot \log(\log N))$
-\end{itemize}
-
-
-
-Demora 1 segundo para LIM igual a $3 * 10^7$.
-
-
-
-\textbf{Miller-Rabin} 
-
-Teste de primalidade garantido para números até $10^{24}$.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(\log N)$
-\end{itemize}
-
-
-
-\textbf{Teste Ingênuo} 
-
-Computa a primalidade de um número N.
-
-
-
-\begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(\sqrt{N})$
-\end{itemize}
-
-\hfill
-
-Codigo: sieve.cpp
-
-\begin{lstlisting}[language=C++]
-vector<bool> sieve(int n) {
-    vector<bool> is_prime(n + 5, true);
-    is_prime[0] = false;
-    is_prime[1] = false;
-    for (int i = 2; i * i <= n; i++) {
-        if (is_prime[i])
-            for (int j = i * i; j < n; j += i) is_prime[j] = false;
-    }
-    return is_prime;
-}
-\end{lstlisting}
-\hfill
-
-Codigo: naive\_is\_prime.cpp
-
-\begin{lstlisting}[language=C++]
-bool is_prime(int n) {
-    for (int d = 2; d * d <= n; d++)
-        if (n % d == 0) return false;
-    return true;
-}
-\end{lstlisting}
-\hfill
-
-Codigo: miller\_rabin.cpp
-
-\begin{lstlisting}[language=C++]
-ll power(ll base, ll e, ll mod) {
-    ll result = 1;
-    base %= mod;
-    while (e) {
-        if (e & 1) result = (__int128)result * base % mod;
-        base = (__int128)base * base % mod;
-        e >>= 1;
-    }
-    return result;
-}
-
-bool is_composite(ll n, ll a, ll d, int s) {
-    ll x = power(a, d, n);
-    if (x == 1 || x == n - 1) return false;
-    for (int r = 1; r < s; r++) {
-        x = (__int128)x * x % n;
-        if (x == n - 1) return false;
-    }
-    return true;
-}
-
-bool miller_rabin(ll n) {
-    if (n < 2) return false;
-    int r = 0;
-    ll d = n - 1;
-    while ((d & 1) == 0) d >>= 1, ++r;
-    for (int a : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41}) {
-        if (n == a) return true;
-        if (is_composite(n, a, d, r)) return false;
-    }
-    return true;
-}
-\end{lstlisting}
-\hfill
-
-\section{Sum of floor (n div i)}
-
-
-Esse código computa, em $\mathcal{O}(\sqrt{n})$, o seguinte somatório:
-
-
-
-$$ \sum_{i=1}^{n} \left\lfloor \frac{n}{i}\right\rfloor $$
-
-\hfill
-
-Codigo: sum\_of\_floor.cpp
-
-\begin{lstlisting}[language=C++]
-const int MOD = 1e9 + 7;
-
-long long sumoffloor(long long n) {
-    long long answer = 0, i;
-    for (i = 1; i * i <= n; i++) {
-        answer += n / i;
-        answer %= MOD;
-    }
-    i--;
-    for (int j = 1; n / (j + 1) >= i; j++) {
-        answer += (((n / j - n / (j + 1)) % MOD) * j) % MOD;
-        answer %= MOD;
-    }
-    return answer;
-}
-\end{lstlisting}
 \hfill
 
 \section{Teorema do Resto Chinês}
