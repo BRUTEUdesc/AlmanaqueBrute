@@ -256,8 +256,6 @@ python3 .github/scripts/pdfer.py
 
 ### [Matemática](Codigos/Matemática)
 
-- [Primos](Codigos/Matemática/Primos)
-
 - [NTT](Codigos/Matemática/NTT)
 
 	- [NTT](Codigos/Matemática/NTT/NTT)
@@ -270,15 +268,41 @@ python3 .github/scripts/pdfer.py
 
 	- [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
 
-- [Sum of floor (n div i)](Codigos/Matemática/Sum-of-floor-(n-div-i))
-
 - [GCD](Codigos/Matemática/GCD)
 
-- [Fatoração](Codigos/Matemática/Fatoração)
+- [Fatoração e Primos](Codigos/Matemática/Fatoração-e-Primos)
+
+	- [Divisores](Codigos/Matemática/Fatoração-e-Primos/Divisores)
+
+		- [Divisores Naive](Codigos/Matemática/Fatoração-e-Primos/Divisores/Divisores-Naive)
+
+		- [Divisores Rápido](Codigos/Matemática/Fatoração-e-Primos/Divisores/Divisores-Rápido)
+
+	- [Pollard Rho](Codigos/Matemática/Fatoração-e-Primos/Pollard-Rho)
+
+	- [Crivo](Codigos/Matemática/Fatoração-e-Primos/Crivo)
+
+		- [Crivo](Codigos/Matemática/Fatoração-e-Primos/Crivo/Crivo)
+
+		- [Crivo Linear](Codigos/Matemática/Fatoração-e-Primos/Crivo/Crivo-Linear)
+
+	- [Fatores](Codigos/Matemática/Fatoração-e-Primos/Fatores)
+
+		- [Fatoração Naive](Codigos/Matemática/Fatoração-e-Primos/Fatores/Fatoração-Naive)
+
+		- [Fatoração Rápida](Codigos/Matemática/Fatoração-e-Primos/Fatores/Fatoração-Rápida)
+
+	- [Teste Primalidade](Codigos/Matemática/Fatoração-e-Primos/Teste-Primalidade)
+
+		- [Miller Rabin](Codigos/Matemática/Fatoração-e-Primos/Teste-Primalidade/Miller-Rabin)
+
+		- [Teste Primalidade Naive](Codigos/Matemática/Fatoração-e-Primos/Teste-Primalidade/Teste-Primalidade-Naive)
 
 - [Teorema do Resto Chinês](Codigos/Matemática/Teorema-do-Resto-Chinês)
 
 - [FFT](Codigos/Matemática/FFT)
+
+- [Floor Values](Codigos/Matemática/Floor-Values)
 
 - [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
 
