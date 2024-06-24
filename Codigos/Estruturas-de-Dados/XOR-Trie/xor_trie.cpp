@@ -2,14 +2,12 @@ struct XorTrie {
     const int bits = 30;
     vector<vector<int>> go;
     int root = 0, cnt = 1;
-    XorTrie(int n) { go.assign((n + 1) * bits, vector<int>(2, -1)); }
-    XorTrie() { }
-    inline int new_node() { return cnt++; }
+    void build(int n) { go.assign((n + 1) * bits, vector<int>(2, -1)); }
     void insert(int x) {
         int v = root;
         for (int i = bits - 1; i >= 0; i--) {
             int b = x >> i & 1;
-            if (go[v][b] == -1) go[v][b] = new_node();
+            if (go[v][b] == -1) go[v][b] = cnt++;
             v = go[v][b];
         }
     }
@@ -24,9 +22,7 @@ struct XorTrie {
             if (good != -1) {
                 v = good;
                 ans |= 1 << i;
-            } else if (bad != -1) {
-                v = bad;
-            }
+            } else v = bad;
         }
         return ans;
     }
@@ -36,4 +32,4 @@ struct XorTrie {
         if (query == -1) return -1;
         return x ^ flipped ^ query;
     }
-};
+} trie;
