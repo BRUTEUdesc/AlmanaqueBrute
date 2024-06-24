@@ -1,5 +1,5 @@
 const int N = 3e5 + 5;
-int n, timer;
+int n, m, timer;
 vector<int> adj[N];
 int tin[N], low[N];
 
@@ -14,7 +14,7 @@ void dfs(int u, int p = -1) {
         }
     }
     if (p != -1 && low[u] == tin[u]) {
-        // edge (p, u) is a bridge
+        // edge (p, u) é ponte
     }
 }
 
@@ -40,7 +40,7 @@ void dfs_ebcc(int u, int p, int cc) {
 void build_ebcc_graph() {
     find_bridges();
     for (int i = 0; i < n; i++) ebcc[i] = -1;
-    for (int i = 0; i < n; i++) { // should follow the same order of find_bridges dfs
+    for (int i = 0; i < n; i++) { // tem que seguir a mesma ordem da dfs do find_bridges
         if (ebcc[i] == -1) {
             dfs_ebcc(i, -1, ncc);
             ++ncc;
