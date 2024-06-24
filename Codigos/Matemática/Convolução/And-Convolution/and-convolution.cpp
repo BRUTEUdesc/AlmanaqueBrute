@@ -1,6 +1,6 @@
 template <int MOD>
 vector<int> and_convolution(vector<int> A, vector<int> B) {
-    int n = int(max(A.size(), B.size()));
+    int n = (int)max(A.size(), B.size());
     int N = 0, two = 1;
     while (two < n) {
         two <<= 1;
