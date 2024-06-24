@@ -2,7 +2,9 @@ template <auto MOD, typename T = decltype(MOD)>
 struct Mint {
     using m = Mint<MOD, T>;
     T v;
-    Mint(T val = 0) : v(val) { }
+    Mint(T val = 0) : v(val) {
+        if (v < 0) v += MOD;
+    }
     bool operator==(m o) const { return v == o.v; }
     bool operator!=(m o) const { return v != o.v; }
     bool operator<(m o) const { return v < o.v; }
@@ -14,7 +16,7 @@ struct Mint {
         }
         return res;
     }
-    m& operator+=(m o) { v += o.v; if (v >= MOD) v -= MOD; return *this; }
+    m& operator+=(m o) { v -= MOD - o.v; if (v < 0) v += MOD; return *this; }
     m& operator-=(m o) { v -= o.v; if (v < 0) v += MOD; return *this; }
     m& operator*=(m o) { v = (T)((__int128)v * o.v % MOD); return *this; }
     // se quiser otimizar constante, ao inves de (__int128) use (ll) se o T for `int`

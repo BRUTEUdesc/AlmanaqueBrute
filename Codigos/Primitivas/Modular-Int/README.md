@@ -2,7 +2,7 @@
 
 O Mint é uma classe que representa um número inteiro módulo número inteiro $\text{MOD}$. Ela é útil para evitar overflow em operações de multiplicação e exponenciação, e também para facilitar a implementações.
 
-Ao usar o Mint, você deve passar os valores pra ele **já modulados e normalizados**, ou seja, valores entre $0$ e $\text{MOD}-1$, feito isso, é só usar as operações normalmente.
+Ao usar o Mint, você deve passar os valores pra ele **já modulados**, ou seja, valores entre $-\text{MOD}$ e $\text{MOD}-1$, o próprio Mint normaliza depois para ficar entre $0$ e $\text{MOD}-1$.
 
 Para lembrar as propriedades de aritmética modular, consulte a seção Teórico desse Almanaque.
 
