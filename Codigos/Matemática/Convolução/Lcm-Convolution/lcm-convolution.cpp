@@ -1,6 +1,6 @@
 template <int MOD>
 vector<int> lcm_convolution(vector<int> A, vector<int> B) {
-    int N = int(max(A.size(), B.size()));
+    int N = (int)max(A.size(), B.size());
     A.resize(N + 1);
     B.resize(N + 1);
     vector<int> C(N + 1), a(N + 1), b(N + 1);
