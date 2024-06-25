@@ -1,10 +1,7 @@
 vector<mint> or_convolution(vector<mint> A, vector<mint> B) {
     int n = (int)max(A.size(), B.size());
     int N = 0, two = 1;
-    while (two < n) {
-        two <<= 1;
-        N++;
-    }
+    while (two < n) two <<= 1, N++;
     A.resize(1 << N);
     B.resize(1 << N);
     vector<mint> C(1 << N);
