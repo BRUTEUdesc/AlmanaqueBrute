@@ -16,12 +16,23 @@ struct Mint {
         }
         return res;
     }
-    m& operator+=(m o) { v -= MOD - o.v; if (v < 0) v += MOD; return *this; }
-    m& operator-=(m o) { v -= o.v; if (v < 0) v += MOD; return *this; }
-    m& operator*=(m o) { v = (T)((__int128)v * o.v % MOD); return *this; }
+    m &operator+=(m o) {
+        v -= MOD - o.v;
+        if (v < 0) v += MOD;
+        return *this;
+    }
+    m &operator-=(m o) {
+        v -= o.v;
+        if (v < 0) v += MOD;
+        return *this;
+    }
+    m &operator*=(m o) {
+        v = (T)((__int128)v * o.v % MOD);
+        return *this;
+    }
     // se quiser otimizar constante, ao inves de (__int128) use (ll) se o T for `int`
-    m& operator/=(m o) { return *this *= o.pwr(o, MOD - 2); }
-    m& operator^=(ll e) { return *this = pwr(*this, e); }
+    m &operator/=(m o) { return *this *= o.pwr(o, MOD - 2); }
+    m &operator^=(ll e) { return *this = pwr(*this, e); }
     friend m operator-(m a, m b) { return a -= b; }
     friend m operator+(m a, m b) { return a += b; }
     friend m operator*(m a, m b) { return a *= b; }
