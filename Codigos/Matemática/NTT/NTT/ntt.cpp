@@ -22,7 +22,7 @@ void ntt(poly &a, bool inv = 0) {
     int root_len = len_ntt; // change according to MOD
 
     while (root_len > n) {
-        root = root * root;
+        root *= root;
         root_len >>= 1;
     }
 
@@ -43,12 +43,12 @@ void ntt(poly &a, bool inv = 0) {
     }
     if (inv) {
         mint invn = mint(1) / n;
-        for (int i = 0; i < n; i++) a[i] = a[i] * invn;
+        for (int i = 0; i < n; i++) a[i] *= invn;
     }
 }
 
 vector<int> multiply(vector<int> &ta, vector<int> &tb) {
-    int n = int(ta.size()), m = int(tb.size());
+    int n = (int)ta.size(), m = (int)tb.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 
