@@ -35,9 +35,8 @@ void build_ebcc_graph() {
     }
     for (int i = 0; i < n; i++)
         if (tin[i] == 0) dfs_bridge(i);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         if (ebcc[i] == -1) dfs_ebcc(i, -1, ncc), ++ncc;
-    }
     // Opcao 1 - constroi o grafo comprimido passando por todas as edges
     for (int u = 0; u < n; u++) {
         for (auto v : adj[u]) {
