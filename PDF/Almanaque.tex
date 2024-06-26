@@ -1350,6 +1350,157 @@ void update(vector<int> s, int v, int pos = 0) {
 }\end{lstlisting}
 \hfill
 
+\section{Implicit Treap}
+
+
+Simula um array com as seguintes operações em $\mathcal{O}(\log N)$:
+
+
+
+\begin{itemize}
+\item Inserir um elemento $X$ na posição $i$ (todos os elementos em posições maiores que $i$ serão "empurrados" para a direita).
+\item Remover o elemento na posição $i$ (todos os elementos em posições maiores que $i$ serão "puxados" para a esquerda).
+\item Query em intervalo $[L, R]$ de alguma operação. Pode ser soma, máximo, mínimo, \texttt{gcd}, etc.
+\item Adição em intervalo $[L, R]$ (sua operação deve suportar propagação lazy).
+\item Reverter um intervalo $[L, R]$, ou seja, $a[L], a[L + 1], \cdots, a[R] \rightarrow a[R], a[R - 1], \cdots, a[L]$.
+\end{itemize}
+
+
+
+\textbf{Obs}: Inserir em uma posição $<0$ vai inserir na posição $0$, assim como inserir em uma posição $>\text{Tamanho da Treap}$ vai inserir no final dela.
+
+\hfill
+
+Codigo: implicit\_treap.cpp
+
+\begin{lstlisting}[language=C++]
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+namespace imp_treap {
+    using T = ll; // mudar pra int se nao precisar pra melhorar a performance
+    T merge(T a, T b) { return a + b; }
+    T neutral = 0;
+    struct node_info {
+        node_info *l, *r;
+        int y, size;
+        T val, acc, add;
+        bool rev;
+        node_info() { }
+        node_info(T _val)
+            : l(0), r(0), y(rng()), size(0), val(_val), acc(0), add(0), rev(false) { }
+    };
+    using node = node_info *;
+    node root = 0;
+    inline int size(node t) { return t ? t->size : 0; }
+    inline T acc(node t) { return t ? t->acc : 0; }
+    inline bool rev(node t) { return t ? t->rev : false; }
+    inline void push(node t) {
+        if (!t) return;
+        if (rev(t)) {
+            t->rev = false;
+            swap(t->l, t->r);
+            if (t->l) t->l->rev ^= 1;
+            if (t->r) t->r->rev ^= 1;
+        }
+        t->acc += t->add * size(t);
+        // t->acc += t->add se for RMQ
+        t->val += t->add;
+        if (t->l) t->l->add += t->add;
+        if (t->r) t->r->add += t->add;
+        t->add = 0;
+    }
+    inline void pull(node t) {
+        if (t) {
+            push(t->l), push(t->r);
+            t->size = size(t->l) + size(t->r) + 1;
+            t->acc = merge(t->val, merge(acc(t->l), acc(t->r)));
+        }
+    }
+    void merge(node &t, node L, node R) {
+        push(L), push(R);
+        if (!L || !R) {
+            t = L ? L : R;
+        } else if (L->y > R->y) {
+            merge(L->r, L->r, R);
+            t = L;
+        } else {
+            merge(R->l, L, R->l);
+            t = R;
+        }
+        pull(t);
+    }
+    void split(node t, int pos, node &L, node &R, int add = 0) {
+        if (!t) {
+            L = R = nullptr;
+        } else {
+            push(t);
+            int imp_key = add + size(t->l);
+            if (pos <= imp_key) {
+                split(t->l, pos, L, t->l, add);
+                R = t;
+            } else {
+                split(t->r, pos, t->r, R, imp_key + 1);
+                L = t;
+            }
+        }
+        pull(t);
+    }
+    inline void insert(node to, int pos) {
+        node L, R;
+        split(root, pos, L, R);
+        merge(L, L, to);
+        merge(root, L, R);
+    }
+    bool remove(node &t, int pos, int add = 0) {
+        if (!t) return false;
+        push(t);
+        int imp_key = add + size(t->l);
+        if (pos == imp_key) {
+            node me = t;
+            merge(t, t->l, t->r);
+            delete me;
+            return true;
+        }
+        bool ok;
+        if (pos < imp_key) ok = remove(t->l, pos, add);
+        else ok = remove(t->r, pos, imp_key + 1);
+        pull(t);
+        return ok;
+    }
+    inline T query(int l, int r) {
+        if (l > r) return neutral;
+        node L1, L2, R1, R2;
+        split(root, r + 1, L1, R1);
+        split(L1, l, L2, R2);
+        T ans = acc(R2);
+        merge(L1, L2, R2);
+        merge(root, L1, R1);
+        return ans;
+    }
+    inline void update_sum(int l, int r, T val) {
+        if (l > r) return;
+        node L1, L2, R1, R2;
+        split(root, r + 1, L1, R1);
+        split(L1, l, L2, R2);
+        assert(R2);
+        R2->add += val;
+        merge(L1, L2, R2);
+        merge(root, L1, R1);
+    }
+    inline void reverse(int l, int r) {
+        if (l > r) return;
+        node L1, L2, R1, R2;
+        split(root, r + 1, L1, R1);
+        split(L1, l, L2, R2);
+        R2->rev ^= 1;
+        merge(L1, L2, R2);
+        merge(root, L1, R1);
+    }
+    inline void insert(int pos, int val) { insert(new node_info(val), pos); }
+    inline bool remove(int pos) { return remove(root, pos); }
+}
+\end{lstlisting}
+\hfill
+
 \section{Interval Tree}
 
 
@@ -2788,6 +2939,102 @@ struct SparseTable {
 \end{lstlisting}
 \hfill
 
+\section{Treap}
+
+
+Uma árvore de busca binária balanceada. Se não quiser ter elementos repetidos, basta fazer \texttt{treap::setify = true}.
+
+
+
+\begin{itemize}
+\item \texttt{insert(X)}: insere um elemento $X$ na árvore em $\mathcal{O}(\log N)$
+\item \texttt{remove(X)}: remove uma ocorrência de $X$ na árvore, e retorna \texttt{false} caso não tenha nenhuma ocorrência de $X$ na árvore em $\mathcal{O}(\log N)$.
+\item \texttt{find(X)}: retorna \texttt{true} se $X$ aparece pelo menos uma vez na árvore em $\mathcal{O}(\log N)$.
+\end{itemize}
+
+\hfill
+
+Codigo: treap.cpp
+
+\begin{lstlisting}[language=C++]
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+namespace treap {
+    struct node_info {
+        node_info *l, *r;
+        int x, y, size;
+        node_info() { }
+        node_info(int _x) : l(0), r(0), x(_x), y(rng()), size(0) { }
+    };
+    using node = node_info *;
+    node root = 0;
+    bool setify = false;
+    inline int size(node t) { return t ? t->size : 0; }
+    inline void upd_size(node t) {
+        if (t) t->size = size(t->l) + size(t->r) + 1;
+    }
+    void merge(node &t, node L, node R) {
+        if (!L || !R) {
+            t = L ? L : R;
+        } else if (L->y > R->y) {
+            merge(L->r, L->r, R);
+            t = L;
+        } else {
+            merge(R->l, L, R->l);
+            t = R;
+        }
+        upd_size(t);
+    }
+    void split(node t, int x, node &L, node &R) {
+        if (!t) {
+            L = R = 0;
+        } else if (t->x <= x) {
+            split(t->r, x, t->r, R);
+            L = t;
+        } else {
+            split(t->l, x, L, t->l);
+            R = t;
+        }
+        upd_size(t);
+    }
+    void insert(node &t, node to) {
+        if (!t) {
+            t = to;
+        } else if (to->y > t->y) {
+            split(t, to->x, to->l, to->r);
+            t = to;
+        } else {
+            insert(to->x < t->x ? t->l : t->r, to);
+        }
+        upd_size(t);
+    }
+    bool remove(node &t, int x) {
+        if (!t) return false;
+        if (x == t->x) {
+            node rem = t;
+            merge(t, t->l, t->r);
+            upd_size(t);
+            delete rem;
+            return true;
+        }
+        bool ok = remove(x < t->x ? t->l : t->r, x);
+        upd_size(t);
+        return ok;
+    }
+    bool find(node &t, int x) {
+        return t ? (t->x == x || find(x < t->x ? t->l : t->r, x)) : false;
+    }
+    bool find(int x) { return find(root, x); }
+    inline void insert(int x) {
+        if (setify) {
+            if (find(x)) return;
+        }
+        insert(root, new node_info(x));
+    }
+    inline void remove(int x) { remove(root, x); }
+}
+\end{lstlisting}
+\hfill
+
 \section{XOR Trie}
 
 
@@ -4047,66 +4294,62 @@ ll hungarian(int n, int m, vector<vector<int>> &A) {
 \hfill
 
 \section{Pontes}
+\subsection{Componentes Aresta Biconexas}
 
 
-Algoritmo que acha pontes em um grafo utilizando DFS. $\mathcal{O}(V + E)$. Pontes são aresta cuja remoção aumenta o número de componentes conexas do grafo.
+Código que acha componentes aresta-biconexas, que são componentes que para se desconectar é necessário remover pelo menos duas arestas. Para obter essas componentes, basta achar as pontes e contrair o resto do grafo, o resultado é uma árvore em que as arestas são as pontes do grafo original.
 
 
 
-Nesse código também há uma função que acha componentes aresta-biconexas, que são componentes que para se desconectar é necessário remover pelo menos duas arestas. Para obter essas componentes, basta achar as pontes e contrair o resto do grafo, o resultado é uma árvore.
+Esse algoritmo acha as pontes e constrói o grafo comprimido em $\mathcal{O}(V + E)$. Pontes são arestas cuja remoção aumenta o número de componentes conexas do grafo.
+
+
+
+No código, \texttt{ebcc[u]} é o índice da componente aresta-biconexa a qual o vértice \texttt{u} pertence.
 \hfill
 
-Codigo: find\_bridges.cpp
+Codigo: ebcc\_components.cpp
 
 \begin{lstlisting}[language=C++]
 const int N = 3e5 + 5;
-int n, timer;
+int n, m, timer, ncc;
+vector<int> adjbcc[N];
 vector<int> adj[N];
-int tin[N], low[N];
+int tin[N], low[N], ebcc[N];
 
-void dfs(int u, int p = -1) {
+void dfs_bridge(int u, int p = -1) {
     low[u] = tin[u] = ++timer;
     for (int v : adj[u]) {
         if (tin[v] != 0 && v != p) {
             low[u] = min(low[u], tin[v]);
         } else if (v != p) {
-            dfs(v, u);
+            dfs_bridge(v, u);
             low[u] = min(low[u], low[v]);
         }
     }
-    if (p != -1 && low[u] == tin[u]) {
-        // edge (p, u) is a bridge
-    }
 }
-
-void find_bridges() {
-    timer = 0;
-    for (int i = 0; i < n; i++) tin[i] = low[i] = 0;
-    for (int i = 0; i < n; i++)
-        if (tin[i] == 0) dfs(i);
-}
-
-// Edge Biconnected Components (requer todo o código acima)
-
-int ebcc[N], ncc = 0;
-vector<int> adjbcc[N];
 
 void dfs_ebcc(int u, int p, int cc) {
-    if (p != -1 && low[u] == tin[u]) cc = ++ncc;
+    if (p != -1 && low[u] == tin[u]) {
+        // edge (u, p) eh uma ponte
+        cc = ++ncc;
+    }
     ebcc[u] = cc;
     for (int v : adj[u])
         if (ebcc[v] == -1) dfs_ebcc(v, u, cc);
 }
 
 void build_ebcc_graph() {
-    find_bridges();
-    for (int i = 0; i < n; i++) ebcc[i] = -1;
-    for (int i = 0; i < n; i++) { // should follow the same order of find_bridges dfs
-        if (ebcc[i] == -1) {
-            dfs_ebcc(i, -1, ncc);
-            ++ncc;
-        }
+    ncc = timer = 0;
+    for (int i = 0; i < n; i++) {
+        tin[i] = low[i] = 0;
+        ebcc[i] = -1;
+        adjbcc[i].clear();
     }
+    for (int i = 0; i < n; i++)
+        if (tin[i] == 0) dfs_bridge(i);
+    for (int i = 0; i < n; i++)
+        if (ebcc[i] == -1) dfs_ebcc(i, -1, ncc), ++ncc;
     // Opcao 1 - constroi o grafo comprimido passando por todas as edges
     for (int u = 0; u < n; u++) {
         for (auto v : adj[u]) {
@@ -4125,6 +4368,43 @@ void build_ebcc_graph() {
 }\end{lstlisting}
 \hfill
 
+\subsection{Pontes}
+
+
+Algoritmo que acha pontes em um grafo utilizando DFS. $\mathcal{O}(V + E)$. Pontes são arestas cuja remoção aumenta o número de componentes conexas do grafo.
+\hfill
+
+Codigo: find\_bridges.cpp
+
+\begin{lstlisting}[language=C++]
+const int N = 3e5 + 5;
+int n, m, timer;
+vector<int> adj[N];
+int tin[N], low[N];
+
+void dfs_bridge(int u, int p = -1) {
+    low[u] = tin[u] = ++timer;
+    for (int v : adj[u]) {
+        if (tin[v] != 0 && v != p) {
+            low[u] = min(low[u], tin[v]);
+        } else if (v != p) {
+            dfs_bridge(v, u);
+            low[u] = min(low[u], low[v]);
+        }
+    }
+    if (p != -1 && low[u] == tin[u]) {
+        // edge (p, u) eh ponte
+    }
+}
+
+void find_bridges() {
+    timer = 0;
+    for (int i = 0; i < n; i++) tin[i] = low[i] = 0;
+    for (int i = 0; i < n; i++)
+        if (tin[i] == 0) dfs_bridge(i);
+}\end{lstlisting}
+\hfill
+
 \section{Pontos de Articulacao}
 
 
@@ -4135,7 +4415,7 @@ Codigo: articulation\_points.cpp
 
 \begin{lstlisting}[language=C++]
 const int N = 3e5 + 5;
-int n, timer;
+int n, m, timer;
 vector<int> adj[N];
 int tin[N], low[N];
 
@@ -4149,13 +4429,13 @@ void dfs(int u, int p = -1) {
             dfs(v, u);
             low[u] = min(low[u], low[v]);
             if (p != -1 && low[v] >= tin[u]) {
-                // vertex u is an articulation point
+                // vertice u eh um ponto de articulacao
             }
             child++;
         }
     }
     if (p == -1 && child > 1) {
-        // vertex u is an articulation point
+        // vertice u eh um ponto de articulacao
     }
 }
 
@@ -6066,6 +6346,10 @@ O Mint é uma classe que representa um número inteiro módulo número inteiro $
 
 
 
+Ao usar o Mint, você deve passar os valores pra ele \textbf{já modulados}, ou seja, valores entre $-\text{MOD}$ e $\text{MOD}-1$, o próprio Mint normaliza depois para ficar entre $0$ e $\text{MOD}-1$.
+
+
+
 Para lembrar as propriedades de aritmética modular, consulte a seção Teórico desse Almanaque.
 
 
@@ -6090,6 +6374,7 @@ a = a - 6; // a.v == 5
 
 
 \textbf{Obs}: para operador de divisão, o Mint usa o inverso multiplicativo de $a$ baseado no Teorema de Euler (consulte o Teórico para mais detalhes), que é $a^{\text{MOD}-2}$, ou seja, para isso o $\text{MOD}$ deve ser primo.
+
 \hfill
 
 Codigo: mint.cpp
@@ -6099,28 +6384,47 @@ template <auto MOD, typename T = decltype(MOD)>
 struct Mint {
     using m = Mint<MOD, T>;
     T v;
-    Mint(T val = 0) : v(val) { }
+    Mint(T val = 0) : v(val) {
+        if (v < 0) v += MOD;
+    }
     bool operator==(m o) const { return v == o.v; }
     bool operator!=(m o) const { return v != o.v; }
     bool operator<(m o) const { return v < o.v; }
     m pwr(m b, ll e) {
         m res = 1;
         while (e > 0) {
-            if (e & 1) res = res * b;
-            b = b * b, e >>= 1;
+            if (e & 1) res *= b;
+            b *= b, e >>= 1;
         }
         return res;
     }
-    friend m operator-(m a, m b) { return (a.v -= b.v) < 0 ? a.v + MOD : a.v; }
-    friend m operator+(m a, m b) { return a - (MOD - b.v); }
-    friend m operator*(m a, m b) { return (T)((__int128)a.v * b.v % MOD); }
+    m &operator+=(m o) {
+        v -= MOD - o.v;
+        if (v < 0) v += MOD;
+        return *this;
+    }
+    m &operator-=(m o) {
+        v -= o.v;
+        if (v < 0) v += MOD;
+        return *this;
+    }
+    m &operator*=(m o) {
+        v = (T)((__int128)v * o.v % MOD);
+        return *this;
+    }
     // se quiser otimizar constante, ao inves de (__int128) use (ll) se o T for `int`
-    friend m operator/(m a, m b) { return a * b.pwr(b, MOD - 2); }
+    m &operator/=(m o) { return *this *= o.pwr(o, MOD - 2); }
+    m &operator^=(ll e) { return *this = pwr(*this, e); }
+    friend m operator-(m a, m b) { return a -= b; }
+    friend m operator+(m a, m b) { return a += b; }
+    friend m operator*(m a, m b) { return a *= b; }
+    friend m operator/(m a, m b) { return a /= b; }
     friend m operator^(m a, ll e) { return a.pwr(a, e); }
 };
 
 const int MOD = 998244353;
-using mint = Mint<MOD>;\end{lstlisting}
+using mint = Mint<MOD>;
+\end{lstlisting}
 \hfill
 
 \section{Ponto 2D}
@@ -6246,6 +6550,141 @@ vector<pt> convex_hull(vector<pt> v, bool include_collinear = 0) {
 %%%%%%
 
 \chapter{Matemática}
+
+\section{Convolução}
+\subsection{AND Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ onde $C[i] = \sum_{\substack{(j \land k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$.
+
+
+
+Obs: $\land$ representa o bitwise and.
+
+\hfill
+
+Codigo: and\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> and_convolution(vector<mint> A, vector<mint> B) {
+    int n = (int)max(A.size(), B.size());
+    int N = 0, two = 1;
+    while (two < n) two <<= 1, N++;
+    A.resize(1 << N);
+    B.resize(1 << N);
+    vector<mint> C(1 << N);
+    for (int j = 0; j < N; j++) {
+        for (int i = (1 << N) - 1; i >= 0; i--) {
+            if (~i >> j & 1) {
+                A[i] += A[i | (1 << j)];
+                B[i] += B[i | (1 << j)];
+            }
+        }
+    }
+    for (int i = 0; i < 1 << N; i++) C[i] = A[i] * B[i];
+    for (int j = 0; j < N; j++) {
+        for (int i = 0; i < 1 << N; i++)
+            if (~i >> j & 1) C[i] -= C[i | (1 << j)];
+    }
+    return C;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{GCD Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ onde $C[i] = \sum_{\substack{gcd(j, k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$.
+
+\hfill
+
+Codigo: gcd\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> gcd_convolution(vector<mint> A, vector<mint> B) {
+    int N = (int)max(A.size(), B.size());
+    A.resize(N + 1);
+    B.resize(N + 1);
+    vector<mint> C(N + 1);
+    for (int i = 1; i <= N; i++) {
+        mint a = 0;
+        mint b = 0;
+        for (int j = i; j <= N; j += i) {
+            a += A[j];
+            b += B[j];
+        }
+        C[i] = a * b;
+    }
+    for (int i = N; i >= 1; i--)
+        for (int j = 2 * i; j <= N; j += i) C[i] -= C[j];
+    return C;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{LCM Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ $C[i] = \sum_{\substack{lcm(j, k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$.
+
+\hfill
+
+Codigo: lcm\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> lcm_convolution(vector<mint> A, vector<mint> B) {
+    int N = (int)max(A.size(), B.size());
+    A.resize(N + 1);
+    B.resize(N + 1);
+    vector<mint> C(N + 1), a(N + 1), b(N + 1);
+    for (int i = 1; i <= N; i++) {
+        for (int j = i; j <= N; j += i) {
+            a[j] += A[i];
+            b[j] += B[i];
+        }
+        C[i] = a[i] * b[i];
+    }
+    for (int i = 1; i <= N; i++)
+        for (int j = 2 * i; j <= N; j += i) C[j] -= C[i];
+    return C;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{OR Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ tal que $C[i] = \sum_{\substack{(j \| k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$
+
+\hfill
+
+Codigo: or\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> or_convolution(vector<mint> A, vector<mint> B) {
+    int n = (int)max(A.size(), B.size());
+    int N = 0, two = 1;
+    while (two < n) two <<= 1, N++;
+    A.resize(1 << N);
+    B.resize(1 << N);
+    vector<mint> C(1 << N);
+    for (int j = 0; j < N; j++) {
+        for (int i = 0; i < 1 << N; i++) {
+            if (i >> j & 1) {
+                A[i] += A[i ^ (1 << j)];
+                B[i] += B[i ^ (1 << j)];
+            }
+        }
+    }
+    for (int i = 0; i < 1 << N; i++) C[i] = A[i] * B[i];
+    for (int j = N - 1; j >= 0; j--) {
+        for (int i = (1 << N) - 1; i >= 0; i--)
+            if (i >> j & 1) C[i] -= C[i ^ (1 << j)];
+    }
+    return C;
+}
+\end{lstlisting}
+\hfill
 
 \section{Eliminação Gaussiana}
 \subsection{Gauss}
@@ -6475,7 +6914,7 @@ void fft(poly &a, bool inv = 0) {
 }
 
 vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
-    int n = int(ta.size()), m = int(tb.size());
+    int n = (int)ta.size(), m = (int)tb.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 
@@ -6736,25 +7175,44 @@ vector<ll> factorize(ll x) {
 
 Algoritmo de Pollard Rho. A função \texttt{PollardRho::rho(X)} retorna um fator não trivial de $X$. Um fator não trivial é um fator que não é $1$ nem $X$. A complexidade esperada do algoritmo no pior caso é $\mathcal{O}(\sqrt[4]{X})$ (geralmente é mais rápido que isso).
 
+
+
+\textbf{Obs}: cuidado para não passar um número primo ou o número $1$ para a função \texttt{rho}, o comportamente é indefinido (provavelmente entra em loop e não retorna nunca).
+
 \hfill
 
 Codigo: pollard\_rho.cpp
 
 \begin{lstlisting}[language=C++]
 namespace PollardRho {
-    ll mod_mul(ll a, ll b, ll m) { return (ll)((__int128)a * b % m); }
+    mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+    const ll P = 1e6 + 1;
+    ll seq[P];
+    inline ll add_mod(ll x, ll y, ll m) { return (x += y) < m ? x : x - m; }
+    inline ll mul_mod(ll a, ll b, ll m) { return (ll)((__int128)a * b % m); }
     ll rho(ll n) {
-        auto f = [n](ll x) { return mod_mul(x, x, n) + 1; };
-        ll x = 0, y = 0, t = 30, prd = 2, i = 1, q;
-        while (t++ % 40 || gcd(prd, n) == 1) {
-            if (x == y) x = ++i, y = f(x);
-            if ((q = mod_mul(prd, max(x, y) - min(x, y), n))) prd = q;
-            x = f(x), y = f(f(y));
+        if (n % 2 == 0) return 2;
+        if (n % 3 == 0) return 3;
+        ll x0 = rng() % n, c = rng() % n;
+        while (1) {
+            ll x = x0++, y = x, u = 1, v, t = 0;
+            ll *px = seq, *py = seq;
+            while (1) {
+                *py++ = y = add_mod(mul_mod(y, y, n), c, n);
+                *py++ = y = add_mod(mul_mod(y, y, n), c, n);
+                if ((x = *px++) == y) break;
+                v = u;
+                u = mul_mod(u, abs(y - x), n);
+                if (!u) return gcd(v, n);
+                if (++t == 32) {
+                    t = 0;
+                    if ((u = gcd(u, n)) > 1 && u < n) return u;
+                }
+            }
+            if (t && (u = gcd(u, n)) > 1 && u < n) return u;
         }
-        return gcd(prd, n);
     }
-}
-\end{lstlisting}
+}\end{lstlisting}
 \hfill
 
 \subsection{Teste Primalidade}
@@ -7165,7 +7623,7 @@ void ntt(poly &a, bool inv = 0) {
     int root_len = len_ntt; // change according to MOD
 
     while (root_len > n) {
-        root = root * root;
+        root *= root;
         root_len >>= 1;
     }
 
@@ -7186,12 +7644,12 @@ void ntt(poly &a, bool inv = 0) {
     }
     if (inv) {
         mint invn = mint(1) / n;
-        for (int i = 0; i < n; i++) a[i] = a[i] * invn;
+        for (int i = 0; i < n; i++) a[i] *= invn;
     }
 }
 
 vector<int> multiply(vector<int> &ta, vector<int> &tb) {
-    int n = int(ta.size()), m = int(tb.size());
+    int n = (int)ta.size(), m = (int)tb.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 

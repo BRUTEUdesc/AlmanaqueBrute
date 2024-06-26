@@ -96,6 +96,8 @@ python3 .github/scripts/pdfer.py
 
 - [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
 
+- [Implicit Treap](Codigos/Estruturas-de-Dados/Implicit-Treap)
+
 - [Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree)
 
 	- [Fenwick](Codigos/Estruturas-de-Dados/Fenwick-Tree/Fenwick)
@@ -103,6 +105,8 @@ python3 .github/scripts/pdfer.py
 	- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree/Kd-Fenwick-Tree)
 
 - [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
+
+- [Treap](Codigos/Estruturas-de-Dados/Treap)
 
 - [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
 
@@ -171,6 +175,10 @@ python3 .github/scripts/pdfer.py
 - [Fluxo](Codigos/Grafos/Fluxo)
 
 - [Pontes](Codigos/Grafos/Pontes)
+
+	- [Componentes Aresta Biconexas](Codigos/Grafos/Pontes/Componentes-Aresta-Biconexas)
+
+	- [Pontes](Codigos/Grafos/Pontes/Pontes)
 
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
 
@@ -305,6 +313,16 @@ python3 .github/scripts/pdfer.py
 - [Floor Values](Codigos/Matemática/Floor-Values)
 
 - [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
+
+- [Convolução](Codigos/Matemática/Convolução)
+
+	- [OR Convolution](Codigos/Matemática/Convolução/OR-Convolution)
+
+	- [AND Convolution](Codigos/Matemática/Convolução/AND-Convolution)
+
+	- [LCM Convolution](Codigos/Matemática/Convolução/LCM-Convolution)
+
+	- [GCD Convolution](Codigos/Matemática/Convolução/GCD-Convolution)
 
 - [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
 
