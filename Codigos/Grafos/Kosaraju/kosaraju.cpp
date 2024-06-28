@@ -36,6 +36,7 @@ namespace kosaraju {
             int ru = root[u];
             for (int v : adj[u]) {
                 int rv = root[v];
+                if (ru == rv) continue;
                 if (!sete.count(ii(ru, rv))) {
                     gc[ru].emplace_back(rv);
                     sete.insert(ii(ru, rv));
