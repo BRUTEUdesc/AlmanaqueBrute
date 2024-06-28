@@ -4,4 +4,11 @@ Algoritmo que resolve problema do 2-SAT. No 2-SAT, temos um conjunto de variáve
 
 A configuração da solução fica guardada no vetor `assignment`.
 
-Em relação ao sinal, tanto faz se 0 liga ou desliga, apenas siga o mesmo padrão.
+Exemplos de uso:
+
+- `sat.add_or(x, y)` $\Leftrightarrow (x \lor y)$
+- `sat.add_or(~x, y)` $\Leftrightarrow (\lnot x \lor y)$
+- `sat.add_impl(x, y)` $\Leftrightarrow (x \rightarrow y)$
+- `sat.add_and(x, ~y)` $\Leftrightarrow (x \land \lnot y)$
+- `sat.add_xor(x, y)` $\Leftrightarrow (x \lor y) \land \lnot (x \land y)$
+- `sat.add_equals(x, y)` $\Leftrightarrow (x \land y) \lor (\lnot x \land \lnot y)$
