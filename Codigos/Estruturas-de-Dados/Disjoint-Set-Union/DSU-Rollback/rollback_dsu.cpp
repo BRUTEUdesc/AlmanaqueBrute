@@ -1,9 +1,13 @@
 struct Rollback_DSU {
     vector<int> par, sz;
-    int number_of_sets;
     stack<stack<pair<int &, int>>> changes;
-    Rollback_DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
+    void build(int n) {
+        par.assign(n, 0);
+        sz.assign(n, 1);
         iota(par.begin(), par.end(), 0);
+        while (changes.size()) {
+            changes.pop();
+        }
         changes.emplace();
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
@@ -16,7 +20,6 @@ struct Rollback_DSU {
         a = find(a), b = find(b);
         if (a == b) return false;
         if (sz[a] < sz[b]) swap(a, b);
-        change(number_of_sets, number_of_sets - 1);
         change(par[b], a);
         change(sz[a], sz[a] + sz[b]);
         return true;
