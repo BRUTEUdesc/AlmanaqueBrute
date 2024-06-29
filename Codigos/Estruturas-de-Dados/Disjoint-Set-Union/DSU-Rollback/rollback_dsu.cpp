@@ -5,9 +5,7 @@ struct Rollback_DSU {
         par.assign(n, 0);
         sz.assign(n, 1);
         iota(par.begin(), par.end(), 0);
-        while (changes.size()) {
-            changes.pop();
-        }
+        while (changes.size()) changes.pop();
         changes.emplace();
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
