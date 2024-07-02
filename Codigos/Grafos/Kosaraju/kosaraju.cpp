@@ -31,7 +31,7 @@ namespace kosaraju {
         iota(root, root + n, 0);
         for (int i = n - 1; i >= 0; i--)
             if (!vis[topo[i]]) dfs(topo[i]);
-        set<pair<int, int>> sete;
+        set<pair<int, int>> st;
         for (int u = 0; u < n; u++) {
             int ru = root[u];
             for (int v : adj[u]) {
@@ -45,4 +45,3 @@ namespace kosaraju {
         }
     }
 }
-
