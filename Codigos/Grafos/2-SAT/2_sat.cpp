@@ -4,10 +4,8 @@ struct sat2 {
     vector<bool> vis, assignment;
     vector<int> topo, comp;
 
-    sat2(int _n) {
-        n = (2 * _n) + 2;
-        // a true = 2 * a
-        // a false = 2 * a + 1
+    void build(int _n) {
+        n = 2 * _n;
         g.assign(n, vector<int>());
         rg.assign(n, vector<int>());
     }
