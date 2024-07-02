@@ -1,10 +1,14 @@
 struct BipartiteRollback_DSU {
     vector<int> par, sz, c, bip;
-    int number_of_sets, all_bipartite;
+    int all_bipartite;
     stack<stack<pair<int &, int>>> changes;
-    BipartiteRollback_DSU(int n = 0)
-        : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
+    void build(int n) {
+        par.assign(n, 0);
         iota(par.begin(), par.end(), 0);
+        sz.assign(n, 1);
+        c.assign(n, 0);
+        bip.assign(n, 1);
+        all_bipartite = true;
         changes.emplace();
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
@@ -26,7 +30,6 @@ struct BipartiteRollback_DSU {
             return false;
         }
         if (sz[a] < sz[b]) swap(a, b);
-        change(number_of_sets, number_of_sets - 1);
         change(par[b], a);
         change(sz[a], sz[a] + sz[b]);
         change(bip[a], bip[a] && bip[b]);
