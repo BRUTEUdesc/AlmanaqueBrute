@@ -3,10 +3,10 @@ struct Bipartite_DSU {
     bool all_bipartite;
     void build(int n) {
         par.assign(n, 0);
+        iota(par.begin(), par.end(), 0);
         sz.assign(n, 1);
         c.assign(n, 0);
         bip.assign(n, 1);
-        iota(par.begin(), par.end(), 0);
         all_bipartite = true;
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
