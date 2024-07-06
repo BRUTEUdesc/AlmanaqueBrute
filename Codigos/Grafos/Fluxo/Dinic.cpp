@@ -71,7 +71,7 @@ struct Dinic {
         vector<bool> vis(n);
         function<void(int)> dfs = [&](int u) {
             vis[u] = 1;
-            for (int id: adj[u]) {
+            for (int id : adj[u]) {
                 int v = edges[id].v;
                 if (!vis[v] && edges[id].cap - edges[id].flow > 0) dfs(v);
             }
