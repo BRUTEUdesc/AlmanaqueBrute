@@ -18,7 +18,7 @@ Os arquivos `STL.tex`, `Templates.tex` e `Teorico.tex` são os arquivos `tex` do
 
 ### Pasta `PDF`
 
-Aqui está o `.pdf` do Almanaque.
+Aqui está o `.tex` do Almanaque e sua versão compilada em `.pdf`.
 
 ## Para fazer contribuições
 

@@ -43,7 +43,7 @@ void fft(poly &a, bool inv = 0) {
 }
 
 vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
-    int n = int(ta.size()), m = int(tb.size());
+    int n = (int)ta.size(), m = (int)tb.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 

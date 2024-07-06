@@ -1,5 +1,5 @@
 const int N = 3e5 + 5;
-int n, timer;
+int n, m, timer;
 vector<int> adj[N];
 int tin[N], low[N];
 
@@ -13,13 +13,13 @@ void dfs(int u, int p = -1) {
             dfs(v, u);
             low[u] = min(low[u], low[v]);
             if (p != -1 && low[v] >= tin[u]) {
-                // vertex u is an articulation point
+                // vertice u eh um ponto de articulacao
             }
             child++;
         }
     }
     if (p == -1 && child > 1) {
-        // vertex u is an articulation point
+        // vertice u eh um ponto de articulacao
     }
 }
 
