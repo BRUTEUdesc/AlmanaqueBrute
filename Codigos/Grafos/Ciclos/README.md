@@ -1,8 +1,6 @@
 # Ciclos
 
-<!-- DESCRIPTION -->
 Conjunto de algoritmos para achar ciclos em um grafo.
-<!-- DESCRIPTION -->
 
 ## [Find Cycle](find_cycle.cpp)
 
