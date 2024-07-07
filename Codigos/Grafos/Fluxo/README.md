@@ -14,7 +14,7 @@ Guarda o grafo internamente, as arestas devem ser adicionadas pela função `add
 
 A função `max_flow` modifica o grafo adicionando a maior quantidade de fluxo possivel e retona a quantidade de fluxo adicionado.
 
-A corte minimo de um grafo é equivalente ao fluxo maximo.
+O corte minimo de um grafo é equivalente ao fluxo máximo.
 A Função `min_cut` acha as arestas pertencentes ao corte minimo do grafo, deve ser chamado após a função `max_flow`
 
 ## Edmonds Karp
