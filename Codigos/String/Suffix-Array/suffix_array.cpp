@@ -1,8 +1,7 @@
-const int MAX_N = 5e5 + 5;
-
+const int MAX = 5e5 + 5;
 struct suffix_array {
     string s;
-    int n, sum, r, ra[MAX_N], sa[MAX_N], auxra[MAX_N], auxsa[MAX_N], c[MAX_N], lcp[MAX_N];
+    int n, sum, r, ra[MAX], sa[MAX], auxra[MAX], auxsa[MAX], c[MAX], lcp[MAX];
     void counting_sort(int k) {
         memset(c, 0, sizeof(c));
         for (int i = 0; i < n; i++) c[(i + k < n) ? ra[i + k] : 0]++;
@@ -16,10 +15,11 @@ struct suffix_array {
             counting_sort(0);
             auxra[sa[0]] = r = 0;
             for (int i = 1; i < n; i++) {
-                auxra[sa[i]] =
-                    (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k])
-                        ? r
-                        : ++r;
+                if (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k]) {
+                    auxra[sa[i]] = r;
+                } else {
+                    auxra[sa[i]] = ++r;
+                }
             }
             for (int i = 0; i < n; i++) ra[i] = auxra[i];
             if (ra[sa[n - 1]] == n - 1) break;
@@ -39,9 +39,9 @@ struct suffix_array {
         for (int i = 0; i < n; i++) ra[i] = s[i], sa[i] = i;
         build_sa();
         build_lcp();
-        // for (int i = 0; i < n; i++)
-        // printf("%2d: %s\n", sa[i], s.c_str() +
-        // sa[i]);
+        //for (int i = 0; i < n; i++)
+        //printf("%2d: %s\n", sa[i], s.c_str() +
+        //sa[i]);
     }
     int operator[](int i) { return sa[i]; }
 } sa;
