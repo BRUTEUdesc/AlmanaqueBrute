@@ -132,6 +132,8 @@ python3 .github/scripts/pdfer.py
 
 - [Virtual Tree](Codigos/Grafos/Virtual-Tree)
 
+- [Ciclos](Codigos/Grafos/Ciclos)
+
 - [Pontos de Articulacao](Codigos/Grafos/Pontos-de-Articulacao)
 
 - [LCA](Codigos/Grafos/LCA)
@@ -183,6 +185,8 @@ python3 .github/scripts/pdfer.py
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
 
 - [2 SAT](Codigos/Grafos/2-SAT)
+
+- [Kosaraju](Codigos/Grafos/Kosaraju)
 
 ### [Extra](Codigos/Extra)
 

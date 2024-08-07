@@ -5,4 +5,3 @@ O algoritmo de Kosaraju resolve isso em $\mathcal{O}(N + M)$, onde $N$ é o núm
 
 O componente fortemente conexo de cada vértice é armazenado no vetor `root`.
 A grafo condensado é armazenado no vetor `gc`.
-
