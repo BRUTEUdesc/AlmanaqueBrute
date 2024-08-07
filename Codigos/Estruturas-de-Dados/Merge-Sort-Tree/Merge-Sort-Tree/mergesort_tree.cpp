@@ -2,7 +2,7 @@ template <typename T = int>
 struct MergeSortTree {
     vector<vector<T>> tree;
     int n;
-    int le(int u) { return u << 1; }
+    int lc(int u) { return u << 1; }
     int ri(int u) { return u << 1 | 1; }
     void build(int u, int l, int r, const vector<T> &a) {
         tree[u] = vector<T>(r - l + 1);
@@ -11,11 +11,11 @@ struct MergeSortTree {
             return;
         }
         int mid = (l + r) >> 1;
-        build(le(u), l, mid, a);
+        build(lc(u), l, mid, a);
         build(ri(u), mid + 1, r, a);
         merge(
-            tree[le(u)].begin(),
-            tree[le(u)].end(),
+            tree[lc(u)].begin(),
+            tree[lc(u)].end(),
             tree[ri(u)].begin(),
             tree[ri(u)].end(),
             tree[u].begin()
@@ -37,7 +37,7 @@ struct MergeSortTree {
             return (int)(ub - lb);
         }
         int mid = (l + r) >> 1;
-        return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
+        return count(lc(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
     }
     int count(int l, int r, int a, int b) { return count(1, 0, n - 1, l, r, a, b); }
     int less(int l, int r, int k) { return count(l, r, tree[1][0], k - 1); }
