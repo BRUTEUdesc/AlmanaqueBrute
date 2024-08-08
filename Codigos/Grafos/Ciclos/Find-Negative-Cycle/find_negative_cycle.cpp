@@ -2,7 +2,7 @@ struct NegativeCycleFinder {
     const ll INF = 1e18;
     int n;
     vector<tuple<int, int, ll>> edges;
-    void build(int _n) { n = _n; }
+    void build(int _n) { n = _n; edges.clear(); }
     void add_edge(int u, int v, ll w) { edges.emplace_back(u, v, w); }
     vector<int> get_cycle() {
         vector<ll> d(n);
