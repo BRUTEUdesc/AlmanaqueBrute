@@ -1,0 +1,5 @@
+# [Caminho Euleriano (Grafo Direcionado)](directed_eulerian_path.cpp)
+
+Algoritmo para encontrar um caminho euleriano em um grafo direcionado em $\mathcal{O}(V + E)$. O algoritmo também encontrará um ciclo euleriano se o mesmo existir. Se nem um ciclo nem um caminho euleriano existir, o algoritmo retornará um vetor vazio.
+
+**Definição**: Um caminho euleriano é um caminho que passa por todas as arestas de um grafo exatamente uma vez. Um ciclo euleriano é um caminho euleriano que começa e termina no mesmo vértice. A condição de existência de um ciclo euleriano (em um grafo direcionado) é que todos os vértices do grafo possuam grau de entrada e saída iguais. A condição de existência de um caminho euleriano (em um grafo direcionado) é que o grafo possua no exatamente dois vértices com grau de entrada e saída diferentes, sendo um deles o vértice de início (`deg_in[u] == deg_out[u] - 1`) e o outro o vértice de término (`deg_out[v] == deg_in[v] - 1`).
