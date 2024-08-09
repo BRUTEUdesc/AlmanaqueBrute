@@ -142,6 +142,28 @@ Uma pilha (último a entrar, primeiro a sair).
     \item \texttt{s.empty()}: Retorna \texttt{true} se a pilha estiver vazia - $\mathcal{O}(1)$
 \end{itemize}
 
+\subsection{Bitset}
+
+Um conjunto de bits, serve para representar máscaras quando um inteiro não é suficiente. Possui operações bitwise otimizadas pelo processador.
+
+\begin{itemize}
+    \item \texttt{bitset<N> a}: Cria um bitset de tamanho \texttt{N} (\texttt{N} deve ser constante) - $\mathcal{O}(1)$
+    \item \texttt{a[i]}: Retorna o valor do bit na posição \texttt{i} - $\mathcal{O}(1)$
+    \item \texttt{a.count()}: Retorna o número de bits 1 no bitset - $\mathcal{O}(N / w)$
+    \item \texttt{a.size()}: Retorna o tamanho do bitset - $\mathcal{O}(1)$
+    \item \texttt{a.set(i)}: Seta o bit na posição \texttt{i} para 1 - $\mathcal{O}(1)$
+    \item \texttt{a.set()}: Seta todos os bits para 1 - $\mathcal{O}(N / w)$
+    \item \texttt{a.reset(i)}: Seta o bit na posição \texttt{i} para 0 - $\mathcal{O}(1)$
+    \item \texttt{a.reset()}: Seta todos os bits para 0 - $\mathcal{O}(N / w)$
+    \item \texttt{a.flip(i)}: Inverte o bit na posição \texttt{i} - $\mathcal{O}(1)$
+    \item \texttt{a.flip()}: Inverte todos os bits - $\mathcal{O}(N / w)$
+    \item \texttt{a.to\_ullong()}: Retorna o valor do bitset como um inteiro - $\mathcal{O}(N / w)$
+\end{itemize}
+
+O bitset também suporta operações como \verb|&|, \verb/|/, \verb|^|, \verb|~|, \verb|<<|, \verb|>>|, entre outros.
+
+OBS: $w$ é o tamanho da palavra do processador, em geral 32 ou 64 bits.
+
 \subsection{Funções úteis}
 
 \begin{itemize}
