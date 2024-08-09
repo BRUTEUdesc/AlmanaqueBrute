@@ -22,7 +22,6 @@ struct EulerianTrail {
         }
         int start = -1, end = -1;
         for (int i = 0; i < n; i++) {
-            debug(i, deg[i], start, end);
             if (deg[i] & 1) {
                 if (start == -1) {
                     start = i;
@@ -59,7 +58,6 @@ struct EulerianTrail {
             cur.push_back(u);
         };
         dfs_et(start);
-        debug(cur, m);
         if ((int)cur.size() != m + 1) {
             return {};
         }
