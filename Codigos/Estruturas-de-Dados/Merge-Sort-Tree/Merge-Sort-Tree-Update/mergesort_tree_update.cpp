@@ -4,7 +4,7 @@ struct MergeSortTree {
     vector<T> v;
     int n;
     int lc(int u) { return u << 1; }
-    int ri(int u) { return u << 1 | 1; }
+    int rc(int u) { return u << 1 | 1; }
     void build(int u, int l, int r, const vector<T> &a) {
         if (l == r) {
             tree[u].insert({a[l], l});
@@ -12,9 +12,9 @@ struct MergeSortTree {
         }
         int mid = (l + r) >> 1;
         build(lc(u), l, mid, a);
-        build(ri(u), mid + 1, r, a);
+        build(rc(u), mid + 1, r, a);
         for (auto x : tree[lc(u)]) tree[u].insert(x);
-        for (auto x : tree[ri(u)]) tree[u].insert(x);
+        for (auto x : tree[rc(u)]) tree[u].insert(x);
     }
     void build(const vector<T> &a) { // para construir com vector
         n = (int)a.size();
@@ -33,7 +33,7 @@ struct MergeSortTree {
             return ub - lb;
         }
         int mid = (l + r) >> 1;
-        return count(lc(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
+        return count(lc(u), l, mid, L, R, a, b) + count(rc(u), mid + 1, r, L, R, a, b);
     }
     int count(int l, int r, int a, int b) { return count(1, 0, n - 1, l, r, a, b); }
     int less(int l, int r, int k) { return count(l, r, tree[1].begin()->first, k - 1); }
@@ -44,7 +44,7 @@ struct MergeSortTree {
         } else {
             int mid = (l + r) >> 1;
             if (i <= mid) update(lc(u), l, mid, i, x);
-            else update(ri(u), mid + 1, r, i, x);
+            else update(rc(u), mid + 1, r, i, x);
         }
         tree[u].insert({v[i], i});
     }
