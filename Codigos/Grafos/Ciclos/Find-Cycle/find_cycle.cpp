@@ -8,7 +8,8 @@ struct CycleFinder {
     vector<int> vis, par;
     int start = -1, end = -1;
     void build(int _n, bool _directed = 1) {
-        n = _n; directed = _directed;
+        n = _n;
+        directed = _directed;
     }
     bool dfs(int u) {
         vis[u] = 1;
