@@ -42,7 +42,6 @@ struct EulerianTrail {
                     break;
                 }
             }
-            assert(start != -1);
         } else if (start == -1 || end == -1) {
             return {};
         }
