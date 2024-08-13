@@ -11,7 +11,7 @@ struct CycleFinder {
         n = _n;
         trivial = _trivial;
         // trivial eh um flag que indica se o algoritmo deve aceitar ou nao
-        // ciclos triviais, um ciclo trivial eh um ciclo de tamanho 2
+        // ciclos triviais, um ciclo trivial eh um ciclo de tamanho 1 ou 2
     }
     bool dfs(int u) {
         vis[u] = 1;
