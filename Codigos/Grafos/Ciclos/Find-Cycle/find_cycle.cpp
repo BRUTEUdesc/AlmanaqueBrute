@@ -4,12 +4,14 @@ vector<int> adj[MAXN];
 
 struct CycleFinder {
     int n;
-    bool directed;
+    bool trivial;
     vector<int> vis, par;
     int start = -1, end = -1;
-    void build(int _n, bool _directed = 1) {
+    void build(int _n, bool _trivial = 1) { 
         n = _n;
-        directed = _directed;
+        trivial = _trivial;
+        // trivial eh um flag que indica se o algoritmo deve aceitar ou nao
+        // ciclos triviais, um ciclo trivial eh um ciclo de tamanho 2
     }
     bool dfs(int u) {
         vis[u] = 1;
@@ -18,7 +20,7 @@ struct CycleFinder {
                 par[v] = u;
                 if (dfs(v)) return true;
             } else if (vis[v] == 1) {
-                if (directed || (v != par[u])) {
+                if (trivial || (par[u] != v && u != v)) {
                     end = u;
                     start = v;
                     return true;
