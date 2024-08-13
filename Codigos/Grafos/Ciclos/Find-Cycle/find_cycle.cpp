@@ -7,7 +7,7 @@ struct CycleFinder {
     bool trivial;
     vector<int> vis, par;
     int start = -1, end = -1;
-    void build(int _n, bool _trivial = 1) { 
+    void build(int _n, bool _trivial = 1) {
         n = _n;
         trivial = _trivial;
         // trivial eh um flag que indica se o algoritmo deve aceitar ou nao
