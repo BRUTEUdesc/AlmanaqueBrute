@@ -44,7 +44,7 @@ struct SegTree {
         ll mid = l + (r - l) / 2;
         if (i <= mid) update(lc(p), l, mid, i, x);
         else update(rc(p), mid + 1, r, i, x);
-        t[u] = merge(t[lc(p)], t[rc(p)]);
+        t[p] = merge(t[lc(p)], t[rc(p)]);
     }
     void update(ll i, ll x) { update(0, MINL, MAXR, i, x); }
 };
