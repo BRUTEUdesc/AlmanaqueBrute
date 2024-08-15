@@ -1,12 +1,12 @@
 const ll INF = ll(2e18) + 10;
+struct Line {
+    ll a, b;
+    Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
+    ll operator()(ll x) { return a * x + b; }
+};
 
 template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)>
 struct LichaoTree {
-    struct Line {
-        ll a, b;
-        Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
-        ll operator()(ll x) { return a * x + b; }
-    };
     vector<Line> tree;
     vector<int> L, R;
 
