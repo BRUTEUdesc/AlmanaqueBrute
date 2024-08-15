@@ -29,7 +29,7 @@ struct LichaoTree {
     }
 
     void insert(Line line, int n = 0, ll l = MINL, ll r = MAXR) {
-        ll mid = (l + r) / 2;
+        ll mid = l + (r - l) / 2;
         bool bl = line(l) > tree[n](l);
         bool bm = line(mid) > tree[n](mid);
         bool br = line(r) > tree[n](r);
@@ -42,7 +42,7 @@ struct LichaoTree {
     ll query(int x, int n = 0, ll l = MINL, ll r = MAXR) {
         if (tree[n](x) == -INF || (l > r)) return -INF;
         if (l == r) return tree[n](x);
-        ll mid = (l + r) / 2;
+        ll mid = l + (r - l) / 2;
         if (x < mid) return max(tree[n](x), query(x, lc(n), l, mid - 1));
         else return max(tree[n](x), query(x, rc(n), mid + 1, r));
     }
