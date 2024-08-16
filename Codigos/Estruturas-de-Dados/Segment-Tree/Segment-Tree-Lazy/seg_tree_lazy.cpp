@@ -15,8 +15,8 @@ struct SegTree {
             if (l != r) {
                 lazy[lc(p)] = lazy[p];
                 lazy[rc(p)] = lazy[p];
-                replace[lc(p)] = replace[p];
-                replace[rc(p)] = replace[p];
+                replace[lc(p)] = true;
+                replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1);
