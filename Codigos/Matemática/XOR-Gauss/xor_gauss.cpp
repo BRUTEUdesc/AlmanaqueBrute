@@ -13,7 +13,7 @@ struct Basis {
                 }
             }
         }
-        // assert(x == 0); 
+        // assert(x == 0);
         return 0;
     }
     bool insert(ll x) {
@@ -31,23 +31,16 @@ struct Basis {
         for (int i = L - 1; i >= 0; i--) {
             if (B[i] != 0) {
                 if ((ans >> i) & 1) {
-                    if (k > half) {
-                        k -= half;
-                    } else {
-                        ans ^= B[i];
-                    }
-                } else {
-                    if (k > half) {
-                        ans ^= B[i];
-                        k -= half;
-                    }
+                    if (k > half) k -= half;
+                    else ans ^= B[i];
+                } else if (k > half) {
+                    ans ^= B[i];
+                    k -= half;
                 }
                 half >>= 1;
             }
         }
         return ans;
     }
-    ll kth_greatest(ll k) {
-        return kth_smallest((1LL << R) - k + 1);
-    }
+    ll kth_greatest(ll k) { return kth_smallest((1LL << R) - k + 1); }
 };
