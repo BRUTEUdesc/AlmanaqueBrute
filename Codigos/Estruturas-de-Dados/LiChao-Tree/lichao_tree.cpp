@@ -1,11 +1,12 @@
+const ll INF = ll(2e18) + 10;
+struct Line {
+    ll a, b;
+    Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
+    ll operator()(ll x) { return a * x + b; }
+};
+
 template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)>
 struct LichaoTree {
-    const ll INF = ll(2e18) + 10;
-    struct Line {
-        ll a, b;
-        Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
-        ll operator()(ll x) { return a * x + b; }
-    };
     vector<Line> tree;
     vector<int> L, R;
 
@@ -29,7 +30,7 @@ struct LichaoTree {
     }
 
     void insert(Line line, int n = 0, ll l = MINL, ll r = MAXR) {
-        ll mid = (l + r) / 2;
+        ll mid = l + (r - l) / 2;
         bool bl = line(l) > tree[n](l);
         bool bm = line(mid) > tree[n](mid);
         bool br = line(r) > tree[n](r);
@@ -42,7 +43,7 @@ struct LichaoTree {
     ll query(int x, int n = 0, ll l = MINL, ll r = MAXR) {
         if (tree[n](x) == -INF || (l > r)) return -INF;
         if (l == r) return tree[n](x);
-        ll mid = (l + r) / 2;
+        ll mid = l + (r - l) / 2;
         if (x < mid) return max(tree[n](x), query(x, lc(n), l, mid - 1));
         else return max(tree[n](x), query(x, rc(n), mid + 1, r));
     }
