@@ -83,12 +83,6 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void sumUpdate(int l, int r, ll val) {
-        // soma val em todos elementos entre [l,r]
-        update(1, 0, n - 1, l, r, val, 0);
-    }
-    void assignUpdate(int l, int r, ll val) {
-        // muda todos elementos entre [l,r] pra val
-        update(1, 0, n - 1, l, r, val, 1);
-    }
+    void sumUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 0); }
+    void assignUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 1); }
 };
