@@ -134,6 +134,10 @@ python3 .github/scripts/pdfer.py
 
 - [Ciclos](Codigos/Grafos/Ciclos)
 
+	- [Find Negative Cycle](Codigos/Grafos/Ciclos/Find-Negative-Cycle)
+
+	- [Find Cycle](Codigos/Grafos/Ciclos/Find-Cycle)
+
 - [Pontos de Articulacao](Codigos/Grafos/Pontos-de-Articulacao)
 
 - [LCA](Codigos/Grafos/LCA)
@@ -163,6 +167,12 @@ python3 .github/scripts/pdfer.py
 	- [Dijkstra](Codigos/Grafos/Shortest-Paths/Dijkstra)
 
 	- [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
+
+- [Caminho Euleriano](Codigos/Grafos/Caminho-Euleriano)
+
+	- [Caminho Euleriano Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Direcionado)
+
+	- [Caminho Euleriano Nao Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Nao-Direcionado)
 
 - [Binary Lifting](Codigos/Grafos/Binary-Lifting)
 
@@ -279,6 +289,8 @@ python3 .github/scripts/pdfer.py
 	- [Gauss Mod 2](Codigos/Matemática/Eliminação-Gaussiana/Gauss-Mod-2)
 
 	- [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
+
+- [XOR Gauss](Codigos/Matemática/XOR-Gauss)
 
 - [GCD](Codigos/Matemática/GCD)
 

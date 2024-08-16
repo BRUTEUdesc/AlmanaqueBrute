@@ -1631,14 +1631,15 @@ Sendo $L$ o tamanho do intervalo, a complexidade de consulta e inserção de fun
 Codigo: lichao\_tree.cpp
 
 \begin{lstlisting}[language=C++]
+const ll INF = ll(2e18) + 10;
+struct Line {
+    ll a, b;
+    Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
+    ll operator()(ll x) { return a * x + b; }
+};
+
 template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)>
 struct LichaoTree {
-    const ll INF = ll(2e18) + 10;
-    struct Line {
-        ll a, b;
-        Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
-        ll operator()(ll x) { return a * x + b; }
-    };
     vector<Line> tree;
     vector<int> L, R;
 
@@ -1651,33 +1652,33 @@ struct LichaoTree {
 
     LichaoTree() { newnode(); }
 
-    int le(int u) {
+    int lc(int u) {
         if (L[u] == -1) L[u] = newnode();
         return L[u];
     }
 
-    int ri(int u) {
+    int rc(int u) {
         if (R[u] == -1) R[u] = newnode();
         return R[u];
     }
 
     void insert(Line line, int n = 0, ll l = MINL, ll r = MAXR) {
-        ll mid = (l + r) / 2;
+        ll mid = l + (r - l) / 2;
         bool bl = line(l) > tree[n](l);
         bool bm = line(mid) > tree[n](mid);
         bool br = line(r) > tree[n](r);
         if (bm) swap(tree[n], line);
         if (line.b == -INF) return;
-        if (bl != bm) insert(line, le(n), l, mid - 1);
-        else if (br != bm) insert(line, ri(n), mid + 1, r);
+        if (bl != bm) insert(line, lc(n), l, mid - 1);
+        else if (br != bm) insert(line, rc(n), mid + 1, r);
     }
 
     ll query(int x, int n = 0, ll l = MINL, ll r = MAXR) {
         if (tree[n](x) == -INF || (l > r)) return -INF;
         if (l == r) return tree[n](x);
-        ll mid = (l + r) / 2;
-        if (x < mid) return max(tree[n](x), query(x, le(n), l, mid - 1));
-        else return max(tree[n](x), query(x, ri(n), mid + 1, r));
+        ll mid = l + (r - l) / 2;
+        if (x < mid) return max(tree[n](x), query(x, lc(n), l, mid - 1));
+        else return max(tree[n](x), query(x, rc(n), mid + 1, r));
     }
 };
 \end{lstlisting}
@@ -1701,8 +1702,8 @@ template <typename T = int>
 struct MergeSortTree {
     vector<vector<T>> tree;
     int n;
-    int le(int u) { return u << 1; }
-    int ri(int u) { return u << 1 | 1; }
+    int lc(int u) { return u << 1; }
+    int rc(int u) { return u << 1 | 1; }
     void build(int u, int l, int r, const vector<T> &a) {
         tree[u] = vector<T>(r - l + 1);
         if (l == r) {
@@ -1710,13 +1711,13 @@ struct MergeSortTree {
             return;
         }
         int mid = (l + r) >> 1;
-        build(le(u), l, mid, a);
-        build(ri(u), mid + 1, r, a);
+        build(lc(u), l, mid, a);
+        build(rc(u), mid + 1, r, a);
         merge(
-            tree[le(u)].begin(),
-            tree[le(u)].end(),
-            tree[ri(u)].begin(),
-            tree[ri(u)].end(),
+            tree[lc(u)].begin(),
+            tree[lc(u)].end(),
+            tree[rc(u)].begin(),
+            tree[rc(u)].end(),
             tree[u].begin()
         );
     }
@@ -1736,7 +1737,7 @@ struct MergeSortTree {
             return (int)(ub - lb);
         }
         int mid = (l + r) >> 1;
-        return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
+        return count(lc(u), l, mid, L, R, a, b) + count(rc(u), mid + 1, r, L, R, a, b);
     }
     int count(int l, int r, int a, int b) { return count(1, 0, n - 1, l, r, a, b); }
     int less(int l, int r, int k) { return count(l, r, tree[1][0], k - 1); }
@@ -1776,18 +1777,18 @@ struct MergeSortTree {
     vector<ordered_set<pair<T, int>>> tree;
     vector<T> v;
     int n;
-    int le(int u) { return u << 1; }
-    int ri(int u) { return u << 1 | 1; }
+    int lc(int u) { return u << 1; }
+    int rc(int u) { return u << 1 | 1; }
     void build(int u, int l, int r, const vector<T> &a) {
         if (l == r) {
             tree[u].insert({a[l], l});
             return;
         }
         int mid = (l + r) >> 1;
-        build(le(u), l, mid, a);
-        build(ri(u), mid + 1, r, a);
-        for (auto x : tree[le(u)]) tree[u].insert(x);
-        for (auto x : tree[ri(u)]) tree[u].insert(x);
+        build(lc(u), l, mid, a);
+        build(rc(u), mid + 1, r, a);
+        for (auto x : tree[lc(u)]) tree[u].insert(x);
+        for (auto x : tree[rc(u)]) tree[u].insert(x);
     }
     void build(const vector<T> &a) { // para construir com vector
         n = (int)a.size();
@@ -1806,7 +1807,7 @@ struct MergeSortTree {
             return ub - lb;
         }
         int mid = (l + r) >> 1;
-        return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
+        return count(lc(u), l, mid, L, R, a, b) + count(rc(u), mid + 1, r, L, R, a, b);
     }
     int count(int l, int r, int a, int b) { return count(1, 0, n - 1, l, r, a, b); }
     int less(int l, int r, int k) { return count(l, r, tree[1].begin()->first, k - 1); }
@@ -1816,8 +1817,8 @@ struct MergeSortTree {
             v[i] = x;
         } else {
             int mid = (l + r) >> 1;
-            if (i <= mid) update(le(u), l, mid, i, x);
-            else update(ri(u), mid + 1, r, i, x);
+            if (i <= mid) update(lc(u), l, mid, i, x);
+            else update(rc(u), mid + 1, r, i, x);
         }
         tree[u].insert({v[i], i});
     }
@@ -2053,6 +2054,9 @@ struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
 
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+
     int n;
     vector<ll> t;
 
@@ -2061,9 +2065,9 @@ struct SegTree {
             t[p] = v[l];
         } else {
             int mid = (l + r) / 2;
-            build(p * 2, l, mid, v);
-            build(p * 2 + 1, mid + 1, r, v);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
 
@@ -2085,24 +2089,25 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
-        auto ql = query(p * 2, l, mid, L, R);
-        auto qr = query(p * 2 + 1, mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
 
-    void update(int p, int l, int r, int i, ll x) {
+    void update(int p, int l, int r, int i, ll x, bool repl) {
         if (l == r) {
-            t[p] += x; // soma
-            // t[p] = x; // substitui
+            if (repl) t[p] = x; // substitui
+            else t[p] += x;     // soma
         } else {
             int mid = (l + r) / 2;
-            if (i <= mid) update(p * 2, l, mid, i, x);
-            else update(p * 2 + 1, mid + 1, r, i, x);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            if (i <= mid) update(lc(p), l, mid, i, x, repl);
+            else update(rc(p), mid + 1, r, i, x, repl);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(int i, ll x) { update(1, 0, n - 1, i, x); }
+    void sumUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 0); }
+    void assignUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 1); }
 };
 \end{lstlisting}
 \hfill
@@ -2460,12 +2465,12 @@ struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int p) {
+    inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
-    inline int ri(int p) {
+    inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
@@ -2476,24 +2481,25 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        auto ql = query(le(p), l, mid, L, R);
-        auto qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
 
-    void update(int p, ll l, ll r, ll i, ll x) {
+    void update(int p, ll l, ll r, ll i, ll x, bool repl) {
         if (l == r) {
-            t[p] += x; // soma
-            // t[p] = x; // substitui
+            if (repl) t[p] = x; // substitui
+            else t[p] += x;     // soma
             return;
         }
         ll mid = l + (r - l) / 2;
-        if (i <= mid) update(le(p), l, mid, i, x);
-        else update(ri(p), mid + 1, r, i, x);
-        t[u] = merge(t[le(p)], t[ri(p)]);
+        if (i <= mid) update(lc(p), l, mid, i, x, repl);
+        else update(rc(p), mid + 1, r, i, x, repl);
+        t[p] = merge(t[lc(p)], t[rc(p)]);
     }
-    void update(ll i, ll x) { update(0, MINL, MAXR, i, x); }
+    void sumUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 0); }
+    void assignUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 1); }
 };\end{lstlisting}
 \hfill
 
@@ -2532,6 +2538,9 @@ struct SegTree {
         };
     }
 
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+
     int n;
     vector<node> t;
 
@@ -2540,9 +2549,9 @@ struct SegTree {
             t[p] = {v[l], v[l], v[l], v[l]};
         } else {
             int mid = (l + r) / 2;
-            build(p * 2, l, mid, v);
-            build(p * 2 + 1, mid + 1, r, v);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
 
@@ -2564,8 +2573,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
-        auto ql = query(p * 2, l, mid, L, R);
-        auto qr = query(p * 2 + 1, mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r).ans; }
@@ -2575,9 +2584,9 @@ struct SegTree {
             t[p] = {x, x, x, x};
         } else {
             int mid = (l + r) / 2;
-            if (i <= mid) update(p * 2, l, mid, i, x);
-            else update(p * 2 + 1, mid + 1, r, i, x);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            if (i <= mid) update(lc(p), l, mid, i, x);
+            else update(rc(p), mid + 1, r, i, x);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
     void update(int i, ll x) { update(1, 0, n - 1, i, x); }
@@ -2609,20 +2618,23 @@ struct SegTree {
     vector<ll> t, lazy;
     vector<bool> replace;
 
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+
     void push(int p, int l, int r) {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[p * 2] = lazy[p];
-                lazy[p * 2 + 1] = lazy[p];
-                replace[p * 2] = replace[p];
-                replace[p * 2 + 1] = replace[p];
+                lazy[lc(p)] = lazy[p];
+                lazy[rc(p)] = lazy[p];
+                replace[lc(p)] = true;
+                replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[p * 2] += lazy[p];
-                lazy[p * 2 + 1] += lazy[p];
+                lazy[lc(p)] += lazy[p];
+                lazy[rc(p)] += lazy[p];
             }
         }
         replace[p] = false;
@@ -2634,9 +2646,9 @@ struct SegTree {
             t[p] = v[l];
         } else {
             int mid = (l + r) / 2;
-            build(p * 2, l, mid, v);
-            build(p * 2 + 1, mid + 1, r, v);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
 
@@ -2663,8 +2675,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
-        auto ql = query(p * 2, l, mid, L, R);
-        auto qr = query(p * 2 + 1, mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
@@ -2678,15 +2690,15 @@ struct SegTree {
             push(p, l, r);
         } else {
             int mid = (l + r) / 2;
-            update(p * 2, l, mid, L, R, val, repl);
-            update(p * 2 + 1, mid + 1, r, L, R, val, repl);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            update(lc(p), l, mid, L, R, val, repl);
+            update(rc(p), mid + 1, r, L, R, val, repl);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(int l, int r, ll val, bool repl = false) {
-        update(1, 0, n - 1, l, r, val, repl);
-    }
-};\end{lstlisting}
+    void sumUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 0); }
+    void assignUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 1); }
+};
+\end{lstlisting}
 \hfill
 
 \subsection{Segment Tree Lazy Esparsa}
@@ -2720,12 +2732,12 @@ struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int p) {
+    inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
-    inline int ri(int p) {
+    inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
@@ -2736,16 +2748,16 @@ struct SegTree {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(p)] = lazy[p];
-                lazy[ri(p)] = lazy[p];
-                replace[le(p)] = replace[p];
-                replace[ri(p)] = replace[p];
+                lazy[lc(p)] = lazy[p];
+                lazy[rc(p)] = lazy[p];
+                replace[lc(p)] = true;
+                replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(p)] += lazy[p];
-                lazy[ri(p)] += lazy[p];
+                lazy[lc(p)] += lazy[p];
+                lazy[rc(p)] += lazy[p];
             }
         }
         replace[p] = false;
@@ -2757,8 +2769,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        auto ql = query(le(p), l, mid, L, R);
-        auto qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
@@ -2772,15 +2784,15 @@ struct SegTree {
             push(p, l, r);
         } else {
             ll mid = l + (r - l) / 2;
-            update(le(p), l, mid, L, R, val, repl);
-            update(ri(p), mid + 1, r, L, R, val, repl);
-            t[p] = merge(t[le(p)], t[ri(p)]);
+            update(lc(p), l, mid, L, R, val, repl);
+            update(rc(p), mid + 1, r, L, R, val, repl);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(ll l, ll r, ll val, bool repl = false) {
-        update(0, MINL, MAXR, l, r, val, repl);
-    }
-};\end{lstlisting}
+    void sumUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 0); }
+    void assignUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 1); }
+};
+\end{lstlisting}
 \hfill
 
 \subsection{Segment Tree Persisente}
@@ -2819,12 +2831,12 @@ struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int p) {
+    inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
-    inline int ri(int p) {
+    inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
@@ -2835,8 +2847,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        auto ql = query(le(p), l, mid, L, R);
-        auto qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r, int root = -1) {
@@ -2853,13 +2865,13 @@ struct SegTree {
         }
         ll mid = l + (r - l) / 2;
         if (i <= mid) {
-            Rc[p] = ri(old);
-            update(le(p), le(old), l, mid, i, x);
+            Rc[p] = rc(old);
+            update(lc(p), lc(old), l, mid, i, x);
         } else {
-            Lc[p] = le(old);
-            update(ri(p), ri(old), mid + 1, r, i, x);
+            Lc[p] = lc(old);
+            update(rc(p), rc(old), mid + 1, r, i, x);
         }
-        t[p] = merge(t[le(p)], t[ri(p)]);
+        t[p] = merge(t[lc(p)], t[rc(p)]);
     }
     int update(ll i, ll x, int root = -1) {
         int new_root = newnode();
@@ -2870,8 +2882,8 @@ struct SegTree {
     }
     int copy_root(int root) {
         int new_root = newnode();
-        Lc[new_root] = le(root);
-        Rc[new_root] = ri(root);
+        Lc[new_root] = lc(root);
+        Rc[new_root] = rc(root);
         roots.push_back(new_root);
         return roots.back();
     }
@@ -3566,6 +3578,150 @@ namespace bl {
 \end{lstlisting}
 \hfill
 
+\section{Caminho Euleriano}
+\subsection{Caminho Euleriano Direcionado}
+
+
+Algoritmo para encontrar um caminho euleriano em um grafo direcionado em $\mathcal{O}(V + E)$. O algoritmo também encontrará um ciclo euleriano se o mesmo existir. Se nem um ciclo nem um caminho euleriano existir, o algoritmo retornará um vetor vazio.
+
+
+
+\textbf{Definição}: Um caminho euleriano é um caminho que passa por todas as arestas de um grafo exatamente uma vez. Um ciclo euleriano é um caminho euleriano que começa e termina no mesmo vértice. A condição de existência de um ciclo euleriano (em um grafo direcionado) é que todos os vértices do grafo possuam grau de entrada e saída iguais. A condição de existência de um caminho euleriano (em um grafo direcionado) é que o grafo possua exatamente dois vértices com grau de entrada e saída diferentes, sendo um deles o vértice de início (\texttt{deg\_in[u] == deg\_out[u] - 1}) e o outro o vértice de término (\texttt{deg\_out[v] == deg\_in[v] - 1}).
+\hfill
+
+Codigo: directed\_eulerian\_path.cpp
+
+\begin{lstlisting}[language=C++]
+const int MAXN = 1e6 + 6;
+
+vector<int> adj[MAXN];
+
+struct EulerianTrail {
+    int n;
+    int it[MAXN], deg_in[MAXN], deg_out[MAXN];
+    void build(int _n) {
+        n = _n;
+        for (int i = 0; i < n; i++) it[i] = deg_in[i] = deg_out[i] = 0;
+    }
+    vector<int> find() {
+        vector<int> cur;
+        int m = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j : adj[i]) {
+                m++;
+                deg_out[i]++, deg_in[j]++;
+            }
+        }
+        int start = -1, end = -1;
+        for (int i = 0; i < n; i++) {
+            if (deg_in[i] != deg_out[i]) {
+                if (deg_in[i] == deg_out[i] - 1)
+                    if (start == -1) start = i;
+                    else return {};
+                else if (deg_in[i] - 1 == deg_out[i])
+                    if (end == -1) end = i;
+                    else return {};
+                else return {};
+            }
+        }
+        if (start == -1 && end == -1) {
+            // pode comecar em qualquer vertice com alguma aresta (mas tem que terminar
+            // nele tambem), nesse caso eh ciclo euleriano
+            for (int i = 0; i < n; i++) {
+                if (deg_out[i] > 0) {
+                    start = i;
+                    end = i;
+                    break;
+                }
+            }
+        } else if (start == -1 || end == -1) {
+            return {};
+        }
+        function<void(int)> dfs_et = [&](int u) {
+            while (it[u] < (int)adj[u].size()) {
+                int v = adj[u][it[u]++];
+                dfs_et(v);
+            }
+            cur.push_back(u);
+        };
+        dfs_et(start);
+        if ((int)cur.size() != m + 1) return {};
+        reverse(cur.begin(), cur.end());
+        return cur;
+    }
+} et_finder;
+\end{lstlisting}
+\hfill
+
+\subsection{Caminho Euleriano Nao Direcionado}
+
+
+Algoritmo para encontrar um caminho euleriano em um grafo não direcionado em $\mathcal{O}(V + E)$. O algoritmo também encontrará um ciclo euleriano se o mesmo existir. Se nem um ciclo nem um caminho euleriano existir, o algoritmo retornará um vetor vazio.
+
+
+
+\textbf{Definição}: Um caminho euleriano é um caminho que passa por todas as arestas de um grafo exatamente uma vez. Um ciclo euleriano é um caminho euleriano que começa e termina no mesmo vértice. A condição de existência de um ciclo euleriano (em um grafo não direcionado) é que todos os vértices do grafo possuam grau par. A condição de existência de um caminho euleriano (em um grafo não direcionado) é que o grafo possua exatamente dois vértices com grau ímpar, um deles será o vértice de início e o outro o vértice de término.
+
+\hfill
+
+Codigo: undirected\_eulerian\_path.cpp
+
+\begin{lstlisting}[language=C++]
+const int MAXN = 1e6 + 6, MAXM = 2e6 + 6;
+
+vector<pair<int, int>> adj[MAXN]; // {nodo, id da aresta}
+
+struct EulerianTrail {
+    int n, m;
+    int it[MAXN], deg[MAXN], vis_edge[MAXM];
+    void build(int _n, int _m) {
+        n = _n;
+        m = _m;
+        for (int i = 0; i < n; i++) it[i] = deg[i] = 0;
+        for (int i = 0; i < m; i++) vis_edge[i] = 0;
+    }
+    vector<int> find() {
+        vector<int> cur;
+        for (int i = 0; i < n; i++) deg[i] = (int)adj[i].size();
+        int start = -1, end = -1;
+        for (int i = 0; i < n; i++) {
+            if (deg[i] & 1) {
+                if (start == -1) start = i;
+                else if (end == -1) end = i;
+                else return {};
+            }
+        }
+        if (start == -1 && end == -1) {
+            // pode comecar em qualquer vertice com alguma aresta (mas tem que terminar
+            // nele tambem), nesse caso eh ciclo euleriano
+            for (int i = 0; i < n; i++) {
+                if (deg[i] > 0) {
+                    start = i;
+                    end = i;
+                    break;
+                }
+            }
+        } else if (start == -1 || end == -1) {
+            return {};
+        }
+        function<void(int)> dfs_et = [&](int u) {
+            while (it[u] < (int)adj[u].size()) {
+                auto [v, id] = adj[u][it[u]++];
+                if (vis_edge[id]) continue;
+                vis_edge[id] = 1;
+                dfs_et(v);
+            }
+            cur.push_back(u);
+        };
+        dfs_et(start);
+        if ((int)cur.size() != m + 1) return {};
+        reverse(cur.begin(), cur.end());
+        return cur;
+    }
+} et_finder;
+\end{lstlisting}
+\hfill
+
 \section{Centro e Diametro}
 
 
@@ -3754,22 +3910,66 @@ void build(int n) {
 \hfill
 
 \section{Ciclos}
+\subsection{Find Cycle}
 
 
-Conjunto de algoritmos para achar ciclos em um grafo.
+Encontra um ciclo no grafo em $\mathcal{O}(|V| + |E|)$, retorna um vetor vazio caso nenhum ciclo seja encontrado. O método \texttt{build} possui uma flag que indica se o algoritmo deve aceitar ciclos de tamanho 1 ou ciclos de tamanho 2.
+\hfill
 
+Codigo: find\_cycle.cpp
 
+\begin{lstlisting}[language=C++]
+const int MAXN = 1e6 + 6;
 
-\textbf{Find Cycle} 
+vector<int> adj[MAXN];
 
+struct CycleFinder {
+    int n;
+    bool trivial;
+    vector<int> vis, par;
+    int start = -1, end = -1;
+    void build(int _n, bool _trivial = 1) {
+        n = _n;
+        trivial = _trivial;
+        // trivial eh um flag que indica se o algoritmo deve aceitar ou nao
+        // ciclos triviais, um ciclo trivial eh um ciclo de tamanho 1 ou 2
+    }
+    bool dfs(int u) {
+        vis[u] = 1;
+        for (int v : adj[u]) {
+            if (vis[v] == 0) {
+                par[v] = u;
+                if (dfs(v)) return true;
+            } else if (vis[v] == 1) {
+                if (trivial || (par[u] != v && u != v)) {
+                    end = u;
+                    start = v;
+                    return true;
+                }
+            }
+        }
+        vis[u] = 2;
+        return false;
+    }
+    vector<int> get_cycle() {
+        vis.assign(n, 0);
+        par.assign(n, -1);
+        for (int v = 0; v < n; v++)
+            if (vis[v] == 0 && dfs(v)) break;
+        vector<int> cycle;
+        if (start != -1) {
+            cycle.emplace_back(start);
+            for (int v = end; v != start; v = par[v]) cycle.emplace_back(v);
+            cycle.emplace_back(start);
+            reverse(cycle.begin(), cycle.end());
+        }
+        return cycle;
+    }
+} finder;
+\end{lstlisting}
+\hfill
 
-
-Encontra um ciclo no grafo em $\mathcal{O}(|V| + |E|)$, retorna um vetor vazio caso nenhum ciclo seja encontrado.
-
-
-
-\textbf{Find Negative Cycle} 
-
+\subsection{Find Negative Cycle}
 
 
 Encontra um ciclo com soma negativa no grafo em $\mathcal{O}(|V| * |E|)$ usando o algoritmo Bellman Ford, retorna um vetor vazio caso nenhum ciclo seja encontrado.
@@ -3783,7 +3983,10 @@ struct NegativeCycleFinder {
     const ll INF = 1e18;
     int n;
     vector<tuple<int, int, ll>> edges;
-    void build(int _n) { n = _n; }
+    void build(int _n) {
+        n = _n;
+        edges.clear();
+    }
     void add_edge(int u, int v, ll w) { edges.emplace_back(u, v, w); }
     vector<int> get_cycle() {
         vector<ll> d(n);
@@ -3808,52 +4011,6 @@ struct NegativeCycleFinder {
                 cycle.push_back(v);
                 if (v == x && cycle.size() > 1) break;
             }
-            reverse(cycle.begin(), cycle.end());
-        }
-        return cycle;
-    }
-} finder;
-\end{lstlisting}
-\hfill
-
-Codigo: find\_cycle.cpp
-
-\begin{lstlisting}[language=C++]
-const int MAXN = 1e6 + 6;
-
-vector<int> adj[MAXN];
-
-struct CycleFinder {
-    const ll INF = 1e18;
-    int n;
-    vector<int> visto, pai;
-    int start = -1, end = -1;
-    void build(int _n) { n = _n; }
-    bool dfs(int u) {
-        visto[u] = 1;
-        for (int v : adj[u]) {
-            if (visto[v] == 0) {
-                pai[v] = u;
-                if (dfs(v)) return true;
-            } else if (visto[v] == 1) {
-                end = u;
-                start = v;
-                return true;
-            }
-        }
-        visto[u] = 2;
-        return false;
-    }
-    vector<int> get_cycle() {
-        visto.assign(n, 0);
-        pai.assign(n, -1);
-        for (int v = 0; v < n; v++)
-            if (visto[v] == 0 && dfs(v)) break;
-        vector<int> cycle;
-        if (start != -1) {
-            cycle.emplace_back(start);
-            for (int v = end; v != start; v = pai[v]) cycle.emplace_back(v);
-            cycle.emplace_back(start);
             reverse(cycle.begin(), cycle.end());
         }
         return cycle;
@@ -8045,6 +8202,101 @@ int phi(int n) {
     if (n > 1) result -= result / n;
     return result;
 }
+\end{lstlisting}
+\hfill
+
+\section{XOR Gauss}
+
+
+Mantém uma base num espaço vetorial de $L$ dimensões sobre $\mathbb{Z}_2$. Permite adicionar um vetor $v$ à base em $\mathcal{O}(L)$ e verificar se um vetor $v$ é representável pela base em $\mathcal{O}(L)$.
+
+
+
+Em termos mais simples, dados $n$ inteiros, podemos adicionar cada um deles à base e isso nos dará uma base que consegue representar todos os XORs possíveis entre esses inteiros.
+
+
+
+Também acha o k-ésimo menor vetor representável pela base em $\mathcal{O}(L)$, ou o k-ésimo maior vetor representável pela base em $\mathcal{O}(L)$.
+
+
+
+Informações relevantes:
+
+
+
+\begin{itemize}
+\item $\text{rank}$ de uma base é o número de vetores que ela contém. No código é a variável \texttt{R}.
+\item Uma base consegue criar $2^{\text{rank}}$ vetores diferentes, ou seja, se criarmos uma base com base em um vetor de tamanho $n$, dentre todos os $2^n$ subsets possíveis, existem exatamente $2^{\text{rank}}$ XORs diferentes.
+\item Se uma base for criada a partir de um vetor de tamanho $n$, cada XOR possível feito por um subset desse vetor pode ser criado de exatamente $2^{n - \text{rank}}$ formas diferentes.
+\end{itemize}
+
+
+
+Os métodos são:
+
+
+
+\begin{itemize}
+\item \texttt{reduce}: recebe um número $x$ (será tratado como um vetor no espaço vetorial) e subtrai os vetores já existentes na base que estão presentes em $x$. Sendo assim, se ao final do \texttt{reduce}, $x$ for diferente de zero, ele não é representável por uma combinação linear dos vetores da base, se for zero, ele é representável.
+\item \texttt{insert}: insere um vetor na base, se ele não for representável. No caso, o vetor inserido ao tentar inserir um valor $x$ na base, será o \texttt{reduce} de $x$.
+\item \texttt{kth\_greatest}: retorna o k-ésimo maior vetor representável pela base.
+\item \texttt{kth\_smallest}: retorna o k-ésimo menor vetor não representável pela base.
+\end{itemize}
+
+
+
+Todos os métodos são $\mathcal{O}(L)$.
+\hfill
+
+Codigo: xor\_gauss.cpp
+
+\begin{lstlisting}[language=C++]
+const int L = 60;
+struct Basis {
+    ll B[L], R, last_bit;
+    Basis() { memset(B, 0, sizeof B), R = 0; }
+    ll reduce(ll x) {
+        for (int i = L - 1; i >= 0; i--) {
+            if ((x >> i) & 1) {
+                if (B[i] != 0) {
+                    x ^= B[i];
+                } else {
+                    last_bit = i;
+                    return x;
+                }
+            }
+        }
+        // assert(x == 0);
+        return 0;
+    }
+    bool insert(ll x) {
+        x = reduce(x);
+        if (x > 0) {
+            R++;
+            B[last_bit] = x;
+            return true;
+        }
+        return false;
+    }
+    ll kth_smallest(ll k) {
+        ll ans = 0;
+        ll half = 1LL << (R - 1);
+        for (int i = L - 1; i >= 0; i--) {
+            if (B[i] != 0) {
+                if ((ans >> i) & 1) {
+                    if (k > half) k -= half;
+                    else ans ^= B[i];
+                } else if (k > half) {
+                    ans ^= B[i];
+                    k -= half;
+                }
+                half >>= 1;
+            }
+        }
+        return ans;
+    }
+    ll kth_greatest(ll k) { return kth_smallest((1LL << R) - k + 1); }
+};
 \end{lstlisting}
 \hfill
 
