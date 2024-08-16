@@ -4,7 +4,7 @@ Mantém uma base num espaço vetorial de $L$ dimensões sobre $\mathbb{Z}_2$. Pe
 
 Em termos mais simples, dados $n$ inteiros, podemos adicionar cada um deles à base e isso nos dará uma base que consegue representar todos os XORs possíveis entre esses inteiros.
 
-Também acha o k-ésimo menor vetor representável pela base em $\mathcal{O}(L)$, ou o k-ésimo maior vetor não representável pela base em $\mathcal{O}(L)$.
+Também acha o k-ésimo menor vetor representável pela base em $\mathcal{O}(L)$, ou o k-ésimo maior vetor representável pela base em $\mathcal{O}(L)$.
 
 Informações relevantes:
 
