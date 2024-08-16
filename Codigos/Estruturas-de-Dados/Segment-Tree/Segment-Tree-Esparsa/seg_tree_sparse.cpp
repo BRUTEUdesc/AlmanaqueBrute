@@ -35,16 +35,17 @@ struct SegTree {
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
 
-    void update(int p, ll l, ll r, ll i, ll x) {
+    void update(int p, ll l, ll r, ll i, ll x, bool repl) {
         if (l == r) {
-            t[p] += x; // soma
-            // t[p] = x; // substitui
+            if (repl) t[p] = x; // substitui
+            else t[p] += x;     // soma
             return;
         }
         ll mid = l + (r - l) / 2;
-        if (i <= mid) update(lc(p), l, mid, i, x);
-        else update(rc(p), mid + 1, r, i, x);
+        if (i <= mid) update(lc(p), l, mid, i, x, repl);
+        else update(rc(p), mid + 1, r, i, x, repl);
         t[p] = merge(t[lc(p)], t[rc(p)]);
     }
-    void update(ll i, ll x) { update(0, MINL, MAXR, i, x); }
+    void sumUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 0); }
+    void assignUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 1); }
 };

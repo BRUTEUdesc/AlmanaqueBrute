@@ -15,8 +15,8 @@ struct SegTree {
             if (l != r) {
                 lazy[lc(p)] = lazy[p];
                 lazy[rc(p)] = lazy[p];
-                replace[lc(p)] = replace[p];
-                replace[rc(p)] = replace[p];
+                replace[lc(p)] = true;
+                replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1);
@@ -83,7 +83,6 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(int l, int r, ll val, bool repl = false) {
-        update(1, 0, n - 1, l, r, val, repl);
-    }
+    void sumUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 0); }
+    void assignUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 1); }
 };
