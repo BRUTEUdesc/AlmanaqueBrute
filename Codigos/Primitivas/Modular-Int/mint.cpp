@@ -1,5 +1,5 @@
 // se o modulo for long long, pode usar U = __int128
-template<auto MOD, typename T = decltype(MOD), typename U = ll>
+template <auto MOD, typename T = decltype(MOD), typename U = ll>
 struct Mint {
     using m = Mint<MOD, T>;
     T v;
