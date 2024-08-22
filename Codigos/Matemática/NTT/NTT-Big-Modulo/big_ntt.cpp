@@ -42,3 +42,40 @@ vector<int> multiply(vector<int> &ta, vector<int> &tb) {
     while ((int)res.size() > t && res.back() == 0) res.pop_back();
     return res;
 }
+
+ll extended_gcd(ll a, ll b, ll &x, ll &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    } else {
+        ll g = extended_gcd(b, a % b, y, x);
+        y -= a / b * x;
+        return g;
+    }
+}
+
+ll crt(array<int, 2> rem, array<int, 2> mod) {
+    __int128 ans = rem[0], m = mod[0];
+    for (int i = 1; i < 2; i++) {
+        ll x, y;
+        ll g = extended_gcd(mod[i], (ll)m, x, y);
+        if ((ans - rem[i]) % g != 0) return -1;
+        ans = ans + (__int128)1 * (rem[i] - ans) * (m / g) * y;
+        m = (__int128)(mod[i] / g) * (m / g) * g;
+        ans = (ans % m + m) % m;
+    }
+    return (ll)ans;
+}
+
+vector<ll> big_multiply(vector<int> &a, vector<int> &b) {
+    const int MOD1 = 1004535809;
+    const int MOD2 = 1092616193;
+    vector<int> c1 = multiply<MOD1>(a, b);
+    vector<int> c2 = multiply<MOD2>(a, b);
+    vector<ll> res(c1.size());
+    for (int i = 0; i < (int)res.size(); i++) {
+        res[i] = crt({c1[i], c2[i]}, {MOD1, MOD2});
+    }
+    return res;
+}
