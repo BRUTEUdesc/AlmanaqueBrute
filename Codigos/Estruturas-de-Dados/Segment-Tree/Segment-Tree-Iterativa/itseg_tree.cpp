@@ -24,7 +24,7 @@ struct SegTree {
         build(vector<ll>(bg, en));
     }
 
-    ll query(int l, int r) { 
+    ll query(int l, int r) {
         ll ansl = neutral, ansr = neutral;
         for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
             if (l & 1) ansl = merge(ansl, t[l++]);
