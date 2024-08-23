@@ -25,10 +25,11 @@ struct SegTree {
     }
 
     void build(const vector<ll> &v) { // pra construir com vector
-        n = int(v.size());
+        n = (int)v.size();
         t.assign(n * 4, neutral);
         build(1, 0, n - 1, v);
     }
+
     void build(ll *bg, ll *en) { // pra construir com array de C
         build(vector<ll>(bg, en));
     }
@@ -43,7 +44,7 @@ struct SegTree {
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
 
-    void update(int p, int l, int r, int i, ll x, bool repl) {
+    void update(int p, int l, int r, int i, ll x, bool repl = 0) {
         if (l == r) {
             if (repl) t[p] = x; // substitui
             else t[p] += x;     // soma
