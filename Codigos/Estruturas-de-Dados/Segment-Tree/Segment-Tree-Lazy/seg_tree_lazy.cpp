@@ -54,6 +54,7 @@ struct SegTree {
         replace.assign(n * 4, false);
         build(1, 0, n - 1, v);
     }
+
     void build(ll *bg, ll *en) { // pra construir com array de C
         build(vector<ll>(bg, en));
     }
@@ -69,7 +70,7 @@ struct SegTree {
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
 
-    void update(int p, int l, int r, int L, int R, ll val, bool repl) {
+    void update(int p, int l, int r, int L, int R, ll val, bool repl = 0) {
         push(p, l, r);
         if (l > R || r < L) return;
         if (l >= L && r <= R) {
