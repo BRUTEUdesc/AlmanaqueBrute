@@ -32,7 +32,8 @@ vector<mint> xor_convolution(vector<mint> A, vector<mint> B) {
 
 vector<mint> xor_multiply(vector<mint> A, vector<mint> B) {
     int N = 1;
-    while (N < int(A.size())) N <<= 1;
+    int n = int(max(A.size(), B.size()));
+    while (N < n) N <<= 1;
     A.resize(N);
     B.resize(N);
     auto ans = xor_convolution(A, B);
