@@ -12,6 +12,9 @@ struct SegTree {
         };
     }
 
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+
     int n;
     vector<node> t;
 
@@ -20,9 +23,9 @@ struct SegTree {
             t[p] = {v[l], v[l], v[l], v[l]};
         } else {
             int mid = (l + r) / 2;
-            build(p * 2, l, mid, v);
-            build(p * 2 + 1, mid + 1, r, v);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
 
@@ -44,8 +47,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
-        auto ql = query(p * 2, l, mid, L, R);
-        auto qr = query(p * 2 + 1, mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r).ans; }
@@ -55,9 +58,9 @@ struct SegTree {
             t[p] = {x, x, x, x};
         } else {
             int mid = (l + r) / 2;
-            if (i <= mid) update(p * 2, l, mid, i, x);
-            else update(p * 2 + 1, mid + 1, r, i, x);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            if (i <= mid) update(lc(p), l, mid, i, x);
+            else update(rc(p), mid + 1, r, i, x);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
     void update(int i, ll x) { update(1, 0, n - 1, i, x); }

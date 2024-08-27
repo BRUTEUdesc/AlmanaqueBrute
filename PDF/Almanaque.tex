@@ -287,6 +287,28 @@ Uma pilha (último a entrar, primeiro a sair).
     \item \texttt{s.empty()}: Retorna \texttt{true} se a pilha estiver vazia - $\mathcal{O}(1)$
 \end{itemize}
 
+\subsection{Bitset}
+
+Um conjunto de bits, serve para representar máscaras quando um inteiro não é suficiente. Possui operações bitwise otimizadas pelo processador.
+
+\begin{itemize}
+    \item \texttt{bitset<N> a}: Cria um bitset de tamanho \texttt{N} (\texttt{N} deve ser constante) - $\mathcal{O}(1)$
+    \item \texttt{a[i]}: Retorna o valor do bit na posição \texttt{i} - $\mathcal{O}(1)$
+    \item \texttt{a.count()}: Retorna o número de bits 1 no bitset - $\mathcal{O}(N / w)$
+    \item \texttt{a.size()}: Retorna o tamanho do bitset - $\mathcal{O}(1)$
+    \item \texttt{a.set(i)}: Seta o bit na posição \texttt{i} para 1 - $\mathcal{O}(1)$
+    \item \texttt{a.set()}: Seta todos os bits para 1 - $\mathcal{O}(N / w)$
+    \item \texttt{a.reset(i)}: Seta o bit na posição \texttt{i} para 0 - $\mathcal{O}(1)$
+    \item \texttt{a.reset()}: Seta todos os bits para 0 - $\mathcal{O}(N / w)$
+    \item \texttt{a.flip(i)}: Inverte o bit na posição \texttt{i} - $\mathcal{O}(1)$
+    \item \texttt{a.flip()}: Inverte todos os bits - $\mathcal{O}(N / w)$
+    \item \texttt{a.to\_ullong()}: Retorna o valor do bitset como um inteiro - $\mathcal{O}(N / w)$
+\end{itemize}
+
+O bitset também suporta operações como \verb|&|, \verb/|/, \verb|^|, \verb|~|, \verb|<<|, \verb|>>|, entre outros.
+
+OBS: $w$ é o tamanho da palavra do processador, em geral 32 ou 64 bits.
+
 \subsection{Funções úteis}
 
 \begin{itemize}
@@ -1016,15 +1038,15 @@ Codigo: dsu.cpp
 \begin{lstlisting}[language=C++]
 struct DSU {
     vector<int> par, sz;
-    int number_of_sets;
-    DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
+    void build(int n) {
+        par.assign(n, 0);
         iota(par.begin(), par.end(), 0);
+        sz.assign(n, 1);
     }
     int find(int a) { return a == par[a] ? a : par[a] = find(par[a]); }
     bool unite(int a, int b) {
         a = find(a), b = find(b);
         if (a == b) return false;
-        number_of_sets--;
         if (sz[a] < sz[b]) swap(a, b);
         par[b] = a;
         sz[a] += sz[b];
@@ -1037,7 +1059,7 @@ struct DSU {
 \subsection{DSU Bipartido}
 
 
-DSU que mantém se um conjunto é bipartido (visualize os conjuntos como componentes conexas de um grafo e os elementos como nodos). O método $unite$ adiciona uma aresta entre os dois elementos dados, e retorna \texttt{true} se os elementos estavam em conjuntos diferentes (componentes conexas diferentes) e \texttt{false} caso contrário. O método \texttt{bipartite} retorna \texttt{true} se o conjunto (componente conexa) que contém o elemento dado é bipartido e \texttt{false} caso contrário. Todas as operações são $\mathcal{O}(\log n)$.
+DSU que mantém se um conjunto é bipartido (visualize os conjuntos como componentes conexas de um grafo e os elementos como nodos). O método $unite$ adiciona uma aresta entre os dois elementos dados, e retorna \texttt{true} se os elementos estavam em conjuntos diferentes (componentes conexas diferentes) e \texttt{false} caso contrário. O método \texttt{bipartite} retorna \texttt{true} se o conjunto (componente conexa) que contém o elemento dado é bipartido e \texttt{false} caso contrário. Todas as operações são $\mathcal{O}(\log N)$.
 
 \hfill
 
@@ -1046,10 +1068,14 @@ Codigo: bipartite\_dsu.cpp
 \begin{lstlisting}[language=C++]
 struct Bipartite_DSU {
     vector<int> par, sz, c, bip;
-    int number_of_sets, all_bipartite;
-    Bipartite_DSU(int n = 0)
-        : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
+    bool all_bipartite;
+    void build(int n) {
+        par.assign(n, 0);
         iota(par.begin(), par.end(), 0);
+        sz.assign(n, 1);
+        c.assign(n, 0);
+        bip.assign(n, 1);
+        all_bipartite = true;
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
     int color(int a) { return a == par[a] ? c[a] : c[a] ^ color(par[a]); }
@@ -1065,7 +1091,6 @@ struct Bipartite_DSU {
             return false;
         }
         if (sz[a] < sz[b]) swap(a, b);
-        number_of_sets--;
         par[b] = a;
         sz[a] += sz[b];
         if (equal_color) c[b] = 1;
@@ -1080,8 +1105,11 @@ struct Bipartite_DSU {
 \subsection{DSU Rollback}
 
 
-DSU que desfaz as últimas operações. O método \texttt{checkpoint} salva o estado atual da estrutura, e o método \texttt{rollback} desfaz as últimas operações até o último checkpoint. As operações de unir dois conjuntos e verificar em qual conjunto um elemento está são $\mathcal{O}(\log n)$, o rollback é $\mathcal{O}(k)$, onde $k$ é o número de alterações a serem desfeitas e o \texttt{checkpoint} é $\mathcal{O}(1)$. Importante notar que o rollback não altera a complexidade de uma solução, uma vez que $\sum k = \mathcal{O}(q)$, onde $q$ é o número de operações realizadas.
+DSU que desfaz as últimas operações. O método \texttt{checkpoint} salva o estado atual da estrutura, e o método \texttt{rollback} desfaz as últimas operações até o último checkpoint. As operações de unir dois conjuntos e verificar em qual conjunto um elemento está são $\mathcal{O}(\log N)$, o rollback é $\mathcal{O}(K)$, onde $K$ é o número de alterações a serem desfeitas e o \texttt{checkpoint} é $\mathcal{O}(1)$. Importante notar que o rollback não altera a complexidade de uma solução, uma vez que $\sum K = \mathcal{O}(Q)$, onde $Q$ é o número de operações realizadas.
 
+
+
+Para alterar uma variável da DSU durante o unite, deve-se usar o método \texttt{change}, pois ele coloca as alterações numa stack para depois poder revertê-las.
 \hfill
 
 Codigo: rollback\_dsu.cpp
@@ -1089,10 +1117,12 @@ Codigo: rollback\_dsu.cpp
 \begin{lstlisting}[language=C++]
 struct Rollback_DSU {
     vector<int> par, sz;
-    int number_of_sets;
     stack<stack<pair<int &, int>>> changes;
-    Rollback_DSU(int n = 0) : par(n), sz(n, 1), number_of_sets(n) {
+    void build(int n) {
+        par.assign(n, 0);
+        sz.assign(n, 1);
         iota(par.begin(), par.end(), 0);
+        while (changes.size()) changes.pop();
         changes.emplace();
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
@@ -1105,7 +1135,6 @@ struct Rollback_DSU {
         a = find(a), b = find(b);
         if (a == b) return false;
         if (sz[a] < sz[b]) swap(a, b);
-        change(number_of_sets, number_of_sets - 1);
         change(par[b], a);
         change(sz[a], sz[a] + sz[b]);
         return true;
@@ -1133,11 +1162,15 @@ Codigo: bipartite\_rollback\_dsu.cpp
 \begin{lstlisting}[language=C++]
 struct BipartiteRollback_DSU {
     vector<int> par, sz, c, bip;
-    int number_of_sets, all_bipartite;
+    int all_bipartite;
     stack<stack<pair<int &, int>>> changes;
-    BipartiteRollback_DSU(int n = 0)
-        : par(n), sz(n, 1), c(n), bip(n, 1), number_of_sets(n), all_bipartite(1) {
+    void build(int n) {
+        par.assign(n, 0);
         iota(par.begin(), par.end(), 0);
+        sz.assign(n, 1);
+        c.assign(n, 0);
+        bip.assign(n, 1);
+        all_bipartite = true;
         changes.emplace();
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
@@ -1159,7 +1192,6 @@ struct BipartiteRollback_DSU {
             return false;
         }
         if (sz[a] < sz[b]) swap(a, b);
-        change(number_of_sets, number_of_sets - 1);
         change(par[b], a);
         change(sz[a], sz[a] + sz[b]);
         change(bip[a], bip[a] && bip[b]);
@@ -1181,7 +1213,7 @@ struct BipartiteRollback_DSU {
 \subsection{Offline DSU}
 
 
-Algoritmo que utiliza o DSU com Rollback e Bipartido que permite adição e \textbf{remoção} de arestas. O algoritmo funciona de maneira offline, recebendo previamente todas as operações de adição e remoção de arestas, bem como todas as perguntas (de qualquer tipo, conectividade, bipartição, etc), e retornando as respostas para cada pergunta no retorno do método \texttt{solve}. Complexidade total $\mathcal{O}(q\cdot(\log q + \log n))$, onde $q$ é o número de operações realizadas e $n$ é o número de nodos.
+Algoritmo que utiliza o DSU com Rollback e Bipartido que permite adição e \textbf{remoção} de arestas. O algoritmo funciona de maneira offline, recebendo previamente todas as operações de adição e remoção de arestas, bem como todas as perguntas (de qualquer tipo, conectividade, bipartição, etc), e retornando as respostas para cada pergunta no retorno do método \texttt{solve}. Complexidade total $\mathcal{O}(Q \cdot (\log Q + \log N))$, onde $Q$ é o número de operações realizadas e $N$ é o número de nodos.
 
 \hfill
 
@@ -1190,7 +1222,10 @@ Codigo: offline\_dsu.cpp
 \begin{lstlisting}[language=C++]
 struct Offline_DSU : BipartiteRollback_DSU {
     int time;
-    Offline_DSU(int n = 0) : BipartiteRollback_DSU(n), time(0) { }
+    void build(int n) {
+        BipartiteRollback_DSU::build(n);
+        time = 0;
+    }
     struct query {
         int type, a, b;
     };
@@ -1350,6 +1385,157 @@ void update(vector<int> s, int v, int pos = 0) {
 }\end{lstlisting}
 \hfill
 
+\section{Implicit Treap}
+
+
+Simula um array com as seguintes operações em $\mathcal{O}(\log N)$:
+
+
+
+\begin{itemize}
+\item Inserir um elemento $X$ na posição $i$ (todos os elementos em posições maiores que $i$ serão "empurrados" para a direita).
+\item Remover o elemento na posição $i$ (todos os elementos em posições maiores que $i$ serão "puxados" para a esquerda).
+\item Query em intervalo $[L, R]$ de alguma operação. Pode ser soma, máximo, mínimo, \texttt{gcd}, etc.
+\item Adição em intervalo $[L, R]$ (sua operação deve suportar propagação lazy).
+\item Reverter um intervalo $[L, R]$, ou seja, $a[L], a[L + 1], \cdots, a[R] \rightarrow a[R], a[R - 1], \cdots, a[L]$.
+\end{itemize}
+
+
+
+\textbf{Obs}: Inserir em uma posição $<0$ vai inserir na posição $0$, assim como inserir em uma posição $>\text{Tamanho da Treap}$ vai inserir no final dela.
+
+\hfill
+
+Codigo: implicit\_treap.cpp
+
+\begin{lstlisting}[language=C++]
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+namespace imp_treap {
+    using T = ll; // mudar pra int se nao precisar pra melhorar a performance
+    T merge(T a, T b) { return a + b; }
+    T neutral = 0;
+    struct node_info {
+        node_info *l, *r;
+        int y, size;
+        T val, acc, add;
+        bool rev;
+        node_info() { }
+        node_info(T _val)
+            : l(0), r(0), y(rng()), size(0), val(_val), acc(0), add(0), rev(false) { }
+    };
+    using node = node_info *;
+    node root = 0;
+    inline int size(node t) { return t ? t->size : 0; }
+    inline T acc(node t) { return t ? t->acc : 0; }
+    inline bool rev(node t) { return t ? t->rev : false; }
+    inline void push(node t) {
+        if (!t) return;
+        if (rev(t)) {
+            t->rev = false;
+            swap(t->l, t->r);
+            if (t->l) t->l->rev ^= 1;
+            if (t->r) t->r->rev ^= 1;
+        }
+        t->acc += t->add * size(t);
+        // t->acc += t->add se for RMQ
+        t->val += t->add;
+        if (t->l) t->l->add += t->add;
+        if (t->r) t->r->add += t->add;
+        t->add = 0;
+    }
+    inline void pull(node t) {
+        if (t) {
+            push(t->l), push(t->r);
+            t->size = size(t->l) + size(t->r) + 1;
+            t->acc = merge(t->val, merge(acc(t->l), acc(t->r)));
+        }
+    }
+    void merge(node &t, node L, node R) {
+        push(L), push(R);
+        if (!L || !R) {
+            t = L ? L : R;
+        } else if (L->y > R->y) {
+            merge(L->r, L->r, R);
+            t = L;
+        } else {
+            merge(R->l, L, R->l);
+            t = R;
+        }
+        pull(t);
+    }
+    void split(node t, int pos, node &L, node &R, int add = 0) {
+        if (!t) {
+            L = R = nullptr;
+        } else {
+            push(t);
+            int imp_key = add + size(t->l);
+            if (pos <= imp_key) {
+                split(t->l, pos, L, t->l, add);
+                R = t;
+            } else {
+                split(t->r, pos, t->r, R, imp_key + 1);
+                L = t;
+            }
+        }
+        pull(t);
+    }
+    inline void insert(node to, int pos) {
+        node L, R;
+        split(root, pos, L, R);
+        merge(L, L, to);
+        merge(root, L, R);
+    }
+    bool remove(node &t, int pos, int add = 0) {
+        if (!t) return false;
+        push(t);
+        int imp_key = add + size(t->l);
+        if (pos == imp_key) {
+            node me = t;
+            merge(t, t->l, t->r);
+            delete me;
+            return true;
+        }
+        bool ok;
+        if (pos < imp_key) ok = remove(t->l, pos, add);
+        else ok = remove(t->r, pos, imp_key + 1);
+        pull(t);
+        return ok;
+    }
+    inline T query(int l, int r) {
+        if (l > r) return neutral;
+        node L1, L2, R1, R2;
+        split(root, r + 1, L1, R1);
+        split(L1, l, L2, R2);
+        T ans = acc(R2);
+        merge(L1, L2, R2);
+        merge(root, L1, R1);
+        return ans;
+    }
+    inline void update_sum(int l, int r, T val) {
+        if (l > r) return;
+        node L1, L2, R1, R2;
+        split(root, r + 1, L1, R1);
+        split(L1, l, L2, R2);
+        assert(R2);
+        R2->add += val;
+        merge(L1, L2, R2);
+        merge(root, L1, R1);
+    }
+    inline void reverse(int l, int r) {
+        if (l > r) return;
+        node L1, L2, R1, R2;
+        split(root, r + 1, L1, R1);
+        split(L1, l, L2, R2);
+        R2->rev ^= 1;
+        merge(L1, L2, R2);
+        merge(root, L1, R1);
+    }
+    inline void insert(int pos, int val) { insert(new node_info(val), pos); }
+    inline bool remove(int pos) { return remove(root, pos); }
+}
+\end{lstlisting}
+\hfill
+
 \section{Interval Tree}
 
 
@@ -1445,14 +1631,15 @@ Sendo $L$ o tamanho do intervalo, a complexidade de consulta e inserção de fun
 Codigo: lichao\_tree.cpp
 
 \begin{lstlisting}[language=C++]
+const ll INF = ll(2e18) + 10;
+struct Line {
+    ll a, b;
+    Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
+    ll operator()(ll x) { return a * x + b; }
+};
+
 template <ll MINL = ll(-1e9 - 5), ll MAXR = ll(1e9 + 5)>
 struct LichaoTree {
-    const ll INF = ll(2e18) + 10;
-    struct Line {
-        ll a, b;
-        Line(ll a_ = 0, ll b_ = -INF) : a(a_), b(b_) { }
-        ll operator()(ll x) { return a * x + b; }
-    };
     vector<Line> tree;
     vector<int> L, R;
 
@@ -1465,33 +1652,33 @@ struct LichaoTree {
 
     LichaoTree() { newnode(); }
 
-    int le(int u) {
+    int lc(int u) {
         if (L[u] == -1) L[u] = newnode();
         return L[u];
     }
 
-    int ri(int u) {
+    int rc(int u) {
         if (R[u] == -1) R[u] = newnode();
         return R[u];
     }
 
     void insert(Line line, int n = 0, ll l = MINL, ll r = MAXR) {
-        ll mid = (l + r) / 2;
+        ll mid = l + (r - l) / 2;
         bool bl = line(l) > tree[n](l);
         bool bm = line(mid) > tree[n](mid);
         bool br = line(r) > tree[n](r);
         if (bm) swap(tree[n], line);
         if (line.b == -INF) return;
-        if (bl != bm) insert(line, le(n), l, mid - 1);
-        else if (br != bm) insert(line, ri(n), mid + 1, r);
+        if (bl != bm) insert(line, lc(n), l, mid - 1);
+        else if (br != bm) insert(line, rc(n), mid + 1, r);
     }
 
     ll query(int x, int n = 0, ll l = MINL, ll r = MAXR) {
         if (tree[n](x) == -INF || (l > r)) return -INF;
         if (l == r) return tree[n](x);
-        ll mid = (l + r) / 2;
-        if (x < mid) return max(tree[n](x), query(x, le(n), l, mid - 1));
-        else return max(tree[n](x), query(x, ri(n), mid + 1, r));
+        ll mid = l + (r - l) / 2;
+        if (x < mid) return max(tree[n](x), query(x, lc(n), l, mid - 1));
+        else return max(tree[n](x), query(x, rc(n), mid + 1, r));
     }
 };
 \end{lstlisting}
@@ -1515,8 +1702,8 @@ template <typename T = int>
 struct MergeSortTree {
     vector<vector<T>> tree;
     int n;
-    int le(int u) { return u << 1; }
-    int ri(int u) { return u << 1 | 1; }
+    int lc(int u) { return u << 1; }
+    int rc(int u) { return u << 1 | 1; }
     void build(int u, int l, int r, const vector<T> &a) {
         tree[u] = vector<T>(r - l + 1);
         if (l == r) {
@@ -1524,13 +1711,13 @@ struct MergeSortTree {
             return;
         }
         int mid = (l + r) >> 1;
-        build(le(u), l, mid, a);
-        build(ri(u), mid + 1, r, a);
+        build(lc(u), l, mid, a);
+        build(rc(u), mid + 1, r, a);
         merge(
-            tree[le(u)].begin(),
-            tree[le(u)].end(),
-            tree[ri(u)].begin(),
-            tree[ri(u)].end(),
+            tree[lc(u)].begin(),
+            tree[lc(u)].end(),
+            tree[rc(u)].begin(),
+            tree[rc(u)].end(),
             tree[u].begin()
         );
     }
@@ -1550,7 +1737,7 @@ struct MergeSortTree {
             return (int)(ub - lb);
         }
         int mid = (l + r) >> 1;
-        return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
+        return count(lc(u), l, mid, L, R, a, b) + count(rc(u), mid + 1, r, L, R, a, b);
     }
     int count(int l, int r, int a, int b) { return count(1, 0, n - 1, l, r, a, b); }
     int less(int l, int r, int k) { return count(l, r, tree[1][0], k - 1); }
@@ -1590,18 +1777,18 @@ struct MergeSortTree {
     vector<ordered_set<pair<T, int>>> tree;
     vector<T> v;
     int n;
-    int le(int u) { return u << 1; }
-    int ri(int u) { return u << 1 | 1; }
+    int lc(int u) { return u << 1; }
+    int rc(int u) { return u << 1 | 1; }
     void build(int u, int l, int r, const vector<T> &a) {
         if (l == r) {
             tree[u].insert({a[l], l});
             return;
         }
         int mid = (l + r) >> 1;
-        build(le(u), l, mid, a);
-        build(ri(u), mid + 1, r, a);
-        for (auto x : tree[le(u)]) tree[u].insert(x);
-        for (auto x : tree[ri(u)]) tree[u].insert(x);
+        build(lc(u), l, mid, a);
+        build(rc(u), mid + 1, r, a);
+        for (auto x : tree[lc(u)]) tree[u].insert(x);
+        for (auto x : tree[rc(u)]) tree[u].insert(x);
     }
     void build(const vector<T> &a) { // para construir com vector
         n = (int)a.size();
@@ -1620,7 +1807,7 @@ struct MergeSortTree {
             return ub - lb;
         }
         int mid = (l + r) >> 1;
-        return count(le(u), l, mid, L, R, a, b) + count(ri(u), mid + 1, r, L, R, a, b);
+        return count(lc(u), l, mid, L, R, a, b) + count(rc(u), mid + 1, r, L, R, a, b);
     }
     int count(int l, int r, int a, int b) { return count(1, 0, n - 1, l, r, a, b); }
     int less(int l, int r, int k) { return count(l, r, tree[1].begin()->first, k - 1); }
@@ -1630,8 +1817,8 @@ struct MergeSortTree {
             v[i] = x;
         } else {
             int mid = (l + r) >> 1;
-            if (i <= mid) update(le(u), l, mid, i, x);
-            else update(ri(u), mid + 1, r, i, x);
+            if (i <= mid) update(lc(u), l, mid, i, x);
+            else update(rc(u), mid + 1, r, i, x);
         }
         tree[u].insert({v[i], i});
     }
@@ -1867,6 +2054,9 @@ struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
 
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+
     int n;
     vector<ll> t;
 
@@ -1875,9 +2065,9 @@ struct SegTree {
             t[p] = v[l];
         } else {
             int mid = (l + r) / 2;
-            build(p * 2, l, mid, v);
-            build(p * 2 + 1, mid + 1, r, v);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
 
@@ -1899,24 +2089,25 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
-        auto ql = query(p * 2, l, mid, L, R);
-        auto qr = query(p * 2 + 1, mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
 
-    void update(int p, int l, int r, int i, ll x) {
+    void update(int p, int l, int r, int i, ll x, bool repl) {
         if (l == r) {
-            t[p] += x; // soma
-            // t[p] = x; // substitui
+            if (repl) t[p] = x; // substitui
+            else t[p] += x;     // soma
         } else {
             int mid = (l + r) / 2;
-            if (i <= mid) update(p * 2, l, mid, i, x);
-            else update(p * 2 + 1, mid + 1, r, i, x);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            if (i <= mid) update(lc(p), l, mid, i, x, repl);
+            else update(rc(p), mid + 1, r, i, x, repl);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(int i, ll x) { update(1, 0, n - 1, i, x); }
+    void sumUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 0); }
+    void assignUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 1); }
 };
 \end{lstlisting}
 \hfill
@@ -2274,12 +2465,12 @@ struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int p) {
+    inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
-    inline int ri(int p) {
+    inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
@@ -2290,24 +2481,25 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        auto ql = query(le(p), l, mid, L, R);
-        auto qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
 
-    void update(int p, ll l, ll r, ll i, ll x) {
+    void update(int p, ll l, ll r, ll i, ll x, bool repl) {
         if (l == r) {
-            t[p] += x; // soma
-            // t[p] = x; // substitui
+            if (repl) t[p] = x; // substitui
+            else t[p] += x;     // soma
             return;
         }
         ll mid = l + (r - l) / 2;
-        if (i <= mid) update(le(p), l, mid, i, x);
-        else update(ri(p), mid + 1, r, i, x);
-        t[u] = merge(t[le(p)], t[ri(p)]);
+        if (i <= mid) update(lc(p), l, mid, i, x, repl);
+        else update(rc(p), mid + 1, r, i, x, repl);
+        t[p] = merge(t[lc(p)], t[rc(p)]);
     }
-    void update(ll i, ll x) { update(0, MINL, MAXR, i, x); }
+    void sumUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 0); }
+    void assignUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 1); }
 };\end{lstlisting}
 \hfill
 
@@ -2346,6 +2538,9 @@ struct SegTree {
         };
     }
 
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+
     int n;
     vector<node> t;
 
@@ -2354,9 +2549,9 @@ struct SegTree {
             t[p] = {v[l], v[l], v[l], v[l]};
         } else {
             int mid = (l + r) / 2;
-            build(p * 2, l, mid, v);
-            build(p * 2 + 1, mid + 1, r, v);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
 
@@ -2378,8 +2573,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
-        auto ql = query(p * 2, l, mid, L, R);
-        auto qr = query(p * 2 + 1, mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r).ans; }
@@ -2389,9 +2584,9 @@ struct SegTree {
             t[p] = {x, x, x, x};
         } else {
             int mid = (l + r) / 2;
-            if (i <= mid) update(p * 2, l, mid, i, x);
-            else update(p * 2 + 1, mid + 1, r, i, x);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            if (i <= mid) update(lc(p), l, mid, i, x);
+            else update(rc(p), mid + 1, r, i, x);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
     void update(int i, ll x) { update(1, 0, n - 1, i, x); }
@@ -2423,20 +2618,23 @@ struct SegTree {
     vector<ll> t, lazy;
     vector<bool> replace;
 
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+
     void push(int p, int l, int r) {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[p * 2] = lazy[p];
-                lazy[p * 2 + 1] = lazy[p];
-                replace[p * 2] = replace[p];
-                replace[p * 2 + 1] = replace[p];
+                lazy[lc(p)] = lazy[p];
+                lazy[rc(p)] = lazy[p];
+                replace[lc(p)] = true;
+                replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[p * 2] += lazy[p];
-                lazy[p * 2 + 1] += lazy[p];
+                lazy[lc(p)] += lazy[p];
+                lazy[rc(p)] += lazy[p];
             }
         }
         replace[p] = false;
@@ -2448,9 +2646,9 @@ struct SegTree {
             t[p] = v[l];
         } else {
             int mid = (l + r) / 2;
-            build(p * 2, l, mid, v);
-            build(p * 2 + 1, mid + 1, r, v);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
 
@@ -2477,8 +2675,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
-        auto ql = query(p * 2, l, mid, L, R);
-        auto qr = query(p * 2 + 1, mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
@@ -2492,15 +2690,15 @@ struct SegTree {
             push(p, l, r);
         } else {
             int mid = (l + r) / 2;
-            update(p * 2, l, mid, L, R, val, repl);
-            update(p * 2 + 1, mid + 1, r, L, R, val, repl);
-            t[p] = merge(t[p * 2], t[p * 2 + 1]);
+            update(lc(p), l, mid, L, R, val, repl);
+            update(rc(p), mid + 1, r, L, R, val, repl);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(int l, int r, ll val, bool repl = false) {
-        update(1, 0, n - 1, l, r, val, repl);
-    }
-};\end{lstlisting}
+    void sumUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 0); }
+    void assignUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 1); }
+};
+\end{lstlisting}
 \hfill
 
 \subsection{Segment Tree Lazy Esparsa}
@@ -2534,12 +2732,12 @@ struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int p) {
+    inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
-    inline int ri(int p) {
+    inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
@@ -2550,16 +2748,16 @@ struct SegTree {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(p)] = lazy[p];
-                lazy[ri(p)] = lazy[p];
-                replace[le(p)] = replace[p];
-                replace[ri(p)] = replace[p];
+                lazy[lc(p)] = lazy[p];
+                lazy[rc(p)] = lazy[p];
+                replace[lc(p)] = true;
+                replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(p)] += lazy[p];
-                lazy[ri(p)] += lazy[p];
+                lazy[lc(p)] += lazy[p];
+                lazy[rc(p)] += lazy[p];
             }
         }
         replace[p] = false;
@@ -2571,8 +2769,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        auto ql = query(le(p), l, mid, L, R);
-        auto qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
@@ -2586,15 +2784,15 @@ struct SegTree {
             push(p, l, r);
         } else {
             ll mid = l + (r - l) / 2;
-            update(le(p), l, mid, L, R, val, repl);
-            update(ri(p), mid + 1, r, L, R, val, repl);
-            t[p] = merge(t[le(p)], t[ri(p)]);
+            update(lc(p), l, mid, L, R, val, repl);
+            update(rc(p), mid + 1, r, L, R, val, repl);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(ll l, ll r, ll val, bool repl = false) {
-        update(0, MINL, MAXR, l, r, val, repl);
-    }
-};\end{lstlisting}
+    void sumUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 0); }
+    void assignUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 1); }
+};
+\end{lstlisting}
 \hfill
 
 \subsection{Segment Tree Persisente}
@@ -2633,12 +2831,12 @@ struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int p) {
+    inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
-    inline int ri(int p) {
+    inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
@@ -2649,8 +2847,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        auto ql = query(le(p), l, mid, L, R);
-        auto qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r, int root = -1) {
@@ -2667,13 +2865,13 @@ struct SegTree {
         }
         ll mid = l + (r - l) / 2;
         if (i <= mid) {
-            Rc[p] = ri(old);
-            update(le(p), le(old), l, mid, i, x);
+            Rc[p] = rc(old);
+            update(lc(p), lc(old), l, mid, i, x);
         } else {
-            Lc[p] = le(old);
-            update(ri(p), ri(old), mid + 1, r, i, x);
+            Lc[p] = lc(old);
+            update(rc(p), rc(old), mid + 1, r, i, x);
         }
-        t[p] = merge(t[le(p)], t[ri(p)]);
+        t[p] = merge(t[lc(p)], t[rc(p)]);
     }
     int update(ll i, ll x, int root = -1) {
         int new_root = newnode();
@@ -2684,8 +2882,8 @@ struct SegTree {
     }
     int copy_root(int root) {
         int new_root = newnode();
-        Lc[new_root] = le(root);
-        Rc[new_root] = ri(root);
+        Lc[new_root] = lc(root);
+        Rc[new_root] = rc(root);
         roots.push_back(new_root);
         return roots.back();
     }
@@ -2788,6 +2986,102 @@ struct SparseTable {
 \end{lstlisting}
 \hfill
 
+\section{Treap}
+
+
+Uma árvore de busca binária balanceada. Se não quiser ter elementos repetidos, basta fazer \texttt{treap::setify = true}.
+
+
+
+\begin{itemize}
+\item \texttt{insert(X)}: insere um elemento $X$ na árvore em $\mathcal{O}(\log N)$
+\item \texttt{remove(X)}: remove uma ocorrência de $X$ na árvore, e retorna \texttt{false} caso não tenha nenhuma ocorrência de $X$ na árvore em $\mathcal{O}(\log N)$.
+\item \texttt{find(X)}: retorna \texttt{true} se $X$ aparece pelo menos uma vez na árvore em $\mathcal{O}(\log N)$.
+\end{itemize}
+
+\hfill
+
+Codigo: treap.cpp
+
+\begin{lstlisting}[language=C++]
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+namespace treap {
+    struct node_info {
+        node_info *l, *r;
+        int x, y, size;
+        node_info() { }
+        node_info(int _x) : l(0), r(0), x(_x), y(rng()), size(0) { }
+    };
+    using node = node_info *;
+    node root = 0;
+    bool setify = false;
+    inline int size(node t) { return t ? t->size : 0; }
+    inline void upd_size(node t) {
+        if (t) t->size = size(t->l) + size(t->r) + 1;
+    }
+    void merge(node &t, node L, node R) {
+        if (!L || !R) {
+            t = L ? L : R;
+        } else if (L->y > R->y) {
+            merge(L->r, L->r, R);
+            t = L;
+        } else {
+            merge(R->l, L, R->l);
+            t = R;
+        }
+        upd_size(t);
+    }
+    void split(node t, int x, node &L, node &R) {
+        if (!t) {
+            L = R = 0;
+        } else if (t->x <= x) {
+            split(t->r, x, t->r, R);
+            L = t;
+        } else {
+            split(t->l, x, L, t->l);
+            R = t;
+        }
+        upd_size(t);
+    }
+    void insert(node &t, node to) {
+        if (!t) {
+            t = to;
+        } else if (to->y > t->y) {
+            split(t, to->x, to->l, to->r);
+            t = to;
+        } else {
+            insert(to->x < t->x ? t->l : t->r, to);
+        }
+        upd_size(t);
+    }
+    bool remove(node &t, int x) {
+        if (!t) return false;
+        if (x == t->x) {
+            node rem = t;
+            merge(t, t->l, t->r);
+            upd_size(t);
+            delete rem;
+            return true;
+        }
+        bool ok = remove(x < t->x ? t->l : t->r, x);
+        upd_size(t);
+        return ok;
+    }
+    bool find(node &t, int x) {
+        return t ? (t->x == x || find(x < t->x ? t->l : t->r, x)) : false;
+    }
+    bool find(int x) { return find(root, x); }
+    inline void insert(int x) {
+        if (setify) {
+            if (find(x)) return;
+        }
+        insert(root, new node_info(x));
+    }
+    inline void remove(int x) { remove(root, x); }
+}
+\end{lstlisting}
+\hfill
+
 \section{XOR Trie}
 
 
@@ -2863,7 +3157,18 @@ A configuração da solução fica guardada no vetor \texttt{assignment}.
 
 
 
-Em relação ao sinal, tanto faz se 0 liga ou desliga, apenas siga o mesmo padrão.
+Exemplos de uso:
+
+
+
+\begin{itemize}
+\item \texttt{sat.add\_or(x, y)} $\Leftrightarrow (x \lor y)$
+\item \texttt{sat.add\_or(~x, y)} $\Leftrightarrow (\lnot x \lor y)$
+\item \texttt{sat.add\_impl(x, y)} $\Leftrightarrow (x \rightarrow y)$
+\item \texttt{sat.add\_and(x, ~y)} $\Leftrightarrow (x \land \lnot y)$
+\item \texttt{sat.add\_xor(x, y)} $\Leftrightarrow (x \lor y) \land \lnot (x \land y)$
+\item \texttt{sat.add\_equals(x, y)} $\Leftrightarrow (x \land y) \lor (\lnot x \land \lnot y)$
+\end{itemize}
 
 \hfill
 
@@ -2876,10 +3181,8 @@ struct sat2 {
     vector<bool> vis, assignment;
     vector<int> topo, comp;
 
-    sat2(int _n) {
-        n = (2 * _n) + 2;
-        // a true = 2 * a
-        // a false = 2 * a + 1
+    void build(int _n) {
+        n = 2 * _n;
         g.assign(n, vector<int>());
         rg.assign(n, vector<int>());
     }
@@ -2948,7 +3251,8 @@ struct sat2 {
 
         return {true, assignment};
     }
-};\end{lstlisting}
+};
+\end{lstlisting}
 \hfill
 
 \section{Binary Lifting}
@@ -3274,6 +3578,150 @@ namespace bl {
 \end{lstlisting}
 \hfill
 
+\section{Caminho Euleriano}
+\subsection{Caminho Euleriano Direcionado}
+
+
+Algoritmo para encontrar um caminho euleriano em um grafo direcionado em $\mathcal{O}(V + E)$. O algoritmo também encontrará um ciclo euleriano se o mesmo existir. Se nem um ciclo nem um caminho euleriano existir, o algoritmo retornará um vetor vazio.
+
+
+
+\textbf{Definição}: Um caminho euleriano é um caminho que passa por todas as arestas de um grafo exatamente uma vez. Um ciclo euleriano é um caminho euleriano que começa e termina no mesmo vértice. A condição de existência de um ciclo euleriano (em um grafo direcionado) é que todos os vértices do grafo possuam grau de entrada e saída iguais. A condição de existência de um caminho euleriano (em um grafo direcionado) é que o grafo possua exatamente dois vértices com grau de entrada e saída diferentes, sendo um deles o vértice de início (\texttt{deg\_in[u] == deg\_out[u] - 1}) e o outro o vértice de término (\texttt{deg\_out[v] == deg\_in[v] - 1}).
+\hfill
+
+Codigo: directed\_eulerian\_path.cpp
+
+\begin{lstlisting}[language=C++]
+const int MAXN = 1e6 + 6;
+
+vector<int> adj[MAXN];
+
+struct EulerianTrail {
+    int n;
+    int it[MAXN], deg_in[MAXN], deg_out[MAXN];
+    void build(int _n) {
+        n = _n;
+        for (int i = 0; i < n; i++) it[i] = deg_in[i] = deg_out[i] = 0;
+    }
+    vector<int> find() {
+        vector<int> cur;
+        int m = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j : adj[i]) {
+                m++;
+                deg_out[i]++, deg_in[j]++;
+            }
+        }
+        int start = -1, end = -1;
+        for (int i = 0; i < n; i++) {
+            if (deg_in[i] != deg_out[i]) {
+                if (deg_in[i] == deg_out[i] - 1)
+                    if (start == -1) start = i;
+                    else return {};
+                else if (deg_in[i] - 1 == deg_out[i])
+                    if (end == -1) end = i;
+                    else return {};
+                else return {};
+            }
+        }
+        if (start == -1 && end == -1) {
+            // pode comecar em qualquer vertice com alguma aresta (mas tem que terminar
+            // nele tambem), nesse caso eh ciclo euleriano
+            for (int i = 0; i < n; i++) {
+                if (deg_out[i] > 0) {
+                    start = i;
+                    end = i;
+                    break;
+                }
+            }
+        } else if (start == -1 || end == -1) {
+            return {};
+        }
+        function<void(int)> dfs_et = [&](int u) {
+            while (it[u] < (int)adj[u].size()) {
+                int v = adj[u][it[u]++];
+                dfs_et(v);
+            }
+            cur.push_back(u);
+        };
+        dfs_et(start);
+        if ((int)cur.size() != m + 1) return {};
+        reverse(cur.begin(), cur.end());
+        return cur;
+    }
+} et_finder;
+\end{lstlisting}
+\hfill
+
+\subsection{Caminho Euleriano Nao Direcionado}
+
+
+Algoritmo para encontrar um caminho euleriano em um grafo não direcionado em $\mathcal{O}(V + E)$. O algoritmo também encontrará um ciclo euleriano se o mesmo existir. Se nem um ciclo nem um caminho euleriano existir, o algoritmo retornará um vetor vazio.
+
+
+
+\textbf{Definição}: Um caminho euleriano é um caminho que passa por todas as arestas de um grafo exatamente uma vez. Um ciclo euleriano é um caminho euleriano que começa e termina no mesmo vértice. A condição de existência de um ciclo euleriano (em um grafo não direcionado) é que todos os vértices do grafo possuam grau par. A condição de existência de um caminho euleriano (em um grafo não direcionado) é que o grafo possua exatamente dois vértices com grau ímpar, um deles será o vértice de início e o outro o vértice de término.
+
+\hfill
+
+Codigo: undirected\_eulerian\_path.cpp
+
+\begin{lstlisting}[language=C++]
+const int MAXN = 1e6 + 6, MAXM = 2e6 + 6;
+
+vector<pair<int, int>> adj[MAXN]; // {nodo, id da aresta}
+
+struct EulerianTrail {
+    int n, m;
+    int it[MAXN], deg[MAXN], vis_edge[MAXM];
+    void build(int _n, int _m) {
+        n = _n;
+        m = _m;
+        for (int i = 0; i < n; i++) it[i] = deg[i] = 0;
+        for (int i = 0; i < m; i++) vis_edge[i] = 0;
+    }
+    vector<int> find() {
+        vector<int> cur;
+        for (int i = 0; i < n; i++) deg[i] = (int)adj[i].size();
+        int start = -1, end = -1;
+        for (int i = 0; i < n; i++) {
+            if (deg[i] & 1) {
+                if (start == -1) start = i;
+                else if (end == -1) end = i;
+                else return {};
+            }
+        }
+        if (start == -1 && end == -1) {
+            // pode comecar em qualquer vertice com alguma aresta (mas tem que terminar
+            // nele tambem), nesse caso eh ciclo euleriano
+            for (int i = 0; i < n; i++) {
+                if (deg[i] > 0) {
+                    start = i;
+                    end = i;
+                    break;
+                }
+            }
+        } else if (start == -1 || end == -1) {
+            return {};
+        }
+        function<void(int)> dfs_et = [&](int u) {
+            while (it[u] < (int)adj[u].size()) {
+                auto [v, id] = adj[u][it[u]++];
+                if (vis_edge[id]) continue;
+                vis_edge[id] = 1;
+                dfs_et(v);
+            }
+            cur.push_back(u);
+        };
+        dfs_et(start);
+        if ((int)cur.size() != m + 1) return {};
+        reverse(cur.begin(), cur.end());
+        return cur;
+    }
+} et_finder;
+\end{lstlisting}
+\hfill
+
 \section{Centro e Diametro}
 
 
@@ -3461,6 +3909,116 @@ void build(int n) {
 }\end{lstlisting}
 \hfill
 
+\section{Ciclos}
+\subsection{Find Cycle}
+
+
+Encontra um ciclo no grafo em $\mathcal{O}(|V| + |E|)$, retorna um vetor vazio caso nenhum ciclo seja encontrado. O método \texttt{build} possui uma flag que indica se o algoritmo deve aceitar ciclos de tamanho 1 ou ciclos de tamanho 2.
+\hfill
+
+Codigo: find\_cycle.cpp
+
+\begin{lstlisting}[language=C++]
+const int MAXN = 1e6 + 6;
+
+vector<int> adj[MAXN];
+
+struct CycleFinder {
+    int n;
+    bool trivial;
+    vector<int> vis, par;
+    int start = -1, end = -1;
+    void build(int _n, bool _trivial = 1) {
+        n = _n;
+        trivial = _trivial;
+        // trivial eh um flag que indica se o algoritmo deve aceitar ou nao
+        // ciclos triviais, um ciclo trivial eh um ciclo de tamanho 1 ou 2
+    }
+    bool dfs(int u) {
+        vis[u] = 1;
+        for (int v : adj[u]) {
+            if (vis[v] == 0) {
+                par[v] = u;
+                if (dfs(v)) return true;
+            } else if (vis[v] == 1) {
+                if (trivial || (par[u] != v && u != v)) {
+                    end = u;
+                    start = v;
+                    return true;
+                }
+            }
+        }
+        vis[u] = 2;
+        return false;
+    }
+    vector<int> get_cycle() {
+        vis.assign(n, 0);
+        par.assign(n, -1);
+        for (int v = 0; v < n; v++)
+            if (vis[v] == 0 && dfs(v)) break;
+        vector<int> cycle;
+        if (start != -1) {
+            cycle.emplace_back(start);
+            for (int v = end; v != start; v = par[v]) cycle.emplace_back(v);
+            cycle.emplace_back(start);
+            reverse(cycle.begin(), cycle.end());
+        }
+        return cycle;
+    }
+} finder;
+\end{lstlisting}
+\hfill
+
+\subsection{Find Negative Cycle}
+
+
+Encontra um ciclo com soma negativa no grafo em $\mathcal{O}(|V| * |E|)$ usando o algoritmo Bellman Ford, retorna um vetor vazio caso nenhum ciclo seja encontrado.
+
+\hfill
+
+Codigo: find\_negative\_cycle.cpp
+
+\begin{lstlisting}[language=C++]
+struct NegativeCycleFinder {
+    const ll INF = 1e18;
+    int n;
+    vector<tuple<int, int, ll>> edges;
+    void build(int _n) {
+        n = _n;
+        edges.clear();
+    }
+    void add_edge(int u, int v, ll w) { edges.emplace_back(u, v, w); }
+    vector<int> get_cycle() {
+        vector<ll> d(n);
+        vector<int> p(n, -1);
+        int x;
+        for (int i = 0; i < n; ++i) {
+            x = -1;
+            for (auto [u, v, w] : edges) {
+                if (d[u] < INF) {
+                    if (d[u] + w < d[v]) {
+                        d[v] = max(-INF, d[u] + w);
+                        p[v] = u;
+                        x = v;
+                    }
+                }
+            }
+        }
+        vector<int> cycle;
+        if (x != -1) {
+            for (int i = 0; i < n; ++i) x = p[x];
+            for (int v = x;; v = p[v]) {
+                cycle.push_back(v);
+                if (v == x && cycle.size() > 1) break;
+            }
+            reverse(cycle.begin(), cycle.end());
+        }
+        return cycle;
+    }
+} finder;
+\end{lstlisting}
+\hfill
+
 \section{Fluxo}
 
 
@@ -3476,6 +4034,20 @@ Muito útil para grafos bipartidos e para grafos com muitas arestas
 
 
 Complexidade de tempo: $\mathcal{O}(V² * E)$, mas em grafo bipartido a complexidade é $\mathcal{O}(sqrt(V) * E)$
+
+
+
+Guarda o grafo internamente, as arestas devem ser adicionadas pela função \texttt{add\_edge}.
+
+
+
+A função \texttt{max\_flow} modifica o grafo adicionando a maior quantidade de fluxo possivel e retona a quantidade de fluxo adicionado.
+
+
+
+O corte minimo de um grafo é equivalente ao fluxo máximo.
+
+A Função \texttt{min\_cut} acha as arestas pertencentes ao corte minimo do grafo, deve ser chamado após a função \texttt{max\_flow}
 
 
 
@@ -3655,13 +4227,11 @@ struct Dinic {
     int n, s, t, m = 0;
     vector<int> level, ptr;
     queue<int> q;
-
     Dinic(int n, int s, int t) : n(n), s(s), t(t) {
         adj.resize(n);
         level.resize(n);
         ptr.resize(n);
     }
-
     void add_edge(int u, int v, ll cap) {
         edges.emplace_back(u, v, cap);
         edges.emplace_back(v, u, 0);
@@ -3669,7 +4239,6 @@ struct Dinic {
         adj[v].push_back(m + 1);
         m += 2;
     }
-
     bool bfs() {
         while (!q.empty()) {
             int u = q.front();
@@ -3684,7 +4253,6 @@ struct Dinic {
         }
         return level[t] != -1;
     }
-
     ll dfs(int u, ll f) {
         if (f == 0) return 0;
         if (u == t) return f;
@@ -3700,7 +4268,6 @@ struct Dinic {
         }
         return 0;
     }
-
     ll flow() {
         ll maxflow = 0;
         while (true) {
@@ -3712,6 +4279,24 @@ struct Dinic {
             while (ll f = dfs(s, INF)) maxflow += f;
         }
         return maxflow;
+    }
+    void min_cut() {
+        vector<bool> vis(n);
+        function<void(int)> dfs = [&](int u) {
+            vis[u] = 1;
+            for (int id : adj[u]) {
+                int v = edges[id].v;
+                if (!vis[v] && edges[id].cap - edges[id].flow > 0) dfs(v);
+            }
+        };
+        dfs(s);
+        for (int id = 0; id < (int)edges.size(); id++) {
+            auto [u, v, cap, flow] = edges[id];
+            if (vis[u] ^ vis[v] && cap > 0) {
+                // this edge is in the min cut
+                // do something here
+            }
+        }
     }
 };
 \end{lstlisting}
@@ -3867,6 +4452,74 @@ void bfs(int s) {
             nodes.erase(y);
         }
         aux.clear();
+    }
+}
+\end{lstlisting}
+\hfill
+
+\section{Kosaraju}
+
+
+Algoritmo que encontra as componentes fortemente conexas (SCCs) de um grafo direcionado.
+
+O algoritmo de Kosaraju resolve isso em $\mathcal{O}(N + M)$, onde $N$ é o número de vértices e $M$ é o número de arestas do grafo.
+
+
+
+O componente fortemente conexo de cada vértice é armazenado no vetor \texttt{root}.
+
+A grafo condensado é armazenado no vetor \texttt{gc}.
+
+\hfill
+
+Codigo: kosaraju.cpp
+
+\begin{lstlisting}[language=C++]
+namespace kosaraju {
+    const int N = 1e5 + 5;
+    int n, vis[N], root[N];
+    vector<int> adj[N], inv[N], gc[N], topo;
+    void add_edge(int u, int v) {
+        adj[u].emplace_back(v);
+        inv[v].emplace_back(u);
+    }
+    void toposort(int u) {
+        vis[u] = 1;
+        for (auto v : adj[u]) {
+            if (vis[v]) continue;
+            toposort(v);
+        }
+        topo.emplace_back(u);
+    }
+    void dfs(int u) {
+        vis[u] = 1;
+        for (auto v : inv[u]) {
+            if (vis[v]) continue;
+            root[v] = root[u];
+            dfs(v);
+        }
+    }
+    void solve(int n) {
+        fill(vis, vis + n, 0);
+        topo.clear();
+        for (int i = 0; i < n; i++)
+            if (!vis[i]) toposort(i);
+        fill(vis, vis + n, 0);
+        iota(root, root + n, 0);
+        for (int i = n - 1; i >= 0; i--)
+            if (!vis[topo[i]]) dfs(topo[i]);
+        set<pair<int, int>> st;
+        for (int u = 0; u < n; u++) {
+            int ru = root[u];
+            for (int v : adj[u]) {
+                int rv = root[v];
+                if (ru == rv) continue;
+                if (!st.count(ii(ru, rv))) {
+                    gc[ru].emplace_back(rv);
+                    st.insert(ii(ru, rv));
+                }
+            }
+        }
     }
 }
 \end{lstlisting}
@@ -4047,66 +4700,62 @@ ll hungarian(int n, int m, vector<vector<int>> &A) {
 \hfill
 
 \section{Pontes}
+\subsection{Componentes Aresta Biconexas}
 
 
-Algoritmo que acha pontes em um grafo utilizando DFS. $\mathcal{O}(V + E)$. Pontes são aresta cuja remoção aumenta o número de componentes conexas do grafo.
+Código que acha componentes aresta-biconexas, que são componentes que para se desconectar é necessário remover pelo menos duas arestas. Para obter essas componentes, basta achar as pontes e contrair o resto do grafo, o resultado é uma árvore em que as arestas são as pontes do grafo original.
 
 
 
-Nesse código também há uma função que acha componentes aresta-biconexas, que são componentes que para se desconectar é necessário remover pelo menos duas arestas. Para obter essas componentes, basta achar as pontes e contrair o resto do grafo, o resultado é uma árvore.
+Esse algoritmo acha as pontes e constrói o grafo comprimido em $\mathcal{O}(V + E)$. Pontes são arestas cuja remoção aumenta o número de componentes conexas do grafo.
+
+
+
+No código, \texttt{ebcc[u]} é o índice da componente aresta-biconexa a qual o vértice \texttt{u} pertence.
 \hfill
 
-Codigo: find\_bridges.cpp
+Codigo: ebcc\_components.cpp
 
 \begin{lstlisting}[language=C++]
 const int N = 3e5 + 5;
-int n, timer;
+int n, m, timer, ncc;
+vector<int> adjbcc[N];
 vector<int> adj[N];
-int tin[N], low[N];
+int tin[N], low[N], ebcc[N];
 
-void dfs(int u, int p = -1) {
+void dfs_bridge(int u, int p = -1) {
     low[u] = tin[u] = ++timer;
     for (int v : adj[u]) {
         if (tin[v] != 0 && v != p) {
             low[u] = min(low[u], tin[v]);
         } else if (v != p) {
-            dfs(v, u);
+            dfs_bridge(v, u);
             low[u] = min(low[u], low[v]);
         }
     }
-    if (p != -1 && low[u] == tin[u]) {
-        // edge (p, u) is a bridge
-    }
 }
-
-void find_bridges() {
-    timer = 0;
-    for (int i = 0; i < n; i++) tin[i] = low[i] = 0;
-    for (int i = 0; i < n; i++)
-        if (tin[i] == 0) dfs(i);
-}
-
-// Edge Biconnected Components (requer todo o código acima)
-
-int ebcc[N], ncc = 0;
-vector<int> adjbcc[N];
 
 void dfs_ebcc(int u, int p, int cc) {
-    if (p != -1 && low[u] == tin[u]) cc = ++ncc;
+    if (p != -1 && low[u] == tin[u]) {
+        // edge (u, p) eh uma ponte
+        cc = ++ncc;
+    }
     ebcc[u] = cc;
     for (int v : adj[u])
         if (ebcc[v] == -1) dfs_ebcc(v, u, cc);
 }
 
 void build_ebcc_graph() {
-    find_bridges();
-    for (int i = 0; i < n; i++) ebcc[i] = -1;
-    for (int i = 0; i < n; i++) { // should follow the same order of find_bridges dfs
-        if (ebcc[i] == -1) {
-            dfs_ebcc(i, -1, ncc);
-            ++ncc;
-        }
+    ncc = timer = 0;
+    for (int i = 0; i < n; i++) {
+        tin[i] = low[i] = 0;
+        ebcc[i] = -1;
+        adjbcc[i].clear();
     }
+    for (int i = 0; i < n; i++)
+        if (tin[i] == 0) dfs_bridge(i);
+    for (int i = 0; i < n; i++)
+        if (ebcc[i] == -1) dfs_ebcc(i, -1, ncc), ++ncc;
     // Opcao 1 - constroi o grafo comprimido passando por todas as edges
     for (int u = 0; u < n; u++) {
         for (auto v : adj[u]) {
@@ -4125,6 +4774,43 @@ void build_ebcc_graph() {
 }\end{lstlisting}
 \hfill
 
+\subsection{Pontes}
+
+
+Algoritmo que acha pontes em um grafo utilizando DFS. $\mathcal{O}(V + E)$. Pontes são arestas cuja remoção aumenta o número de componentes conexas do grafo.
+\hfill
+
+Codigo: find\_bridges.cpp
+
+\begin{lstlisting}[language=C++]
+const int N = 3e5 + 5;
+int n, m, timer;
+vector<int> adj[N];
+int tin[N], low[N];
+
+void dfs_bridge(int u, int p = -1) {
+    low[u] = tin[u] = ++timer;
+    for (int v : adj[u]) {
+        if (tin[v] != 0 && v != p) {
+            low[u] = min(low[u], tin[v]);
+        } else if (v != p) {
+            dfs_bridge(v, u);
+            low[u] = min(low[u], low[v]);
+        }
+    }
+    if (p != -1 && low[u] == tin[u]) {
+        // edge (p, u) eh ponte
+    }
+}
+
+void find_bridges() {
+    timer = 0;
+    for (int i = 0; i < n; i++) tin[i] = low[i] = 0;
+    for (int i = 0; i < n; i++)
+        if (tin[i] == 0) dfs_bridge(i);
+}\end{lstlisting}
+\hfill
+
 \section{Pontos de Articulacao}
 
 
@@ -4135,7 +4821,7 @@ Codigo: articulation\_points.cpp
 
 \begin{lstlisting}[language=C++]
 const int N = 3e5 + 5;
-int n, timer;
+int n, m, timer;
 vector<int> adj[N];
 int tin[N], low[N];
 
@@ -4149,13 +4835,13 @@ void dfs(int u, int p = -1) {
             dfs(v, u);
             low[u] = min(low[u], low[v]);
             if (p != -1 && low[v] >= tin[u]) {
-                // vertex u is an articulation point
+                // vertice u eh um ponto de articulacao
             }
             child++;
         }
     }
     if (p == -1 && child > 1) {
-        // vertex u is an articulation point
+        // vertice u eh um ponto de articulacao
     }
 }
 
@@ -6066,6 +6752,10 @@ O Mint é uma classe que representa um número inteiro módulo número inteiro $
 
 
 
+Ao usar o Mint, você deve passar os valores pra ele \textbf{já modulados}, ou seja, valores entre $-\text{MOD}$ e $\text{MOD}-1$, o próprio Mint normaliza depois para ficar entre $0$ e $\text{MOD}-1$.
+
+
+
 Para lembrar as propriedades de aritmética modular, consulte a seção Teórico desse Almanaque.
 
 
@@ -6090,6 +6780,7 @@ a = a - 6; // a.v == 5
 
 
 \textbf{Obs}: para operador de divisão, o Mint usa o inverso multiplicativo de $a$ baseado no Teorema de Euler (consulte o Teórico para mais detalhes), que é $a^{\text{MOD}-2}$, ou seja, para isso o $\text{MOD}$ deve ser primo.
+
 \hfill
 
 Codigo: mint.cpp
@@ -6099,28 +6790,47 @@ template <auto MOD, typename T = decltype(MOD)>
 struct Mint {
     using m = Mint<MOD, T>;
     T v;
-    Mint(T val = 0) : v(val) { }
+    Mint(T val = 0) : v(val) {
+        if (v < 0) v += MOD;
+    }
     bool operator==(m o) const { return v == o.v; }
     bool operator!=(m o) const { return v != o.v; }
     bool operator<(m o) const { return v < o.v; }
     m pwr(m b, ll e) {
         m res = 1;
         while (e > 0) {
-            if (e & 1) res = res * b;
-            b = b * b, e >>= 1;
+            if (e & 1) res *= b;
+            b *= b, e >>= 1;
         }
         return res;
     }
-    friend m operator-(m a, m b) { return (a.v -= b.v) < 0 ? a.v + MOD : a.v; }
-    friend m operator+(m a, m b) { return a - (MOD - b.v); }
-    friend m operator*(m a, m b) { return (T)((__int128)a.v * b.v % MOD); }
+    m &operator+=(m o) {
+        v -= MOD - o.v;
+        if (v < 0) v += MOD;
+        return *this;
+    }
+    m &operator-=(m o) {
+        v -= o.v;
+        if (v < 0) v += MOD;
+        return *this;
+    }
+    m &operator*=(m o) {
+        v = (T)((__int128)v * o.v % MOD);
+        return *this;
+    }
     // se quiser otimizar constante, ao inves de (__int128) use (ll) se o T for `int`
-    friend m operator/(m a, m b) { return a * b.pwr(b, MOD - 2); }
+    m &operator/=(m o) { return *this *= o.pwr(o, MOD - 2); }
+    m &operator^=(ll e) { return *this = pwr(*this, e); }
+    friend m operator-(m a, m b) { return a -= b; }
+    friend m operator+(m a, m b) { return a += b; }
+    friend m operator*(m a, m b) { return a *= b; }
+    friend m operator/(m a, m b) { return a /= b; }
     friend m operator^(m a, ll e) { return a.pwr(a, e); }
 };
 
 const int MOD = 998244353;
-using mint = Mint<MOD>;\end{lstlisting}
+using mint = Mint<MOD>;
+\end{lstlisting}
 \hfill
 
 \section{Ponto 2D}
@@ -6246,6 +6956,141 @@ vector<pt> convex_hull(vector<pt> v, bool include_collinear = 0) {
 %%%%%%
 
 \chapter{Matemática}
+
+\section{Convolução}
+\subsection{AND Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ onde $C[i] = \sum_{\substack{(j \land k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$.
+
+
+
+Obs: $\land$ representa o bitwise and.
+
+\hfill
+
+Codigo: and\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> and_convolution(vector<mint> A, vector<mint> B) {
+    int n = (int)max(A.size(), B.size());
+    int N = 0, two = 1;
+    while (two < n) two <<= 1, N++;
+    A.resize(1 << N);
+    B.resize(1 << N);
+    vector<mint> C(1 << N);
+    for (int j = 0; j < N; j++) {
+        for (int i = (1 << N) - 1; i >= 0; i--) {
+            if (~i >> j & 1) {
+                A[i] += A[i | (1 << j)];
+                B[i] += B[i | (1 << j)];
+            }
+        }
+    }
+    for (int i = 0; i < 1 << N; i++) C[i] = A[i] * B[i];
+    for (int j = 0; j < N; j++) {
+        for (int i = 0; i < 1 << N; i++)
+            if (~i >> j & 1) C[i] -= C[i | (1 << j)];
+    }
+    return C;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{GCD Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ onde $C[i] = \sum_{\substack{gcd(j, k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$.
+
+\hfill
+
+Codigo: gcd\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> gcd_convolution(vector<mint> A, vector<mint> B) {
+    int N = (int)max(A.size(), B.size());
+    A.resize(N + 1);
+    B.resize(N + 1);
+    vector<mint> C(N + 1);
+    for (int i = 1; i <= N; i++) {
+        mint a = 0;
+        mint b = 0;
+        for (int j = i; j <= N; j += i) {
+            a += A[j];
+            b += B[j];
+        }
+        C[i] = a * b;
+    }
+    for (int i = N; i >= 1; i--)
+        for (int j = 2 * i; j <= N; j += i) C[i] -= C[j];
+    return C;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{LCM Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ $C[i] = \sum_{\substack{lcm(j, k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$.
+
+\hfill
+
+Codigo: lcm\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> lcm_convolution(vector<mint> A, vector<mint> B) {
+    int N = (int)max(A.size(), B.size());
+    A.resize(N + 1);
+    B.resize(N + 1);
+    vector<mint> C(N + 1), a(N + 1), b(N + 1);
+    for (int i = 1; i <= N; i++) {
+        for (int j = i; j <= N; j += i) {
+            a[j] += A[i];
+            b[j] += B[i];
+        }
+        C[i] = a[i] * b[i];
+    }
+    for (int i = 1; i <= N; i++)
+        for (int j = 2 * i; j <= N; j += i) C[j] -= C[i];
+    return C;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{OR Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ tal que $C[i] = \sum_{\substack{(j \| k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$
+
+\hfill
+
+Codigo: or\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> or_convolution(vector<mint> A, vector<mint> B) {
+    int n = (int)max(A.size(), B.size());
+    int N = 0, two = 1;
+    while (two < n) two <<= 1, N++;
+    A.resize(1 << N);
+    B.resize(1 << N);
+    vector<mint> C(1 << N);
+    for (int j = 0; j < N; j++) {
+        for (int i = 0; i < 1 << N; i++) {
+            if (i >> j & 1) {
+                A[i] += A[i ^ (1 << j)];
+                B[i] += B[i ^ (1 << j)];
+            }
+        }
+    }
+    for (int i = 0; i < 1 << N; i++) C[i] = A[i] * B[i];
+    for (int j = N - 1; j >= 0; j--) {
+        for (int i = (1 << N) - 1; i >= 0; i--)
+            if (i >> j & 1) C[i] -= C[i ^ (1 << j)];
+    }
+    return C;
+}
+\end{lstlisting}
+\hfill
 
 \section{Eliminação Gaussiana}
 \subsection{Gauss}
@@ -6475,7 +7320,7 @@ void fft(poly &a, bool inv = 0) {
 }
 
 vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
-    int n = int(ta.size()), m = int(tb.size());
+    int n = (int)ta.size(), m = (int)tb.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 
@@ -6736,25 +7581,44 @@ vector<ll> factorize(ll x) {
 
 Algoritmo de Pollard Rho. A função \texttt{PollardRho::rho(X)} retorna um fator não trivial de $X$. Um fator não trivial é um fator que não é $1$ nem $X$. A complexidade esperada do algoritmo no pior caso é $\mathcal{O}(\sqrt[4]{X})$ (geralmente é mais rápido que isso).
 
+
+
+\textbf{Obs}: cuidado para não passar um número primo ou o número $1$ para a função \texttt{rho}, o comportamente é indefinido (provavelmente entra em loop e não retorna nunca).
+
 \hfill
 
 Codigo: pollard\_rho.cpp
 
 \begin{lstlisting}[language=C++]
 namespace PollardRho {
-    ll mod_mul(ll a, ll b, ll m) { return (ll)((__int128)a * b % m); }
+    mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
+    const ll P = 1e6 + 1;
+    ll seq[P];
+    inline ll add_mod(ll x, ll y, ll m) { return (x += y) < m ? x : x - m; }
+    inline ll mul_mod(ll a, ll b, ll m) { return (ll)((__int128)a * b % m); }
     ll rho(ll n) {
-        auto f = [n](ll x) { return mod_mul(x, x, n) + 1; };
-        ll x = 0, y = 0, t = 30, prd = 2, i = 1, q;
-        while (t++ % 40 || gcd(prd, n) == 1) {
-            if (x == y) x = ++i, y = f(x);
-            if ((q = mod_mul(prd, max(x, y) - min(x, y), n))) prd = q;
-            x = f(x), y = f(f(y));
+        if (n % 2 == 0) return 2;
+        if (n % 3 == 0) return 3;
+        ll x0 = rng() % n, c = rng() % n;
+        while (1) {
+            ll x = x0++, y = x, u = 1, v, t = 0;
+            ll *px = seq, *py = seq;
+            while (1) {
+                *py++ = y = add_mod(mul_mod(y, y, n), c, n);
+                *py++ = y = add_mod(mul_mod(y, y, n), c, n);
+                if ((x = *px++) == y) break;
+                v = u;
+                u = mul_mod(u, abs(y - x), n);
+                if (!u) return gcd(v, n);
+                if (++t == 32) {
+                    t = 0;
+                    if ((u = gcd(u, n)) > 1 && u < n) return u;
+                }
+            }
+            if (t && (u = gcd(u, n)) > 1 && u < n) return u;
         }
-        return gcd(prd, n);
     }
-}
-\end{lstlisting}
+}\end{lstlisting}
 \hfill
 
 \subsection{Teste Primalidade}
@@ -7165,7 +8029,7 @@ void ntt(poly &a, bool inv = 0) {
     int root_len = len_ntt; // change according to MOD
 
     while (root_len > n) {
-        root = root * root;
+        root *= root;
         root_len >>= 1;
     }
 
@@ -7186,12 +8050,12 @@ void ntt(poly &a, bool inv = 0) {
     }
     if (inv) {
         mint invn = mint(1) / n;
-        for (int i = 0; i < n; i++) a[i] = a[i] * invn;
+        for (int i = 0; i < n; i++) a[i] *= invn;
     }
 }
 
 vector<int> multiply(vector<int> &ta, vector<int> &tb) {
-    int n = int(ta.size()), m = int(tb.size());
+    int n = (int)ta.size(), m = (int)tb.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 
@@ -7338,6 +8202,101 @@ int phi(int n) {
     if (n > 1) result -= result / n;
     return result;
 }
+\end{lstlisting}
+\hfill
+
+\section{XOR Gauss}
+
+
+Mantém uma base num espaço vetorial de $L$ dimensões sobre $\mathbb{Z}_2$. Permite adicionar um vetor $v$ à base em $\mathcal{O}(L)$ e verificar se um vetor $v$ é representável pela base em $\mathcal{O}(L)$.
+
+
+
+Em termos mais simples, dados $n$ inteiros, podemos adicionar cada um deles à base e isso nos dará uma base que consegue representar todos os XORs possíveis entre esses inteiros.
+
+
+
+Também acha o k-ésimo menor vetor representável pela base em $\mathcal{O}(L)$, ou o k-ésimo maior vetor representável pela base em $\mathcal{O}(L)$.
+
+
+
+Informações relevantes:
+
+
+
+\begin{itemize}
+\item $\text{rank}$ de uma base é o número de vetores que ela contém. No código é a variável \texttt{R}.
+\item Uma base consegue criar $2^{\text{rank}}$ vetores diferentes, ou seja, se criarmos uma base com base em um vetor de tamanho $n$, dentre todos os $2^n$ subsets possíveis, existem exatamente $2^{\text{rank}}$ XORs diferentes.
+\item Se uma base for criada a partir de um vetor de tamanho $n$, cada XOR possível feito por um subset desse vetor pode ser criado de exatamente $2^{n - \text{rank}}$ formas diferentes.
+\end{itemize}
+
+
+
+Os métodos são:
+
+
+
+\begin{itemize}
+\item \texttt{reduce}: recebe um número $x$ (será tratado como um vetor no espaço vetorial) e subtrai os vetores já existentes na base que estão presentes em $x$. Sendo assim, se ao final do \texttt{reduce}, $x$ for diferente de zero, ele não é representável por uma combinação linear dos vetores da base, se for zero, ele é representável.
+\item \texttt{insert}: insere um vetor na base, se ele não for representável. No caso, o vetor inserido ao tentar inserir um valor $x$ na base, será o \texttt{reduce} de $x$.
+\item \texttt{kth\_greatest}: retorna o k-ésimo maior vetor representável pela base.
+\item \texttt{kth\_smallest}: retorna o k-ésimo menor vetor não representável pela base.
+\end{itemize}
+
+
+
+Todos os métodos são $\mathcal{O}(L)$.
+\hfill
+
+Codigo: xor\_gauss.cpp
+
+\begin{lstlisting}[language=C++]
+const int L = 60;
+struct Basis {
+    ll B[L], R, last_bit;
+    Basis() { memset(B, 0, sizeof B), R = 0; }
+    ll reduce(ll x) {
+        for (int i = L - 1; i >= 0; i--) {
+            if ((x >> i) & 1) {
+                if (B[i] != 0) {
+                    x ^= B[i];
+                } else {
+                    last_bit = i;
+                    return x;
+                }
+            }
+        }
+        // assert(x == 0);
+        return 0;
+    }
+    bool insert(ll x) {
+        x = reduce(x);
+        if (x > 0) {
+            R++;
+            B[last_bit] = x;
+            return true;
+        }
+        return false;
+    }
+    ll kth_smallest(ll k) {
+        ll ans = 0;
+        ll half = 1LL << (R - 1);
+        for (int i = L - 1; i >= 0; i--) {
+            if (B[i] != 0) {
+                if ((ans >> i) & 1) {
+                    if (k > half) k -= half;
+                    else ans ^= B[i];
+                } else if (k > half) {
+                    ans ^= B[i];
+                    k -= half;
+                }
+                half >>= 1;
+            }
+        }
+        return ans;
+    }
+    ll kth_greatest(ll k) { return kth_smallest((1LL << R) - k + 1); }
+};
 \end{lstlisting}
 \hfill
 

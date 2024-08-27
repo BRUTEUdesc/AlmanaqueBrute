@@ -284,7 +284,9 @@ if __name__ == "__main__":
     clean = True
 
     if Path("LaTeX/Almanaque.tex").exists():
-        os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+        ok = os.system("rubber --pdf --inplace LaTeX/Almanaque.tex")
+        if (ok != 0):
+            raise Exception("Erro ao compilar o arquivo LaTeX/Almanaque.tex")
     else:
         raise Exception("Arquivo LaTeX/Almanaque.tex não encontrado.")
 

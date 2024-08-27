@@ -14,13 +14,11 @@ struct Dinic {
     int n, s, t, m = 0;
     vector<int> level, ptr;
     queue<int> q;
-
     Dinic(int n, int s, int t) : n(n), s(s), t(t) {
         adj.resize(n);
         level.resize(n);
         ptr.resize(n);
     }
-
     void add_edge(int u, int v, ll cap) {
         edges.emplace_back(u, v, cap);
         edges.emplace_back(v, u, 0);
@@ -28,7 +26,6 @@ struct Dinic {
         adj[v].push_back(m + 1);
         m += 2;
     }
-
     bool bfs() {
         while (!q.empty()) {
             int u = q.front();
@@ -43,7 +40,6 @@ struct Dinic {
         }
         return level[t] != -1;
     }
-
     ll dfs(int u, ll f) {
         if (f == 0) return 0;
         if (u == t) return f;
@@ -59,7 +55,6 @@ struct Dinic {
         }
         return 0;
     }
-
     ll flow() {
         ll maxflow = 0;
         while (true) {
@@ -71,5 +66,23 @@ struct Dinic {
             while (ll f = dfs(s, INF)) maxflow += f;
         }
         return maxflow;
+    }
+    void min_cut() {
+        vector<bool> vis(n);
+        function<void(int)> dfs = [&](int u) {
+            vis[u] = 1;
+            for (int id : adj[u]) {
+                int v = edges[id].v;
+                if (!vis[v] && edges[id].cap - edges[id].flow > 0) dfs(v);
+            }
+        };
+        dfs(s);
+        for (int id = 0; id < (int)edges.size(); id++) {
+            auto [u, v, cap, flow] = edges[id];
+            if (vis[u] ^ vis[v] && cap > 0) {
+                // this edge is in the min cut
+                // do something here
+            }
+        }
     }
 };

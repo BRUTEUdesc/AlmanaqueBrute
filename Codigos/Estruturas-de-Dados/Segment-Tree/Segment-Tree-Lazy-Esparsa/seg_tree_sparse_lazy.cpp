@@ -16,12 +16,12 @@ struct SegTree {
         return (int)t.size() - 1;
     }
 
-    inline int le(int p) {
+    inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
 
-    inline int ri(int p) {
+    inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
@@ -32,16 +32,16 @@ struct SegTree {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(p)] = lazy[p];
-                lazy[ri(p)] = lazy[p];
-                replace[le(p)] = replace[p];
-                replace[ri(p)] = replace[p];
+                lazy[lc(p)] = lazy[p];
+                lazy[rc(p)] = lazy[p];
+                replace[lc(p)] = true;
+                replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1);
             if (l != r) {
-                lazy[le(p)] += lazy[p];
-                lazy[ri(p)] += lazy[p];
+                lazy[lc(p)] += lazy[p];
+                lazy[rc(p)] += lazy[p];
             }
         }
         replace[p] = false;
@@ -53,8 +53,8 @@ struct SegTree {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
-        auto ql = query(le(p), l, mid, L, R);
-        auto qr = query(ri(p), mid + 1, r, L, R);
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
@@ -68,12 +68,11 @@ struct SegTree {
             push(p, l, r);
         } else {
             ll mid = l + (r - l) / 2;
-            update(le(p), l, mid, L, R, val, repl);
-            update(ri(p), mid + 1, r, L, R, val, repl);
-            t[p] = merge(t[le(p)], t[ri(p)]);
+            update(lc(p), l, mid, L, R, val, repl);
+            update(rc(p), mid + 1, r, L, R, val, repl);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(ll l, ll r, ll val, bool repl = false) {
-        update(0, MINL, MAXR, l, r, val, repl);
-    }
+    void sumUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 0); }
+    void assignUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 1); }
 };

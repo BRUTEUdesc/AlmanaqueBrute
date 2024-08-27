@@ -96,6 +96,8 @@ python3 .github/scripts/pdfer.py
 
 - [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
 
+- [Implicit Treap](Codigos/Estruturas-de-Dados/Implicit-Treap)
+
 - [Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree)
 
 	- [Fenwick](Codigos/Estruturas-de-Dados/Fenwick-Tree/Fenwick)
@@ -103,6 +105,8 @@ python3 .github/scripts/pdfer.py
 	- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree/Kd-Fenwick-Tree)
 
 - [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
+
+- [Treap](Codigos/Estruturas-de-Dados/Treap)
 
 - [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
 
@@ -127,6 +131,12 @@ python3 .github/scripts/pdfer.py
 - [Centro e Diametro](Codigos/Grafos/Centro-e-Diametro)
 
 - [Virtual Tree](Codigos/Grafos/Virtual-Tree)
+
+- [Ciclos](Codigos/Grafos/Ciclos)
+
+	- [Find Negative Cycle](Codigos/Grafos/Ciclos/Find-Negative-Cycle)
+
+	- [Find Cycle](Codigos/Grafos/Ciclos/Find-Cycle)
 
 - [Pontos de Articulacao](Codigos/Grafos/Pontos-de-Articulacao)
 
@@ -158,6 +168,12 @@ python3 .github/scripts/pdfer.py
 
 	- [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
 
+- [Caminho Euleriano](Codigos/Grafos/Caminho-Euleriano)
+
+	- [Caminho Euleriano Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Direcionado)
+
+	- [Caminho Euleriano Nao Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Nao-Direcionado)
+
 - [Binary Lifting](Codigos/Grafos/Binary-Lifting)
 
 	- [Binary Lifting Query Aresta](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-Aresta)
@@ -172,9 +188,15 @@ python3 .github/scripts/pdfer.py
 
 - [Pontes](Codigos/Grafos/Pontes)
 
+	- [Componentes Aresta Biconexas](Codigos/Grafos/Pontes/Componentes-Aresta-Biconexas)
+
+	- [Pontes](Codigos/Grafos/Pontes/Pontes)
+
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
 
 - [2 SAT](Codigos/Grafos/2-SAT)
+
+- [Kosaraju](Codigos/Grafos/Kosaraju)
 
 ### [Extra](Codigos/Extra)
 
@@ -268,6 +290,8 @@ python3 .github/scripts/pdfer.py
 
 	- [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
 
+- [XOR Gauss](Codigos/Matemática/XOR-Gauss)
+
 - [GCD](Codigos/Matemática/GCD)
 
 - [Fatoração e Primos](Codigos/Matemática/Fatoração-e-Primos)
@@ -305,6 +329,16 @@ python3 .github/scripts/pdfer.py
 - [Floor Values](Codigos/Matemática/Floor-Values)
 
 - [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
+
+- [Convolução](Codigos/Matemática/Convolução)
+
+	- [OR Convolution](Codigos/Matemática/Convolução/OR-Convolution)
+
+	- [AND Convolution](Codigos/Matemática/Convolução/AND-Convolution)
+
+	- [LCM Convolution](Codigos/Matemática/Convolução/LCM-Convolution)
+
+	- [GCD Convolution](Codigos/Matemática/Convolução/GCD-Convolution)
 
 - [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
 
