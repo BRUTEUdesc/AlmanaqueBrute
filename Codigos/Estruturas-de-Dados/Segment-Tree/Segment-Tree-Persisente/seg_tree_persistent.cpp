@@ -54,11 +54,4 @@ struct SegTree {
         roots.push_back(new_root);
         return roots.back();
     }
-    int copy_root(int root) {
-        int new_root = newnode();
-        Lc[new_root] = lc(root);
-        Rc[new_root] = rc(root);
-        roots.push_back(new_root);
-        return roots.back();
-    }
 } seg;
