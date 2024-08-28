@@ -14,13 +14,10 @@ struct suffix_array {
             counting_sort(k);
             counting_sort(0);
             auxra[sa[0]] = r = 0;
-            for (int i = 1; i < n; i++) {
-                if (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k]) {
+            for (int i = 1; i < n; i++)
+                if (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k])
                     auxra[sa[i]] = r;
-                } else {
-                    auxra[sa[i]] = ++r;
-                }
-            }
+                else auxra[sa[i]] = ++r;
             for (int i = 0; i < n; i++) ra[i] = auxra[i];
             if (ra[sa[n - 1]] == n - 1) break;
         }
@@ -39,9 +36,9 @@ struct suffix_array {
         for (int i = 0; i < n; i++) ra[i] = s[i], sa[i] = i;
         build_sa();
         build_lcp();
-        //for (int i = 0; i < n; i++)
-        //printf("%2d: %s\n", sa[i], s.c_str() +
-        //sa[i]);
+        // for (int i = 0; i < n; i++)
+        // printf("%2d: %s\n", sa[i], s.c_str() +
+        // sa[i]);
     }
     int operator[](int i) { return sa[i]; }
 } sa;
