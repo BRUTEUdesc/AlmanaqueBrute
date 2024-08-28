@@ -29,7 +29,6 @@ struct SegTree {
     }
     ll query(ll l, ll r, int root = -1) {
         if (root == -1) root = roots.back();
-        debug(root, MINL, MAXR, l, r);
         return query(root, MINL, MAXR, l, r);
     }
     void update(int p, int old, ll l, ll r, ll i, ll x) {
