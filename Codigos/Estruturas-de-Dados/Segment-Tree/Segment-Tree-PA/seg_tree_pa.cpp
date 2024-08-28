@@ -1,4 +1,5 @@
 struct SegTree {
+    using ii = pair<ll, ll>;
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
     int n;
@@ -66,5 +67,5 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void update(int l, int r, ii pa) { update(1, 0, n - 1, l, r, pa); }
+    void update(int l, int r, ll a0, ll d) { update(1, 0, n - 1, l, r, ii(a0, d)); }
 } seg;
