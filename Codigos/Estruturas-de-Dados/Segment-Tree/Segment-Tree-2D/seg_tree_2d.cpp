@@ -1,63 +1,48 @@
-const int MAX = 2505;
-
-int n, m, mat[MAX][MAX], tree[4 * MAX][4 * MAX];
-
-int lc(int x) { return 2 * x + 1; }
-int rc(int x) { return 2 * x + 2; }
-
-void build_y(int nx, int lx, int rx, int ny, int ly, int ry) {
-    if (ly == ry) {
-        if (lx == rx) tree[nx][ny] = mat[lx][ly];
-        else tree[nx][ny] = tree[lc(nx)][ny] + tree[rc(nx)][ny];
-    } else {
-        int my = (ly + ry) / 2;
-        build_y(nx, lx, rx, lc(ny), ly, my);
-        build_y(nx, lx, rx, rc(ny), my + 1, ry);
-        tree[nx][ny] = tree[nx][lc(ny)] + tree[nx][rc(ny)];
+struct SegTree2D {
+    ll merge(ll a, ll b) { return a + b; }
+    ll neutral = 0;
+    int n, m;
+    vector<vector<ll>> t;
+    void build(int _n, int _m) {
+        n = _n, m = _m;
+        t.assign(2 * n, vector<ll>(2 * m, neutral));
+        for (int i = 2 * n - 1; i >= n; i--)
+            for (int j = m - 1; j > 0; j--)
+                t[i][j] = merge(t[i][j << 1], t[i][j << 1 | 1]);
+        for (int i = n - 1; i > 0; i--)
+            for (int j = 2 * m - 1; j > 0; j--)
+                t[i][j] = merge(t[i << 1][j], t[i << 1 | 1][j]);
     }
-}
-void build_x(int nx, int lx, int rx) {
-    if (lx != rx) {
-        int mx = (lx + rx) / 2;
-        build_x(lc(nx), lx, mx);
-        build_x(rc(nx), mx + 1, rx);
+    ll inner_query(int idx, int l, int r) {
+        ll res = neutral;
+        for (l += m, r += m + 1; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) res = merge(res, t[idx][l++]);
+            if (r & 1) res = merge(res, t[idx][--r]);
+        }
+        return res;
     }
-    build_y(nx, lx, rx, 0, 0, m - 1);
-}
-void build() { build_x(0, 0, n - 1); }
-
-void update_y(int nx, int lx, int rx, int ny, int ly, int ry, int x, int y, int v) {
-    if (ly == ry) {
-        if (lx == rx) tree[nx][ny] = v;
-        else tree[nx][ny] = tree[lc(nx)][ny] + tree[rc(nx)][ny];
-    } else {
-        int my = (ly + ry) / 2;
-        if (y <= my) update_y(nx, lx, rx, lc(ny), ly, my, x, y, v);
-        else update_y(nx, lx, rx, rc(ny), my + 1, ry, x, y, v);
-        tree[nx][ny] = tree[nx][lc(ny)] + tree[nx][rc(ny)];
+    ll query(int a, int b, int c, int d) {
+        ll res = neutral;
+        for (a += n, c += n + 1; a < c; a >>= 1, c >>= 1) {
+            ll tr = neutral;
+            if (a & 1) tr = merge(tr, inner_query(a++, b, d));
+            if (c & 1) tr = merge(tr, inner_query(--c, b, d));
+            res = merge(res, tr);
+        }
+        return res;
     }
-}
-void update_x(int nx, int lx, int rx, int x, int y, int v) {
-    if (lx != rx) {
-        int mx = (lx + rx) / 2;
-        if (x <= mx) update_x(lc(nx), lx, mx, x, y, v);
-        else update_x(rc(nx), mx + 1, rx, x, y, v);
+    void inner_update(int idx, int i, ll x) {
+        auto &c = t[idx];
+        i += m;
+        c[i] = x;
+        for (i >>= 1; i > 0; i >>= 1) c[i] = merge(c[i << 1], c[i << 1 | 1]);
     }
-    update_y(nx, lx, rx, 0, 0, m - 1, x, y, v);
-}
-void update(int x, int y, int v) { update_x(0, 0, n - 1, x, y, v); }
-
-int sum_y(int nx, int ny, int ly, int ry, int qly, int qry) {
-    if (ry < qly || ly > qry) return 0;
-    if (qly <= ly && ry <= qry) return tree[nx][ny];
-    int my = (ly + ry) / 2;
-    return sum_y(nx, lc(ny), ly, my, qly, qry) + sum_y(nx, rc(ny), my + 1, ry, qly, qry);
-}
-int sum_x(int nx, int lx, int rx, int qlx, int qrx, int qly, int qry) {
-    if (rx < qlx || lx > qrx) return 0;
-    if (qlx <= lx && rx <= qrx) return sum_y(nx, 0, 0, m - 1, qly, qry);
-    int mx = (lx + rx) / 2;
-    return sum_x(lc(nx), lx, mx, qlx, qrx, qly, qry) +
-           sum_x(rc(nx), mx + 1, rx, qlx, qrx, qly, qry);
-}
-int sum(int lx, int rx, int ly, int ry) { return sum_x(0, 0, n - 1, lx, rx, ly, ry); }
+    void update(int i, int j, ll x) {
+        i += n;
+        inner_update(i, j, x);
+        for (i >>= 1; i > 0; i >>= 1) {
+            ll val = merge(t[i << 1][j + m], t[i << 1 | 1][j + m]);
+            inner_update(i, j, val);
+        }
+    }
+} seg;
