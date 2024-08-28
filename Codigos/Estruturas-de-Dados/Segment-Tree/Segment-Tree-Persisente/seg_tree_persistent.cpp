@@ -1,4 +1,4 @@
-template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5>
+const ll MINL = (ll)-1e9 - 5, MAXR = (ll)1e9 + 5;
 struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
