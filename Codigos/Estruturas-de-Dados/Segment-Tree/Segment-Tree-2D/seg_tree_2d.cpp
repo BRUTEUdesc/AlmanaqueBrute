@@ -24,10 +24,8 @@ struct SegTree2D {
     ll query(int a, int b, int c, int d) {
         ll res = neutral;
         for (a += n, c += n + 1; a < c; a >>= 1, c >>= 1) {
-            ll tr = neutral;
-            if (a & 1) tr = merge(tr, inner_query(a++, b, d));
-            if (c & 1) tr = merge(tr, inner_query(--c, b, d));
-            res = merge(res, tr);
+            if (a & 1) res = merge(res, inner_query(a++, b, d));
+            if (c & 1) res = merge(res, inner_query(--c, b, d));
         }
         return res;
     }
