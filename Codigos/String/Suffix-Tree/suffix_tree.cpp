@@ -68,12 +68,8 @@ struct SuffixTree {
             len[i] = lnk[i] = cnt[i] = 0;
         }
         id = 2;
-        for (int i = n - 1; i >= 0; i--) {
-            insert(i, s[i]);
-        }
-        for (int i = 2; i < id; i++) {
-            adj[lnk[i]].push_back(i);
-        }
+        for (int i = n - 1; i >= 0; i--) insert(i, s[i]);
+        for (int i = 2; i < id; i++) adj[lnk[i]].push_back(i);
         dfs(1);
     }
 
