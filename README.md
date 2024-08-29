@@ -78,6 +78,12 @@ python3 .github/scripts/pdfer.py
 
 	- [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
 
+	- [Segment Tree Beats](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats)
+
+	- [Segment Tree PA](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-PA)
+
+	- [Segment Tree Iterativa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Iterativa)
+
 	- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
 
 	- [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
@@ -85,10 +91,6 @@ python3 .github/scripts/pdfer.py
 	- [Segment Tree Kadane](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadane)
 
 	- [Segment Tree Lazy Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy-Esparsa)
-
-	- [Segment Tree Beats Max And Sum Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-And-Sum-Update)
-
-	- [Segment Tree Beats Max Update](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats-Max-Update)
 
 	- [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
 
@@ -127,6 +129,8 @@ python3 .github/scripts/pdfer.py
 - [Matching](Codigos/Grafos/Matching)
 
 	- [Hungaro](Codigos/Grafos/Matching/Hungaro)
+
+- [Block Cut Tree](Codigos/Grafos/Block-Cut-Tree)
 
 - [Centro e Diametro](Codigos/Grafos/Centro-e-Diametro)
 
@@ -234,6 +238,8 @@ python3 .github/scripts/pdfer.py
 
 - [Trie](Codigos/String/Trie)
 
+- [Suffix Tree](Codigos/String/Suffix-Tree)
+
 - [Manacher](Codigos/String/Manacher)
 
 - [Suffix Automaton](Codigos/String/Suffix-Automaton)
@@ -282,7 +288,7 @@ python3 .github/scripts/pdfer.py
 
 	- [NTT](Codigos/Matemática/NTT/NTT)
 
-	- [NTT Big Mod](Codigos/Matemática/NTT/NTT-Big-Mod)
+	- [NTT Big Modulo](Codigos/Matemática/NTT/NTT-Big-Modulo)
 
 - [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
 
@@ -334,9 +340,13 @@ python3 .github/scripts/pdfer.py
 
 	- [OR Convolution](Codigos/Matemática/Convolução/OR-Convolution)
 
+	- [Subset Convolution](Codigos/Matemática/Convolução/Subset-Convolution)
+
 	- [AND Convolution](Codigos/Matemática/Convolução/AND-Convolution)
 
 	- [LCM Convolution](Codigos/Matemática/Convolução/LCM-Convolution)
+
+	- [XOR Convolution](Codigos/Matemática/Convolução/XOR-Convolution)
 
 	- [GCD Convolution](Codigos/Matemática/Convolução/GCD-Convolution)
 

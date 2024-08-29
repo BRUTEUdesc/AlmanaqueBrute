@@ -1005,11 +1005,13 @@ Template de arquivo \texttt{.vimrc} para configuração do Vim.
 Codigo: vimrc
 
 \begin{lstlisting}[language=C++]
-set nu ai si cindent et ts=4 sw=4 so=10 nosm
+set nu ai si cindent et ts=4 sw=4 so=10 nosm undofile
 
-inoremap {} {}<left><return><up><end><return> " remap pra chaves
+inoremap {} {}<left><return><up><end><return>
+" remap de chaves
 
-au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif " volta pro lugar onde estava quando saiu do arquivo
+au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" volta pro lugar onde estava quando saiu do arquivo
 \end{lstlisting}
 \hfill
 
@@ -2040,11 +2042,12 @@ using ordered_map = tree<T, U, less<T>, rb_tree_tag, tree_order_statistics_node_
 \subsection{Segment Tree}
 
 
-Implementação padrão de Segment Tree, suporta operações de consulta em intervalo e update pontual. Está implementada para soma, mas pode ser facilmente modificada para outras operações. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(\log n )$.
+Implementação padrão de Segment Tree, suporta operações de consulta em intervalo e update pontual. Está implementada para soma, mas pode ser facilmente modificada para outras operações. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(\log n)$.
 
 
 
 \textbf{Dica}: A Seg Tree usa $4 \cdot n$ de memória pois cada nodo $p$ tem seus filhos $2 \cdot p$ (filho esquerdo) e $2 \cdot p + 1$ (filho direito). Há uma forma de indexar os nodos que usa $2 \cdot n$ de memória. Dado um nodo $p$ que representa o intervalo $[l, r]$, seu filho esquerdo é $p+1$ (e representa o intervalo $[l, mid]$) e seu filho direito é $p+2 \cdot (mid-l+1)$ (e representa o intervalo $[mid+1, r]$), onde $mid = (l+r)/2$.
+
 \hfill
 
 Codigo: seg\_tree.cpp
@@ -2053,13 +2056,10 @@ Codigo: seg\_tree.cpp
 struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
-
     inline int lc(int p) { return p * 2; }
     inline int rc(int p) { return p * 2 + 1; }
-
     int n;
     vector<ll> t;
-
     void build(int p, int l, int r, const vector<ll> &v) {
         if (l == r) {
             t[p] = v[l];
@@ -2070,21 +2070,18 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-
     void build(int _n) { // pra construir com tamanho, mas vazia
         n = _n;
         t.assign(n * 4, neutral);
     }
-
     void build(const vector<ll> &v) { // pra construir com vector
-        n = int(v.size());
+        n = (int)v.size();
         t.assign(n * 4, neutral);
         build(1, 0, n - 1, v);
     }
     void build(ll *bg, ll *en) { // pra construir com array de C
         build(vector<ll>(bg, en));
     }
-
     ll query(int p, int l, int r, int L, int R) {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
@@ -2094,8 +2091,7 @@ struct SegTree {
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
-
-    void update(int p, int l, int r, int i, ll x, bool repl) {
+    void update(int p, int l, int r, int i, ll x, bool repl = 0) {
         if (l == r) {
             if (repl) t[p] = x; // substitui
             else t[p] += x;     // soma
@@ -2108,7 +2104,7 @@ struct SegTree {
     }
     void sumUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 0); }
     void assignUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 1); }
-};
+} seg;
 \end{lstlisting}
 \hfill
 
@@ -2121,315 +2117,225 @@ Segment Tree em 2 dimensões, suporta operações de update pontual e consulta e
 Codigo: seg\_tree\_2d.cpp
 
 \begin{lstlisting}[language=C++]
-const int MAX = 2505;
-
-int n, m, mat[MAX][MAX], tree[4 * MAX][4 * MAX];
-
-int le(int x) { return 2 * x + 1; }
-int ri(int x) { return 2 * x + 2; }
-
-void build_y(int nx, int lx, int rx, int ny, int ly, int ry) {
-    if (ly == ry) {
-        if (lx == rx) tree[nx][ny] = mat[lx][ly];
-        else tree[nx][ny] = tree[le(nx)][ny] + tree[ri(nx)][ny];
-    } else {
-        int my = (ly + ry) / 2;
-        build_y(nx, lx, rx, le(ny), ly, my);
-        build_y(nx, lx, rx, ri(ny), my + 1, ry);
-        tree[nx][ny] = tree[nx][le(ny)] + tree[nx][ri(ny)];
+struct SegTree2D {
+    ll merge(ll a, ll b) { return a + b; }
+    ll neutral = 0;
+    int n, m;
+    vector<vector<ll>> t;
+    void build(int _n, int _m) {
+        n = _n, m = _m;
+        t.assign(2 * n, vector<ll>(2 * m, neutral));
+        for (int i = 2 * n - 1; i >= n; i--)
+            for (int j = m - 1; j > 0; j--)
+                t[i][j] = merge(t[i][j << 1], t[i][j << 1 | 1]);
+        for (int i = n - 1; i > 0; i--)
+            for (int j = 2 * m - 1; j > 0; j--)
+                t[i][j] = merge(t[i << 1][j], t[i << 1 | 1][j]);
     }
-}
-void build_x(int nx, int lx, int rx) {
-    if (lx != rx) {
-        int mx = (lx + rx) / 2;
-        build_x(le(nx), lx, mx);
-        build_x(ri(nx), mx + 1, rx);
+    ll inner_query(int idx, int l, int r) {
+        ll res = neutral;
+        for (l += m, r += m + 1; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) res = merge(res, t[idx][l++]);
+            if (r & 1) res = merge(res, t[idx][--r]);
+        }
+        return res;
     }
-    build_y(nx, lx, rx, 0, 0, m - 1);
-}
-void build() { build_x(0, 0, n - 1); }
-
-void update_y(int nx, int lx, int rx, int ny, int ly, int ry, int x, int y, int v) {
-    if (ly == ry) {
-        if (lx == rx) tree[nx][ny] = v;
-        else tree[nx][ny] = tree[le(nx)][ny] + tree[ri(nx)][ny];
-    } else {
-        int my = (ly + ry) / 2;
-        if (y <= my) update_y(nx, lx, rx, le(ny), ly, my, x, y, v);
-        else update_y(nx, lx, rx, ri(ny), my + 1, ry, x, y, v);
-        tree[nx][ny] = tree[nx][le(ny)] + tree[nx][ri(ny)];
+    // query do ponto (a, b) ate o ponto (c, d), retorna neutro se a > c ou b > d
+    ll query(int a, int b, int c, int d) {
+        ll res = neutral;
+        for (a += n, c += n + 1; a < c; a >>= 1, c >>= 1) {
+            if (a & 1) res = merge(res, inner_query(a++, b, d));
+            if (c & 1) res = merge(res, inner_query(--c, b, d));
+        }
+        return res;
     }
-}
-void update_x(int nx, int lx, int rx, int x, int y, int v) {
-    if (lx != rx) {
-        int mx = (lx + rx) / 2;
-        if (x <= mx) update_x(le(nx), lx, mx, x, y, v);
-        else update_x(ri(nx), mx + 1, rx, x, y, v);
+    void inner_update(int idx, int i, ll x) {
+        auto &c = t[idx];
+        i += m;
+        c[i] = x;
+        for (i >>= 1; i > 0; i >>= 1) c[i] = merge(c[i << 1], c[i << 1 | 1]);
     }
-    update_y(nx, lx, rx, 0, 0, m - 1, x, y, v);
-}
-void update(int x, int y, int v) { update_x(0, 0, n - 1, x, y, v); }
-
-int sum_y(int nx, int ny, int ly, int ry, int qly, int qry) {
-    if (ry < qly || ly > qry) return 0;
-    if (qly <= ly && ry <= qry) return tree[nx][ny];
-    int my = (ly + ry) / 2;
-    return sum_y(nx, le(ny), ly, my, qly, qry) + sum_y(nx, ri(ny), my + 1, ry, qly, qry);
-}
-int sum_x(int nx, int lx, int rx, int qlx, int qrx, int qly, int qry) {
-    if (rx < qlx || lx > qrx) return 0;
-    if (qlx <= lx && rx <= qrx) return sum_y(nx, 0, 0, m - 1, qly, qry);
-    int mx = (lx + rx) / 2;
-    return sum_x(le(nx), lx, mx, qlx, qrx, qly, qry) +
-           sum_x(ri(nx), mx + 1, rx, qlx, qrx, qly, qry);
-}
-int sum(int lx, int rx, int ly, int ry) { return sum_x(0, 0, n - 1, lx, rx, ly, ry); }
+    void update(int i, int j, ll x) {
+        i += n;
+        inner_update(i, j, x);
+        for (i >>= 1; i > 0; i >>= 1) {
+            ll val = merge(t[i << 1][j + m], t[i << 1 | 1][j + m]);
+            inner_update(i, j, val);
+        }
+    }
+} seg;
 \end{lstlisting}
 \hfill
 
-\subsection{Segment Tree Beats Max And Sum Update}
+\subsection{Segment Tree Beats}
 
 
-Segment Tree que suporta update de maximo, update de soma e query de soma. Utiliza uma fila de lazy para diferenciar os updates. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(\log n)$.
-\hfill
-
-Codigo: seg\_tree\_beats\_max\_and\_sum\_update.cpp
-
-\begin{lstlisting}[language=C++]
-#include <bits/stdc++.h>
-using namespace std;
-
-#define ll long long
-#define INF 1e9
-#define fi first
-#define se second
-
-typedef pair<int, int> ii;
-
-struct Node {
-    int m1 = INF, m2 = INF, cont = 0;
-    ll soma = 0;
-    queue<ii> lazy;
-
-    void set(int v) {
-        m1 = v;
-        cont = 1;
-        soma = v;
-    }
-
-    void merge(Node a, Node b) {
-        m1 = min(a.m1, b.m1);
-        m2 = INF;
-        if (a.m1 != b.m1) m2 = min(m2, max(a.m1, b.m1));
-        if (a.m2 != m1) m2 = min(m2, a.m2);
-        if (b.m2 != m1) m2 = min(m2, b.m2);
-        cont = (a.m1 == m1 ? a.cont : 0) + (b.m1 == m1 ? b.cont : 0);
-        soma = a.soma + b.soma;
-    }
-
-    void print() { printf("%d %d %d %lld\n", m1, m2, cont, soma); }
-};
-
-int n, q;
-vector<Node> tree;
-
-int le(int n) { return 2 * n + 1; }
-int ri(int n) { return 2 * n + 2; }
-
-void push(int n, int esq, int dir) {
-    while (!tree[n].lazy.empty()) {
-        ii p = tree[n].lazy.front();
-        tree[n].lazy.pop();
-        int op = p.fi, v = p.se;
-        if (op == 0) {
-            if (v <= tree[n].m1) continue;
-            tree[n].soma += (ll)abs(tree[n].m1 - v) * tree[n].cont;
-            tree[n].m1 = v;
-            if (esq != dir) {
-                tree[le(n)].lazy.push({0, v});
-                tree[ri(n)].lazy.push({0, v});
-            }
-        } else if (op == 1) {
-            tree[n].soma += v * (dir - esq + 1);
-            tree[n].m1 += v;
-            tree[n].m2 += v;
-            if (esq != dir) {
-                tree[le(n)].lazy.push({1, v});
-                tree[ri(n)].lazy.push({1, v});
-            }
-        }
-    }
-}
-
-void build(int n, int esq, int dir, vector<int> &v) {
-    if (esq == dir) {
-        tree[n].set(v[esq]);
-    } else {
-        int mid = (esq + dir) / 2;
-        build(le(n), esq, mid, v);
-        build(ri(n), mid + 1, dir, v);
-        tree[n].merge(tree[le(n)], tree[ri(n)]);
-    }
-}
-void build(vector<int> &v) { build(0, 0, n - 1, v); }
-
-// ai = max(ai, mi) em [l, r]
-void update(int n, int esq, int dir, int l, int r, int mi) {
-    push(n, esq, dir);
-    if (esq > r || dir < l || mi <= tree[n].m1) return;
-    if (l <= esq && dir <= r && mi < tree[n].m2) {
-        tree[n].soma += (ll)abs(tree[n].m1 - mi) * tree[n].cont;
-        tree[n].m1 = mi;
-        if (esq != dir) {
-            tree[le(n)].lazy.push({0, mi});
-            tree[ri(n)].lazy.push({0, mi});
-        }
-    } else {
-        int mid = (esq + dir) / 2;
-        update(le(n), esq, mid, l, r, mi);
-        update(ri(n), mid + 1, dir, l, r, mi);
-        tree[n].merge(tree[le(n)], tree[ri(n)]);
-    }
-}
-void update(int l, int r, int mi) { update(0, 0, n - 1, l, r, mi); }
-
-// soma v em [l, r]
-void upsoma(int n, int esq, int dir, int l, int r, int v) {
-    push(n, esq, dir);
-    if (esq > r || dir < l) return;
-    if (l <= esq && dir <= r) {
-        tree[n].soma += v * (dir - esq + 1);
-        tree[n].m1 += v;
-        tree[n].m2 += v;
-        if (esq != dir) {
-            tree[le(n)].lazy.push({1, v});
-            tree[ri(n)].lazy.push({1, v});
-        }
-    } else {
-        int mid = (esq + dir) / 2;
-        upsoma(le(n), esq, mid, l, r, v);
-        upsoma(ri(n), mid + 1, dir, l, r, v);
-        tree[n].merge(tree[le(n)], tree[ri(n)]);
-    }
-}
-void upsoma(int l, int r, int v) { upsoma(0, 0, n - 1, l, r, v); }
-
-// soma de [l, r]
-int query(int n, int esq, int dir, int l, int r) {
-    push(n, esq, dir);
-    if (esq > r || dir < l) return 0;
-    if (l <= esq && dir <= r) return tree[n].soma;
-    int mid = (esq + dir) / 2;
-    return query(le(n), esq, mid, l, r) + query(ri(n), mid + 1, dir, l, r);
-}
-int query(int l, int r) { return query(0, 0, n - 1, l, r); }
-
-int main() {
-    cin >> n;
-    tree.assign(4 * n, Node());
-    build(v);
-}
-\end{lstlisting}
-\hfill
-
-\subsection{Segment Tree Beats Max Update}
+Segment Tree que suporta update de máximo em range, update de mínimo em range, update de soma em range, e query de soma em range. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(\log^2 n)$.
 
 
-Segment Tree que suporta update de maximo e query de soma. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(\log n)$.
+
+Update de máximo em um range $[L, R]$ passando um valor $X$, significa para cada $i$ tal que $L \le i \le R$, fazer a operação $a[i] = max(a[i], X)$. Update de mínimo é análogo.
+
+
+
+\textbf{Obs}: Se não usar o update de soma, a complexidade é das operações é $\mathcal{O}(\log n)$
 
 \hfill
 
 Codigo: seg\_tree\_beats.cpp
 
 \begin{lstlisting}[language=C++]
-#include <bits/stdc++.h>
-using namespace std;
-
-#define ll long long
-#define INF 1e9
-
-struct Node {
-    int m1 = INF, m2 = INF, cont = 0, lazy = 0;
-    ll soma = 0;
-
-    void set(int v) {
-        m1 = v;
-        cont = 1;
-        soma = v;
+const ll INF = 1e18;
+struct node {
+    ll mi, smi, mx, smx, sum, lazy;
+    int fmi, fmx;
+    node() {
+        mi = smi = INF;
+        mx = smx = -INF;
+        fmi = 0, fmx = 0, sum = 0, lazy = 0;
     }
-
-    void merge(Node a, Node b) {
-        m1 = min(a.m1, b.m1);
-        m2 = INF;
-        if (a.m1 != b.m1) m2 = min(m2, max(a.m1, b.m1));
-        if (a.m2 != m1) m2 = min(m2, a.m2);
-        if (b.m2 != m1) m2 = min(m2, b.m2);
-        cont = (a.m1 == m1 ? a.cont : 0) + (b.m1 == m1 ? b.cont : 0);
-        soma = a.soma + b.soma;
+    node(ll val) {
+        mi = mx = sum = val;
+        smi = INF, smx = -INF;
+        fmx = fmi = 1;
+        lazy = 0;
     }
-
-    void print() { printf("%d %d %d %lld %d\n", m1, m2, cont, soma, lazy); }
 };
 
-int n, q;
-vector<Node> tree;
-
-int le(int n) { return 2 * n + 1; }
-int ri(int n) { return 2 * n + 2; }
-
-void push(int n, int esq, int dir) {
-    if (tree[n].lazy <= tree[n].m1) return;
-    tree[n].soma += (ll)abs(tree[n].m1 - tree[n].lazy) * tree[n].cont;
-    tree[n].m1 = tree[n].lazy;
-    if (esq != dir) {
-        tree[le(n)].lazy = max(tree[le(n)].lazy, tree[n].lazy);
-        tree[ri(n)].lazy = max(tree[ri(n)].lazy, tree[n].lazy);
-    }
-    tree[n].lazy = 0;
-}
-
-void build(int n, int esq, int dir, vector<int> &v) {
-    if (esq == dir) {
-        tree[n].set(v[esq]);
+node operator+(node a, node b) {
+    node ret;
+    ret.sum = a.sum + b.sum;
+    if (a.mi == b.mi) {
+        ret.mi = a.mi;
+        ret.fmi = a.fmi + b.fmi;
+        ret.smi = min(a.smi, b.smi);
+    } else if (a.mi < b.mi) {
+        ret.mi = a.mi;
+        ret.fmi = a.fmi;
+        ret.smi = min(a.smi, b.mi);
     } else {
-        int mid = (esq + dir) / 2;
-        build(le(n), esq, mid, v);
-        build(ri(n), mid + 1, dir, v);
-        tree[n].merge(tree[le(n)], tree[ri(n)]);
+        ret.mi = b.mi;
+        ret.fmi = b.fmi;
+        ret.smi = min(b.smi, a.mi);
     }
-}
-void build(vector<int> &v) { build(0, 0, n - 1, v); }
-
-// ai = max(ai, mi) em [l, r]
-void update(int n, int esq, int dir, int l, int r, int mi) {
-    push(n, esq, dir);
-    if (esq > r || dir < l || mi <= tree[n].m1) return;
-    if (l <= esq && dir <= r && mi < tree[n].m2) {
-        tree[n].lazy = mi;
-        push(n, esq, dir);
+    if (a.mx == b.mx) {
+        ret.mx = a.mx;
+        ret.fmx = a.fmx + b.fmx;
+        ret.smx = max(a.smx, b.smx);
+    } else if (a.mx > b.mx) {
+        ret.mx = a.mx;
+        ret.fmx = a.fmx;
+        ret.smx = max(b.mx, a.smx);
     } else {
-        int mid = (esq + dir) / 2;
-        update(le(n), esq, mid, l, r, mi);
-        update(ri(n), mid + 1, dir, l, r, mi);
-        tree[n].merge(tree[le(n)], tree[ri(n)]);
+        ret.fmx = b.fmx;
+        ret.mx = b.mx;
+        ret.smx = max(a.mx, b.smx);
     }
+    return ret;
 }
-void update(int l, int r, int mi) { update(0, 0, n - 1, l, r, mi); }
 
-// soma de [l, r]
-int query(int n, int esq, int dir, int l, int r) {
-    push(n, esq, dir);
-    if (esq > r || dir < l) return 0;
-    if (l <= esq && dir <= r) return tree[n].soma;
-    int mid = (esq + dir) / 2;
-    return query(le(n), esq, mid, l, r) + query(ri(n), mid + 1, dir, l, r);
-}
-int query(int l, int r) { return query(0, 0, n - 1, l, r); }
+struct SegBeats {
+    vector<node> t;
+    int n;
+    void build(int _n) { // pra construir com tamanho, mas vazia
+        n = _n;
+        t.assign(n * 4, node());
+    }
+    void build(const vector<ll> &v) { // pra construir com vector
+        n = (int)v.size();
+        t.assign(n * 4, node());
+        build(1, 0, n - 1, v);
+    }
+    void build(ll *bg, ll *en) { // pra construir com array de C
+        build(vector<ll>(bg, en));
+    }
+    inline int lc(int p) { return 2 * p; }
+    inline int rc(int p) { return 2 * p + 1; }
+    node build(int p, int l, int r, const vector<ll> &a) {
+        if (l == r) return t[p] = node(a[l]);
+        int mid = (l + r) >> 1;
+        return t[p] = build(lc(p), l, mid, a) + build(rc(p), mid + 1, r, a);
+    }
+    void pushsum(int p, int l, int r, ll x) {
+        t[p].sum += (r - l + 1) * x;
+        t[p].mi += x;
+        t[p].mx += x;
+        t[p].lazy += x;
+        if (t[p].smi != INF) t[p].smi += x;
+        if (t[p].smx != -INF) t[p].smx += x;
+    }
+    void pushmax(int p, ll x) {
+        if (x <= t[p].mi) return;
+        t[p].sum += t[p].fmi * (x - t[p].mi);
+        if (t[p].mx == t[p].mi) t[p].mx = x;
+        if (t[p].smx == t[p].mi) t[p].smx = x;
+        t[p].mi = x;
+    }
+    void pushmin(int p, ll x) {
+        if (x >= t[p].mx) return;
+        t[p].sum += t[p].fmx * (x - t[p].mx);
+        if (t[p].mi == t[p].mx) t[p].mi = x;
+        if (t[p].smi == t[p].mx) t[p].smi = x;
+        t[p].mx = x;
+    }
+    void pushdown(int p, int l, int r) {
+        if (l == r) return;
+        int mid = (l + r) >> 1;
+        pushsum(lc(p), l, mid, t[p].lazy);
+        pushsum(rc(p), mid + 1, r, t[p].lazy);
+        t[p].lazy = 0;
 
-int main() {
-    cin >> n;
-    tree.assign(4 * n, Node());
-}
+        pushmax(lc(p), t[p].mi);
+        pushmax(rc(p), t[p].mi);
+
+        pushmin(lc(p), t[p].mx);
+        pushmin(rc(p), t[p].mx);
+    }
+    node updatemin(int p, int l, int r, int L, int R, ll x) {
+        if (l > R || r < L || x >= t[p].mx) return t[p];
+        if (l >= L && r <= R && x > t[p].smx) {
+            pushmin(p, x);
+            return t[p];
+        }
+        pushdown(p, l, r);
+        int mid = (l + r) >> 1;
+        t[p] = updatemin(lc(p), l, mid, L, R, x) + updatemin(rc(p), mid + 1, r, L, R, x);
+        return t[p];
+    }
+    node updatemax(int p, int l, int r, int L, int R, ll x) {
+        if (l > R || r < L || x <= t[p].mi) return t[p];
+        if (l >= L && r <= R && x < t[p].smi) {
+            pushmax(p, x);
+            return t[p];
+        }
+        pushdown(p, l, r);
+        int mid = (l + r) >> 1;
+        t[p] = updatemax(lc(p), l, mid, L, R, x) + updatemax(rc(p), mid + 1, r, L, R, x);
+        return t[p];
+    }
+    node updatesum(int p, int l, int r, int L, int R, ll x) {
+        if (l > R || r < L) return t[p];
+        if (l >= L && r <= R) {
+            pushsum(p, l, r, x);
+            return t[p];
+        }
+        pushdown(p, l, r);
+        int mid = (l + r) >> 1;
+        return t[p] = updatesum(lc(p), l, mid, L, R, x) +
+                      updatesum(rc(p), mid + 1, r, L, R, x);
+    }
+    node query(int p, int l, int r, int L, int R) {
+        if (l > R || r < L) return node();
+        if (l >= L && r <= R) return t[p];
+        pushdown(p, l, r);
+        int mid = (l + r) >> 1;
+        return query(lc(p), l, mid, L, R) + query(rc(p), mid + 1, r, L, R);
+    }
+    ll query(int l, int r) { return query(1, 0, n - 1, l, r).sum; }
+    void updatemax(int l, int r, ll x) { updatemax(1, 0, n - 1, l, r, x); }
+    void updatemin(int l, int r, ll x) { updatemin(1, 0, n - 1, l, r, x); }
+    void updatesum(int l, int r, ll x) { updatesum(1, 0, n - 1, l, r, x); }
+} seg;
 \end{lstlisting}
 \hfill
 
@@ -2454,29 +2360,23 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5>
 struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
-
     vector<ll> t;
     vector<int> Lc, Rc;
-
     inline int newnode() {
         t.push_back(neutral);
         Lc.push_back(-1);
         Rc.push_back(-1);
         return (int)t.size() - 1;
     }
-
     inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
-
     inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
-
     SegTree() { newnode(); }
-
     ll query(int p, ll l, ll r, ll L, ll R) {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
@@ -2486,7 +2386,6 @@ struct SegTree {
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
-
     void update(int p, ll l, ll r, ll i, ll x, bool repl) {
         if (l == r) {
             if (repl) t[p] = x; // substitui
@@ -2500,7 +2399,59 @@ struct SegTree {
     }
     void sumUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 0); }
     void assignUpdate(ll i, ll x) { update(0, MINL, MAXR, i, x, 1); }
-};\end{lstlisting}
+} seg;
+\end{lstlisting}
+\hfill
+
+\subsection{Segment Tree Iterativa}
+
+
+Implementação padrão de Segment Tree, suporta operações de consulta em intervalo e update pontual. Está implementada para soma, mas pode ser facilmente modificada para outras operações. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(\log n)$.
+
+
+
+Essa implementação é iterativa, o que a torna mais eficiente que a recursiva, além de ser mais fácil de implementar.
+
+\hfill
+
+Codigo: itseg\_tree.cpp
+
+\begin{lstlisting}[language=C++]
+struct SegTree {
+    ll merge(ll a, ll b) { return a + b; }
+    const ll neutral = 0;
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+    int n;
+    vector<ll> t;
+    void build(int _n) { // pra construir com tamanho, mas vazia
+        n = _n;
+        t.assign(n * 2, neutral);
+    }
+    void build(const vector<ll> &v) { // pra construir com vector
+        n = (int)v.size();
+        t.assign(n * 2, neutral);
+        for (int i = 0; i < n; i++) t[i + n] = v[i];
+        for (int i = n - 1; i > 0; i--) t[i] = merge(t[lc(i)], t[rc(i)]);
+    }
+    void build(ll *bg, ll *en) { // pra construir com array de C
+        build(vector<ll>(bg, en));
+    }
+    ll query(int l, int r) {
+        ll ansl = neutral, ansr = neutral;
+        for (l += n, r += n + 1; l < r; l >>= 1, r >>= 1) {
+            if (l & 1) ansl = merge(ansl, t[l++]);
+            if (r & 1) ansr = merge(t[--r], ansr);
+        }
+        return merge(ansl, ansr);
+    }
+    void update(int i, ll x, bool replace = false) {
+        i += n;
+        t[i] = replace ? x : merge(t[i], x);
+        for (i >>= 1; i > 0; i >>= 1) t[i] = merge(t[lc(i)], t[rc(i)]);
+    }
+} seg;
+\end{lstlisting}
 \hfill
 
 \subsection{Segment Tree Kadane}
@@ -2537,13 +2488,10 @@ struct SegTree {
             max({a.ans, b.ans, a.suf + b.pref})
         };
     }
-
     inline int lc(int p) { return p * 2; }
     inline int rc(int p) { return p * 2 + 1; }
-
     int n;
     vector<node> t;
-
     void build(int p, int l, int r, const vector<ll> &v) {
         if (l == r) {
             t[p] = {v[l], v[l], v[l], v[l]};
@@ -2554,12 +2502,10 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-
     void build(int _n) { // pra construir com tamanho, mas vazia
         n = _n;
         t.assign(n * 4, neutral);
     }
-
     void build(const vector<ll> &v) { // pra construir com vector
         n = int(v.size());
         t.assign(n * 4, neutral);
@@ -2568,7 +2514,6 @@ struct SegTree {
     void build(ll *bg, ll *en) { // pra construir com array de C
         build(vector<ll>(bg, en));
     }
-
     node query(int p, int l, int r, int L, int R) {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
@@ -2578,7 +2523,6 @@ struct SegTree {
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r).ans; }
-
     void update(int p, int l, int r, int i, ll x) {
         if (l == r) {
             t[p] = {x, x, x, x};
@@ -2590,7 +2534,8 @@ struct SegTree {
         }
     }
     void update(int i, ll x) { update(1, 0, n - 1, i, x); }
-};\end{lstlisting}
+} seg;
+\end{lstlisting}
 \hfill
 
 \subsection{Segment Tree Lazy}
@@ -2613,14 +2558,11 @@ Codigo: seg\_tree\_lazy.cpp
 struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
-
     int n;
     vector<ll> t, lazy;
     vector<bool> replace;
-
     inline int lc(int p) { return p * 2; }
     inline int rc(int p) { return p * 2 + 1; }
-
     void push(int p, int l, int r) {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1);
@@ -2640,7 +2582,6 @@ struct SegTree {
         replace[p] = false;
         lazy[p] = 0;
     }
-
     void build(int p, int l, int r, const vector<ll> &v) {
         if (l == r) {
             t[p] = v[l];
@@ -2651,14 +2592,12 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-
     void build(int _n) { // pra construir com tamanho, mas vazia
         n = _n;
         t.assign(n * 4, neutral);
         lazy.assign(n * 4, 0);
         replace.assign(n * 4, false);
     }
-
     void build(const vector<ll> &v) { // pra construir com vector
         n = (int)v.size();
         t.assign(n * 4, neutral);
@@ -2669,7 +2608,6 @@ struct SegTree {
     void build(ll *bg, ll *en) { // pra construir com array de C
         build(vector<ll>(bg, en));
     }
-
     ll query(int p, int l, int r, int L, int R) {
         push(p, l, r);
         if (l > R || r < L) return neutral;
@@ -2680,8 +2618,7 @@ struct SegTree {
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
-
-    void update(int p, int l, int r, int L, int R, ll val, bool repl) {
+    void update(int p, int l, int r, int L, int R, ll val, bool repl = 0) {
         push(p, l, r);
         if (l > R || r < L) return;
         if (l >= L && r <= R) {
@@ -2697,7 +2634,7 @@ struct SegTree {
     }
     void sumUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 0); }
     void assignUpdate(int l, int r, ll val) { update(1, 0, n - 1, l, r, val, 1); }
-};
+} seg;
 \end{lstlisting}
 \hfill
 
@@ -2718,11 +2655,9 @@ template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5>
 struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
-
     vector<ll> t, lazy;
     vector<int> Lc, Rc;
     vector<bool> replace;
-
     inline int newnode() {
         t.push_back(neutral);
         Lc.push_back(-1);
@@ -2731,19 +2666,15 @@ struct SegTree {
         replace.push_back(false);
         return (int)t.size() - 1;
     }
-
     inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
-
     inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
-
     SegTree() { newnode(); }
-
     void push(int p, ll l, ll r) {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1);
@@ -2763,7 +2694,6 @@ struct SegTree {
         replace[p] = false;
         lazy[p] = 0;
     }
-
     ll query(int p, ll l, ll r, ll L, ll R) {
         push(p, l, r);
         if (l > R || r < L) return neutral;
@@ -2774,7 +2704,6 @@ struct SegTree {
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
-
     void update(int p, ll l, ll r, ll L, ll R, ll val, bool repl) {
         push(p, l, r);
         if (l > R || r < L) return;
@@ -2791,7 +2720,91 @@ struct SegTree {
     }
     void sumUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 0); }
     void assignUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 1); }
-};
+} seg;
+\end{lstlisting}
+\hfill
+
+\subsection{Segment Tree PA}
+
+
+Implementação de Segment Tree para soma de Progressão Aritimética, suporta operações de consulta em intervalo e update em range. Está implementada para soma, mas pode ser modificada para outras operações. A construção é $\mathcal{O}(n)$ e as operações de consulta e update são $\mathcal{O}(\log n)$.
+
+\hfill
+
+Codigo: seg\_tree\_pa.cpp
+
+\begin{lstlisting}[language=C++]
+struct SegTree {
+    using ii = pair<ll, ll>;
+    ll merge(ll a, ll b) { return a + b; }
+    const ll neutral = 0;
+    int n;
+    vector<ll> t;
+    vector<ii> lazy;
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+    void push(int p, int l, int r) {
+        if (lazy[p].second) {
+            auto [a, d] = lazy[p];
+            t[p] += a * (r - l + 1) + d * (r - l) * (r - l + 1) / 2;
+            if (l != r) {
+                int mid = (l + r) / 2;
+                lazy[lc(p)].first += a;
+                lazy[lc(p)].second += d;
+                lazy[rc(p)].first += a + (mid + 1 - l) * d;
+                lazy[rc(p)].second += d;
+            }
+            lazy[p] = ii(0, 0);
+        }
+    }
+    void build(int p, int l, int r, const vector<ll> &v) {
+        if (l == r) {
+            t[p] = v[l];
+        } else {
+            int mid = (l + r) / 2;
+            build(lc(p), l, mid, v);
+            build(rc(p), mid + 1, r, v);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
+        }
+    }
+    void build(int _n) { // pra construir com tamanho, mas vazia
+        n = _n;
+        t.assign(n * 4, neutral);
+    }
+    void build(const vector<ll> &v) { // pra construir com vector
+        n = (int)v.size();
+        t.assign(n * 4, neutral);
+        build(1, 0, n - 1, v);
+    }
+    void build(ll *bg, ll *en) { // pra construir com array de C
+        build(vector<ll>(bg, en));
+    }
+    ll query(int p, int l, int r, int L, int R) {
+        push(p, l, r);
+        if (l > R || r < L) return neutral;
+        if (l >= L && r <= R) return t[p];
+        int mid = (l + r) / 2;
+        auto ql = query(lc(p), l, mid, L, R);
+        auto qr = query(rc(p), mid + 1, r, L, R);
+        return merge(ql, qr);
+    }
+    ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
+    void update(int p, int l, int r, int L, int R, ii pa) {
+        push(p, l, r);
+        if (l > R || r < L) return;
+        if (l >= L && r <= R) {
+            auto [a, d] = pa;
+            lazy[p] = ii(a + (l - L) * d, d);
+            push(p, l, r);
+        } else {
+            int mid = (l + r) / 2;
+            update(lc(p), l, mid, L, R, pa);
+            update(rc(p), mid + 1, r, L, R, pa);
+            t[p] = merge(t[lc(p)], t[rc(p)]);
+        }
+    }
+    void update(int l, int r, ll a0, ll d) { update(1, 0, n - 1, l, r, ii(a0, d)); }
+} seg;
 \end{lstlisting}
 \hfill
 
@@ -2816,33 +2829,27 @@ O vetor \texttt{roots} guarda na posição \texttt{i} a root da árvore após o 
 Codigo: seg\_tree\_persistent.cpp
 
 \begin{lstlisting}[language=C++]
-template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5>
+const ll MINL = (ll)-1e9 - 5, MAXR = (ll)1e9 + 5;
 struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
-
     vector<ll> t;
     vector<int> Lc, Rc, roots;
-
     inline int newnode() {
         t.push_back(neutral);
         Lc.push_back(-1);
         Rc.push_back(-1);
         return (int)t.size() - 1;
     }
-
     inline int lc(int p) {
         if (Lc[p] == -1) Lc[p] = newnode();
         return Lc[p];
     }
-
     inline int rc(int p) {
         if (Rc[p] == -1) Rc[p] = newnode();
         return Rc[p];
     }
-
     SegTree() { roots.push_back(newnode()); }
-
     ll query(int p, ll l, ll r, ll L, ll R) {
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
@@ -2853,10 +2860,8 @@ struct SegTree {
     }
     ll query(ll l, ll r, int root = -1) {
         if (root == -1) root = roots.back();
-        debug(root, MINL, MAXR, l, r);
         return query(root, MINL, MAXR, l, r);
     }
-
     void update(int p, int old, ll l, ll r, ll i, ll x) {
         if (l == r) {
             t[p] = x; // substitui
@@ -2880,14 +2885,8 @@ struct SegTree {
         roots.push_back(new_root);
         return roots.back();
     }
-    int copy_root(int root) {
-        int new_root = newnode();
-        Lc[new_root] = lc(root);
-        Rc[new_root] = rc(root);
-        roots.push_back(new_root);
-        return roots.back();
-    }
-};\end{lstlisting}
+} seg;
+\end{lstlisting}
 \hfill
 
 \section{Sparse Table}
@@ -3578,6 +3577,94 @@ namespace bl {
 \end{lstlisting}
 \hfill
 
+\section{Block Cut Tree}
+
+
+Algoritmo que separa o grafo em componentes biconexas em $\mathcal{O}(V + E)$.
+
+
+
+\begin{itemize}
+\item \texttt{id[u]} é o index do nodo \texttt{u} na Block Cut Tree.
+\item \texttt{is\_articulation\_point(u)} diz se o nodo \texttt{u} é ou não é um ponto de articulação.
+\item \texttt{number\_of\_splits(u)} diz a quantidade de componentes conexas que o grafo
+\end{itemize}
+
+    terá se o nodo \texttt{u} for removido.
+
+\hfill
+
+Codigo: block\_cut\_tree.cpp
+
+\begin{lstlisting}[language=C++]
+struct Bct {
+    int T;
+    vector<int> tin, low, stk, art, id, splits;
+    vector<vector<int>> adj, g, comp, up;
+    int n, sz, m;
+    void build(int _n, int _m) {
+        n = _n, m = _m;
+        adj.resize(n);
+    }
+    void add_edge(int u, int v) {
+        adj[u].emplace_back(v);
+        adj[v].emplace_back(u);
+    }
+    void dfs(int u, int p) {
+        low[u] = tin[u] = ++T;
+        stk.emplace_back(u);
+        for (auto v : adj[u]) {
+            if (tin[v] == -1) {
+                dfs(v, u);
+                low[u] = min(low[u], low[v]);
+                if (low[v] >= tin[u]) {
+                    int x;
+                    sz++;
+                    do {
+                        assert(stk.size());
+                        x = stk.back();
+                        stk.pop_back();
+                        comp[x].emplace_back(sz);
+                    } while (x != v);
+                    comp[u].emplace_back(sz);
+                }
+            } else if (v != p) {
+                low[u] = min(low[u], tin[v]);
+            }
+        }
+    }
+    inline bool is_articulation_point(int u) { return art[id[u]]; }
+    inline int number_of_splits(int u) { return splits[id[u]]; }
+    void work() {
+        T = sz = 0;
+        stk.clear();
+        tin.resize(n, -1);
+        comp.resize(n);
+        low.resize(n);
+        for (int i = 0; i < n; i++)
+            if (tin[i] == -1) dfs(i, 0);
+        art.resize(sz + n + 1);
+        splits.resize(n + sz + 1, 1);
+        id.resize(n);
+        g.resize(sz + n + 1);
+        for (int i = 0; i < n; i++) {
+            if ((int)comp[i].size() > 1) {
+                id[i] = ++sz;
+                art[id[i]] = 1;
+                splits[id[i]] = (int)comp[i].size();
+                for (auto u : comp[i]) {
+                    g[id[i]].emplace_back(u);
+                    g[u].emplace_back(id[i]);
+                }
+            } else if (comp[i].size()) {
+                id[i] = comp[i][0];
+            }
+        }
+    }
+};
+\end{lstlisting}
+\hfill
+
 \section{Caminho Euleriano}
 \subsection{Caminho Euleriano Direcionado}
 
@@ -3789,11 +3876,12 @@ struct GraphCenter {
 \subsection{Centroid}
 
 
-Algoritmo que encontra os dois centróides de uma árvore em $\mathcal{O}(N)$.
+Algoritmo que encontra os dois centroides de uma árvore em $\mathcal{O}(N)$.
 
 
 
-\textbf{Definição}: O centróide de uma árvore é o nodo tal que, ao ser removido, divide a árvore em subárvores com no máximo metade dos nodos da árvore original. Em outras palavras, se a árvore tem tamanho $N$, todas as subárvores geradas pela remoção do centróide têm tamanho no máximo $\frac{N}{2}$. Uma árvore pode ter até dois centróides.
+\textbf{Definição}: O centroide de uma árvore é o nodo tal que, ao ser removido, divide a árvore em subárvores com no máximo metade dos nodos da árvore original. Em outras palavras, se a árvore tem tamanho $N$, todas as subárvores geradas pela remoção do centroide têm tamanho no máximo $\frac{N}{2}$. Uma árvore pode ter até dois centróides.
+
 \hfill
 
 Codigo: find\_centroid.cpp
@@ -3833,7 +3921,7 @@ pair<int, int> centroids(int u) {
 \subsection{Centroid Decomposition}
 
 
-Algoritmo que constrói a decomposição por centróides de uma árvore em $\mathcal{O}(N \log N)$.
+Algoritmo que constrói a decomposição por centroides de uma árvore em $\mathcal{O}(N \log N)$.
 
 
 
@@ -3842,13 +3930,13 @@ Basicamente, a decomposição consiste em, repetidamente:
 
 
 \begin{itemize}
-\item Encontrar o centróide da árvore atual.
-\item Remover o centróide e decompor as subárvores restantes.
+\item Encontrar o centroide da árvore atual.
+\item Remover o centroide e decompor as subárvores restantes.
 \end{itemize}
 
 
 
-A decomposição vai gerar uma nova árvore (chamada comumente de "Centroid Tree") onde cada nodo é um centróide da árvore original e as arestas representam a relação de pai-filho entre os centróides. A árvore tem altura $\log N$.
+A decomposição vai gerar uma nova árvore (chamada comumente de "Centroid Tree") onde cada nodo é um centroide da árvore original e as arestas representam a relação de pai-filho entre os centroides. A árvore tem altura $\log N$.
 
 
 
@@ -5753,6 +5841,14 @@ Também constrói a tabela LCP (Longest Common Prefix).
 
 
 
+\begin{itemize}
+\item \texttt{sa[i]} = Índice inicial do i-ésimo menor sufixo.
+\item \texttt{ra[i]} = Rank do sufixo que começa em \texttt{i}.
+\item \texttt{LCP[i]} = Comprimento do maior prefixo comum entre os sufixos \texttt{sa[i]} e \texttt{sa[i-1]}.
+\end{itemize}
+
+
+
 * Complexidade de tempo (Pré-Processamento): $\mathcal{O}(|S| \cdot \log(|S|))$
 
 * Complexidade de tempo (Contar ocorrências de \(S\) em \(T\)): $\mathcal{O}(|S| \cdot \log(|T|))$
@@ -5793,11 +5889,10 @@ int busca_string(string &t) {
 Codigo: suffix\_array.cpp
 
 \begin{lstlisting}[language=C++]
-const int MAX_N = 5e5 + 5;
-
+const int MAX = 5e5 + 5;
 struct suffix_array {
     string s;
-    int n, sum, r, ra[MAX_N], sa[MAX_N], auxra[MAX_N], auxsa[MAX_N], c[MAX_N], lcp[MAX_N];
+    int n, sum, r, ra[MAX], sa[MAX], auxra[MAX], auxsa[MAX], c[MAX], lcp[MAX];
     void counting_sort(int k) {
         memset(c, 0, sizeof(c));
         for (int i = 0; i < n; i++) c[(i + k < n) ? ra[i + k] : 0]++;
@@ -5810,12 +5905,10 @@ struct suffix_array {
             counting_sort(k);
             counting_sort(0);
             auxra[sa[0]] = r = 0;
-            for (int i = 1; i < n; i++) {
-                auxra[sa[i]] =
-                    (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k])
-                        ? r
-                        : ++r;
-            }
+            for (int i = 1; i < n; i++)
+                if (ra[sa[i]] == ra[sa[i - 1]] && ra[sa[i] + k] == ra[sa[i - 1] + k])
+                    auxra[sa[i]] = r;
+                else auxra[sa[i]] = ++r;
             for (int i = 0; i < n; i++) ra[i] = auxra[i];
             if (ra[sa[n - 1]] == n - 1) break;
         }
@@ -5846,7 +5939,7 @@ struct suffix_array {
 \section{Suffix Automaton}
 
 
-Constrói o autômato de sufixos de uma string $S$ em $\mathcal{O}(|S|)$ de forma online. 
+Constrói o autômato de sufixos de uma string $S$ em $\mathcal{O}(|S|)$ de forma online.  
 
 
 
@@ -5854,50 +5947,318 @@ Constrói o autômato de sufixos de uma string $S$ em $\mathcal{O}(|S|)$ de form
 \item \texttt{len[u]} é o tamanho da maior string na classe de equivalência de \texttt{u}.
 \item \texttt{lnk[u]} é o nodo que representa o maior sufixo de \texttt{u} que não pertence a classe de equivalência de \texttt{u}.
 \item \texttt{to[u]} é um array que representa as possivéis transições de um nodo \texttt{u}.
+\item \texttt{cnt[u]} é um array que conta para cada classe de equivalência quantas ocorrências essas substrings tem.
+\item \texttt{where[i]} diz em qual nodo do autômato a substring $s[0..i]$ está.
 \end{itemize}
 
+
+
+Por definição, \texttt{len[lca(u, v)]} diz o tamanho da maior substring que é sufixo de \texttt{u} e \texttt{v} ao mesmo tempo, ou seja, é o longest common suffix.
+
+
+
+Algumas aplicações estão no código, é importante notar que essas aplicações funcionam de maneira \textbf{offline}, ou seja, uma vez settada a string no autômato, não se deve fazer inserts adicionais de caracteres.
+
+
+
+Para outras possíveis aplicações, consulte a Suffix Tree.
 \hfill
 
 Codigo: suffix\_automaton.cpp
 
 \begin{lstlisting}[language=C++]
-namespace SA {
-    const int MAXN = 3e5 + 5;
-    const int MAXS = 2 * MAXN + 5;
-    array<int, 26> to[MAXS];
-    int lnk[MAXS], len[MAXS];
-    int last = 1, id = 2;
+const int N = 5e5 + 5;
+const int S = 2 * N;
 
-    void insert(int c) {
+struct SuffixAutomaton {
+    array<int, 26> to[S];
+    int lnk[S], len[S], cnt[S], idx[S], where[S];
+    int last = 1, id = 2;
+    ll distinct_substrings = 0;
+
+    const char norm = 'a';
+    inline int get(char c) { return c - norm; }
+
+    void insert(int i, char ch) {
         int cur = id++;
+        int c = get(ch);
         len[cur] = len[last] + 1;
+        where[idx[cur] = i] = cur;
+        cnt[cur] = 1;
         int p = last;
-        while (p && !to[p][c]) {
+        while (p > 0 && !to[p][c]) {
             to[p][c] = cur;
             p = lnk[p];
         }
         if (p == 0) {
             lnk[cur] = 1;
         } else {
-            int s = to[p][c];
-            if (len[p] + 1 == len[s]) {
-                lnk[cur] = s;
+            int sp = to[p][c];
+            if (len[p] + 1 == len[sp]) {
+                lnk[cur] = sp;
             } else {
                 int clone = id++;
                 len[clone] = len[p] + 1;
-                lnk[clone] = lnk[s];
-                to[clone] = to[s];
-                while (to[p][c] == s) {
+                lnk[clone] = lnk[sp];
+                idx[clone] = idx[sp];
+                to[clone] = to[sp];
+                while (p > 0 && to[p][c] == sp) {
                     to[p][c] = clone;
                     p = lnk[p];
                 }
-                lnk[s] = lnk[cur] = clone;
+                lnk[sp] = lnk[cur] = clone;
             }
         }
         last = cur;
     }
-}
+
+    vector<int> adj[S];
+
+    void dfs(int u) {
+        for (int v : adj[u]) {
+            dfs(v);
+            cnt[u] += cnt[v];
+        }
+        distinct_substrings += len[u] - len[lnk[u]];
+    }
+
+    void set_string(const string &s) {
+        int n = (int)s.size();
+        for (int i = 0; i < id; i++) {
+            to[i].fill(0);
+            len[i] = lnk[i] = cnt[i] = 0;
+        }
+        id = 2;
+        for (int i = 0; i < n; i++) insert(i, s[i]);
+        for (int i = 2; i < id; i++) adj[lnk[i]].push_back(i);
+        dfs(1);
+    }
+
+    int count_occurrences(const string &t) {
+        int cur = 1;
+        for (char ch : t) {
+            int c = get(ch);
+            if (!to[cur][c]) return 0;
+            cur = to[cur][c];
+        }
+        return cnt[cur];
+    }
+
+    int longest_common_substring(const string &t) {
+        int cur = 1, clen = 0, ans = 0;
+        for (char ch : t) {
+            int c = get(ch);
+            while (cur > 0 && !to[cur][c]) {
+                cur = lnk[cur];
+                clen = len[cur];
+            }
+            if (to[cur][c]) {
+                cur = to[cur][c];
+                clen++;
+            }
+            ans = max(ans, clen);
+            cur = max(cur, 1);
+        }
+        return ans;
+    }
+
+    int lcs(int i, int j) {
+        // retorna o maior sufixo comum entre os prefixos s[0..i] e s[0..j]
+        // tem que codar o lca aqui no automato
+        return len[lca(where[i], where[j])];
+    }
+} sam;
 \end{lstlisting}
+\hfill
+
+\section{Suffix Tree}
+
+
+Constrói a árvore de sufixos de uma string $S$ em $\mathcal{O}(|S|)$. A árvore não é construída da forma clássica com o algoritmo de Ukkonen, mas sim utilizando do Suffix Automaton.
+
+
+
+\textbf{Teorema}: a árvore de links do Suffix Automaton sobre uma string $S$, é a Suffix Tree de $\overline{S}$, onde $\overline{S}$ é a string $S$ reversa. Aqui não cabe provar esse teorema, basta crer.
+
+
+
+Praticamente tudo do suffix automaton ainda vale aqui. Uma diferença é que \texttt{where[i]} agora diz em qual nodo da árvore o sufixo $s[i..|s|-1]$ está. E \texttt{lnk[i]} agora aponta para o maior \textbf{prefixo} de \texttt{i} que não está na mesma classe de equivalência que $i$.
+
+
+
+Além disso, temos um vetor adicional \texttt{suff[i]} que diz se o nodo \texttt{i} é um sufixo da string original.
+
+
+
+Por definição, \texttt{len[lca(u, v)]} diz o tamanho da maior substring que é prefixo de \texttt{u} e \texttt{v} ao mesmo tempo, ou seja, é o longest common prefix (LCP).
+
+
+
+Ou seja, o que temos nesse código é o Suffix Automaton, mas que ao passar uma string pra ele, ele constrói o autômato da string reversa. As aplicações no código vão se basear no fato de que a árvore que temos é a Suffix Tree. Se usar com carinho, podemos usar tanto o autômato quanto a Suffix Tree ao mesmo tempo (só tem que lembrar que a string original está invertida no autômato, caso queira fazer processamento de alguma string ou algo assim).
+
+
+
+Nesse código, a lista de adjacência da árvore está ordenada lexicograficamente, ou seja, se passarmos pela árvore em ordem de DFS, os nodos que estão marcados com \texttt{suff[u] = 1}, são os sufixos da string original ordenados lexicograficamente, ou seja, é o Suffix Array.
+
+
+
+\textbf{Obs}: apesar do algoritmo de inserção de caractere funcionar de maneira online, todas aplicações no código requerem que a string seja passada de uma vez, e que não sejam feitos inserts adicionais.
+\hfill
+
+Codigo: suffix\_tree.cpp
+
+\begin{lstlisting}[language=C++]
+const int N = 5e5 + 5;
+const int S = 2 * N;
+
+struct SuffixTree {
+    array<int, 26> to[S];
+    int lnk[S], len[S], cnt[S], idx[S], where[S], suff[S];
+    int last = 1, id = 2;
+    ll distinct_substrings = 0;
+    string s;
+
+    const char norm = 'a';
+    inline int get(char c) { return c - norm; }
+
+    void insert(int i, char ch) {
+        int cur = id++;
+        int c = get(ch);
+        len[cur] = len[last] + 1;
+        where[idx[cur] = i] = cur;
+        cnt[cur] = suff[cur] = 1;
+        int p = last;
+        while (p > 0 && !to[p][c]) {
+            to[p][c] = cur;
+            p = lnk[p];
+        }
+        if (p == 0) {
+            lnk[cur] = 1;
+        } else {
+            int sp = to[p][c];
+            if (len[p] + 1 == len[sp]) {
+                lnk[cur] = sp;
+            } else {
+                int clone = id++;
+                len[clone] = len[p] + 1;
+                lnk[clone] = lnk[sp];
+                idx[clone] = idx[sp];
+                to[clone] = to[sp];
+                while (p > 0 && to[p][c] == sp) {
+                    to[p][c] = clone;
+                    p = lnk[p];
+                }
+                lnk[sp] = lnk[cur] = clone;
+            }
+        }
+        last = cur;
+    }
+
+    vector<int> adj[S];
+
+    void dfs(int u) {
+        sort(adj[u].begin(), adj[u].end(), [&](int v1, int v2) {
+            // sorta os filhos de u por ordem lexicografica,
+            // isso faz com que a ordem de dfs seja a ordem
+            // lexicografica dos sufixos (e de qualquer substring na verdade)
+            return s[idx[v1] + len[u]] < s[idx[v2] + len[u]];
+        });
+        for (int v : adj[u]) {
+            dfs(v);
+            cnt[u] += cnt[v];
+        }
+        distinct_substrings += len[u] - len[lnk[u]];
+    }
+
+    void set_string(const string &s2) {
+        s = s2;
+        int n = (int)s.size();
+        for (int i = 0; i < id; i++) {
+            to[i].fill(0);
+            len[i] = lnk[i] = cnt[i] = 0;
+        }
+        id = 2;
+        for (int i = n - 1; i >= 0; i--) insert(i, s[i]);
+        for (int i = 2; i < id; i++) adj[lnk[i]].push_back(i);
+        dfs(1);
+    }
+
+    int count_occurrences(const string &t) {
+        int cur = 1, m = (int)t.size();
+        for (int i = m - 1; i >= 0; i--) {
+            int c = get(t[i]);
+            if (!to[cur][c]) return 0;
+            cur = to[cur][c];
+        }
+        return cnt[cur];
+    }
+
+    int longest_common_substring(const string &t) {
+        int cur = 1, clen = 0, ans = 0, m = (int)t.size();
+        for (int i = m - 1; i >= 0; i--) {
+            int c = get(t[i]);
+            while (cur > 0 && !to[cur][c]) {
+                cur = lnk[cur];
+                clen = len[cur];
+            }
+            if (to[cur][c]) {
+                cur = to[cur][c];
+                clen++;
+            }
+            ans = max(ans, clen);
+            cur = max(cur, 1);
+        }
+        return ans;
+    }
+
+    string kth_substring(ll k) {
+        // esse metodo retorna a k-esima menor substring lexicograficamente,
+        // dentre todas as substrings distintas
+        string res = "";
+        function<bool(int)> dfs_kth = [&](int u) {
+            int min_len = len[lnk[u]] + 1, max_len = len[u];
+            int qnt = (max_len - min_len + 1);
+            if (qnt < k) {
+                k -= qnt;
+            } else {
+                res = s.substr(idx[u], min_len + k - 1);
+                return true;
+            }
+            for (int v : adj[u])
+                if (dfs_kth(v)) return true;
+            return false;
+        };
+        dfs_kth(1);
+        return res;
+    }
+
+    string kth_substring2(ll k) {
+        // esse metodo retorna a k-esima menor substring lexicograficamente,
+        // dentre todas as substrings nao necessariamente distintas
+        string res = "";
+        function<bool(int)> dfs_kth = [&](int u) {
+            int min_len = len[lnk[u]] + 1, max_len = len[u];
+            ll qnt = 1LL * (max_len - min_len + 1) * cnt[u];
+            if (qnt < k) {
+                k -= qnt;
+            } else {
+                res = s.substr(idx[u], min_len + (k - 1) / cnt[u]);
+                return true;
+            }
+            for (int v : adj[u])
+                if (dfs_kth(v)) return true;
+            return false;
+        };
+        dfs_kth(1);
+        return res;
+    }
+
+    int lcp(int i, int j) {
+        // retorna o maior prefixo comum entre os sufixos s[i..n) e s[j..n)
+        // tem que codar o lca aqui no automato
+        return len[lca(where[i], where[j])];
+    }
+} st;\end{lstlisting}
 \hfill
 
 \section{Trie}
@@ -6786,7 +7147,8 @@ a = a - 6; // a.v == 5
 Codigo: mint.cpp
 
 \begin{lstlisting}[language=C++]
-template <auto MOD, typename T = decltype(MOD)>
+// se o modulo for long long, usar U = __int128
+template <auto MOD, typename T = decltype(MOD), typename U = ll>
 struct Mint {
     using m = Mint<MOD, T>;
     T v;
@@ -6794,13 +7156,13 @@ struct Mint {
         if (v < 0) v += MOD;
     }
     bool operator==(m o) const { return v == o.v; }
-    bool operator!=(m o) const { return v != o.v; }
     bool operator<(m o) const { return v < o.v; }
-    m pwr(m b, ll e) {
+    bool operator!=(m o) const { return v != o.v; }
+    m pwr(m b, U e) {
         m res = 1;
         while (e > 0) {
             if (e & 1) res *= b;
-            b *= b, e >>= 1;
+            b *= b, e /= 2;
         }
         return res;
     }
@@ -6815,22 +7177,17 @@ struct Mint {
         return *this;
     }
     m &operator*=(m o) {
-        v = (T)((__int128)v * o.v % MOD);
+        v = (T)((U)v * o.v % MOD);
         return *this;
     }
-    // se quiser otimizar constante, ao inves de (__int128) use (ll) se o T for `int`
     m &operator/=(m o) { return *this *= o.pwr(o, MOD - 2); }
-    m &operator^=(ll e) { return *this = pwr(*this, e); }
+    m &operator^=(U e) { return *this = pwr(*this, e); }
     friend m operator-(m a, m b) { return a -= b; }
     friend m operator+(m a, m b) { return a += b; }
     friend m operator*(m a, m b) { return a *= b; }
     friend m operator/(m a, m b) { return a /= b; }
-    friend m operator^(m a, ll e) { return a.pwr(a, e); }
-};
-
-const int MOD = 998244353;
-using mint = Mint<MOD>;
-\end{lstlisting}
+    friend m operator^(m a, U e) { return a.pwr(a, e); }
+};\end{lstlisting}
 \hfill
 
 \section{Ponto 2D}
@@ -6974,8 +7331,8 @@ Codigo: and\_convolution.cpp
 \begin{lstlisting}[language=C++]
 vector<mint> and_convolution(vector<mint> A, vector<mint> B) {
     int n = (int)max(A.size(), B.size());
-    int N = 0, two = 1;
-    while (two < n) two <<= 1, N++;
+    int N = 0;
+    while ((1 << N) < n) N++;
     A.resize(1 << N);
     B.resize(1 << N);
     vector<mint> C(1 << N);
@@ -7069,8 +7426,8 @@ Codigo: or\_convolution.cpp
 \begin{lstlisting}[language=C++]
 vector<mint> or_convolution(vector<mint> A, vector<mint> B) {
     int n = (int)max(A.size(), B.size());
-    int N = 0, two = 1;
-    while (two < n) two <<= 1, N++;
+    int N = 0;
+    while ((1 << N) < n) N++;
     A.resize(1 << N);
     B.resize(1 << N);
     vector<mint> C(1 << N);
@@ -7088,6 +7445,117 @@ vector<mint> or_convolution(vector<mint> A, vector<mint> B) {
             if (i >> j & 1) C[i] -= C[i ^ (1 << j)];
     }
     return C;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{Subset Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ tal que $C[i] = \sum_{\substack{(j \| k) = i}, \substack{(j \land k) = 0}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log^2 N)$
+
+
+
+Obs: $\land$ representa o bitwise and e $\|$ representa o bitwise or.
+
+\hfill
+
+Codigo: subset\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> subset_convolution(vector<mint> A, vector<mint> B) {
+    int n = int(max(A.size(), B.size()));
+    int N = 0;
+    while ((1 << N) < n) N++;
+    A.resize(1 << N), B.resize(1 << N);
+    vector a(1 << N, vector<mint>(N + 1)), b(1 << N, vector<mint>(N + 1));
+    for (int i = 0; i < 1 << N; i++) {
+        int popcnt = __builtin_popcount(i);
+        a[i][popcnt] = A[i];
+        b[i][popcnt] = B[i];
+    }
+    for (int j = 0; j < N; j++) {
+        for (int i = 0; i < 1 << N; i++) {
+            if (~i >> j & 1) continue;
+            for (int popcnt = 0; popcnt <= N; popcnt++) {
+                a[i][popcnt] += a[i ^ (1 << j)][popcnt];
+                b[i][popcnt] += b[i ^ (1 << j)][popcnt];
+            }
+        }
+    }
+    vector c(1 << N, vector<mint>(N + 1));
+    for (int i = 0; i < 1 << N; i++) {
+        for (int j = 0; j <= N; j++)
+            for (int k = 0; k + j <= N; k++) c[i][j + k] += a[i][j] * b[i][k];
+    }
+    for (int j = N - 1; j >= 0; j--) {
+        for (int i = (1 << N) - 1; i >= 0; i--) {
+            if (~i >> j & 1) continue;
+            for (int popcnt = 0; popcnt <= N; popcnt++)
+                c[i][popcnt] -= c[i ^ (1 << j)][popcnt];
+        }
+    }
+    vector<mint> ans(1 << N);
+    for (int i = 0; i < 1 << N; i++) {
+        int popcnt = __builtin_popcount(i);
+        ans[i] = c[i][popcnt];
+    }
+    return ans;
+}
+\end{lstlisting}
+\hfill
+
+\subsection{XOR Convolution}
+
+
+Calcula o vetor $C$ a partir de $A$ e $B$ tal que $C[i] = \sum_{\substack{(j \oplus k) = i}} A[j] \cdot B[k]$ em $\mathcal{O}(N \cdot \log N)$
+
+\hfill
+
+Codigo: xor\_convolution.cpp
+
+\begin{lstlisting}[language=C++]
+vector<mint> xor_convolution(vector<mint> A, vector<mint> B) {
+    int n = int(A.size());
+    for (int rep = 0; rep < 2; rep++) {
+        for (int len = n >> 1; len; len >>= 1) {
+            for (int i = 0; i < n; i += len << 1) {
+                for (int j = 0; j < len; j++) {
+                    int id = i + j;
+                    mint x = A[id];
+                    mint y = A[id + len];
+                    A[id] = x + y;
+                    A[id + len] = x - y;
+                }
+            }
+        }
+        swap(A, B);
+    }
+    vector<mint> ans(n);
+    for (int i = 0; i < n; i++) ans[i] = A[i] * B[i];
+    for (int len = 1; len < n; len <<= 1) {
+        for (int i = 0; i < n; i += len << 1) {
+            for (int j = 0; j < len; j++) {
+                int id = i + j;
+                mint x = ans[id];
+                mint y = ans[id + len];
+                ans[id] = x + y;
+                ans[id + len] = x - y;
+            }
+        }
+    }
+    return ans;
+}
+
+vector<mint> xor_multiply(vector<mint> A, vector<mint> B) {
+    int N = 1;
+    int n = int(max(A.size(), B.size()));
+    while (N < n) N <<= 1;
+    A.resize(N);
+    B.resize(N);
+    auto ans = xor_convolution(A, B);
+    for (int i = 0; i < N; i++) ans[i] /= N;
+    return ans;
 }
 \end{lstlisting}
 \hfill
@@ -7965,156 +8433,172 @@ Computa a multiplicação de polinômios com coeficientes inteiros módulo um n�
 
 
 
-Esse código está com módulo $998.244.353$ $(119 \cdot 2^{23} + 1)$ e aceita polinômios de tamanho até $2^{23}$ = $8.388.608$ $\approx 8 \times 10^6$.
+Não é qualquer módulo que funciona, aqui tem alguns que funcionam:
 
 
 
-Para se alterar o módulo ou o tamanho máximo do polinômio, basta alterar as constantes \texttt{MOD}, \texttt{len\_ntt} e encontrar uma raiz da unidade de ordem \texttt{len\_ntt} módulo \texttt{MOD} (onde \texttt{len\_ntt} é uma potência de 2 e o tamanho máximo do polinômio), no código, essa raiz é a variável \texttt{root\_ntt}.
+1. $998244353$ ($\approx 9 \times 10^8$): Para polinômios de tamanho até $2^{23}$.
 
+2. $1004535809$ ($\approx 10^9$): Para polinômios de tamanho até $2^{21}$.
 
+3. $1092616193$ ($\approx 10^9$): Para polinômios de tamanho até $2^{21}$.
 
-Formalmente, uma raiz da unidade de ordem $n$ módulo $p$ é um inteiro $g$ tal que $g^n \equiv 1 \pmod{p}$ e $g^k \not\equiv 1 \pmod{p}$ para todo $k$ tal que $0 < k < n$.
-
-
-
-Algumas raízes conhecidas para alguns módulos e alguns tamanhos máximos de polinômios:
-
-
-
-|           Módulo            |   Len    |       Raiz da Unidade       |
-
-|-----------------------------|----------|-----------------------------|
-
-|        $998.244.353$        | $2^{23}$ |          $102.292$          |
-
-|       $1.004.535.809$       | $2^{21}$ |           $4.172$           |
-
-|       $1.092.616.193$       | $2^{21}$ |            $155$            |
-
-| $9.223.372.036.737.335.297$ | $2^{24}$ | $2.419.180.138.865.645.092$ |
-
-
-
-Essa última raiz para esse módulo enorme está melhor descrita na seção NTT Big Mod.
+4. $9223372036737335297$ ($\approx 9 \times 10^{18}$): Para polinômios de tamanho até $2^{24}$, se usar esse módulo, cuidado com os \texttt{ints}, use \texttt{long long}.
 
 
 
 \textbf{Obs}: Essa implementação usa a primitiva \texttt{Mint} desse Almanaque. Se você não quiser usar o \texttt{Mint}, basta substituir todas as ocorrências de \texttt{Mint} por \texttt{int} ou \texttt{long long} e tratar adequadamente as operações com aritmética modular.
+
+
+
+\textbf{Obs 2}: Nem tente usar $10^9 + 7$ ou $10^9 + 9$ como módulo, eles não funcionam. Para isso, pode-se tentar usar a NTT Big Modulo.
 \hfill
 
 Codigo: ntt.cpp
 
 \begin{lstlisting}[language=C++]
-const int MOD = 998244353;
-const int root_ntt = 102292;
-const int len_ntt = 1 << 23;
-
-using mint = Mint<MOD>;
-using poly = vector<mint>;
-
-void ntt(poly &a, bool inv = 0) {
+template <int MOD, typename T = Mint<MOD>>
+void ntt(vector<T> &a, bool inv = 0) {
     int n = (int)a.size();
-
-    for (int i = 0; i < n; i++) {
-        int bit = n >> 1, j = 0, k = i;
-        while (bit > 0) {
-            if (k & 1) j += bit;
-            k >>= 1, bit >>= 1;
-        }
-        if (i < j) swap(a[i], a[j]);
-    }
-
-    poly wn(n / 2);
-    mint root = root_ntt;   // change according to MOD
-    int root_len = len_ntt; // change according to MOD
-
-    while (root_len > n) {
-        root *= root;
-        root_len >>= 1;
-    }
-
-    if (inv) root = mint(1) / root;
-
-    for (int i = 0; i < n / 2; i++) wn[i] = (i == 0) ? 1 : wn[i - 1] * root;
-
-    for (int len = 2; len <= n; len <<= 1) {
-        int aux = len / 2;
-        int step = n / len;
-        for (int i = 0; i < n; i += len) {
-            for (int j = 0; j < aux; j++) {
-                mint v = a[i + j + aux] * wn[step * j];
-                a[i + j + aux] = a[i + j] - v;
-                a[i + j] = a[i + j] + v;
+    auto b = a;
+    T g = 1;
+    while ((g ^ (MOD / 2)) == 1) g += 1;
+    if (inv) g = T(1) / g;
+    for (int step = n / 2; step; step /= 2) {
+        T w = g ^ (MOD / (n / step)), wn = 1;
+        for (int i = 0; i < n / 2; i += step) {
+            for (int j = 0; j < step; j++) {
+                auto u = a[2 * i + j], v = wn * a[2 * i + j + step];
+                b[i + j] = u + v;
+                b[i + n / 2 + j] = u - v;
             }
+            wn = wn * w;
         }
+        swap(a, b);
     }
     if (inv) {
-        mint invn = mint(1) / n;
+        T invn = T(1) / n;
         for (int i = 0; i < n; i++) a[i] *= invn;
     }
 }
 
+template <int MOD>
 vector<int> multiply(vector<int> &ta, vector<int> &tb) {
+    using T = Mint<MOD>;
     int n = (int)ta.size(), m = (int)tb.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 
-    poly a(sz), b(sz), c(sz);
+    vector<T> a(sz), b(sz), c(sz);
+    for (int i = 0; i < n; i++) a[i] = ta[i];
+    for (int i = 0; i < m; i++) b[i] = tb[i];
 
-    for (int i = 0; i < sz; i++) {
-        a[i].v = i < n ? ta[i] : 0;
-        b[i].v = i < m ? tb[i] : 0;
-    }
-
-    ntt(a, 0), ntt(b, 0);
+    ntt<MOD>(a, 0), ntt<MOD>(b, 0);
     for (int i = 0; i < sz; i++) c[i] = a[i] * b[i];
-    ntt(c, 1);
+    ntt<MOD>(c, 1);
 
     vector<int> res(sz);
     for (int i = 0; i < sz; i++) res[i] = c[i].v;
-
     while ((int)res.size() > t && res.back() == 0) res.pop_back();
-
     return res;
 }\end{lstlisting}
 \hfill
 
-\subsection{NTT Big Mod}
+\subsection{NTT Big Modulo}
 
 
-Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo em $\mathcal{O}(N \cdot \log N)$. Esse código usa do mesmo código da NTT padrão, com alguns ajustes especificados nos comentários do código.
-
-
-
-Esse código está com módulo $9.223.372.036.737.335.297$ $(549.755.813.881 \cdot 2^{24} + 1)$ e aceita polinômios de tamanho até $2^{24}$ = $16.777.216$ $\approx 1.7 \times 10^7$.
+NTT usada para computar a multiplicação de polinômios com coeficientes inteiros módulo um número primo grande. A ideia na maioria dos casos é computar a multiplicação como se não houvesse módulo, por isso usamos um módulo grande.
 
 
 
-\textbf{Obs}: Essa implementação usa a primitiva \texttt{Mint} desse Almanaque. Se você não quiser usar o \texttt{Mint}, basta substituir todas as ocorrências de \texttt{Mint} por \texttt{int} ou \texttt{long long} e tratar adequadamente as operações com aritmética modular.
+Uma forma de fazer essa NTT com módulo grande é usar o módulo grande que está na seção NTT.
+
+
+
+A forma usada nesse código é usar dois módulos na ordem de $10^9$ e fazer a multiplicação com eles. E depois usar o Teorema do Resto Chinês para achar o resultado módulo o produto dos módulos.
 \hfill
 
 Codigo: big\_ntt.cpp
 
 \begin{lstlisting}[language=C++]
-const ll BIG_MOD = 9223372036737335297LL; // 549755813881 * 2^24 + 1
-ll root_ntt = 2419180138865645092LL;      // essa constante pode ser calculada
-                                          // fazendo 3 ^ ((MOD - 1) / (1 << 24))
-int len_ntt = 1 << 24;
-
-using mint = Mint<BIG_MOD>;
-
-using poly = vector<mint>;
-
-void big_ntt(poly &a, bool inv = 0) {
-    // exatamente o mesmo código da ntt
+template <int MOD, typename T = Mint<MOD>>
+void ntt(vector<T> &a, bool inv = 0) {
+    int n = (int)a.size();
+    auto b = a;
+    T g = 1;
+    while ((g ^ (MOD / 2)) == 1) g += 1;
+    if (inv) g = T(1) / g;
+    for (int step = n / 2; step; step /= 2) {
+        T w = g ^ (MOD / (n / step)), wn = 1;
+        for (int i = 0; i < n / 2; i += step) {
+            for (int j = 0; j < step; j++) {
+                auto u = a[2 * i + j], v = wn * a[2 * i + j + step];
+                b[i + j] = u + v;
+                b[i + n / 2 + j] = u - v;
+            }
+            wn = wn * w;
+        }
+        swap(a, b);
+    }
+    if (inv) {
+        T invn = T(1) / n;
+        for (int i = 0; i < n; i++) a[i] *= invn;
+    }
 }
 
-vector<ll> big_multiply(vector<ll> &ta, vector<ll> &tb) {
-    // exatamente o mesmo código da multiply, porem usando vector<ll> ao inves de
-    // vector<int> e chamando big_ntt ao inves de ntt
-    // ...
-    vector<ll> res(sz); // lembrando, usar vector<ll> ao inves de vector<int>
-    // ...
+template <int MOD>
+vector<int> multiply(vector<int> &ta, vector<int> &tb) {
+    using T = Mint<MOD>;
+    int n = (int)ta.size(), m = (int)tb.size();
+    int t = n + m - 1, sz = 1;
+    while (sz < t) sz <<= 1;
+
+    vector<T> a(sz), b(sz), c(sz);
+    for (int i = 0; i < n; i++) a[i] = ta[i];
+    for (int i = 0; i < m; i++) b[i] = tb[i];
+
+    ntt<MOD>(a, 0), ntt<MOD>(b, 0);
+    for (int i = 0; i < sz; i++) c[i] = a[i] * b[i];
+    ntt<MOD>(c, 1);
+
+    vector<int> res(sz);
+    for (int i = 0; i < sz; i++) res[i] = c[i].v;
+    while ((int)res.size() > t && res.back() == 0) res.pop_back();
+    return res;
+}
+
+ll extended_gcd(ll a, ll b, ll &x, ll &y) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        return a;
+    } else {
+        ll g = extended_gcd(b, a % b, y, x);
+        y -= a / b * x;
+        return g;
+    }
+}
+
+ll crt(array<int, 2> rem, array<int, 2> mod) {
+    __int128 ans = rem[0], m = mod[0];
+    for (int i = 1; i < 2; i++) {
+        ll x, y;
+        ll g = extended_gcd(mod[i], (ll)m, x, y);
+        if ((ans - rem[i]) % g != 0) return -1;
+        ans = ans + (__int128)1 * (rem[i] - ans) * (m / g) * y;
+        m = (__int128)(mod[i] / g) * (m / g) * g;
+        ans = (ans % m + m) % m;
+    }
+    return (ll)ans;
+}
+
+vector<ll> big_multiply(vector<int> &a, vector<int> &b) {
+    const int MOD1 = 1004535809;
+    const int MOD2 = 1092616193;
+    vector<int> c1 = multiply<MOD1>(a, b);
+    vector<int> c2 = multiply<MOD2>(a, b);
+    vector<ll> res(c1.size());
+    for (int i = 0; i < (int)res.size(); i++) res[i] = crt({c1[i], c2[i]}, {MOD1, MOD2});
     return res;
 }\end{lstlisting}
 \hfill
