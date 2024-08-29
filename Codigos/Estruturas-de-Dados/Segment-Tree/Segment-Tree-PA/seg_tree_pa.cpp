@@ -1,10 +1,26 @@
 struct SegTree {
+    using ii = pair<ll, ll>;
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
-    inline int lc(int p) { return p * 2; }
-    inline int rc(int p) { return p * 2 + 1; }
     int n;
     vector<ll> t;
+    vector<ii> lazy;
+    inline int lc(int p) { return p * 2; }
+    inline int rc(int p) { return p * 2 + 1; }
+    void push(int p, int l, int r) {
+        if (lazy[p].second) {
+            auto [a, d] = lazy[p];
+            t[p] += a * (r - l + 1) + d * (r - l) * (r - l + 1) / 2;
+            if (l != r) {
+                int mid = (l + r) / 2;
+                lazy[lc(p)].first += a;
+                lazy[lc(p)].second += d;
+                lazy[rc(p)].first += a + (mid + 1 - l) * d;
+                lazy[rc(p)].second += d;
+            }
+            lazy[p] = ii(0, 0);
+        }
+    }
     void build(int p, int l, int r, const vector<ll> &v) {
         if (l == r) {
             t[p] = v[l];
@@ -28,6 +44,7 @@ struct SegTree {
         build(vector<ll>(bg, en));
     }
     ll query(int p, int l, int r, int L, int R) {
+        push(p, l, r);
         if (l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         int mid = (l + r) / 2;
@@ -36,17 +53,19 @@ struct SegTree {
         return merge(ql, qr);
     }
     ll query(int l, int r) { return query(1, 0, n - 1, l, r); }
-    void update(int p, int l, int r, int i, ll x, bool repl = 0) {
-        if (l == r) {
-            if (repl) t[p] = x; // substitui
-            else t[p] += x;     // soma
+    void update(int p, int l, int r, int L, int R, ii pa) {
+        push(p, l, r);
+        if (l > R || r < L) return;
+        if (l >= L && r <= R) {
+            auto [a, d] = pa;
+            lazy[p] = ii(a + (l - L) * d, d);
+            push(p, l, r);
         } else {
             int mid = (l + r) / 2;
-            if (i <= mid) update(lc(p), l, mid, i, x, repl);
-            else update(rc(p), mid + 1, r, i, x, repl);
+            update(lc(p), l, mid, L, R, pa);
+            update(rc(p), mid + 1, r, L, R, pa);
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void sumUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 0); }
-    void assignUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 1); }
+    void update(int l, int r, ll a0, ll d) { update(1, 0, n - 1, l, r, ii(a0, d)); }
 } seg;
