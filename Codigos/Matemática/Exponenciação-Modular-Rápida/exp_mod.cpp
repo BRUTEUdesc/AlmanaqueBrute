@@ -3,7 +3,7 @@ ll exp_mod(ll base, ll exp) {
     while (exp) {
         if (exp & 1) res = (res * b) % MOD;
         b = (b * b) % MOD;
-        exp /= 2;
+        exp >>= 1;
     }
     return res;
 }
