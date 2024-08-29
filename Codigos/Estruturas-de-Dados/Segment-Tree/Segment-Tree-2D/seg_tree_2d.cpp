@@ -21,7 +21,8 @@ struct SegTree2D {
         }
         return res;
     }
-    ll query(int a, int b, int c, int d) { // query do ponto (a, b) ate o ponto (c, d), retorna neutro se a > c ou b > d
+    // query do ponto (a, b) ate o ponto (c, d), retorna neutro se a > c ou b > d
+    ll query(int a, int b, int c, int d) {
         ll res = neutral;
         for (a += n, c += n + 1; a < c; a >>= 1, c >>= 1) {
             if (a & 1) res = merge(res, inner_query(a++, b, d));
