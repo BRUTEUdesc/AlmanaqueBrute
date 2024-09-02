@@ -5,6 +5,7 @@ struct Mint {
     T v;
     Mint(T val = 0) : v(val) {
         if (v < 0) v += MOD;
+        if (v >= MOD) v -= MOD;
     }
     bool operator==(m o) const { return v == o.v; }
     bool operator<(m o) const { return v < o.v; }

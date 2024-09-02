@@ -1,4 +1,4 @@
-template <int MOD, typename T = Mint<MOD>>
+template <auto MOD, typename T = Mint<MOD>>
 void ntt(vector<T> &a, bool inv = 0) {
     int n = (int)a.size();
     auto b = a;
@@ -23,23 +23,15 @@ void ntt(vector<T> &a, bool inv = 0) {
     }
 }
 
-template <int MOD>
-vector<int> multiply(vector<int> &ta, vector<int> &tb) {
-    using T = Mint<MOD>;
-    int n = (int)ta.size(), m = (int)tb.size();
+template <auto MOD, typename T = Mint<MOD>>
+vector<T> multiply(vector<T> a, vector<T> b) {
+    int n = (int)a.size(), m = (int)b.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
-
-    vector<T> a(sz), b(sz), c(sz);
-    for (int i = 0; i < n; i++) a[i] = ta[i];
-    for (int i = 0; i < m; i++) b[i] = tb[i];
-
+    a.resize(sz), b.resize(sz);
     ntt<MOD>(a, 0), ntt<MOD>(b, 0);
-    for (int i = 0; i < sz; i++) c[i] = a[i] * b[i];
-    ntt<MOD>(c, 1);
-
-    vector<int> res(sz);
-    for (int i = 0; i < sz; i++) res[i] = c[i].v;
-    while ((int)res.size() > t && res.back() == 0) res.pop_back();
-    return res;
+    for (int i = 0; i < sz; i++) a[i] *= b[i];
+    ntt<MOD>(a, 1);
+    while ((int)a.size() > t) a.pop_back();
+    return a;
 }
