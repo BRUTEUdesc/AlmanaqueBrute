@@ -5,11 +5,13 @@ struct Mint {
     using m = Mint<MOD, T>;
     T v;
     Mint(T val = 0) : v(val) {
+        assert(sizeof(T) * 2 <= sizeof(U));
         if (v < -MOD || v >= 2 * MOD) v %= MOD;
         if (v < 0) v += MOD;
         if (v >= MOD) v -= MOD;
     }
     Mint(U val) : v(T(val % MOD)) {
+        assert(sizeof(T) * 2 <= sizeof(U));
         if (v < 0) v += MOD;
     }
     bool operator==(m o) const { return v == o.v; }
