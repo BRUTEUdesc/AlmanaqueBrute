@@ -1,11 +1,16 @@
-// se o modulo for long long, usar U = __int128
-template <auto MOD, typename T = decltype(MOD), typename U = ll>
+template <auto MOD, typename T = decltype(MOD)>
 struct Mint {
+    using U = long long;
+    // se o modulo for long long, usar U = __int128
     using m = Mint<MOD, T>;
     T v;
     Mint(T val = 0) : v(val) {
+        if (v < -MOD || v >= 2 * MOD) v %= MOD;
         if (v < 0) v += MOD;
         if (v >= MOD) v -= MOD;
+    }
+    Mint(U val) : v(T(val % MOD)) {
+        if (v < 0) v += MOD;
     }
     bool operator==(m o) const { return v == o.v; }
     bool operator<(m o) const { return v < o.v; }
