@@ -13,9 +13,8 @@ namespace HLD {
             if (v != p) {
                 dfs_sz(v, u);
                 sz[u] += sz[v];
-                if (sz[v] > sz[adj[u][0].first] || adj[u][0].first == p) {
+                if (sz[v] > sz[adj[u][0].first] || adj[u][0].first == p)
                     swap(adj[u][0], adj[u][i]);
-                }
             }
         }
     }
@@ -38,11 +37,8 @@ namespace HLD {
         build_hld(root);
         vector<ll> aux(n, seg.neutral);
         for (int u = 0; u < n; u++) {
-            for (auto [v, w] : adj[u]) {
-                if (u == par[v]) {
-                    aux[pos[v]] = w;
-                }
-            }
+            for (auto [v, w] : adj[u])
+                if (u == par[v]) aux[pos[v]] = w;
         }
         seg.build(aux);
     }

@@ -36,7 +36,7 @@ struct SegTree {
         t[p] = t[old];
         if (l == r) {
             if (repl) t[p] = x; // substitui
-            else t[p] += x; // soma
+            else t[p] += x;     // soma
             return;
         }
         ll mid = l + (r - l) / 2;
@@ -50,8 +50,8 @@ struct SegTree {
         t[p] = merge(t[lc(p)], t[rc(p)]);
     }
     int update(ll i, ll x, bool repl, int root = -1) {
-        // root é qual versão da segtree vai ser atualizada, -1 atualiza a ultima root criada
-        // a flag repl diz se o update é de soma ou de replace
+        // root é qual versão da segtree vai ser atualizada,
+        // -1 atualiza a ultima root
         int new_root = newnode();
         if (root == -1) root = roots.back();
         else root = roots[root];

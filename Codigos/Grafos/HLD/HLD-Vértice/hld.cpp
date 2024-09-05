@@ -53,9 +53,7 @@ namespace HLD {
             return seg.merge(qu, qv);
         }
     }
-    ll query_subtree(int u) {
-        return seg.query(pos[u], pos[u] + sz[u] - 1);
-    }
+    ll query_subtree(int u) { return seg.query(pos[u], pos[u] + sz[u] - 1); }
     // a flag repl diz se o update é de soma ou de replace
     void update(int u, int v, ll k, bool repl) {
         if (pos[u] > pos[v]) swap(u, v);
