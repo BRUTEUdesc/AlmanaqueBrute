@@ -1,4 +1,4 @@
-template <ll MINL = (ll)-1e9 - 5, ll MAXR = (ll)1e9 + 5>
+const ll MINL = (ll)-1e9 - 5, MAXR = (ll)1e9 + 5;
 struct SegTree {
     ll merge(ll a, ll b) { return a + b; }
     const ll neutral = 0;
@@ -65,6 +65,7 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void sumUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 0); }
-    void assignUpdate(ll l, ll r, ll val) { update(0, MINL, MAXR, l, r, val, 1); }
+    void update(ll l, ll r, ll val, bool repl) { update(0, MINL, MAXR, l, r, val, repl); }
+    void sumUpdate(ll l, ll r, ll val) { update(l, r, val, 0); }
+    void setUpdate(ll l, ll r, ll val) { update(l, r, val, 1); }
 } seg;

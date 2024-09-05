@@ -29,29 +29,36 @@ struct SegTree {
     }
     ll query(ll l, ll r, int root = -1) {
         if (root == -1) root = roots.back();
+        else root = roots[root];
         return query(root, MINL, MAXR, l, r);
     }
-    void update(int p, int old, ll l, ll r, ll i, ll x) {
+    void update(int p, int old, ll l, ll r, ll i, ll x, bool repl) {
+        t[p] = t[old];
         if (l == r) {
-            t[p] = x; // substitui
-            // t[p] += x; // soma
+            if (repl) t[p] = x; // substitui
+            else t[p] += x; // soma
             return;
         }
         ll mid = l + (r - l) / 2;
         if (i <= mid) {
             Rc[p] = rc(old);
-            update(lc(p), lc(old), l, mid, i, x);
+            update(lc(p), lc(old), l, mid, i, x, repl);
         } else {
             Lc[p] = lc(old);
-            update(rc(p), rc(old), mid + 1, r, i, x);
+            update(rc(p), rc(old), mid + 1, r, i, x, repl);
         }
         t[p] = merge(t[lc(p)], t[rc(p)]);
     }
-    int update(ll i, ll x, int root = -1) {
+    int update(ll i, ll x, bool repl, int root = -1) {
+        // root é qual versão da segtree vai ser atualizada, -1 atualiza a ultima root criada
+        // a flag repl diz se o update é de soma ou de replace
         int new_root = newnode();
         if (root == -1) root = roots.back();
-        update(new_root, root, MINL, MAXR, i, x);
+        else root = roots[root];
+        update(new_root, root, MINL, MAXR, i, x, repl);
         roots.push_back(new_root);
         return roots.back();
     }
+    void sumUpdate(ll i, ll x, int root = -1) { update(i, x, 0, root); }
+    void setUpdate(ll i, ll x, int root = -1) { update(i, x, 1, root); }
 } seg;
