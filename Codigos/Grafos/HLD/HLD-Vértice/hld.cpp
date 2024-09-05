@@ -40,8 +40,8 @@ namespace HLD {
     void build(int n, int root) { // pra buildar com neutro nos nodos
         build(vector<ll>(n, seg.neutral), root);
     }
-    void build(ll *bg, ll *ed, int root) { // pra buildar com array de C
-        build(vector<ll>(bg, ed), root);
+    void build(ll *bg, ll *en, int root) { // pra buildar com array de C
+        build(vector<ll>(bg, en), root);
     }
     ll query(int u, int v) {
         if (pos[u] > pos[v]) swap(u, v);

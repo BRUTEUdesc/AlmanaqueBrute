@@ -34,7 +34,7 @@ namespace HLD {
         t = 0, par[u] = u, head[u] = u;
         dfs_hld(u);
     }
-    void build(int n, int root) { // pra buildar com valores nos nodos
+    void build(int n, int root) {
         build_hld(root);
         vector<ll> aux(n, seg.neutral);
         for (int u = 0; u < n; u++) {
