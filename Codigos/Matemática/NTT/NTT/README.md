@@ -1,4 +1,4 @@
-# [NTT Big Modulo](big_ntt.cpp)
+# [NTT](ntt.cpp)
 
 Computa a multiplicação de polinômios com coeficientes inteiros módulo um número primo em $\mathcal{O}(N \cdot \log N)$. Exatamente o mesmo algoritmo da FFT, mas com inteiros.
 

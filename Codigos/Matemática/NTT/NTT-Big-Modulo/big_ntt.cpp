@@ -1,4 +1,4 @@
-template <int MOD, typename T = Mint<MOD>>
+template <auto MOD, typename T = Mint<MOD>>
 void ntt(vector<T> &a, bool inv = 0) {
     int n = (int)a.size();
     auto b = a;
@@ -23,25 +23,17 @@ void ntt(vector<T> &a, bool inv = 0) {
     }
 }
 
-template <int MOD>
-vector<int> multiply(vector<int> &ta, vector<int> &tb) {
-    using T = Mint<MOD>;
-    int n = (int)ta.size(), m = (int)tb.size();
+template <auto MOD, typename T = Mint<MOD>>
+vector<T> multiply(vector<T> a, vector<T> b) {
+    int n = (int)a.size(), m = (int)b.size();
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
-
-    vector<T> a(sz), b(sz), c(sz);
-    for (int i = 0; i < n; i++) a[i] = ta[i];
-    for (int i = 0; i < m; i++) b[i] = tb[i];
-
+    a.resize(sz), b.resize(sz);
     ntt<MOD>(a, 0), ntt<MOD>(b, 0);
-    for (int i = 0; i < sz; i++) c[i] = a[i] * b[i];
-    ntt<MOD>(c, 1);
-
-    vector<int> res(sz);
-    for (int i = 0; i < sz; i++) res[i] = c[i].v;
-    while ((int)res.size() > t && res.back() == 0) res.pop_back();
-    return res;
+    for (int i = 0; i < sz; i++) a[i] *= b[i];
+    ntt<MOD>(a, 1);
+    while ((int)a.size() > t) a.pop_back();
+    return a;
 }
 
 ll extended_gcd(ll a, ll b, ll &x, ll &y) {
@@ -58,23 +50,29 @@ ll extended_gcd(ll a, ll b, ll &x, ll &y) {
 
 ll crt(array<int, 2> rem, array<int, 2> mod) {
     __int128 ans = rem[0], m = mod[0];
-    for (int i = 1; i < 2; i++) {
-        ll x, y;
-        ll g = extended_gcd(mod[i], (ll)m, x, y);
-        if ((ans - rem[i]) % g != 0) return -1;
-        ans = ans + (__int128)1 * (rem[i] - ans) * (m / g) * y;
-        m = (__int128)(mod[i] / g) * (m / g) * g;
-        ans = (ans % m + m) % m;
-    }
+    ll x, y;
+    ll g = extended_gcd(mod[1], (ll)m, x, y);
+    if ((ans - rem[1]) % g != 0) return -1;
+    ans = ans + (__int128)1 * (rem[1] - ans) * (m / g) * y;
+    m = (__int128)(mod[1] / g) * (m / g) * g;
+    ans = (ans % m + m) % m;
     return (ll)ans;
 }
 
-vector<ll> big_multiply(vector<int> &a, vector<int> &b) {
-    const int MOD1 = 1004535809;
-    const int MOD2 = 1092616193;
-    vector<int> c1 = multiply<MOD1>(a, b);
-    vector<int> c2 = multiply<MOD2>(a, b);
+template <auto MOD1, auto MOD2, typename T = Mint<MOD1>, typename U = Mint<MOD2>>
+vector<ll> big_multiply(vector<ll> ta, vector<ll> tb) {
+    vector<T> a1(ta.size()), b1(tb.size());
+    vector<U> a2(ta.size()), b2(tb.size());
+    for (int i = 0; i < (int)ta.size(); i++) a1[i] = ta[i];
+    for (int i = 0; i < (int)tb.size(); i++) b1[i] = tb[i];
+    for (int i = 0; i < (int)ta.size(); i++) a2[i] = ta[i];
+    for (int i = 0; i < (int)tb.size(); i++) b2[i] = tb[i];
+    auto c1 = multiply<MOD1>(a1, b1);
     vector<ll> res(c1.size());
-    for (int i = 0; i < (int)res.size(); i++) res[i] = crt({c1[i], c2[i]}, {MOD1, MOD2});
+    for (int i = 0; i < (int)res.size(); i++)
+        res[i] = crt({c1[i].v, c2[i].v}, {MOD1, MOD2});
     return res;
 }
+
+const int MOD1 = 1004535809;
+const int MOD2 = 1092616193;
