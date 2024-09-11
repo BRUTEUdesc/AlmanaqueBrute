@@ -26,9 +26,11 @@ struct SegTree {
         }
         return merge(ansl, ansr);
     }
-    void update(int i, ll x, bool replace = false) {
+    void update(int i, ll x, bool replace) {
         i += n;
         t[i] = replace ? x : merge(t[i], x);
         for (i >>= 1; i > 0; i >>= 1) t[i] = merge(t[lc(i)], t[rc(i)]);
     }
+    void sumUpdate(int i, ll x) { update(i, x, 0); }
+    void setUpdate(int i, ll x) { update(i, x, 1); }
 } seg;

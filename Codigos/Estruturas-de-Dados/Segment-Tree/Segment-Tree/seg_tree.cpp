@@ -47,6 +47,7 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void sumUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 0); }
-    void assignUpdate(int i, ll x) { update(1, 0, n - 1, i, x, 1); }
+    void update(int i, ll x, bool repl) { update(1, 0, n - 1, i, x, repl); }
+    void sumUpdate(int i, ll x) { update(i, x, 0); }
+    void setUpdate(int i, ll x) { update(i, x, 1); }
 } seg;
