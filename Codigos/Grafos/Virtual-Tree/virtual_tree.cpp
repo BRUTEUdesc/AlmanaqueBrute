@@ -13,7 +13,7 @@ void build_virtual_tree(vector<int> S) {
     vector<int> stk;
     for (auto u : S) {
         while (stk.size() && !bl::ancestor(stk.back(), u)) stk.pop_back();
-        if(stk.size()) vir_tree[stk.back()].emplace_back(u);
+        if (stk.size()) vir_tree[stk.back()].emplace_back(u);
         stk.emplace_back(u);
     }
 }
