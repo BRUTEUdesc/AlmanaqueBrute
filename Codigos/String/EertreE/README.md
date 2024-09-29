@@ -1,7 +1,7 @@
 # [EertreE](eertree.cpp)
 
 Constrói a Palindromic Tree de uma string $S$ em $\mathcal{O}(|S|)$. Todo nodo da
-árvore representa exatamente uma substring palindromica de $S$.
+árvore representa exatamente uma substring palindrômica de $S$.
 
 - `len[u]` representa o tamanho do palíndromo representado pelo nodo `u`.
 - `lnk[u]` é o nodo que representa o maior sufixo palindômico do nodo `u`.
