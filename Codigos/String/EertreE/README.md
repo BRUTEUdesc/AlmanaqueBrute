@@ -1,6 +1,6 @@
 # [EertreE](eertree.cpp)
 
-constrói a palindromic tree de uma string $S$ em $\mathcal{O}(|S|)$. Todo nodo da
+Constrói a Palindromic Tree de uma string $S$ em $\mathcal{O}(|S|)$. Todo nodo da
 árvore representa exatamente uma substring palindromica de $S$.
 
 - `len[u]` representa o tamanho do palíndromo representado pelo nodo `u`.
