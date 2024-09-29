@@ -18,10 +18,7 @@ struct eertree {
         for (int i = 0; i <= it; i++)
             for (int j = 0; j < ALF; j++) to[i][j] = 0;
         node_cnt = 2, it = 1, last = 0, str[0] = -1;
-        len[0] = 0;
-        len[1] = -1;
-        lnk[0] = 1;
-        lnk[1] = 1;
+        len[0] = 0, len[1] = -1, lnk[0] = 1, lnk[1] = 1;
         for (int i = 0; i < n; i++) insert(s[i]);
         build_cnt();
     }
@@ -52,6 +49,6 @@ struct eertree {
         palindrome_substring_sum = ans;
     }
 
-    ll number_of_palindromes() { return palindrome_substring_sum; }
-    int number_of_distinct_palindromes() { return node_cnt - 2; }
+    inline ll number_of_palindromes() { return palindrome_substring_sum; }
+    inline int number_of_distinct_palindromes() { return node_cnt - 2; }
 } et;
