@@ -7,8 +7,10 @@ on:
   pull_request:
     branches:
       - master
+      - test-workflow
     types:
       - closed
+  workflow_dispatch:
 
 jobs:
   generate_almanaque_pdf:
