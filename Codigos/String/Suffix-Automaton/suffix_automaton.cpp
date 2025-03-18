@@ -60,7 +60,7 @@ struct SuffixAutomaton {
             len[i] = lnk[i] = cnt[i] = 0;
             adj[i].clear();
         }
-        id = 2;
+        last = 1, id = 2, distinct_substrings = 0;
         for (int i = 0; i < n; i++) insert(i, s[i]);
         for (int i = 2; i < id; i++) adj[lnk[i]].push_back(i);
         dfs(1);
