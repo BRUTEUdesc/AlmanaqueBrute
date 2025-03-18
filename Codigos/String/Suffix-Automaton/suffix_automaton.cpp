@@ -58,6 +58,7 @@ struct SuffixAutomaton {
         for (int i = 0; i < id; i++) {
             to[i].fill(0);
             len[i] = lnk[i] = cnt[i] = 0;
+            adj[i].clear();
         }
         id = 2;
         for (int i = 0; i < n; i++) insert(i, s[i]);
