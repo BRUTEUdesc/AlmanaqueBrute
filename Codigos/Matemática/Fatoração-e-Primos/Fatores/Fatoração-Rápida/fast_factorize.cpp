@@ -1,6 +1,6 @@
-vector<ll> factorize(ll x) {
+vector<ll> factorize(ll y) {
     vector<ll> f;
-    if (x == 1) return f;
+    if (y == 1) return f;
     function<void(ll)> dfs = [&](ll x) {
         if (x == 1) return;
         if (x < Sieve::P) {
@@ -14,7 +14,7 @@ vector<ll> factorize(ll x) {
             dfs(x / d);
         }
     };
-    dfs(x);
+    dfs(y);
     sort(f.begin(), f.end());
     return f;
 }
