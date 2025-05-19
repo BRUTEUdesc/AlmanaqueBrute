@@ -12,39 +12,43 @@ struct LichaoTree {
 
     int newnode() {
         tree.push_back(Line());
-        L.push_back(-1);
-        R.push_back(-1);
+        L.push_back(0);
+        R.push_back(0);
         return int(tree.size()) - 1;
     }
 
-    LichaoTree() { newnode(); }
-
-    int lc(int u) {
-        if (L[u] == -1) L[u] = newnode();
-        return L[u];
+    LichaoTree() {
+        newnode();
+        newnode();
     }
 
-    int rc(int u) {
-        if (R[u] == -1) R[u] = newnode();
-        return R[u];
+    int lc(int p, bool create = false) {
+        if (create && L[p] == 0) L[p] = newnode();
+        return L[p];
     }
 
-    void insert(Line line, int n = 0, ll l = MINL, ll r = MAXR) {
+    int rc(int p, bool create = false) {
+        if (create && R[p] == 0) R[p] = newnode();
+        return R[p];
+    }
+
+    void insert(Line line, int p = 1, ll l = MINL, ll r = MAXR) {
+        if (p == 0) return;
         ll mid = l + (r - l) / 2;
-        bool bl = line(l) > tree[n](l);
-        bool bm = line(mid) > tree[n](mid);
-        bool br = line(r) > tree[n](r);
-        if (bm) swap(tree[n], line);
+        bool bl = line(l) > tree[p](l);
+        bool bm = line(mid) > tree[p](mid);
+        bool br = line(r) > tree[p](r);
+        if (bm) swap(tree[p], line);
         if (line.b == -INF) return;
-        if (bl != bm) insert(line, lc(n), l, mid - 1);
-        else if (br != bm) insert(line, rc(n), mid + 1, r);
+        if (bl != bm) insert(line, lc(p, true), l, mid - 1);
+        else if (br != bm) insert(line, rc(p, true), mid + 1, r);
     }
 
-    ll query(int x, int n = 0, ll l = MINL, ll r = MAXR) {
-        if (tree[n](x) == -INF || (l > r)) return -INF;
-        if (l == r) return tree[n](x);
+    ll query(int x, int p = 1, ll l = MINL, ll r = MAXR) {
+        if (p == 0 || tree[p](x) == -INF || (l > r)) return -INF;
+        if (l == r) return tree[p](x);
         ll mid = l + (r - l) / 2;
-        if (x < mid) return max(tree[n](x), query(x, lc(n), l, mid - 1));
-        else return max(tree[n](x), query(x, rc(n), mid + 1, r));
+        if (x < mid) return max(tree[p](x), query(x, lc(p), l, mid - 1));
+        else return max(tree[p](x), query(x, rc(p), mid + 1, r));
     }
 };

@@ -7,7 +7,7 @@ namespace mo {
         bool operator<(query q) const {
             int _l = l / block_sz;
             int _ql = q.l / block_sz;
-            return ii(_l, (_l & 1 ? -r : r)) < ii(_ql, (_ql & 1 ? -q.r : q.r));
+            return ii(_l, _l & 1 ? -r : r) < ii(_ql, _ql & 1 ? -q.r : q.r);
         }
     };
     vector<query> queries;
