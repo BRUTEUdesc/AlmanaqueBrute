@@ -17,7 +17,10 @@ struct LichaoTree {
         return int(tree.size()) - 1;
     }
 
-    LichaoTree() { newnode(); newnode(); }
+    LichaoTree() {
+        newnode();
+        newnode();
+    }
 
     int lc(int p, bool create = false) {
         if (create && L[p] == 0) L[p] = newnode();

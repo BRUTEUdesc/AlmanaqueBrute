@@ -18,7 +18,10 @@ struct SegTree {
         if (create && Rc[p] == 0) Rc[p] = newnode();
         return Rc[p];
     }
-    SegTree() { roots.push_back(newnode()); newnode(); }
+    SegTree() {
+        roots.push_back(newnode());
+        newnode();
+    }
     ll query(int p, ll l, ll r, ll L, ll R) {
         if (p == 0 || l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];

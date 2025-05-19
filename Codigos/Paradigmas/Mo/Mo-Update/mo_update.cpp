@@ -10,8 +10,8 @@ namespace mo {
             int _r = r / block_sz;
             int _ql = q.l / block_sz;
             int _qr = q.r / block_sz;
-            return iii(_l, (_l & 1 ? -_r : _r), (_r & 1 ? t : -t)) <
-                   iii(_ql, (_ql & 1 ? -_qr : _qr), (_qr & 1 ? q.t : -q.t));
+            return iii(_l, _l & 1 ? -_r : _r, _r & 1 ? t : -t) <
+                   iii(_ql, _ql & 1 ? -_qr : _qr, _qr & 1 ? q.t : -q.t);
         }
     };
     vector<query> queries;
