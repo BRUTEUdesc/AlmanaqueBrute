@@ -6,21 +6,21 @@ struct SegTree {
     vector<int> Lc, Rc, roots;
     inline int newnode() {
         t.push_back(neutral);
-        Lc.push_back(-1);
-        Rc.push_back(-1);
+        Lc.push_back(0);
+        Rc.push_back(0);
         return (int)t.size() - 1;
     }
-    inline int lc(int p) {
-        if (Lc[p] == -1) Lc[p] = newnode();
+    inline int lc(int p, bool create = false) {
+        if (create && Lc[p] == 0) Lc[p] = newnode();
         return Lc[p];
     }
-    inline int rc(int p) {
-        if (Rc[p] == -1) Rc[p] = newnode();
+    inline int rc(int p, bool create = false) {
+        if (create && Rc[p] == 0) Rc[p] = newnode();
         return Rc[p];
     }
-    SegTree() { roots.push_back(newnode()); }
+    SegTree() { roots.push_back(newnode()); newnode(); }
     ll query(int p, ll l, ll r, ll L, ll R) {
-        if (l > R || r < L) return neutral;
+        if (p == 0 || l > R || r < L) return neutral;
         if (l >= L && r <= R) return t[p];
         ll mid = l + (r - l) / 2;
         auto ql = query(lc(p), l, mid, L, R);
@@ -42,10 +42,10 @@ struct SegTree {
         ll mid = l + (r - l) / 2;
         if (i <= mid) {
             Rc[p] = rc(old);
-            update(lc(p), lc(old), l, mid, i, x, repl);
+            update(lc(p, true), lc(old), l, mid, i, x, repl);
         } else {
             Lc[p] = lc(old);
-            update(rc(p), rc(old), mid + 1, r, i, x, repl);
+            update(rc(p, true), rc(old), mid + 1, r, i, x, repl);
         }
         t[p] = merge(t[lc(p)], t[rc(p)]);
     }
