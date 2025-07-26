@@ -3,10 +3,10 @@ name: Generate Almanaque PDF
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
     types:
       - closed
 
@@ -15,34 +15,55 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
-    - name: Set up Python 3.9
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: Install dependencies
-      run: |
-        sudo apt install texlive-full
-        sudo apt install rubber
-    - name: Run a python script
-      run: |
-        python3 ./.github/scripts/pdfer.py
+      - name: Checkout repo
+        uses: actions/checkout@v2
 
-  commit_and_push:
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12
+
+      - name: Install LaTeX dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-lang-portuguese \
+            cm-super \
+            rubber
+
+      - name: Run PDF generation script
+        run: python3 ./.github/scripts/pdfer.py
+
+  commit_and_pr:
     needs: generate_almanaque_pdf
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
-    - name: Set up Git
-      run: |
-        git config --global user.email "pdfer@brute.com"
-        git config --global user.name "Pdfer"
-    - name: Commit and push changes
-      run: |
-        git add .
-        git commit -m "Generated PDF"
-        git push
-      env:
-        PAT: ${{ secrets.GITHUB_TOKEN }}
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "pdfer@brute.com"
+          git config --global user.name "Pdfer"
+          git checkout -b gerar-pdf-${{ github.run_number }}
+          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
+
+      - name: Commit PDF
+        run: |
+          git add .
+          git diff --cached --quiet || git commit -m "Generated PDF"
+
+      - name: Push changes to new branch
+        run: git push origin HEAD
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT }}
+          title: "Atualização automática do PDF"
+          commit-message: "Generated PDF"
+          base: main
+          branch: gerar-pdf-${{ github.run_number }}
+          delete-branch: true
