@@ -6,7 +6,7 @@ bool ccw(pt &p, pt &a, pt &b, bool include_collinear = 0) {
 
 void sort_by_angle(vector<pt> &v) { // sorta o vetor por angulo em relacao ao pivo
     pt p0 = *min_element(begin(v), end(v));
-    sort(begin(v), end(v), [&](pt &l, pt &r) { // sorta clockwise
+    sort(begin(v), end(v), [&](pt &l, pt &r) { // clockwise
         pt p1 = l - p0;
         pt p2 = r - p0;
         ll c1 = p1 ^ p2;
