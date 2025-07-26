@@ -3287,7 +3287,7 @@ Também constrói a tabela LCP (Longest Common Prefix).
 
 * Complexidade de tempo (Pré-Processamento): $\mathcal{O}(|S| \cdot \log(|S|))$
 
-* Complexidade de tempo (Contar ocorrências de \(S\) em \(T\)): $\mathcal{O}(|S| \cdot \log(|T|))$
+* Complexidade de tempo (Contar ocorrências de $S$ em $T$): $\mathcal{O}(|S| \cdot \log(|T|))$
 
 \hfill
 
@@ -6085,7 +6085,7 @@ Encontra um ponto ótimo em uma função que pode ser separada em duas funções
 
 
 \begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(\log(N) \cdot \mathcal{O}(\text{eval}))$, onde \(N\) é o tamanho do espaço de busca e \(\mathcal{O}(\text{eval})\) é o custo de avaliação da função.
+\item Complexidade de tempo: $\mathcal{O}(\log(N) \cdot \mathcal{O}(\text{eval}))$, onde $N$ é o tamanho do espaço de busca e ($\mathcal{O}(\text{eval})$) é o custo de avaliação da função.
 \end{itemize}
 
 
@@ -6101,7 +6101,7 @@ Versão para espaços discretos.
 
 
 \begin{itemize}
-\item Complexidade de tempo: $\mathcal{O}(\log(N) \cdot \mathcal{O}(\text{eval}))$, onde \(N\) é o tamanho do espaço de busca e \(\mathcal{O}(\text{eval})\) é o custo de avaliação da função.
+\item Complexidade de tempo: $\mathcal{O}(\log(N) \cdot \mathcal{O}(\text{eval}))$, onde $N$ é o tamanho do espaço de busca e ($\mathcal{O}(\text{eval})$) é o custo de avaliação da função.
 \end{itemize}
 
 \hfill
@@ -6162,7 +6162,7 @@ double ternary_search(double l, double r) {
 \section{Convex Hull Trick}
 
 
-Otimização de DP onde se mantém as retas que formam um Convex Hull em uma estrutura que permite consultar qual o melhor valor para um determinado \(x\).
+Otimização de DP onde se mantém as retas que formam um Convex Hull em uma estrutura que permite consultar qual o melhor valor para um determinado $x$.
 
 
 
@@ -6176,8 +6176,8 @@ Complexidade de tempo:
 
 \begin{itemize}
 \item Inserir reta: $\mathcal{O}(1)$ amortizado
-\item Consultar \(x\): $\mathcal{O}(\log(N))$
-\item Consultar \(x\) quando \(x\) tem crescimento monotônico: $\mathcal{O}(1)$
+\item Consultar $x$: $\mathcal{O}(\log(N))$
+\item Consultar $x$ quando $x$ tem crescimento monotônico: $\mathcal{O}(1)$
 \end{itemize}
 
 \hfill
@@ -6238,7 +6238,7 @@ Otimização do problema do Caixeiro Viajante
 
 
 
-Para rodar a função basta setar a matriz de adjacência 'dist' e chamar solve(0,0,n).
+Para rodar a função basta setar a matriz de adjacência \texttt{dist} e chamar \texttt{solve(0,0,n)}.
 
 \hfill
 
@@ -6274,7 +6274,7 @@ long double solve(int atual, int mask, int n) {
 \section{Divide and Conquer}
 
 
-Otimização para DP de prefixo quando se pretende separar o vetor em \(K\) subgrupos.    
+Otimização para DP de prefixo quando se pretende separar o vetor em $K$ subgrupos.    
 
 
 
