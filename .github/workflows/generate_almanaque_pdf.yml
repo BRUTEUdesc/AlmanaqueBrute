@@ -1,29 +1,37 @@
-name: Generate Almanaque PDF
+name: Gerar Almanaque PDF
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
-    types:
-      - closed
 
 jobs:
-  generate_almanaque_pdf:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+  build_and_commit_pdf:
+    if: "!contains(github.event.head_commit.message, 'chore: Atualiza o PDF')"
+
     runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Detect changes on relevant files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            Codigos/**/*.cpp
+            LaTeX/**/*.tex
+            **/*.md
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v2
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: actions/setup-python@v5
         with:
           python-version: 3.12
 
       - name: Install LaTeX dependencies
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           sudo apt update
           sudo apt install -y \
@@ -34,36 +42,24 @@ jobs:
             rubber
 
       - name: Run PDF generation script
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: python3 ./.github/scripts/pdfer.py
 
-  commit_and_pr:
-    needs: generate_almanaque_pdf
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Set up Git
-        run: |
-          git config --global user.email "pdfer@brute.com"
-          git config --global user.name "Pdfer"
-          git checkout -b gerar-pdf-${{ github.run_number }}
-          git remote set-url origin https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.repository }}
-
-      - name: Commit PDF
-        run: |
-          git add .
-          git diff --cached --quiet || git commit -m "Generated PDF"
-
-      - name: Push changes to new branch
-        run: git push origin HEAD
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+      - name: Create Pull Request com o novo PDF
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.PAT }}
-          title: "Atualização automática do PDF"
-          commit-message: "Generated PDF"
+          
+          commit-message: "chore: Atualiza o PDF"
+          author: "Pdfer <pdfer@brute.com>"
+          committer: "Pdfer <pdfer@brute.com>"
+
+          title: "chore: Atualiza o PDF"
+          body: |
+            Este PR foi aberto automaticamente pelo GitHub Actions. 🤖
+
+            O PDF do Almanaque foi atualizado para refletir as últimas mudanças nos códigos-fonte e/ou arquivos LaTeX.
+          branch: "chore/gerar-pdf-${{ github.run_number }}"
           base: main
-          branch: gerar-pdf-${{ github.run_number }}
           delete-branch: true
