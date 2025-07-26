@@ -47,13 +47,9 @@ jobs:
 
       - name: Create Pull Request com o novo PDF
         if: steps.changed-files.outputs.any_changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.PAT }}
-          
           commit-message: "chore: Atualiza o PDF"
-          author: "Pdfer <pdfer@brute.com>"
-          committer: "Pdfer <pdfer@brute.com>"
 
           title: "chore: Atualiza o PDF"
           body: |
@@ -63,3 +59,4 @@ jobs:
           branch: "chore/gerar-pdf-${{ github.run_number }}"
           base: main
           delete-branch: true
+          sign-commits: true
