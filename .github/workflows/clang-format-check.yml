@@ -23,3 +23,25 @@ jobs:
         clang-format-version: '18'
         check-path: 'Codigos'
         fallback-style: 'LLVM'
+
+jobs:
+  formatting-check:
+    name: Formatting Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Detect changes on relevant files
+        id: changed-files
+        uses: tj-actions/changed-files@v46
+        with:
+          files: |
+            Codigos/**/*.cpp
+
+      - name: Run clang-format style check for C++ programs
+        if: steps.changed-files.outputs.any_changed == 'true'
+        uses: jidicula/clang-format-action@v4.11.0
+        with:
+          clang-format-version: '18'
+          check-path: 'Codigos'
+          fallback-style: 'LLVM'
