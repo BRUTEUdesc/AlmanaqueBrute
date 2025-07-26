@@ -4,9 +4,12 @@ on:
   pull_request:
     branches:
       - main
-  push:
-    branches:
-      - main
+      
+  # A verificação no 'push' pra 'main' foi desabilitada por ser redundante.
+  # Já que push direto na main está bloqueado e tudo tem que passar por um PR que já vai rodar essa action.
+  # push:
+  #   branches:
+  #     - main
       
 jobs:
   formatting-check:
