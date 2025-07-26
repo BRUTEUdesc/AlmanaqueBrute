@@ -9,4 +9,4 @@ Também constrói a tabela LCP (Longest Common Prefix).
 - `LCP[i]` = Comprimento do maior prefixo comum entre os sufixos `sa[i]` e `sa[i-1]`.
 
 * Complexidade de tempo (Pré-Processamento): $\mathcal{O}(|S| \cdot \log(|S|))$
-* Complexidade de tempo (Contar ocorrências de \(S\) em \(T\)): $\mathcal{O}(|S| \cdot \log(|T|))$
+* Complexidade de tempo (Contar ocorrências de $S$ em $T$): $\mathcal{O}(|S| \cdot \log(|T|))$
