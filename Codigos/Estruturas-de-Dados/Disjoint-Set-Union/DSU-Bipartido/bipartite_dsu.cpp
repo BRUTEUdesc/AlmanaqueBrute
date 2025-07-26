@@ -7,7 +7,7 @@ struct Bipartite_DSU {
         sz.assign(n, 1);
         c.assign(n, 0);
         bip.assign(n, 1);
-        all_bipartite = true;
+        all_bipartite = 1;
     }
     int find(int a) { return a == par[a] ? a : find(par[a]); }
     int color(int a) { return a == par[a] ? c[a] : c[a] ^ color(par[a]); }
