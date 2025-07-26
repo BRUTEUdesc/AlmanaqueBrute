@@ -1,8 +1,6 @@
 # Fluxo
 
-<!-- DESCRIPTION -->
 Conjunto de algoritmos para calcular o fluxo máximo em redes de fluxo.
-<!-- DESCRIPTION -->
 
 ## Dinic
 
