@@ -19,8 +19,8 @@ struct SegTree {
         return Rc[p];
     }
     SegTree() {
-        roots.push_back(newnode());
         newnode();
+        roots.push_back(newnode());
     }
     ll query(int p, ll l, ll r, ll L, ll R) {
         if (p == 0 || l > R || r < L) return neutral;
