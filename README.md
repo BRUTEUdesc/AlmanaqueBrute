@@ -54,45 +54,63 @@ python3 .github/scripts/pdfer.py
 ```
 ## Tabela de Conteúdos
 
-### [Primitivas](Codigos/Primitivas)
-
-- [Modular Int](Codigos/Primitivas/Modular-Int)
-
-- [Ponto 2D](Codigos/Primitivas/Ponto-2D)
-
 ### [Matemática](Codigos/Matemática)
 
 - [Teorema do Resto Chinês](Codigos/Matemática/Teorema-do-Resto-Chinês)
 
-- [FFT](Codigos/Matemática/FFT)
+- [GCD](Codigos/Matemática/GCD)
 
-- [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
+- [Inverso Modular](Codigos/Matemática/Inverso-Modular)
+
+- [Convolução](Codigos/Matemática/Convolução)
+
+	- [Subset Convolution](Codigos/Matemática/Convolução/Subset-Convolution)
+
+	- [LCM Convolution](Codigos/Matemática/Convolução/LCM-Convolution)
+
+	- [OR Convolution](Codigos/Matemática/Convolução/OR-Convolution)
+
+	- [AND Convolution](Codigos/Matemática/Convolução/AND-Convolution)
+
+	- [GCD Convolution](Codigos/Matemática/Convolução/GCD-Convolution)
+
+	- [XOR Convolution](Codigos/Matemática/Convolução/XOR-Convolution)
+
+- [Floor Values](Codigos/Matemática/Floor-Values)
+
+- [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
+
+	- [Gauss Mod 2](Codigos/Matemática/Eliminação-Gaussiana/Gauss-Mod-2)
+
+	- [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
+
+- [FFT](Codigos/Matemática/FFT)
 
 - [XOR Gauss](Codigos/Matemática/XOR-Gauss)
 
-- [NTT](Codigos/Matemática/NTT)
+- [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
 
-	- [NTT](Codigos/Matemática/NTT/NTT)
+- [NTT](Codigos/Matemática/NTT)
 
 	- [NTT Big Modulo](Codigos/Matemática/NTT/NTT-Big-Modulo)
 
 	- [Taylor Shift](Codigos/Matemática/NTT/Taylor-Shift)
 
+	- [NTT](Codigos/Matemática/NTT/NTT)
+
 - [Fatoração e Primos](Codigos/Matemática/Fatoração-e-Primos)
 
 	- [Teste Primalidade](Codigos/Matemática/Fatoração-e-Primos/Teste-Primalidade)
 
-		- [Teste Primalidade Naive](Codigos/Matemática/Fatoração-e-Primos/Teste-Primalidade/Teste-Primalidade-Naive)
-
 		- [Miller Rabin](Codigos/Matemática/Fatoração-e-Primos/Teste-Primalidade/Miller-Rabin)
 
-	- [Pollard Rho](Codigos/Matemática/Fatoração-e-Primos/Pollard-Rho)
+		- [Teste Primalidade Naive](Codigos/Matemática/Fatoração-e-Primos/Teste-Primalidade/Teste-Primalidade-Naive)
 
-	- [Crivo](Codigos/Matemática/Fatoração-e-Primos/Crivo)
+	- [Divisores](Codigos/Matemática/Fatoração-e-Primos/Divisores)
 
-		- [Crivo](Codigos/Matemática/Fatoração-e-Primos/Crivo/Crivo)
+		- [Divisores Naive](Codigos/Matemática/Fatoração-e-Primos/Divisores/Divisores-Naive)
 
-		- [Crivo Linear](Codigos/Matemática/Fatoração-e-Primos/Crivo/Crivo-Linear)
+		- [Divisores Rápido](Codigos/Matemática/Fatoração-e-Primos/Divisores/Divisores-Rápido)
 
 	- [Fatores](Codigos/Matemática/Fatoração-e-Primos/Fatores)
 
@@ -100,217 +118,23 @@ python3 .github/scripts/pdfer.py
 
 		- [Fatoração Naive](Codigos/Matemática/Fatoração-e-Primos/Fatores/Fatoração-Naive)
 
-	- [Divisores](Codigos/Matemática/Fatoração-e-Primos/Divisores)
+	- [Crivo](Codigos/Matemática/Fatoração-e-Primos/Crivo)
 
-		- [Divisores Rápido](Codigos/Matemática/Fatoração-e-Primos/Divisores/Divisores-Rápido)
+		- [Crivo Linear](Codigos/Matemática/Fatoração-e-Primos/Crivo/Crivo-Linear)
 
-		- [Divisores Naive](Codigos/Matemática/Fatoração-e-Primos/Divisores/Divisores-Naive)
+		- [Crivo](Codigos/Matemática/Fatoração-e-Primos/Crivo/Crivo)
 
-- [Inverso Modular](Codigos/Matemática/Inverso-Modular)
+	- [Pollard Rho](Codigos/Matemática/Fatoração-e-Primos/Pollard-Rho)
 
-- [Convolução](Codigos/Matemática/Convolução)
-
-	- [XOR Convolution](Codigos/Matemática/Convolução/XOR-Convolution)
-
-	- [Subset Convolution](Codigos/Matemática/Convolução/Subset-Convolution)
-
-	- [GCD Convolution](Codigos/Matemática/Convolução/GCD-Convolution)
-
-	- [OR Convolution](Codigos/Matemática/Convolução/OR-Convolution)
-
-	- [LCM Convolution](Codigos/Matemática/Convolução/LCM-Convolution)
-
-	- [AND Convolution](Codigos/Matemática/Convolução/AND-Convolution)
-
-- [Floor Values](Codigos/Matemática/Floor-Values)
-
-- [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
-
-- [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
-
-	- [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
-
-	- [Gauss Mod 2](Codigos/Matemática/Eliminação-Gaussiana/Gauss-Mod-2)
-
-- [GCD](Codigos/Matemática/GCD)
-
-### [String](Codigos/String)
-
-- [Trie](Codigos/String/Trie)
-
-- [Z function](Codigos/String/Z-function)
-
-- [Manacher](Codigos/String/Manacher)
-
-- [EertreE](Codigos/String/EertreE)
-
-- [Hashing](Codigos/String/Hashing)
-
-	- [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
-
-	- [Hashing](Codigos/String/Hashing/Hashing)
-
-- [Aho Corasick](Codigos/String/Aho-Corasick)
-
-- [Patricia Tree](Codigos/String/Patricia-Tree)
-
-- [Lyndon](Codigos/String/Lyndon)
-
-- [Suffix Automaton](Codigos/String/Suffix-Automaton)
-
-- [Suffix Array](Codigos/String/Suffix-Array)
-
-- [Prefix Function KMP](Codigos/String/Prefix-Function-KMP)
-
-	- [Automato KMP](Codigos/String/Prefix-Function-KMP/Automato-KMP)
-
-	- [KMP](Codigos/String/Prefix-Function-KMP/KMP)
-
-- [Suffix Tree](Codigos/String/Suffix-Tree)
-
-### [Estruturas de Dados](Codigos/Estruturas-de-Dados)
-
-- [Treap](Codigos/Estruturas-de-Dados/Treap)
-
-- [Interval Tree](Codigos/Estruturas-de-Dados/Interval-Tree)
-
-- [Operation Deque](Codigos/Estruturas-de-Dados/Operation-Deque)
-
-- [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
-
-- [Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree)
-
-	- [Fenwick](Codigos/Estruturas-de-Dados/Fenwick-Tree/Fenwick)
-
-	- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree/Kd-Fenwick-Tree)
-
-- [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
-
-	- [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree)
-
-	- [Merge Sort Tree Update](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree-Update)
-
-- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree)
-
-	- [Segment Tree PA](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-PA)
-
-	- [Segment Tree Iterativa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Iterativa)
-
-	- [Segment Tree Kadane](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadane)
-
-	- [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
-
-	- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
-
-	- [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
-
-	- [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
-
-	- [Segment Tree Beats](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats)
-
-	- [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
-
-	- [Segment Tree Lazy Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy-Esparsa)
-
-- [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
-
-- [Implicit Treap](Codigos/Estruturas-de-Dados/Implicit-Treap)
-
-- [Operation Queue](Codigos/Estruturas-de-Dados/Operation-Queue)
-
-- [Disjoint Set Union](Codigos/Estruturas-de-Dados/Disjoint-Set-Union)
-
-	- [DSU Rollback Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback-Bipartido)
-
-	- [DSU Rollback](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback)
-
-	- [DSU Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Bipartido)
-
-	- [Offline DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/Offline-DSU)
-
-	- [DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU)
-
-- [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
-
-- [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table)
-
-	- [Disjoint Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Disjoint-Sparse-Table)
-
-	- [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Sparse-Table)
-
-- [XOR Trie](Codigos/Estruturas-de-Dados/XOR-Trie)
-
-### [Paradigmas](Codigos/Paradigmas)
-
-- [Exponenciação de Matriz](Codigos/Paradigmas/Exponenciação-de-Matriz)
-
-- [All Submasks](Codigos/Paradigmas/All-Submasks)
-
-- [DP de Permutacao](Codigos/Paradigmas/DP-de-Permutacao)
-
-- [Divide and Conquer](Codigos/Paradigmas/Divide-and-Conquer)
-
-- [Convex Hull Trick](Codigos/Paradigmas/Convex-Hull-Trick)
-
-- [Mo](Codigos/Paradigmas/Mo)
-
-	- [Mo](Codigos/Paradigmas/Mo/Mo)
-
-	- [Mo Update](Codigos/Paradigmas/Mo/Mo-Update)
-
-- [Busca Binaria Paralela](Codigos/Paradigmas/Busca-Binaria-Paralela)
-
-- [Busca Ternaria](Codigos/Paradigmas/Busca-Ternaria)
-
-### [Geometria](Codigos/Geometria)
-
-- [Convex Hull](Codigos/Geometria/Convex-Hull)
-
-### [Extra](Codigos/Extra)
-
-- [Stress Test](Codigos/Extra/Stress-Test)
-
-- [Unordered Custom Hash](Codigos/Extra/Unordered-Custom-Hash)
-
-- [CPP](Codigos/Extra/CPP)
-
-- [Vim](Codigos/Extra/Vim)
-
-- [Run](Codigos/Extra/Run)
-
-- [Debug](Codigos/Extra/Debug)
-
-- [Random](Codigos/Extra/Random)
+- [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
 
 ### [Grafos](Codigos/Grafos)
 
-- [Fluxo](Codigos/Grafos/Fluxo)
-
-- [Kosaraju](Codigos/Grafos/Kosaraju)
-
-- [Shortest Paths](Codigos/Grafos/Shortest-Paths)
-
-	- [Floyd Warshall](Codigos/Grafos/Shortest-Paths/Floyd-Warshall)
-
-	- [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
-
-	- [Bellman Ford](Codigos/Grafos/Shortest-Paths/Bellman-Ford)
-
-	- [Dijkstra](Codigos/Grafos/Shortest-Paths/Dijkstra)
-
-	- [BFS](Codigos/Grafos/Shortest-Paths/BFS)
-
-	- [01 BFS](Codigos/Grafos/Shortest-Paths/01-BFS)
-
-- [Block Cut Tree](Codigos/Grafos/Block-Cut-Tree)
-
-- [Kruskal](Codigos/Grafos/Kruskal)
-
-- [Pontos de Articulacao](Codigos/Grafos/Pontos-de-Articulacao)
-
 - [Centro e Diametro](Codigos/Grafos/Centro-e-Diametro)
 
-- [Virtual Tree](Codigos/Grafos/Virtual-Tree)
+- [Stoer–Wagner Min Cut](Codigos/Grafos/Stoer–Wagner-Min-Cut)
+
+- [Block Cut Tree](Codigos/Grafos/Block-Cut-Tree)
 
 - [Centroids](Codigos/Grafos/Centroids)
 
@@ -318,15 +142,31 @@ python3 .github/scripts/pdfer.py
 
 	- [Centroid](Codigos/Grafos/Centroids/Centroid)
 
-- [Caminho Euleriano](Codigos/Grafos/Caminho-Euleriano)
-
-	- [Caminho Euleriano Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Direcionado)
-
-	- [Caminho Euleriano Nao Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Nao-Direcionado)
-
-- [Stoer–Wagner Min Cut](Codigos/Grafos/Stoer–Wagner-Min-Cut)
+- [Pontos de Articulacao](Codigos/Grafos/Pontos-de-Articulacao)
 
 - [2 SAT](Codigos/Grafos/2-SAT)
+
+- [LCA](Codigos/Grafos/LCA)
+
+- [Pontes](Codigos/Grafos/Pontes)
+
+	- [Componentes Aresta Biconexas](Codigos/Grafos/Pontes/Componentes-Aresta-Biconexas)
+
+	- [Pontes](Codigos/Grafos/Pontes/Pontes)
+
+- [Ciclos](Codigos/Grafos/Ciclos)
+
+	- [Find Cycle](Codigos/Grafos/Ciclos/Find-Cycle)
+
+	- [Find Negative Cycle](Codigos/Grafos/Ciclos/Find-Negative-Cycle)
+
+- [Virtual Tree](Codigos/Grafos/Virtual-Tree)
+
+- [HLD](Codigos/Grafos/HLD)
+
+	- [HLD Vértice](Codigos/Grafos/HLD/HLD-Vértice)
+
+	- [HLD Aresta](Codigos/Grafos/HLD/HLD-Aresta)
 
 - [Matching](Codigos/Grafos/Matching)
 
@@ -336,33 +176,193 @@ python3 .github/scripts/pdfer.py
 
 	- [Binary Lifting Query 2](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-2)
 
-	- [Binary Lifting Query Aresta](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-Aresta)
+	- [Binary Lifting LCA](Codigos/Grafos/Binary-Lifting/Binary-Lifting-LCA)
 
 	- [Binary Lifting Query](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query)
 
-	- [Binary Lifting LCA](Codigos/Grafos/Binary-Lifting/Binary-Lifting-LCA)
+	- [Binary Lifting Query Aresta](Codigos/Grafos/Binary-Lifting/Binary-Lifting-Query-Aresta)
 
-- [Pontes](Codigos/Grafos/Pontes)
+- [Shortest Paths](Codigos/Grafos/Shortest-Paths)
 
-	- [Pontes](Codigos/Grafos/Pontes/Pontes)
+	- [BFS](Codigos/Grafos/Shortest-Paths/BFS)
 
-	- [Componentes Aresta Biconexas](Codigos/Grafos/Pontes/Componentes-Aresta-Biconexas)
+	- [Bellman Ford](Codigos/Grafos/Shortest-Paths/Bellman-Ford)
 
-- [Ciclos](Codigos/Grafos/Ciclos)
+	- [Dijkstra](Codigos/Grafos/Shortest-Paths/Dijkstra)
 
-	- [Find Negative Cycle](Codigos/Grafos/Ciclos/Find-Negative-Cycle)
+	- [01 BFS](Codigos/Grafos/Shortest-Paths/01-BFS)
 
-	- [Find Cycle](Codigos/Grafos/Ciclos/Find-Cycle)
+	- [Floyd Warshall](Codigos/Grafos/Shortest-Paths/Floyd-Warshall)
 
-- [LCA](Codigos/Grafos/LCA)
-
-- [HLD](Codigos/Grafos/HLD)
-
-	- [HLD Vértice](Codigos/Grafos/HLD/HLD-Vértice)
-
-	- [HLD Aresta](Codigos/Grafos/HLD/HLD-Aresta)
+	- [SPFA](Codigos/Grafos/Shortest-Paths/SPFA)
 
 - [Inverse Graph](Codigos/Grafos/Inverse-Graph)
+
+- [Kruskal](Codigos/Grafos/Kruskal)
+
+- [Fluxo](Codigos/Grafos/Fluxo)
+
+- [Kosaraju](Codigos/Grafos/Kosaraju)
+
+- [Caminho Euleriano](Codigos/Grafos/Caminho-Euleriano)
+
+	- [Caminho Euleriano Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Direcionado)
+
+	- [Caminho Euleriano Nao Direcionado](Codigos/Grafos/Caminho-Euleriano/Caminho-Euleriano-Nao-Direcionado)
+
+### [Primitivas](Codigos/Primitivas)
+
+- [Ponto 2D](Codigos/Primitivas/Ponto-2D)
+
+- [Modular Int](Codigos/Primitivas/Modular-Int)
+
+### [Estruturas de Dados](Codigos/Estruturas-de-Dados)
+
+- [Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree)
+
+	- [Fenwick](Codigos/Estruturas-de-Dados/Fenwick-Tree/Fenwick)
+
+	- [Kd Fenwick Tree](Codigos/Estruturas-de-Dados/Fenwick-Tree/Kd-Fenwick-Tree)
+
+- [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table)
+
+	- [Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Sparse-Table)
+
+	- [Disjoint Sparse Table](Codigos/Estruturas-de-Dados/Sparse-Table/Disjoint-Sparse-Table)
+
+- [Disjoint Set Union](Codigos/Estruturas-de-Dados/Disjoint-Set-Union)
+
+	- [Offline DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/Offline-DSU)
+
+	- [DSU Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Bipartido)
+
+	- [DSU Rollback Bipartido](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback-Bipartido)
+
+	- [DSU Rollback](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU-Rollback)
+
+	- [DSU](Codigos/Estruturas-de-Dados/Disjoint-Set-Union/DSU)
+
+- [Interval Tree](Codigos/Estruturas-de-Dados/Interval-Tree)
+
+- [XOR Trie](Codigos/Estruturas-de-Dados/XOR-Trie)
+
+- [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree)
+
+	- [Merge Sort Tree Update](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree-Update)
+
+	- [Merge Sort Tree](Codigos/Estruturas-de-Dados/Merge-Sort-Tree/Merge-Sort-Tree)
+
+- [LiChao Tree](Codigos/Estruturas-de-Dados/LiChao-Tree)
+
+- [Implicit Treap](Codigos/Estruturas-de-Dados/Implicit-Treap)
+
+- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree)
+
+	- [Segment Tree Beats](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Beats)
+
+	- [Segment Tree Iterativa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Iterativa)
+
+	- [Segment Tree Lazy Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy-Esparsa)
+
+	- [Segment Tree Kadane](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Kadane)
+
+	- [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
+
+	- [Segment Tree 2D](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-2D)
+
+	- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
+
+	- [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
+
+	- [Segment Tree PA](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-PA)
+
+	- [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
+
+- [Operation Deque](Codigos/Estruturas-de-Dados/Operation-Deque)
+
+- [Ordered Set](Codigos/Estruturas-de-Dados/Ordered-Set)
+
+- [Treap](Codigos/Estruturas-de-Dados/Treap)
+
+- [Operation Stack](Codigos/Estruturas-de-Dados/Operation-Stack)
+
+- [Operation Queue](Codigos/Estruturas-de-Dados/Operation-Queue)
+
+### [Paradigmas](Codigos/Paradigmas)
+
+- [Exponenciação de Matriz](Codigos/Paradigmas/Exponenciação-de-Matriz)
+
+- [Divide and Conquer](Codigos/Paradigmas/Divide-and-Conquer)
+
+- [Convex Hull Trick](Codigos/Paradigmas/Convex-Hull-Trick)
+
+- [Busca Binaria Paralela](Codigos/Paradigmas/Busca-Binaria-Paralela)
+
+- [Busca Ternaria](Codigos/Paradigmas/Busca-Ternaria)
+
+- [All Submasks](Codigos/Paradigmas/All-Submasks)
+
+- [Mo](Codigos/Paradigmas/Mo)
+
+	- [Mo Update](Codigos/Paradigmas/Mo/Mo-Update)
+
+	- [Mo](Codigos/Paradigmas/Mo/Mo)
+
+- [DP de Permutacao](Codigos/Paradigmas/DP-de-Permutacao)
+
+### [Geometria](Codigos/Geometria)
+
+- [Convex Hull](Codigos/Geometria/Convex-Hull)
+
+### [String](Codigos/String)
+
+- [Suffix Tree](Codigos/String/Suffix-Tree)
+
+- [Prefix Function KMP](Codigos/String/Prefix-Function-KMP)
+
+	- [KMP](Codigos/String/Prefix-Function-KMP/KMP)
+
+	- [Automato KMP](Codigos/String/Prefix-Function-KMP/Automato-KMP)
+
+- [Suffix Array](Codigos/String/Suffix-Array)
+
+- [Aho Corasick](Codigos/String/Aho-Corasick)
+
+- [Patricia Tree](Codigos/String/Patricia-Tree)
+
+- [Suffix Automaton](Codigos/String/Suffix-Automaton)
+
+- [EertreE](Codigos/String/EertreE)
+
+- [Lyndon](Codigos/String/Lyndon)
+
+- [Hashing](Codigos/String/Hashing)
+
+	- [Hashing Dinâmico](Codigos/String/Hashing/Hashing-Dinâmico)
+
+	- [Hashing](Codigos/String/Hashing/Hashing)
+
+- [Trie](Codigos/String/Trie)
+
+- [Z function](Codigos/String/Z-function)
+
+- [Manacher](Codigos/String/Manacher)
+
+### [Extra](Codigos/Extra)
+
+- [CPP](Codigos/Extra/CPP)
+
+- [Vim](Codigos/Extra/Vim)
+
+- [Unordered Custom Hash](Codigos/Extra/Unordered-Custom-Hash)
+
+- [Run](Codigos/Extra/Run)
+
+- [Debug](Codigos/Extra/Debug)
+
+- [Random](Codigos/Extra/Random)
+
+- [Stress Test](Codigos/Extra/Stress-Test)
 
 
 
