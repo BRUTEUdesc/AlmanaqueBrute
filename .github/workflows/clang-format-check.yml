@@ -27,8 +27,12 @@ jobs:
 
       - name: Run clang-format style check for C++ programs
         if: steps.changed-files.outputs.any_changed == 'true'
-        uses: jidicula/clang-format-action@v4.11.0
+        uses: jidicula/clang-format-action@v4.12.0
         with:
           clang-format-version: '18'
           check-path: 'Codigos'
           fallback-style: 'LLVM'
+
+      - name: No relevant changes
+        if: steps.changed-files.outputs.any_changed != 'true'
+        run: echo "Nenhum .cpp alterado, check passou automaticamente."
