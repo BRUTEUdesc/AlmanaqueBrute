@@ -8014,13 +8014,13 @@ Constrói a Palindromic Tree de uma string $S$ em $\mathcal{O}(|S|)$. Todo nodo 
 Codigo: eertree.cpp
 
 \begin{lstlisting}[language=C++]
-const int N = 6e6 + 15;
-const int ALF = 10;
+const int N = 2e5 + 15;
+const int ALF = 26;
 
 struct eertree {
     int str[N], len[N], lnk[N], cnt[N], first[N], node_cnt, it, last;
     ll palindrome_substring_sum;
-    const char norm = '0';
+    const char norm = 'a';
     array<int, ALF> to[N];
 
     inline int get(char c) { return c - norm; }
