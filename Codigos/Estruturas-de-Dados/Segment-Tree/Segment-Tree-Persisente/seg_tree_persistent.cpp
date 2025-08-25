@@ -62,6 +62,6 @@ struct SegTree {
         roots.push_back(new_root);
         return roots.back();
     }
-    void sumUpdate(ll i, ll x, int root = -1) { return update(i, x, 0, root); }
-    void setUpdate(ll i, ll x, int root = -1) { return update(i, x, 1, root); }
+    int sumUpdate(ll i, ll x, int root = -1) { return update(i, x, 0, root); }
+    int setUpdate(ll i, ll x, int root = -1) { return update(i, x, 1, root); }
 } seg;
