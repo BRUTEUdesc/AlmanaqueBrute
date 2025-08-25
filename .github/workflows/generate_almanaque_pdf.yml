@@ -1,6 +1,7 @@
 name: Gerar Almanaque PDF
 
 on:
+  workflow_dispatch: {}
   push:
     branches:
       - main
