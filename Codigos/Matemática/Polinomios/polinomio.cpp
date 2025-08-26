@@ -52,7 +52,7 @@ struct poly {
     poly &operator/=(const mint &x) { return *this = (*this) / x; }
     poly mod_xk(int k) const {
         return {a.begin(), a.begin() + min(k, size())};
-    }                          // modulo by x^k
+    } // modulo by x^k
     poly mul_xk(int k) const { // multiply by x^k
         poly ans(*this);
         ans.a.insert(ans.a.begin(), k, 0);
