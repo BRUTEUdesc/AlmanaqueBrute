@@ -93,8 +93,7 @@ struct poly {
             ans = (ans * mint(2) - ans * ans * mod_xk(2 * i)).mod_xk(2 * i);
         return ans.mod_xk(n);
     }
-    pair<poly, poly>
-    divmod_slow(const poly &b) const { // when divisor or quotient is small
+    pair<poly, poly> divmod_slow(const poly &b) const { // when divisor or quotient is small
         vector<mint> A(a);
         vector<mint> ans;
         while (A.size() >= b.a.size()) {
@@ -107,8 +106,7 @@ struct poly {
         reverse(ans.begin(), ans.end());
         return {ans, A};
     }
-    pair<poly, poly>
-    divmod(const poly &b) const { // returns quotient and remainder of a mod b
+    pair<poly, poly> divmod(const poly &b) const { // returns quotient and remainder of a mod b
         if (size() < b.size()) return {poly{0}, *this};
         int d = size() - b.size();
         if (min(d, b.size()) < 250) return divmod_slow(b);
