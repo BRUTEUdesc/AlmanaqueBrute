@@ -50,4 +50,3 @@ struct Mint {
     m operator-() { return m(this->v ? MOD - this->v : 0); }
     m inv() const { return pwr(*this, MOD - 2); } // MOD must be prime
 };
-
