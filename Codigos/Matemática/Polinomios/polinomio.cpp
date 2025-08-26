@@ -10,9 +10,12 @@ struct poly {
     inline mint coef(const int i) const {
         return (i < a.size() && i >= 0) ? a[i] : mint(0);
     }
+
+    // Beware!! p[i] = k won't change the value of p.a[i]
     mint operator[](const int i) const {
         return (i < a.size() && i >= 0) ? a[i] : mint(0);
-    } // Beware!! p[i] = k won't change the value of p.a[i]
+    }
+
     bool is_zero() const {
         for (int i = 0; i < size(); i++)
             if (a[i] != 0) return 0;
@@ -51,22 +54,27 @@ struct poly {
     poly &operator*=(const mint &x) { return *this = (*this) * x; }
     poly &operator/=(const mint &x) { return *this = (*this) / x; }
     poly mod_xk(int k) const {
+        // modulo by x^k
         return {a.begin(), a.begin() + min(k, size())};
-    } // modulo by x^k
-    poly mul_xk(int k) const { // multiply by x^k
+    }
+    poly mul_xk(int k) const {
+        // multiply by x^k
         poly ans(*this);
         ans.a.insert(ans.a.begin(), k, 0);
         return ans;
     }
-    poly div_xk(int k) const { // divide by x^k
+    poly div_xk(int k) const {
+        // divide by x^k
         return vector<mint>(a.begin() + min(k, (int)a.size()), a.end());
     }
-    poly substr(int l, int r) const { // return mod_xk(r).div_xk(l)
+    poly substr(int l, int r) const {
+        // return mod_xk(r).div_xk(l)
         l = min(l, size());
         r = min(r, size());
         return vector<mint>(a.begin() + l, a.begin() + r);
     }
-    poly reverse_it(int n, bool rev = 0) const { // reverses and leaves only n terms
+    poly reverse_it(int n, bool rev = 0) const {
+        // reverses and leaves only n terms
         poly ans(*this);
         if (rev) // if rev = 1 then tail goes to head
             ans.a.resize(max(n, (int)ans.a.size()));
@@ -85,7 +93,8 @@ struct poly {
         for (int i = 0; i < size(); i++) ans[i + 1] = coef(i) / (i + 1);
         return ans;
     }
-    poly inverse(int n) const { // 1 / p(x) % x^n, O(nlogn)
+    poly inverse(int n) const {
+        // 1 / p(x) % x^n, O(nlogn)
         assert(!is_zero());
         assert(a[0] != 0);
         poly ans{mint(1) / a[0]};
@@ -93,8 +102,8 @@ struct poly {
             ans = (ans * mint(2) - ans * ans * mod_xk(2 * i)).mod_xk(2 * i);
         return ans.mod_xk(n);
     }
-    pair<poly, poly>
-    divmod_slow(const poly &b) const { // when divisor or quotient is small
+    pair<poly, poly> divmod_slow(const poly &b) const {
+        // when divisor or quotient is small
         vector<mint> A(a);
         vector<mint> ans;
         while (A.size() >= b.a.size()) {
@@ -107,8 +116,8 @@ struct poly {
         reverse(ans.begin(), ans.end());
         return {ans, A};
     }
-    pair<poly, poly>
-    divmod(const poly &b) const { // returns quotient and remainder of a mod b
+    pair<poly, poly> divmod(const poly &b) const {
+        // returns quotient and remainder of a mod b
         if (size() < b.size()) return {poly{0}, *this};
         int d = size() - b.size();
         if (min(d, b.size()) < 250) return divmod_slow(b);
@@ -121,11 +130,13 @@ struct poly {
     poly operator%(const poly &t) const { return divmod(t).second; }
     poly &operator/=(const poly &t) { return *this = divmod(t).first; }
     poly &operator%=(const poly &t) { return *this = divmod(t).second; }
-    poly log(int n) const { // ln p(x) mod x^n
+    poly log(int n) const {
+        // ln p(x) mod x^n
         assert(a[0] == 1);
         return (differentiate().mod_xk(n) * inverse(n)).integrate().mod_xk(n);
     }
-    poly exp(int n) const { // e ^ p(x) mod x^n
+    poly exp(int n) const {
+        // e ^ p(x) mod x^n
         if (is_zero()) return {1};
         assert(a[0] == 0);
         poly ans({1});
@@ -138,7 +149,8 @@ struct poly {
         return ans.mod_xk(n);
     }
     // better for small k, k < 100000
-    poly pow(int k, int n) const { // p(x)^k mod x^n
+    poly pow(int k, int n) const {
+        // p(x)^k mod x^n
         if (is_zero()) return *this;
         poly ans({1}), b = mod_xk(n);
         while (k) {
@@ -148,14 +160,16 @@ struct poly {
         }
         return ans;
     }
-    int leading_xk() const { // minimum i such that C[i] > 0
+    int leading_xk() const {
+        // minimum i such that C[i] > 0
         if (is_zero()) return 1000000000;
         int res = 0;
         while (a[res] == 0) res++;
         return res;
     }
     // better for k > 100000
-    poly pow2(int k, int n) const { // p(x)^k mod x^n
+    poly pow2(int k, int n) const {
+        // p(x)^k mod x^n
         if (is_zero()) return *this;
         int i = leading_xk();
         mint j = a[i];
@@ -188,7 +202,8 @@ struct poly {
     //  }
     //  return ret.mod_xk(n) * s;
     //}
-    poly root(int n, int k = 2) const { // kth root of p(x) mod x^n
+    poly root(int n, int k = 2) const {
+        // kth root of p(x) mod x^n
         if (is_zero()) return *this;
         if (k == 1) return mod_xk(n);
         assert(a[0] == 1);
@@ -200,19 +215,22 @@ struct poly {
         }
         return q.mod_xk(n);
     }
-    poly mulx(mint x) { // component-wise multiplication with x^k
+    poly mulx(mint x) {
+        // component-wise multiplication with x^k
         mint cur = 1;
         poly ans(*this);
         for (int i = 0; i < size(); i++) ans.a[i] *= cur, cur *= x;
         return ans;
     }
-    poly mulx_sq(mint x) { // component-wise multiplication with x^{k^2}
+    poly mulx_sq(mint x) {
+        // component-wise multiplication with x^{k^2}
         mint cur = x, total = 1, xx = x * x;
         poly ans(*this);
         for (int i = 0; i < size(); i++) ans.a[i] *= total, total *= cur, cur *= xx;
         return ans;
     }
-    vector<mint> chirpz_even(mint z, int n) { // P(1), P(z^2), P(z^4), ..., P(z^2(n-1))
+    vector<mint> chirpz_even(mint z, int n) {
+        // P(1), P(z^2), P(z^4), ..., P(z^2(n-1))
         int m = size() - 1;
         if (is_zero()) return vector<mint>(n, 0);
         vector<mint> vv(m + n);
@@ -229,7 +247,8 @@ struct poly {
         return ans;
     }
     // O(nlogn)
-    vector<mint> chirpz(mint z, int n) { // P(1), P(z), P(z^2), ..., P(z^(n-1))
+    vector<mint> chirpz(mint z, int n) {
+        // P(1), P(z), P(z^2), ..., P(z^(n-1))
         auto even = chirpz_even(z, (n + 1) / 2);
         auto odd = mulx(z).chirpz_even(z, n / 2);
         vector<mint> ans(n);
@@ -247,7 +266,8 @@ struct poly {
         return q.shift_it(m, pw) * pw[m] + mod_xk(m).shift_it(m, pw);
     }
     // n log(n)
-    poly shift(mint a) { // p(x + a)
+    poly shift(mint a) {
+        // p(x + a)
         int n = size();
         if (n == 1) return *this;
         vector<poly> pw(n);
@@ -257,7 +277,8 @@ struct poly {
         for (; i < n; i *= 2) pw[i] = pw[i / 2] * pw[i / 2];
         return shift_it(i, pw);
     }
-    mint eval(mint x) { // evaluates in single point x
+    mint eval(mint x) {
+        // evaluates in single point x
         mint ans(0);
         for (int i = size() - 1; i >= 0; i--) {
             ans *= x;
@@ -311,17 +332,15 @@ struct poly {
         }
         return ret;
     }
-    poly build(
-        vector<poly> &ans, int v, int l, int r, vector<mint> &vec
-    ) { // builds evaluation tree for (x-a1)(x-a2)...(x-an)
+    poly build(vector<poly> &ans, int v, int l, int r, vector<mint> &vec) {
+        // builds evaluation tree for (x-a1)(x-a2)...(x-an)
         if (l == r) return ans[v] = poly({-vec[l], 1});
         int mid = l + r >> 1;
         return ans[v] = build(ans, 2 * v, l, mid, vec) *
                         build(ans, 2 * v + 1, mid + 1, r, vec);
     }
-    vector<mint> eval(
-        vector<poly> &tree, int v, int l, int r, vector<mint> &vec
-    ) { // auxiliary evaluation function
+    vector<mint> eval(vector<poly> &tree, int v, int l, int r, vector<mint> &vec) {
+        // auxiliary evaluation function
         if (l == r) return {eval(vec[l])};
         if (size() < 400) {
             vector<mint> ans(r - l + 1, 0);
@@ -335,7 +354,8 @@ struct poly {
         return A;
     }
     // O(nlog^2n)
-    vector<mint> eval(vector<mint> x) { // evaluate polynomial in (x_0, ..., x_n-1)
+    vector<mint> eval(vector<mint> x) {
+        // evaluate polynomial in (x_0, ..., x_n-1)
         int n = x.size();
         if (is_zero()) return vector<mint>(n, mint(0));
         vector<poly> tree(4 * n);
@@ -344,7 +364,8 @@ struct poly {
     }
     poly interpolate(
         vector<poly> &tree, int v, int l, int r, int ly, int ry, vector<mint> &y
-    ) { // auxiliary interpolation function
+    ) {
+        // auxiliary interpolation function
         if (l == r) return {y[ly] / a[0]};
         int mid = l + r >> 1;
         int midy = ly + ry >> 1;
