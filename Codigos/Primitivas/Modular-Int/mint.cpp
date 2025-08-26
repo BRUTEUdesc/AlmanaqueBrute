@@ -8,7 +8,8 @@ struct Mint {
         assert(sizeof(T) * 2 <= sizeof(U));
         if (v < -MOD || v >= 2 * MOD) v %= MOD;
         if (v < 0) v += MOD;
-        if (v >= MOD) v -= MOD; }
+        if (v >= MOD) v -= MOD;
+    }
     Mint(U val) : v(T(val % MOD)) {
         assert(sizeof(T) * 2 <= sizeof(U));
         if (v < 0) v += MOD;
@@ -16,7 +17,7 @@ struct Mint {
     bool operator==(m o) const { return v == o.v; }
     bool operator<(m o) const { return v < o.v; }
     bool operator!=(m o) const { return v != o.v; }
-    m pwr(m b, U e) {
+    m pwr(m b, U e) const {
         m res = 1;
         while (e > 0) {
             if (e & 1) res *= b;
@@ -47,5 +48,6 @@ struct Mint {
     friend m operator^(m a, U e) { return a.pwr(a, e); }
 
     m operator-() { return m(this->v ? MOD - this->v : 0); }
-
+    m inv() const { return pwr(*this, MOD - 2); } // MOD must be prime
 };
+

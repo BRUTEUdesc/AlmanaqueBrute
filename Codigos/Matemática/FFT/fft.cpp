@@ -8,10 +8,9 @@ struct base {
     }
 };
 
-using poly = vector<base>;
 const double PI = acos(-1);
 
-void fft(poly &a, bool inv = 0) {
+void fft(vector<base> &a, bool inv = 0) {
     int n = (int)a.size();
 
     for (int i = 0; i < n; i++) {
@@ -24,7 +23,7 @@ void fft(poly &a, bool inv = 0) {
     }
 
     double angle = 2 * PI / n * (inv ? -1 : 1);
-    poly wn(n / 2);
+    vector<base> wn(n / 2);
     for (int i = 0; i < n / 2; i++) wn[i] = {cos(angle * i), sin(angle * i)};
 
     for (int len = 2; len <= n; len <<= 1) {
@@ -47,7 +46,7 @@ vector<ll> multiply(vector<ll> &ta, vector<ll> &tb) {
     int t = n + m - 1, sz = 1;
     while (sz < t) sz <<= 1;
 
-    poly a(sz), b(sz), c(sz);
+    vector<base> a(sz), b(sz), c(sz);
 
     for (int i = 0; i < sz; i++) {
         a[i] = i < n ? base((double)ta[i]) : base(0);
