@@ -17,7 +17,7 @@ struct Mint {
     bool operator==(m o) const { return v == o.v; }
     bool operator<(m o) const { return v < o.v; }
     bool operator!=(m o) const { return v != o.v; }
-    m pwr(m b, U e) {
+    m pwr(m b, U e) const {
         m res = 1;
         while (e > 0) {
             if (e & 1) res *= b;
@@ -46,4 +46,7 @@ struct Mint {
     friend m operator*(m a, m b) { return a *= b; }
     friend m operator/(m a, m b) { return a /= b; }
     friend m operator^(m a, U e) { return a.pwr(a, e); }
+
+    m operator-() { return m(this->v ? MOD - this->v : 0); }
+    m inv() const { return pwr(*this, MOD - 2); } // MOD must be prime
 };
