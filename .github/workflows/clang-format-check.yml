@@ -20,8 +20,8 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run clang-format style check for C++ programs
-        uses: jidicula/clang-format-action@v4.12.0
+        uses: jidicula/clang-format-action@v4.15.0
         with:
-          clang-format-version: '18'
+          clang-format-version: '20'
           check-path: 'Codigos'
           fallback-style: 'LLVM'
