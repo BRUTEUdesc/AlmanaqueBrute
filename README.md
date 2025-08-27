@@ -86,6 +86,8 @@ python3 .github/scripts/pdfer.py
 
 - [FFT](Codigos/Matemática/FFT)
 
+- [Polinomios](Codigos/Matemática/Polinomios)
+
 - [XOR Gauss](Codigos/Matemática/XOR-Gauss)
 
 - [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
