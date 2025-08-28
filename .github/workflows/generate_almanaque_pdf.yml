@@ -16,23 +16,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Detect changes on relevant files
-        id: changed-files
-        uses: tj-actions/changed-files@v46
-        with:
-          files: |
-            Codigos/**/*.cpp
-            LaTeX/**/*.tex
-            **/*.md
-
       - name: Set up Python 3.12
-        if: steps.changed-files.outputs.any_changed == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
 
       - name: Install LaTeX dependencies
-        if: steps.changed-files.outputs.any_changed == 'true'
         run: |
           sudo apt update
           sudo apt install -y \
@@ -43,11 +32,9 @@ jobs:
             rubber
 
       - name: Run PDF generation script
-        if: steps.changed-files.outputs.any_changed == 'true'
         run: python3 ./.github/scripts/pdfer.py
 
       - name: Create Pull Request com o novo PDF
-        if: steps.changed-files.outputs.any_changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore: Atualiza o PDF"
