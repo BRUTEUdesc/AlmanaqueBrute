@@ -1,20 +1,20 @@
 # [Dirichlet Convolution Prefix](dirichlet_convolution_prefix.cpp)
 
-Calcula o vetor $H$ tal que $H[\lfloor \frac{n}{i}\rfloor] = \sum_{j=1}^{\lfloor
-\frac{n}{i} \rfloor} h[j]$ onde $h$ é calculado a partir de $f$ e $g$ com $h[n]
-= \sum_{d \mid n} f[d] \cdot g\!\left(\tfrac{n}{d}\right)$, ou seja, a
-convolução de Dirichlet de $f$ com $g$.
+Dadas duas funções aritméticas $f$ e $g$ com seus valores computados para $1 \le i \le N ^ {\frac{2}{3}}$; e seus prefixos de soma $F$, $G$ com valores computados para todo $\left\lfloor   \frac{N}{i}  \right\rfloor$  com $1 \leq i \leq N ^ {\frac{1}{3}}$, obtém o vetor $H$:   
 
-O algoritmo calcula $H[\lfloor \frac{n}{i}\rfloor]$ para todos os valores possíveis de $\lfloor n / i \rfloor$ com $1 \le i \le N^{1/3}$ em $\mathcal{O}(N^{2/3})$. Para obter os demais $N^{2/3}$ valores, basta calcular
-$H[i] = \sum_{j=1}^{i} h[j]$ usando soma de prefixo, onde $h$ pode ser calculado usando a convolução de Dirichlet linear.
+$$
+H_{i} = \sum_{j=1}^{\bigl\lfloor\frac{n}{i} \bigr\rfloor} h(j)
+$$  
 
-Para atingir essa complexidade, deve-se inicializar a estrutura com $T = N^{\frac{2}{3}}$.
+para todo $1 \leq i \leq N ^ {\frac{1}{3}}$ em $O(N ^ {\frac{2}{3}})$.  Sendo  $h(n) = \sum_{d \mid n} f(d) * g\left(\left\lfloor  \frac{n}{d}  \right\rfloor\right)$, ou seja, a convolução de Dirichlet de $f$ com $g$. Para atingir essa complexidade, deve-se inicializar a estrutura com $T = N^{\frac{2}{3}}$.
 
-O código usa da primitiva Mint para realizar operações modulares de forma eficiente.
+Para obter os demais valores de $H$ (para $1 \leq i \leq N ^ {\frac{2}{3}}$) basta utilizar a [convolução de Dirichlet linear](../Dirichlet-Convolution/dirichlet_convolution.cpp).
+
+O código usa a primitiva Mint para realizar operações modulares de forma eficiente.
 
 ## Funções para serem usadas no método `Solve`
 
-* f(x): função que retorna o valor de $f[x]$.
-* g(x): função que retorna o valor de $g[x]$.
-* F(x): função que retorna o valor de $\sum_{i=1}^{\lfloor \frac{n}{x} \rfloor} f[i]$.
-* G(x): função que retorna o valor de $\sum_{i=1}^{\lfloor \frac{n}{x} \rfloor} g[i]$.
+* f(x): função que retorna o valor de $f(x)$ em $O(1)$. 
+* g(x): função que retorna o valor de $g(x)$ em $O(1)$.
+* F(x): função que retorna o valor de $\sum_{i=1}^{\lfloor \frac{n}{x} \rfloor} f(i)$ em $O(1)$. 
+* G(x): função que retorna o valor de $\sum_{i=1}^{\lfloor \frac{n}{x} \rfloor} g(i)$ em $O(1)$.
