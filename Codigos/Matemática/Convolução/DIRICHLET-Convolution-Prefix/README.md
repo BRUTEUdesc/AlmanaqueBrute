@@ -5,14 +5,14 @@ Calcula o vetor $H$ tal que $H[\lfloor \frac{n}{i}\rfloor] = \sum_{j=1}^{\lfloor
 = \sum_{d \mid n} f[d] \cdot g\!\left(\tfrac{n}{d}\right)$, ou seja, a
 convolução de Dirichlet de $f$ com $g$.
 
-O algoritimo calcula $H[\lfloor \frac{n}{i}\rfloor]$ para todos os valores possíveis de $\lfloor n / i \rfloor$ com $1 \le i \le N^{1/3}$ em $\mathcal{O}(N^{2/3})$. Para obter os demais $N^{2/3}$ valores, basta calcular
+O algoritmo calcula $H[\lfloor \frac{n}{i}\rfloor]$ para todos os valores possíveis de $\lfloor n / i \rfloor$ com $1 \le i \le N^{1/3}$ em $\mathcal{O}(N^{2/3})$. Para obter os demais $N^{2/3}$ valores, basta calcular
 $H[i] = \sum_{j=1}^{i} h[j]$ usando soma de prefixo, onde $h$ pode ser calculado usando a convolução de Dirichlet linear.
 
-Para atigir essa complexidade, deve-se incializar a estrutura com $T = N^{\frac{2}{3}}$.
+Para atingir essa complexidade, deve-se inicializar a estrutura com $T = N^{\frac{2}{3}}$.
 
-O codigo usa da primitiva Mint para realizar operações modulares de forma eficiente.
+O código usa da primitiva Mint para realizar operações modulares de forma eficiente.
 
-## Funções para serem usadas no metodo Solve
+## Funções para serem usadas no método `Solve`
 
 * f(x): função que retorna o valor de $f[x]$.
 * g(x): função que retorna o valor de $g[x]$.
