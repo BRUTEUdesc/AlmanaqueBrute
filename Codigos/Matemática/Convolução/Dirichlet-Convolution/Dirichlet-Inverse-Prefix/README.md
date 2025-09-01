@@ -15,4 +15,3 @@ O código utiliza a primitiva `Mint` para realizar operações modulares de form
 - `f(x)`: retorna o valor de $f[x]$.
 - `F(x)`: retorna o valor de $\sum_{j=1}^{x} f[j]$.
 - `g(x)`: retorna o valor de $f^{-1}[x]$.
-

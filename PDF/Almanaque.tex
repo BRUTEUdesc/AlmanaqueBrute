@@ -5390,7 +5390,8 @@ vector<mint> and_convolution(vector<mint> A, vector<mint> B) {
 \end{lstlisting}
 \hfill
 
-\subsection{DIRICHLET Convolution}
+\subsection{Dirichlet Convolution}
+\subsubsection{Dirichlet Convolution}
 
 
 Calcula o vetor $C$ a partir de $A$ e $B$ onde $C[n] = \sum_{d \mid n} A[d] \cdot B\Big[\frac{n}{d}\Big]$, ou seja, a convolução de Dirichlet, em $\mathcal{O}(N)$.
@@ -5428,6 +5429,152 @@ vector<T> dirichlet(const vector<int> &f, const vector<int> &g) {
     }
     return ans;
 }
+\end{lstlisting}
+\hfill
+
+\subsubsection{Dirichlet Convolution Prefix}
+
+
+Dadas duas funções aritméticas $f$ e $g$ com seus valores computados para $1 \le i \le N ^ {\frac{2}{3}}$; e seus prefixos de soma $F$, $G$ com valores computados para todo $\left\lfloor   \frac{N}{i}  \right\rfloor$  com $1 \leq i \leq N ^ {\frac{1}{3}}$, obtém o vetor $H$ tal que $ H_{i} = \sum_{j=1}^{\bigl\lfloor\frac{n}{i} \bigr\rfloor} h(j) $  
+
+
+
+para todo $1 \leq i \leq N ^ {\frac{1}{3}}$ em $O(N ^ {\frac{2}{3}})$.  Sendo  $h(n) = \sum_{d \mid n} f(d) * g\left(\left\lfloor  \frac{n}{d}  \right\rfloor\right)$, ou seja, a convolução de Dirichlet de $f$ com $g$. Para atingir essa complexidade, deve-se inicializar a estrutura com $T = N^{\frac{2}{3}}$.
+
+
+
+Para obter os demais valores de $H$ (para $1 \leq i \leq N ^ {\frac{2}{3}}$) basta utilizar a [convolução de Dirichlet linear](../Dirichlet-Convolution/dirichlet\_convolution.cpp).
+
+
+
+O código usa a primitiva Mint para realizar operações modulares de forma eficiente.
+
+
+
+\textbf{} 
+
+
+* f(x): função que retorna o valor de $f(x)$ em $O(1)$. 
+
+* g(x): função que retorna o valor de $g(x)$ em $O(1)$.
+
+* F(x): função que retorna o valor de $\sum_{i=1}^{\lfloor \frac{n}{x} \rfloor} f(i)$ em $O(1)$. 
+
+* G(x): função que retorna o valor de $\sum_{i=1}^{\lfloor \frac{n}{x} \rfloor} g(i)$ em $O(1)$.
+
+\hfill
+
+Codigo: dirichlet\_convolution\_prefix.cpp
+
+\begin{lstlisting}[language=C++]
+struct DirichletConvolutionPrefix {
+    ll N;
+    int T;
+    vector<mint> ans;
+
+    DirichletConvolutionPrefix(ll n, int t) : N(n), T(t) { ans.assign(n / T + 1, 0); }
+
+    vector<mint> solve(auto &&f, auto &&F, auto &&g, auto &&G) {
+        if (N == 1) return vector<mint>(2, 1);
+        ans.assign(N / T + 1, 0);
+        for (ll i = 1; i <= N / T; i++) {
+            ll now = N / i;
+            mint f_sum = 0, g_sum = 0;
+            for (int j = 1; (ll)j * j <= now; j++) {
+                f_sum += f(j);
+                g_sum += g(j);
+
+                ans[i] += G(i * j) * f(j);
+                ans[i] += F(i * j) * g(j);
+            }
+            ans[i] -= f_sum * g_sum;
+        }
+        return ans;
+    }
+};
+\end{lstlisting}
+\hfill
+
+\subsubsection{Dirichlet Inverse Prefix}
+
+
+Dadas 3 funções aritméticas $f$, $F$ e $f^{-1}$ tal que $F = \sum_{j=1}^{i} f(j)$ e $f^{-1}$ é a inversa de Dirichlet de $f$ com seus valores computados para $1 \le i \le N ^ {\frac{2}{3}}$,
+
+obtem-se $F^{-1}[\lfloor n / i \rfloor] = \sum_{j=1}^{\lfloor n / i \rfloor} f^{-1}(j)$ 
+
+
+
+Para todo $1 \le i \le N^{1/3}$ em $\mathcal{O}(N^{2/3})$. Para obter os demais $N^{2/3}$ valores, basta calcular
+
+$F^{-1}(i) = \sum_{j=1}^{i} f^{-1}(j)$ usando soma de prefixo.
+
+
+
+Para atingir essa complexidade, deve-se inicializar a estrutura com $T = N^{2/3}$ e realizar as pré-computações necessárias de modo que todas as funções auxiliares possam ser obtidas em $\mathcal{O}(1)$.
+
+
+
+O código utiliza a primitiva \texttt{Mint} para realizar operações modulares de forma eficiente.
+
+
+
+\textbf{} 
+
+
+\begin{itemize}
+\item \texttt{f(x)}: retorna o valor de $f[x]$.
+\item \texttt{F(x)}: retorna o valor de $\sum_{j=1}^{x} f[j]$.
+\item \texttt{g(x)}: retorna o valor de $f^{-1}[x]$.
+\end{itemize}
+
+\hfill
+
+Codigo: dirichlet\_inverse\_prefix.cpp
+
+\begin{lstlisting}[language=C++]
+struct DirichletInversePrefix {
+    ll N;
+    int T;
+    vector<mint> init_pref, ans;
+    vector<bool> vis;
+    DirichletInversePrefix(ll n, int t, vector<mint> _init_pref)
+        : N(n), T(t), init_pref(_init_pref) {
+        vis.assign(n / T + 1, 0);
+        ans.assign(n / T + 1, 0);
+    }
+
+    mint solve(ll n, ll floor_N, auto &&f, auto &&F, auto &&g) {
+        if (n < int(init_pref.size())) {
+            if (floor_N <= N / T) {
+                vis[floor_N] = true;
+                ans[floor_N] = init_pref[n];
+            }
+            return init_pref[n];
+        }
+
+        if (vis[floor_N]) return ans[floor_N];
+
+        vis[floor_N] = true;
+        ans[floor_N] = 1;
+        int j = 1;
+        for (; (ll)j * j <= n; j++) {
+            if (j > 1) ans[floor_N] -= solve(n / j, floor_N * j, f, F, g) * f(j);
+            { ans[floor_N] -= g(j) * F(n / j); }
+        }
+        --j;
+        ans[floor_N] += init_pref[j] * F(j);
+        return ans[floor_N];
+    }
+
+    vector<mint> solve(auto &&f, auto &&F, auto &&g) {
+        if (N == 1) return vector<mint>(2, 1);
+        vis.assign(N / T + 1, 0);
+        ans.assign(N / T + 1, 0);
+        for (int i = 1; i <= N / T; i++)
+            if (!vis[i]) solve(N / i, i, f, F, g);
+        return ans;
+    }
+};
 \end{lstlisting}
 \hfill
 

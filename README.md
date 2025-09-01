@@ -262,9 +262,15 @@ python3 .github/scripts/pdfer.py
 
 	- [XOR Convolution](Codigos/Matemática/Convolução/XOR-Convolution)
 
-	- [DIRICHLET Convolution](Codigos/Matemática/Convolução/DIRICHLET-Convolution)
-
 	- [LCM Convolution](Codigos/Matemática/Convolução/LCM-Convolution)
+
+	- [Dirichlet Convolution](Codigos/Matemática/Convolução/Dirichlet-Convolution)
+
+		- [Dirichlet Convolution Prefix](Codigos/Matemática/Convolução/Dirichlet-Convolution/Dirichlet-Convolution-Prefix)
+
+		- [Dirichlet Convolution](Codigos/Matemática/Convolução/Dirichlet-Convolution/Dirichlet-Convolution)
+
+		- [Dirichlet Inverse Prefix](Codigos/Matemática/Convolução/Dirichlet-Convolution/Dirichlet-Inverse-Prefix)
 
 	- [GCD Convolution](Codigos/Matemática/Convolução/GCD-Convolution)
 
