@@ -2,7 +2,7 @@
 
 Computa o menor caminho entre nodos de um grafo com pesos nas arestas.
 
-Útil quando o maior peso de uma aresta $D$ não é muito grande (inutilizável para $D \leq 10^9$, vide a
+Útil quando o maior peso de uma aresta $D$ não é muito grande (inutilizável se $D$ puder ser até $10^9$, vide a
 complexidade abaixo).
 
 Dado um nodo $s$, computa o menor caminho de $s$ para todos os outros nodos em $\mathcal{O}(D \cdot V + E)$.
