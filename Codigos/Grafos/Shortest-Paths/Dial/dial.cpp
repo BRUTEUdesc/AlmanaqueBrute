@@ -1,5 +1,6 @@
 const int N = 3e5 + 5;
 const int INF = 1e9;
+// D é o maior peso + 1
 const int D = 61;
 
 int n;
