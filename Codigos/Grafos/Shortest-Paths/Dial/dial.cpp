@@ -12,26 +12,26 @@ vector<int> dial(int s) {
     q[0].push_back(s);
 
     int prev = -1;
-    while(true) {
+    while (true) {
         int x = -1;
-        for(int i = 1; i <= D; i++) {
+        for (int i = 1; i <= D; i++) {
             int cur = (prev + i) % D;
-            if(!q[cur].empty()) {
+            if (!q[cur].empty()) {
                 x = cur;
                 break;
             }
         }
-        if(x == -1) break;
+        if (x == -1) break;
         prev = x;
 
-        while(!q[x].empty()) {
+        while (!q[x].empty()) {
             int u = q[x].back();
             q[x].pop_back();
-            if(x != dist[u] % D) continue;
+            if (x != dist[u] % D) continue;
 
-            for(auto [w, v] : adj[u]) {
+            for (auto [w, v] : adj[u]) {
                 int d = dist[u] + w;
-                if(d < dist[v]) {
+                if (d < dist[v]) {
                     q[d % D].push_back(v);
                     dist[v] = d;
                 }
