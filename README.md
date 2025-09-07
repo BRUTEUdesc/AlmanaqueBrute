@@ -148,6 +148,8 @@ python3 .github/scripts/pdfer.py
 
 	- [Dijkstra](Codigos/Grafos/Shortest-Paths/Dijkstra)
 
+	- [Dial](Codigos/Grafos/Shortest-Paths/Dial)
+
 - [Kruskal](Codigos/Grafos/Kruskal)
 
 - [Ciclos](Codigos/Grafos/Ciclos)
