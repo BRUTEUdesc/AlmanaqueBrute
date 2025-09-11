@@ -254,6 +254,8 @@ python3 .github/scripts/pdfer.py
 
 - [FFT](Codigos/Matemática/FFT)
 
+- [Discrete Root](Codigos/Matemática/Discrete-Root)
+
 - [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
 
 - [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
@@ -283,6 +285,8 @@ python3 .github/scripts/pdfer.py
 	- [OR Convolution](Codigos/Matemática/Convolução/OR-Convolution)
 
 - [Floor Values](Codigos/Matemática/Floor-Values)
+
+- [Floor and Mod Sum of Arithmetic Progressions](Codigos/Matemática/Floor-and-Mod-Sum-of-Arithmetic-Progressions)
 
 - [XOR Gauss](Codigos/Matemática/XOR-Gauss)
 
@@ -330,8 +334,6 @@ python3 .github/scripts/pdfer.py
 
 	- [Segment Tree Lazy Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy-Esparsa)
 
-	- [Segment Tree Persisente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persisente)
-
 	- [Segment Tree Iterativa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Iterativa)
 
 	- [Segment Tree Esparsa](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Esparsa)
@@ -341,6 +343,8 @@ python3 .github/scripts/pdfer.py
 	- [Segment Tree Lazy](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Lazy)
 
 	- [Segment Tree](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree)
+
+	- [Segment Tree Persistente](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-Persistente)
 
 	- [Segment Tree PA](Codigos/Estruturas-de-Dados/Segment-Tree/Segment-Tree-PA)
 
