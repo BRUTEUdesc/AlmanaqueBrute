@@ -272,6 +272,14 @@ if __name__ == "__main__":
         TEORICO = Path("LaTeX/Teorico.tex")
         printa_arquivo(TEORICO, f)
 
+        # Include new LaTeX chapters from LaTeX/chapters/ directory
+        chapters_dir = Path("LaTeX/chapters")
+        if chapters_dir.exists():
+            # Sort chapters to ensure consistent order
+            chapter_files = sorted([f for f in chapters_dir.glob("*.tex")])
+            for chapter_file in chapter_files:
+                printa_arquivo(chapter_file, f)
+
         EXTRA = Path("Codigos/Extra")
         dfs(EXTRA, f, 0)
 

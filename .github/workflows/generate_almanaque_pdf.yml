@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - test/**  # Permite testar em branches test/nome-do-teste
 
 jobs:
   build_and_commit_pdf:
@@ -16,23 +17,17 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-
-      - name: Install LaTeX dependencies
+      - name: Build container image
         run: |
-          sudo apt update
-          sudo apt install -y \
-            texlive-latex-base \
-            texlive-latex-extra \
-            texlive-lang-portuguese \
-            cm-super \
-            rubber
+          docker build -t almanaque-builder -f docker/Dockerfile .
 
-      - name: Run PDF generation script
-        run: python3 ./.github/scripts/pdfer.py
+      - name: Run PDF generation script using container
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            almanaque-builder \
+            python3 .github/scripts/pdfer.py
 
       - name: Create Pull Request com o novo PDF
         uses: peter-evans/create-pull-request@v7

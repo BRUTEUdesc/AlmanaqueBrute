@@ -1,0 +1,33 @@
+\section{Pragmas}
+
+Os pragmas são diretivas para o compilador, que podem ser usadas para otimizar o código.
+
+Temos os pragmas de otimização, como por exemplo:
+
+\begin{itemize}
+    \item \texttt{\#pragma GCC optimize("O2")}: Otimizações de nível 2 (padrão de competições)
+    \item \texttt{\#pragma GCC optimize("O3")}: Otimizações de nível 3 (seguro para usar)
+    \item \texttt{\#pragma GCC optimize("Ofast")}: Otimizações agressivas (perigoso!)
+    \item \texttt{\#pragma GCC optimize("unroll-loops")}: Otimiza os loops mas pode levar a cache misses
+\end{itemize}
+
+E também os pragmas de target, que são usados para otimizar o código para um certo processador:
+
+\begin{itemize}
+    \item \texttt{\#pragma GCC target("avx2")}: Otimiza instruções para processadores com suporte a AVX2
+    \item \texttt{\#pragma GCC target("sse4")}: Parecido com o de cima, mas mais antigo
+    \item \texttt{\#pragma GCC target("popcnt")}: Otimiza o popcount em processadores que suportam
+    \item \texttt{\#pragma GCC target("lzcnt")}: Otimiza o leading zero count em processadores que suportam
+    \item \texttt{\#pragma GCC target("bmi")}: Otimiza instruções de bit manipulation em processadores que suportam
+    \item \texttt{\#pragma GCC target("bmi2")}: Mesmo que o de cima, mas mais recente
+\end{itemize}
+
+Em geral, esses pragmas são usados para otimizar o código em competições, mas é importante usálos com certa sabedoria, em alguns casos eles podem piorar o desempenho do código.
+
+Uma opção relativamente segura de se usar é a seguinte:
+
+\begin{lstlisting}[language=C++]
+    #pragma GCC optimize("O3,unroll-loops")
+    #pragma GCC target("avx2,bmi,bmi2,lzcnt,popcnt")
+\end{lstlisting}
+

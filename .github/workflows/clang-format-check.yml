@@ -5,6 +5,9 @@ on:
   pull_request:
     branches:
       - main
+  push:
+    branches:
+      - test/**  # Permite testar em branches test/nome-do-teste
       
   # A verificação no 'push' pra 'main' foi desabilitada por ser redundante.
   # Já que push direto na main está bloqueado e tudo tem que passar por um PR que já vai rodar essa action.
@@ -17,11 +20,17 @@ jobs:
     name: Formatting Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Build container image
+        run: |
+          docker build -t almanaque-builder -f docker/Dockerfile .
 
       - name: Run clang-format style check for C++ programs
-        uses: jidicula/clang-format-action@v4.15.0
-        with:
-          clang-format-version: '20'
-          check-path: 'Codigos'
-          fallback-style: 'LLVM'
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/workspace" \
+            -w /workspace \
+            almanaque-builder \
+            find Codigos -name "*.cpp" -exec clang-format --dry-run --Werror {} \;
