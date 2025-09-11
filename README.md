@@ -254,6 +254,8 @@ python3 .github/scripts/pdfer.py
 
 - [FFT](Codigos/Matemática/FFT)
 
+- [Discrete Root](Codigos/Matemática/Discrete-Root)
+
 - [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
 
 - [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
