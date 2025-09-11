@@ -1,22 +1,22 @@
 struct Bct {
     int T;
-    vector< int > tin, low, stk, art, id, splits;
+    vector<int> tin, low, stk, art, id, splits;
     vector<vector<int>> adj, g, comp, up;
     int n, sz, m;
     void build(int _n, int _m) {
-        n = _n,    m = _m;
+        n = _n, m = _m;
         adj.resize(n);
     }
     void add_edge(int u, int v) {
         adj[u].emplace_back(v);
-adj[v].emplace_back(u);
+        adj[v].emplace_back(u);
     }
     void dfs(int u, int p) {
         low[u] = tin[u] = ++T;
         stk.emplace_back(u);
         for (auto v : adj[u]) {
             if (tin[v] == -1) {
-            dfs(v, u);
+                dfs(v, u);
                 low[u] = min(low[u], low[v]);
                 if (low[v] >= tin[u]) {
                     int x;
