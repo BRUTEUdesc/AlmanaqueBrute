@@ -254,6 +254,8 @@ python3 .github/scripts/pdfer.py
 
 - [FFT](Codigos/Matemática/FFT)
 
+- [Discrete Root](Codigos/Matemática/Discrete-Root)
+
 - [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
 
 - [Exponenciação Modular Rápida](Codigos/Matemática/Exponenciação-Modular-Rápida)
@@ -283,6 +285,8 @@ python3 .github/scripts/pdfer.py
 	- [OR Convolution](Codigos/Matemática/Convolução/OR-Convolution)
 
 - [Floor Values](Codigos/Matemática/Floor-Values)
+
+- [Floor and Mod Sum of Arithmetic Progressions](Codigos/Matemática/Floor-and-Mod-Sum-of-Arithmetic-Progressions)
 
 - [XOR Gauss](Codigos/Matemática/XOR-Gauss)
 
