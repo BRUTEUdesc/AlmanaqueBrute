@@ -6,7 +6,7 @@
 # Configurações
 PYTHON := python3
 PDFER_SCRIPT := .github/scripts/pdfer.py
-CONTAINER_ENGINE := podman
+CONTAINER_ENGINE := docker
 CONTAINER_IMAGE := almanaque-builder
 LATEX_DIR := LaTeX
 PDF_DIR := PDF
