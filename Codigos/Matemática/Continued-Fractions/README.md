@@ -2,7 +2,7 @@
  Inspirado pelo artigo no CP Algorithms: https://cp-algorithms.com/algebra/continued-fractions.html
 
  Computa fração continua a partir de fração racional e vice-versa.  
- lca(u, v) computa o lca das frações u e v na Stern-Brocott Tree. 
+ `lca(u, v)` computa o lca das frações `u` e `v` na Stern-Brocott Tree
 
  Tamanho da fração contínua e complexidade para computá-la a partir da fração racional A/B: \mathcal{O}(\log (A + B)). 
  Portanto, lca e outros métodos têm mesma complexidade. 
