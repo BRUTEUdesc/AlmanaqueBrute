@@ -252,6 +252,8 @@ python3 .github/scripts/pdfer.py
 
 - [GCD](Codigos/Matemática/GCD)
 
+- [Continued Fractions](Codigos/Matemática/Continued-Fractions)
+
 - [FFT](Codigos/Matemática/FFT)
 
 - [Discrete Root](Codigos/Matemática/Discrete-Root)
