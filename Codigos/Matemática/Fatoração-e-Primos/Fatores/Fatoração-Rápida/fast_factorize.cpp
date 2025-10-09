@@ -1,7 +1,7 @@
 vector<ll> factorize(ll y) {
     vector<ll> f;
     if (y == 1) return f;
-    function<void(ll)> dfs = [&](ll x) {
+    auto dfs = [&](auto &&self, ll x) -> void {
         if (x == 1) return;
         if (x < Sieve::P) {
             auto fs = Sieve::factorize(x);
@@ -10,11 +10,11 @@ vector<ll> factorize(ll y) {
             f.push_back(x);
         } else {
             ll d = PollardRho::rho(x);
-            dfs(d);
-            dfs(x / d);
+            self(self, d);
+            self(self, x / d);
         }
     };
-    dfs(y);
+    dfs(dfs, y);
     sort(f.begin(), f.end());
     return f;
 }

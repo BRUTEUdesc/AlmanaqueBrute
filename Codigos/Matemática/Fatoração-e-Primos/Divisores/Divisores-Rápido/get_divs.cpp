@@ -6,18 +6,18 @@ vector<ll> get_divs(ll n) {
     for (auto x : f)
         if (v.empty() || v.back().first != x) v.emplace_back(x, 1);
         else v.back().second += 1;
-    function<void(int, ll)> dfs = [&](int i, ll cur) {
+    auto dfs = [&](auto &&self, int i, ll cur) -> void {
         if (i == (int)v.size()) {
             divs.push_back(cur);
             return;
         }
         ll p = 1;
         for (int j = 0; j <= v[i].second; j++) {
-            dfs(i + 1, cur * p);
+            self(self, i + 1, cur * p);
             p *= v[i].first;
         }
     };
-    dfs(0, 1);
+    dfs(dfs, 0, 1);
     sort(divs.begin(), divs.end());
     return divs;
 }

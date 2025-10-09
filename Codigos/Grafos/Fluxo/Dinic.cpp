@@ -69,14 +69,14 @@ struct Dinic {
     }
     void min_cut() {
         vector<bool> vis(n);
-        function<void(int)> dfs = [&](int u) {
+        auto dfs = [&](auto &&self, int u) -> void {
             vis[u] = 1;
             for (int id : adj[u]) {
                 int v = edges[id].v;
-                if (!vis[v] && edges[id].cap - edges[id].flow > 0) dfs(v);
+                if (!vis[v] && edges[id].cap - edges[id].flow > 0) self(self, v);
             }
         };
-        dfs(s);
+        dfs(dfs, s);
         for (int id = 0; id < (int)edges.size(); id++) {
             auto [u, v, cap, flow] = edges[id];
             if (vis[u] ^ vis[v] && cap > 0) {

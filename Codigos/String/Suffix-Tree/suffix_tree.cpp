@@ -105,7 +105,7 @@ struct SuffixTree {
         // esse metodo retorna a k-esima menor substring lexicograficamente,
         // dentre todas as substrings distintas
         string res = "";
-        function<bool(int)> dfs_kth = [&](int u) {
+        auto dfs_kth = [&](auto &&self, int u) -> bool {
             int min_len = len[lnk[u]] + 1, max_len = len[u];
             int qnt = (max_len - min_len + 1);
             if (qnt < k) {
@@ -115,10 +115,10 @@ struct SuffixTree {
                 return true;
             }
             for (int v : adj[u])
-                if (dfs_kth(v)) return true;
+                if (self(self, v)) return true;
             return false;
         };
-        dfs_kth(1);
+        dfs_kth(dfs_kth, 1);
         return res;
     }
 
@@ -126,7 +126,7 @@ struct SuffixTree {
         // esse metodo retorna a k-esima menor substring lexicograficamente,
         // dentre todas as substrings nao necessariamente distintas
         string res = "";
-        function<bool(int)> dfs_kth = [&](int u) {
+        auto dfs_kth = [&](auto &&self, int u) -> bool {
             int min_len = len[lnk[u]] + 1, max_len = len[u];
             ll qnt = 1LL * (max_len - min_len + 1) * cnt[u];
             if (qnt < k) {
@@ -136,10 +136,10 @@ struct SuffixTree {
                 return true;
             }
             for (int v : adj[u])
-                if (dfs_kth(v)) return true;
+                if (self(self, v)) return true;
             return false;
         };
-        dfs_kth(1);
+        dfs_kth(dfs_kth, 1);
         return res;
     }
 
