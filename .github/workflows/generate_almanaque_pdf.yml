@@ -26,8 +26,12 @@ jobs:
           sudo apt update
           sudo apt install -y \
             texlive-latex-base \
+            texlive-latex-recommended \
             texlive-latex-extra \
             texlive-lang-portuguese \
+            texlive-fonts-recommended \
+            latexmk \
+            lmodern \
             cm-super \
             rubber
 
