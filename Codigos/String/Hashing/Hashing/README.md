@@ -6,7 +6,7 @@ Hashing polinomial para testar igualdade de strings (ou de vetores). Requer prec
 
 Exemplo de uso:
 
-```cpp  
+```cpp
 string s = "abacabab";
 Hashing h(s);
 cout << (h(0, 1) == h(2, 3)) << endl; // 0
