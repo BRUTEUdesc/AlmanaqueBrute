@@ -1,0 +1,28 @@
+\documentclass[9pt,a4paper,landscape]{article}
+
+\input{configs/packages}
+\input{configs/titlesec}
+\input{configs/listings}
+
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+
+\renewcommand{\contentsname}{Índice}
+
+\title{Almanaque de Códigos pra\\Maratona de Programação}
+\author{BRUTE UDESC}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{titlepage}%
+    \thispagestyle{empty}%
+    \vspace*{\fill}%
+    \begin{center}%
+      {\Large\bfseries \@title\par}\vspace{1em}%
+      {\large \@author\par}\vspace{1em}%
+      {\normalsize \@date\par}%
+    \end{center}%
+    \vspace*{\fill}%
+  \end{titlepage}%
+}
+\makeatother

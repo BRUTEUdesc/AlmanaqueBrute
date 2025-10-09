@@ -1,0 +1,22 @@
+\subsection{Compilador}
+
+Para compilar um arquivo \texttt{.cpp} com o compilador \texttt{g++}, usar o comando:
+
+\begin{lstlisting}[language=bash]
+    g++ -std=c++20 -O2 arquivo.cpp
+\end{lstlisting}
+
+\textbf{Obs:} a flag \texttt{-std=c++20} é para usar a versão 20 do C++, os códigos desse Almanaque são testados com essa versão.
+
+Algumas flags úteis para o \texttt{g++} são:
+
+\begin{itemize}
+    \item \texttt{-O2}: Otimizações de compilação
+    \item \texttt{-Wall}: Mostra todos os warnings
+    \item \texttt{-Wextra}: Mostra mais warnings
+    \item \texttt{-Wconversion}: Mostra warnings para conversões implícitas
+    \item \texttt{-fsanitize=address}: Habilita o AddressSanitizer
+    \item \texttt{-fsanitize=undefined}: Habilita o UndefinedBehaviorSanitizer
+\end{itemize}
+
+Todas essas flags já estão presente no script `run` da seção Extra.

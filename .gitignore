@@ -11,3 +11,4 @@ Almanaque.html
 *.swp
 *.swo
 tmp/
+LaTeX/generated/
