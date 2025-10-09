@@ -6,4 +6,4 @@ $$ p[i] = \max\{k \mid s[0,k) = s(i-k,i]\} $$
 
 Em outras palavras, $p[i]$ é o tamanho do maior prefixo de $s$ que é sufixo próprio de $s[0,i]$.
 
-O KMP é útil para pattern matching, ou seja, encontrar todas as ocorrências de uma string $t$ em uma string $s$, como faz a função `matching` em $O(|s| + |t|)$.
+O KMP é útil para pattern matching, ou seja, encontrar todas as ocorrências de uma string $t$ em uma string $s$, como faz a função `matching` em $\mathcal{O}(|s| + |t|)$.

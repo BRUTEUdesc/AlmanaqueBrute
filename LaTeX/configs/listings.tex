@@ -1,0 +1,70 @@
+\usepackage{listings}
+
+\definecolor{commentgreen}{RGB}{2,112,10}
+\definecolor{eminence}{RGB}{210,31,60}
+\definecolor{codegray}{RGB}{46,46,46}
+
+\lstset{
+  language=C++,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none,
+  xleftmargin=0pt,
+  frame=none,
+  framesep=0pt,
+  aboveskip=2pt,
+  belowskip=2pt,
+  showstringspaces=false,
+  breaklines=true,
+  breakatwhitespace=true,
+  columns=fullflexible,
+  commentstyle=\color{commentgreen},
+  keywordstyle=\color{blue},
+  stringstyle=\color{eminence},
+  rulecolor=\color{codegray},
+  escapeinside={<@}{@>}
+}
+
+\makeatletter
+\lstset{literate=
+  {á}{{\'a\lst@whitespacefalse}}1 {é}{{\'e\lst@whitespacefalse}}1
+  {í}{{\'i\lst@whitespacefalse}}1 {ó}{{\'o\lst@whitespacefalse}}1
+  {ú}{{\'u\lst@whitespacefalse}}1
+  {Á}{{\'A\lst@whitespacefalse}}1 {É}{{\'E\lst@whitespacefalse}}1
+  {Í}{{\'I\lst@whitespacefalse}}1 {Ó}{{\'O\lst@whitespacefalse}}1
+  {Ú}{{\'U\lst@whitespacefalse}}1
+  {à}{{\`a\lst@whitespacefalse}}1 {è}{{\`e\lst@whitespacefalse}}1
+  {ì}{{\`i\lst@whitespacefalse}}1 {ò}{{\`o\lst@whitespacefalse}}1
+  {ù}{{\`u\lst@whitespacefalse}}1
+  {À}{{\`A\lst@whitespacefalse}}1
+  {È}{{\'E\lst@whitespacefalse}}1 {Ì}{{\`I\lst@whitespacefalse}}1
+  {Ò}{{\`O\lst@whitespacefalse}}1 {Ù}{{\`U\lst@whitespacefalse}}1
+  {ä}{{\"a\lst@whitespacefalse}}1 {ë}{{\"e\lst@whitespacefalse}}1
+  {ï}{{\"i\lst@whitespacefalse}}1 {ö}{{\"o\lst@whitespacefalse}}1
+  {ü}{{\"u\lst@whitespacefalse}}1
+  {Ä}{{\"A\lst@whitespacefalse}}1 {Ë}{{\"E\lst@whitespacefalse}}1
+  {Ï}{{\"I\lst@whitespacefalse}}1 {Ö}{{\"O\lst@whitespacefalse}}1
+  {Ü}{{\"U\lst@whitespacefalse}}1
+  {â}{{\^a\lst@whitespacefalse}}1 {ê}{{\^e\lst@whitespacefalse}}1
+  {î}{{\^i\lst@whitespacefalse}}1 {ô}{{\^o\lst@whitespacefalse}}1
+  {û}{{\^u\lst@whitespacefalse}}1
+  {Â}{{\^A\lst@whitespacefalse}}1 {Ê}{{\^E\lst@whitespacefalse}}1
+  {Î}{{\^I\lst@whitespacefalse}}1 {Ô}{{\^O\lst@whitespacefalse}}1
+  {Û}{{\^U\lst@whitespacefalse}}1
+  {Ã}{{\~A\lst@whitespacefalse}}1 {ã}{{\~a\lst@whitespacefalse}}1
+  {Õ}{{\~O\lst@whitespacefalse}}1 {õ}{{\~o\lst@whitespacefalse}}1
+  {œ}{{\oe\lst@whitespacefalse}}1 {Œ}{{\OE\lst@whitespacefalse}}1
+  {æ}{{\ae\lst@whitespacefalse}}1 {Æ}{{\AE\lst@whitespacefalse}}1
+  {ß}{{\ss\lst@whitespacefalse}}1
+  {ű}{{\H{u}\lst@whitespacefalse}}1 {Ű}{{\H{U}\lst@whitespacefalse}}1
+  {ő}{{\H{o}\lst@whitespacefalse}}1 {Ő}{{\H{O}\lst@whitespacefalse}}1
+  {ç}{{\c c\lst@whitespacefalse}}1 {Ç}{{\c C\lst@whitespacefalse}}1
+  {ø}{{\o\lst@whitespacefalse}}1
+  {å}{{\r a\lst@whitespacefalse}}1 {Å}{{\r A\lst@whitespacefalse}}1
+  {€}{{\euro\lst@whitespacefalse}}1 {£}{{\pounds\lst@whitespacefalse}}1
+  {«}{{\guillemotleft\lst@whitespacefalse}}1
+  {»}{{\guillemotright\lst@whitespacefalse}}1
+  {ñ}{{\~n\lst@whitespacefalse}}1 {Ñ}{{\~N\lst@whitespacefalse}}1
+  {¿}{{?`\lst@whitespacefalse}}1
+  {º}{{\textordmasculine\lst@whitespacefalse}}1
+}
+\makeatother

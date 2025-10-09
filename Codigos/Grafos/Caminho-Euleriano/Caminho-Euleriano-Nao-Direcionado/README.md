@@ -1,4 +1,4 @@
-# [Caminho Euleriano (Grafo Nao Direcionado)](undirected_eulerian_path.cpp)
+# [Caminho Euleriano (Grafo Não Direcionado)](undirected_eulerian_path.cpp)
 
 Algoritmo para encontrar um caminho euleriano em um grafo não direcionado em $\mathcal{O}(V + E)$. O algoritmo também encontrará um ciclo euleriano se o mesmo existir. Se nem um ciclo nem um caminho euleriano existir, o algoritmo retornará um vetor vazio.
 

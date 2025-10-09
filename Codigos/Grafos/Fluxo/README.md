@@ -4,25 +4,22 @@ Conjunto de algoritmos para calcular o fluxo máximo em redes de fluxo.
 
 ## Dinic
 
-Muito útil para grafos bipartidos e para grafos com muitas arestas
+Adequado para grafos densos ou bipartidos. O grafo é armazenado internamente e as arestas devem ser adicionadas com `add_edge`.
 
-Complexidade de tempo: $\mathcal{O}(V² * E)$, mas em grafo bipartido a complexidade é $\mathcal{O}(sqrt(V) * E)$
+- Complexidade de tempo: $\mathcal{O}(V^2 \cdot E)$; em grafos bipartidos, $\mathcal{O}(\sqrt{V} \cdot E)$.
 
-Guarda o grafo internamente, as arestas devem ser adicionadas pela função `add_edge`.
+A chamada `max_flow` altera o grafo adicionando o maior fluxo possível e retorna o valor desse fluxo máximo.
 
-A função `max_flow` modifica o grafo adicionando a maior quantidade de fluxo possivel e retona a quantidade de fluxo adicionado.
+O corte mínimo de um grafo é equivalente ao fluxo máximo. Após `max_flow`, use `min_cut` para obter as arestas que compõem o corte mínimo.
 
-O corte minimo de um grafo é equivalente ao fluxo máximo.
-A Função `min_cut` acha as arestas pertencentes ao corte minimo do grafo, deve ser chamado após a função `max_flow`
+## Edmonds-Karp
 
-## Edmonds Karp
+Indicado para grafos com poucas arestas.
 
-Útil para grafos com poucas arestas
-
-Complexidade de tempo: $\mathcal{O}(V * E²)$
+- Complexidade de tempo: $\mathcal{O}(V \cdot E^2)$.
 
 ## Min Cost Max Flow
 
-Computa o fluxo máximo com custo mínimo
+Calcula o fluxo máximo com custo mínimo.
 
-Complexidade de tempo: $\mathcal{O}(V² * E²)$
+- Complexidade de tempo: $\mathcal{O}(V^2 \cdot E^2)$.

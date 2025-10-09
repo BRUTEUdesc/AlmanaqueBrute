@@ -1,0 +1,49 @@
+\subsection{Markov Chains}
+
+Markov Chains (cadeias de Markov) são grafos onde nodos são estados e arestas representam a probabilidade de transicionar de um estado para outro em um passeio aleatório.
+
+A partir das arestas do grafo, podemos construir uma matriz de transição $P$, onde $P_{i, j}$ representa a probabilidade de ir do nodo $i$ ao nodo $j$ em um passo. A $x$-ésima potência de $P$ representa a probabilidade de ir do nodo $i$ ao nodo $j$ em $x$ passos.
+
+Um estado é dito transiente se existe probabilidade de nunca voltar para ele uma vez que se saiu dele. Se não existe, ele é recorrente. Se a probabilidade de sair dele é zero, ele é absorvente.
+
+Um estado tem período $k \geq 1$ se só é possível retornar a ele com passeios de tamanho múltiplo de $k$. Se $k = 1$, ele é dito aperiódico, se não, ele é periódico. Se todos os estados são aperiódicos, a Markov Chain é aperiódica.
+
+Uma Markov Chain é dita irredutível se, entre cada par de estados, existe um passeio com probabilidade positiva de ocorrer.
+
+Uma Markov Chain é dita ergódica se todos os seus estados são recorrentes e ela é aperiódica.
+
+\subsubsection{Distribuições estacionárias}
+
+Uma distribuição estacionária é um vetor de probabilidades $\pi$ tal que $\pi P = \pi$, ou seja, $(P^T - I) \pi = 0$. Isso significa que é uma distribuição de probabilidades que diz, para cada estado, a probabilidade de estar nele, e essa distribuição permanece igual ao aplicarmos a matriz de transição. O somatório dos valores em $\pi$ resulta em $1$.
+
+Uma Markov Chain irredutível tem uma distribuição estacionária se, e somente se, for aperiódica e ergódica. Se for ergódica, a distribuição estacionária é única.
+
+Se uma Markov Chain for ergódica, o número esperado de passos para voltar ao estado $i$ depois de começar nele é dado por $E(i) = 1/\pi_i$.
+
+\subsubsection{Markov Chains absorventes}
+
+Uma Markov Chain é dita absorvente se todo estado transiente pode alcançar algum estado absorvente com probabilidade positiva.
+
+Considere uma Markov chain com $T$ estados transientes e $S$ estados absorventes. A matriz de transição $P$ pode ser escrita dessa forma:
+\begin{equation*}
+\large{
+P = \begin{bmatrix}
+Q & R \\
+0 & I
+\end{bmatrix}
+}
+\end{equation*}
+Onde $Q$ é a submatriz $T \times T$ que corresponde à probabilidade de estados transientes transicionarem entre si, $R$ é a submatriz $T \times S$ que corresponde à probabilidade de estados transientes alcançarem estados absorventes, $0$ é a matriz zero $S \times T$ e $I$ é a matriz identidade $S \times S$.\\
+A matriz fundamental $N$, onde a célula $N_{i,j}$ representa a quantidade esperada de vezes que o estado transiente $j$ é alcançado quando começando em $i$, é dada por:
+\begin{equation*}
+\large{
+N = (I - Q)^{-1}
+}
+\end{equation*}
+
+A matriz $M$, onde a célula $M_{i,j}$ representa a probabilidade de ser absorvido pelo estado $j$ quando começando em $i$, é dada por:
+\begin{equation*}
+\large{
+M = N R
+}
+\end{equation*}

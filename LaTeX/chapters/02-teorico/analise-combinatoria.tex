@@ -1,0 +1,56 @@
+\subsection{Análise combinatória}
+
+\subsubsection{Fatorial}
+
+O fatorial de um número $n$ é o produto de todos os inteiros positivos menores ou iguais a $n$.
+
+O fatorial conta o número de permutações de $n$ elementos.
+
+\begin{equation*}
+\large
+n! = n \cdot (n-1)!
+\end{equation*}
+
+Em particular, $0! = 1$.
+
+\subsubsection{Combinação}
+
+Conta o número de maneiras de escolher $k$ elementos de um conjunto de $n$ elementos.
+
+\begin{equation*}
+\large
+\binom{n}{k} = \frac{n!}{k! \cdot (n-k)!}
+\end{equation*}
+
+\subsubsection{Arranjo}
+
+Conta o número de maneiras de escolher $k$ elementos de um conjunto de $n$ elementos, onde a ordem importa.
+
+\begin{equation*}
+\large
+P(n, k) = \frac{n!}{(n-k)!}
+\end{equation*}
+
+\subsubsection{Estrelas e barras}
+
+Conta o número de maneiras de distribuir $n$ elementos idênticos em $k$ recipientes distintos.
+
+\begin{equation*}
+\large
+\binom{n+k-1}{k-1}
+\end{equation*}
+
+\subsubsection{Princípio da inclusão-exclusão}
+
+O princípio da inclusão-exclusão é uma técnica para contar o número de elementos em uma união de conjuntos.
+
+\begin{align*}
+\left| \bigcup_{i=1}^{n} A_i \right|
+  &= \sum_{k=1}^{n} (-1)^{k+1}
+     \sum_{\substack{1 \leq i_1 < \cdots < i_k \leq n}}
+     \left| A_{i_1} \cap \cdots \cap A_{i_k} \right|
+\end{align*}
+
+\subsubsection{Princípio da casa dos pombos}
+
+Se $n$ pombos são colocados em $m$ casas, então pelo menos uma casa terá $\lceil \frac{n}{m} \rceil$ pombos ou mais.

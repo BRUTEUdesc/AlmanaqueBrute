@@ -1,0 +1,66 @@
+\subsection{Sequências numéricas}
+
+\subsubsection{Sequência de Fibonacci}
+
+Primeiros termos: \textbf{1, 1, 2, 3, 5, 8, 13, 21, 34, \ldots}
+
+Definição:
+
+\begin{equation*}
+\large
+F_0 = F_1 = 1
+\end{equation*}
+
+\begin{equation*}
+\large
+F_n = F_{n-1} + F_{n-2}
+\end{equation*}
+
+Matriz de recorrência:
+
+\begin{equation*}
+\large
+\begin{bmatrix}
+    0 & 1 \\
+    1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    F_{n-2} \\
+    F_{n-1}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    F_{n-1} \\
+    F_n
+\end{bmatrix}
+\end{equation*}
+
+\subsubsection{Sequência de Catalan}
+
+Primeiros termos: \textbf{1, 1, 2, 5, 14, 42, 132, 429, 1430, \ldots}
+
+Definição:
+
+\begin{equation*}
+\large
+C_0 = C_1 = 1
+\end{equation*}
+
+\begin{equation*}
+\large
+C_n = \sum_{i=0}^{n-1} C_i \cdot C_{n-1-i}
+\end{equation*}
+
+Definição analítica:
+
+\begin{equation*}
+\large
+C_n = \frac{1}{n+1} \binom{2n}{n}
+\end{equation*}
+
+Propriedades úteis:
+
+\begin{itemize}
+  \item $C_n$ é o número de árvores binárias com $n+1$ folhas.
+  \item $C_n$ é o número de sequências de parênteses bem formadas com $n$ pares de parênteses.
+\end{itemize}

@@ -2,9 +2,9 @@
 
 Uma árvore de funções. Retorna o $f(x)$ máximo em um ponto $x$.
 
-Para retornar o minimo deve-se inserir o negativo da função ($g(x) = -ax - b$) e pegar o negativo do resultado. Ou, alterar a função de comparação da árvore se souber mexer.
+Para retornar o mínimo, insira o negativo da função ($g(x) = -ax - b$) e pegue o negativo do resultado final. Outra opção é alterar a função de comparação da árvore, caso tenha familiaridade com a estrutura.
 
-Funciona para funções com a seguinte propriedade, sejam duas funções $f(x)$ e $g(x)$, uma vez que $f(x)$ passa a ganhar/perder pra $g(x)$, $f(x)$ nunca mais passa a perder/ganhar pra $g(x)$. Em outras palavras, $f(x)$ e $g(x)$ se intersectam no máximo uma vez.
+Funciona para funções com a seguinte propriedade: sejam duas funções $f(x)$ e $g(x)$, uma vez que $f(x)$ passa a ganhar/perder para $g(x)$, $f(x)$ nunca mais passa a perder/ganhar para $g(x)$. Em outras palavras, $f(x)$ e $g(x)$ se intersectam no máximo uma vez.
 
 Essa implementação está pronta para usar função linear do tipo $f(x) = ax + b$.
 
