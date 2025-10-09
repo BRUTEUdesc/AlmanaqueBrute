@@ -43,14 +43,14 @@ struct EulerianTrail {
         } else if (start == -1 || end == -1) {
             return {};
         }
-        function<void(int)> dfs_et = [&](int u) {
+        auto dfs_et = [&](auto &&self, int u) -> void {
             while (it[u] < (int)adj[u].size()) {
                 int v = adj[u][it[u]++];
-                dfs_et(v);
+                self(self, v);
             }
             cur.push_back(u);
         };
-        dfs_et(start);
+        dfs_et(dfs_et, start);
         if ((int)cur.size() != m + 1) return {};
         reverse(cur.begin(), cur.end());
         return cur;
