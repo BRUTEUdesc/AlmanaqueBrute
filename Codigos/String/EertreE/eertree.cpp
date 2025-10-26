@@ -14,7 +14,7 @@ struct eertree {
         memset(len, 0, sizeof(int) * (n + 1));
         memset(lnk, 0, sizeof(int) * (n + 1));
         memset(cnt, 0, sizeof(int) * (n + 1));
-        for (int i = 0; i <= it; i++)
+        for (int i = 0; i <= n; i++)
             for (int j = 0; j < ALF; j++) to[i][j] = 0;
         node_cnt = 2, it = 1, last = 0, str[0] = -1;
         len[0] = 0, len[1] = -1, lnk[0] = 1, lnk[1] = 1;
