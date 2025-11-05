@@ -214,6 +214,7 @@ O script regenera `LaTeX/main.tex`, compila `Almanaque.pdf` e atualiza o README 
   - [NTT Big Modulo](Codigos/Matemática/NTT/NTT-Big-Modulo)
   - [Taylor Shift](Codigos/Matemática/NTT/Taylor-Shift)
 - [Polinomios](Codigos/Matemática/Polinomios)
+- [SMAWCK](Codigos/Matemática/SMAWCK)
 - [Teorema do Resto Chinês](Codigos/Matemática/Teorema-do-Resto-Chinês)
 - [Totiente de Euler](Codigos/Matemática/Totiente-de-Euler)
 - [XOR Gauss](Codigos/Matemática/XOR-Gauss)
