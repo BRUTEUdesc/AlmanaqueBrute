@@ -1,0 +1,27 @@
+\section{Problema da Realização de Grafos}
+Dada uma lista $\{d_0, d_1, d_2, ..., d_{n-1}\}$ de ordenação não crescente, deve-se dizer se existe um grafo simples (sem loops ou multiarestas) que tem como "lista de graus" a lista $d$ (caso exista, dizemos que $d$ é graphic). 
+
+\subsection{Teorema de Erdős–Gallai}
+Uma lista $d$ é graphic se e somente se: 
+\begin{equation*}
+\large
+\sum_{i = 0}^{k} d_{k} \le k(k-1) + \sum_{i = k+1}^{n-1}\min(k, d_{i}) 
+\end{equation*}
+para todo 
+\begin{equation*}
+\large
+k \in [0, n-1]
+\end{equation*}. 
+
+\subsection{Teorema de Havel-Hakimi}
+Uma lista
+\begin{equation*}
+\large
+\{s, d_0, d_1, d_2 ..., d_{s-1}, d_s, d_{s+1}, ..., d_{n-2}, d_{n-1} \}
+\end{equation*}
+é graphic se e somente se a lista modificada 
+\begin{equation*}
+\large
+\{d_0-1, d_1-1, d_2-1 ..., d_{s-1}-1, d_s, d_{s+1}, ..., d_{n-2}, d_{n-1} \}
+\end{equation*}
+também é. Isso permite a implementação de um algoritmo fácil para não só checar a realização de um grafo de lista $d$ mas também construir tal grafo.
