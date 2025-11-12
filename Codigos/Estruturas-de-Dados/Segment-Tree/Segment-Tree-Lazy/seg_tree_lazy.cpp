@@ -8,7 +8,7 @@ struct SegTree {
     inline int rc(int p) { return p * 2 + 1; }
     void push(int p, int l, int r) {
         if (replace[p]) {
-            t[p] = lazy[p] * (r - l + 1);
+            t[p] = lazy[p] * (r - l + 1); // alterar dependendo da operacao de merge
             if (l != r) {
                 lazy[lc(p)] = lazy[p];
                 lazy[rc(p)] = lazy[p];
@@ -16,7 +16,7 @@ struct SegTree {
                 replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
-            t[p] += lazy[p] * (r - l + 1);
+            t[p] += lazy[p] * (r - l + 1); // alterar dependendo da operacao de merge
             if (l != r) {
                 lazy[lc(p)] += lazy[p];
                 lazy[rc(p)] += lazy[p];

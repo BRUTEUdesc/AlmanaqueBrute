@@ -24,7 +24,7 @@ struct SegTree {
     SegTree() { newnode(); }
     void push(int p, ll l, ll r) {
         if (replace[p]) {
-            t[p] = lazy[p] * (r - l + 1);
+            t[p] = lazy[p] * (r - l + 1); // alterar dependendo da operacao de merge
             if (l != r) {
                 lazy[lc(p)] = lazy[p];
                 lazy[rc(p)] = lazy[p];
@@ -32,7 +32,7 @@ struct SegTree {
                 replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
-            t[p] += lazy[p] * (r - l + 1);
+            t[p] += lazy[p] * (r - l + 1); // alterar dependendo da operacao de merge
             if (l != r) {
                 lazy[lc(p)] += lazy[p];
                 lazy[rc(p)] += lazy[p];
