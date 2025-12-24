@@ -12,7 +12,7 @@ void add_edge(int u, int v) {
 void dfs_bridge(int u, int pe = -1) {
     low[u] = tin[u] = ++timer;
     for (auto [v, id] : adj[u]) {
-        if (id == pe) continue; // ignora apenas a aresta pela qual chegou
+        if (id == pe) continue;
         if (tin[v] != 0) {
             low[u] = min(low[u], tin[v]);
         } else {
@@ -21,7 +21,7 @@ void dfs_bridge(int u, int pe = -1) {
         }
     }
     if (pe != -1 && low[u] == tin[u]) {
-        // edge com id pe (conectando p e u) eh ponte
+        // edge com id == pe (conectando p e u) eh ponte
     }
 }
 

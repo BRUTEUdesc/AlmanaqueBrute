@@ -13,7 +13,7 @@ void add_edge(int u, int v) {
 void dfs_bridge(int u, int pe = -1) {
     low[u] = tin[u] = ++timer;
     for (auto [v, id] : adj[u]) {
-        if (id == pe) continue; // ignora apenas a aresta de chegada
+        if (id == pe) continue;
         if (tin[v] != 0) {
             low[u] = min(low[u], tin[v]);
         } else {
