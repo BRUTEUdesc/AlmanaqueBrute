@@ -47,9 +47,8 @@ void build_ebcc_graph() {
     // Opcao 1 - constroi o grafo comprimido passando por todas as edges
     for (int u = 0; u < n; u++) {
         for (auto [v, _] : adj[u]) {
-            int cu = ebcc[u], cv = ebcc[v];
-            if (cu != cv) {
-                adjbcc[cu].emplace_back(cv);
+            if (ebcc[u] != ebcc[v]) {
+                adjbcc[ebcc[u]].emplace_back(ebcc[v]);
             } else {
                 // faz algo
             }
