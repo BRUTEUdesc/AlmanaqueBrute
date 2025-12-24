@@ -34,10 +34,12 @@ struct SegTree {
     void build(int _n) { // pra construir com tamanho, mas vazia
         n = _n;
         t.assign(n * 4, neutral);
+        lazy.assign(n * 4, ii(0, 0));
     }
     void build(const vector<ll> &v) { // pra construir com vector
         n = (int)v.size();
         t.assign(n * 4, neutral);
+        lazy.assign(n * 4, ii(0, 0));
         build(1, 0, n - 1, v);
     }
     void build(ll *bg, ll *en) { // pra construir com array de C
