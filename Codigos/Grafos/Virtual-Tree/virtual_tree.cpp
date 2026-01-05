@@ -5,7 +5,8 @@ vector<int> vir_nodes;
 
 void build_virtual_tree(vector<int> S) {
     sort(S.begin(), S.end(), [&](int i, int j) { return bl::tin[i] < bl::tin[j]; });
-    for (int i = 1; i < (int)S.size(); i++) S.emplace_back(bl::lca(S[i - 1], S[i]));
+    int sz = (int)S.size();
+    for (int i = 1; i < sz; i++) S.emplace_back(bl::lca(S[i - 1], S[i]));
     sort(S.begin(), S.end(), [&](int i, int j) { return bl::tin[i] < bl::tin[j]; });
     S.erase(unique(S.begin(), S.end()), S.end());
     vir_nodes = S;
