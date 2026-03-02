@@ -1,5 +1,5 @@
 mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
-template<typename T>
+template <typename T>
 struct ITreap {
     T merge(T a, T b) { return a + b; }
     T neutral = 0;
