@@ -1,11 +1,12 @@
 mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count());
-namespace imp_treap {
-    using T = ll; // mudar pra int se nao precisar pra melhorar a performance
+template <typename T>
+struct ITreap {
     T merge(T a, T b) { return a + b; }
     T neutral = 0;
     struct node_info {
         node_info *l, *r;
-        int y, size;
+        uint64_t y;
+        int size;
         T val, acc, add;
         bool rev;
         node_info() { }
@@ -119,6 +120,6 @@ namespace imp_treap {
         merge(L1, L2, R2);
         merge(root, L1, R1);
     }
-    inline void insert(int pos, int val) { insert(new node_info(val), pos); }
+    inline void insert(int pos, T val) { insert(new node_info(val), pos); }
     inline bool remove(int pos) { return remove(root, pos); }
-}
+};
