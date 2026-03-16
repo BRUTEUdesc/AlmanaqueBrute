@@ -31,7 +31,7 @@ struct suffix_array {
         }
     }
     void set_string(string _s) {
-        s = _s + '$';
+        s = _s + '!';
         n = s.size();
         for (int i = 0; i < n; i++) ra[i] = s[i], sa[i] = i;
         build_sa();
