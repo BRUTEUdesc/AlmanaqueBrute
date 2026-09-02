@@ -26,16 +26,16 @@ struct SegTree {
         if (replace[p]) {
             t[p] = lazy[p] * (r - l + 1); // alterar dependendo da operacao de merge
             if (l != r) {
-                if(Lc[p] != -1)lazy[lc(p)] = lazy[p];
-                if(Rc[p] != -1)lazy[rc(p)] = lazy[p];
-                if(Lc[p] != -1)replace[lc(p)] = true;
-                if(Rc[p] != -1)replace[rc(p)] = true;
+                if (Lc[p] != -1) lazy[lc(p)] = lazy[p];
+                if (Rc[p] != -1) lazy[rc(p)] = lazy[p];
+                if (Lc[p] != -1) replace[lc(p)] = true;
+                if (Rc[p] != -1) replace[rc(p)] = true;
             }
         } else if (lazy[p] != 0) {
             t[p] += lazy[p] * (r - l + 1); // alterar dependendo da operacao de merge
             if (l != r) {
-                if(Lc[p] != -1)lazy[lc(p)] += lazy[p];
-                if(Rc[p] != -1)lazy[rc(p)] += lazy[p];
+                if (Lc[p] != -1) lazy[lc(p)] += lazy[p];
+                if (Rc[p] != -1) lazy[rc(p)] += lazy[p];
             }
         }
         replace[p] = false;
@@ -48,8 +48,8 @@ struct SegTree {
         ll mid = l + (r - l) / 2;
         auto ql = neutral;
         auto qr = neutral;
-        if(Lc[p] != -1)ql = query(Lc[p], l, mid, L, R);
-        if(Rc[p] != -1)qr = query(Rc[p], mid + 1, r, L, R);
+        if (Lc[p] != -1) ql = query(Lc[p], l, mid, L, R);
+        if (Rc[p] != -1) qr = query(Rc[p], mid + 1, r, L, R);
         return merge(ql, qr);
     }
     ll query(ll l, ll r) { return query(0, MINL, MAXR, l, r); }
@@ -62,11 +62,11 @@ struct SegTree {
             push(p, l, r);
         } else {
             ll mid = l + (r - l) / 2;
-            if(!(l > R || mid < L))update(lc(p), l, mid, L, R, val, repl);
-            if(!(mid+1 > R || r < L))update(rc(p), mid + 1, r, L, R, val, repl);
+            if (!(l > R || mid < L)) update(lc(p), l, mid, L, R, val, repl);
+            if (!(mid + 1 > R || r < L)) update(rc(p), mid + 1, r, L, R, val, repl);
             t[p] = neutral;
-            if(Lc[p] != -1)t[p] = merge(t[p], t[lc(p)]);
-            if(Rc[p] != -1)t[p] = merge(t[p], t[rc(p)]);
+            if (Lc[p] != -1) t[p] = merge(t[p], t[lc(p)]);
+            if (Rc[p] != -1) t[p] = merge(t[p], t[rc(p)]);
         }
     }
     void update(ll l, ll r, ll val, bool repl) { update(0, MINL, MAXR, l, r, val, repl); }
