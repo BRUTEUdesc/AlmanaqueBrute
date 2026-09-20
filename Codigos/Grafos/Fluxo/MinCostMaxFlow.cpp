@@ -42,13 +42,12 @@ struct MinCostMaxFlow {
 
         if (pego[t] == -1) return 0;
         ll f = INF;
-        for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
+        for (int id = pego[t]; id != -1; id = pego[edges[id].u])
             f = min(f, edges[id].cap - edges[id].flow);
-            mincost += edges[id].cost;
-        }
         for (int id = pego[t]; id != -1; id = pego[edges[id].u]) {
             edges[id].flow += f;
             edges[id ^ 1].flow -= f;
+            mincost += edges[id].cost * f;
         }
         maxflow += f;
         return 1;
