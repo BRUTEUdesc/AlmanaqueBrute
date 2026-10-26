@@ -1,7 +1,8 @@
 vector<tuple<int, int, int>> edges; // {u, v, w}
 
 void kruskal(int n) {
-    DSU dsu(n); // DSU da seção Estruturas de Dados
+    DSU dsu; // DSU da seção Estruturas de Dados
+    dsu.build(n);
 
     sort(edges.begin(), edges.end(), [](auto a, auto b) {
         return get<2>(a) < get<2>(b);

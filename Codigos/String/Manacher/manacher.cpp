@@ -6,7 +6,7 @@ struct Manacher {
         n = int(s.size()), count = 0;
         solve_odd(s);
         solve_even(s);
-        man.assign(2 * n - 1, 0);
+        man.assign(max(2 * n - 1, 0), 0);
         for (int i = 0; i < n; i++) man[2 * i] = 2 * d1[i] - 1;
         for (int i = 0; i < n - 1; i++) man[2 * i + 1] = 2 * d2[i + 1];
         return count;

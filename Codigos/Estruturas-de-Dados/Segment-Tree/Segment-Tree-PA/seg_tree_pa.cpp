@@ -8,7 +8,7 @@ struct SegTree {
     inline int lc(int p) { return p * 2; }
     inline int rc(int p) { return p * 2 + 1; }
     void push(int p, int l, int r) {
-        if (lazy[p].second) {
+        if (lazy[p] != ii(0, 0)) {
             auto [a, d] = lazy[p];
             t[p] += a * (r - l + 1) + d * (r - l) * (r - l + 1) / 2;
             if (l != r) {

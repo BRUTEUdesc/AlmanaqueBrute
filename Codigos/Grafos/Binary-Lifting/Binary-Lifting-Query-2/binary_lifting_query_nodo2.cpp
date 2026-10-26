@@ -69,6 +69,7 @@ struct BinaryLifting {
     node query(int u, int v) {
         if (u == v) return node(val[u]);
         node l = query2(u, v, 1, 0);
+        if (ancestor(v, u)) return l; // node() nao eh neutro do merge
         node r = query2(v, u, 0, 1);
         return merge(l, r);
     }

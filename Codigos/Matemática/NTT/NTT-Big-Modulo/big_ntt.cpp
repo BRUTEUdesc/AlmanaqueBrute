@@ -68,6 +68,7 @@ vector<ll> big_multiply(vector<ll> ta, vector<ll> tb) {
     for (int i = 0; i < (int)ta.size(); i++) a2[i] = ta[i];
     for (int i = 0; i < (int)tb.size(); i++) b2[i] = tb[i];
     auto c1 = multiply<MOD1>(a1, b1);
+    auto c2 = multiply<MOD2>(a2, b2);
     vector<ll> res(c1.size());
     for (int i = 0; i < (int)res.size(); i++)
         res[i] = crt({c1[i].v, c2[i].v}, {MOD1, MOD2});

@@ -43,6 +43,7 @@ struct EulerianTrail {
         } else if (start == -1 || end == -1) {
             return {};
         }
+        if (start == -1) return n ? vector<int>{0} : vector<int>{}; // sem arestas
         auto dfs_et = [&](auto &&self, int u) -> void {
             while (it[u] < (int)adj[u].size()) {
                 int v = adj[u][it[u]++];

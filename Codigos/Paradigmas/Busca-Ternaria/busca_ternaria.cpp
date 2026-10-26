@@ -6,7 +6,7 @@ double eval(double mid) {
 double ternary_search(double l, double r) {
     int k = 100;
     while (k--) {
-        double step = (l + r) / 3;
+        double step = (r - l) / 3;
         double mid_1 = l + step;
         double mid_2 = r - step;
 
