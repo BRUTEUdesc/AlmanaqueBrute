@@ -4,8 +4,8 @@ long long eval(long long mid) {
 }
 
 long long discrete_ternary_search(long long l, long long r) {
-    long long ans = -1;
-    r--; // to not space r
+    long long ans = r; // se nenhum mid em [l, r - 1] satisfizer, o minimo esta em r
+    r--;               // mid + 1 precisa estar dentro de [l, r]
     while (l <= r) {
         long long mid = (l + r) / 2;
 

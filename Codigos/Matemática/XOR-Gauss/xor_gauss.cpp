@@ -27,6 +27,7 @@ struct Basis {
     }
     ll kth_smallest(ll k) {
         ll ans = 0;
+        if (R == 0) return 0; // so o 0 no span
         ll half = 1LL << (R - 1);
         for (int i = L - 1; i >= 0; i--) {
             if (B[i] != 0) {

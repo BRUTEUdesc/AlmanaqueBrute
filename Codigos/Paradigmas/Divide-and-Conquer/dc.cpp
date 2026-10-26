@@ -1,5 +1,5 @@
 namespace DC {
-    vi dp_before, dp_cur;
+    vector<ll> dp_before, dp_cur;
     void compute(int l, int r, int optl, int optr) {
         if (l > r) return;
         int mid = (l + r) >> 1;

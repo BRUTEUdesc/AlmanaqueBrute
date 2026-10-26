@@ -1,3 +1,4 @@
+// metodos da struct suffix_array: colar dentro dela
 pair<int, int> busca(string &t, int i, pair<int, int> &range) {
     int esq = range.first, dir = range.second, L = -1, R = -1;
     while (esq <= dir) {
@@ -15,7 +16,7 @@ pair<int, int> busca(string &t, int i, pair<int, int> &range) {
     }
     return {L, R};
 }
-// count ocurences of s on t
+// conta as ocorrencias de t em s
 int busca_string(string &t) {
     pair<int, int> range = {0, n - 1};
     for (int i = 0; i < t.size(); i++) {

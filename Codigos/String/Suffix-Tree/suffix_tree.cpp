@@ -66,8 +66,9 @@ struct SuffixTree {
         for (int i = 0; i < id; i++) {
             to[i].fill(0);
             len[i] = lnk[i] = cnt[i] = 0;
+            adj[i].clear();
         }
-        id = 2;
+        last = 1, id = 2, distinct_substrings = 0;
         for (int i = n - 1; i >= 0; i--) insert(i, s[i]);
         for (int i = 2; i < id; i++) adj[lnk[i]].push_back(i);
         dfs(1);
@@ -143,9 +144,9 @@ struct SuffixTree {
         return res;
     }
 
-    int lcp(int i, int j) {
-        // retorna o maior prefixo comum entre os sufixos s[i..n) e s[j..n)
-        // tem que codar o lca aqui no automato
-        return len[lca(where[i], where[j])];
-    }
+    // int lcp(int i, int j) {
+    //     // retorna o maior prefixo comum entre os sufixos s[i..n) e s[j..n)
+    //     // precisa de um lca na arvore de links (lnk); descomentar apos codar o lca
+    //     return len[lca(where[i], where[j])];
+    // }
 } st;

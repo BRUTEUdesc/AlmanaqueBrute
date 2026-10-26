@@ -16,6 +16,7 @@ void sort_by_angle(vector<pt> &v) { // sorta o vetor por angulo em relacao ao pi
 
 vector<pt> convex_hull(vector<pt> v, bool include_collinear = 0) {
     int n = size(v);
+    if (n <= 1) return v;
 
     sort_by_angle(v);
 

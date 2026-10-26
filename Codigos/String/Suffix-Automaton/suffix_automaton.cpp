@@ -94,9 +94,9 @@ struct SuffixAutomaton {
         return ans;
     }
 
-    int lcs(int i, int j) {
-        // retorna o maior sufixo comum entre os prefixos s[0..i] e s[0..j]
-        // tem que codar o lca aqui no automato
-        return len[lca(where[i], where[j])];
-    }
+    // int lcs(int i, int j) {
+    //     // retorna o maior sufixo comum entre os prefixos s[0..i] e s[0..j]
+    //     // precisa de um lca na arvore de links (lnk); descomentar apos codar o lca
+    //     return len[lca(where[i], where[j])];
+    // }
 } sam;

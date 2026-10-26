@@ -1,6 +1,6 @@
 struct trie {
     map<char, int> trie[100005];
-    int value[100005];
+    vector<int> value = vector<int>(100005, -1); // -1 = palavra nao inserida
     int n_nodes = 0;
     void insert(string &s, int v) {
         int id = 0;

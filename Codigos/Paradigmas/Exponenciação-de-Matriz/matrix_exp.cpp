@@ -33,7 +33,7 @@ mat operator^(mat a, ll k) {
 ll solve(ll exp, ll dim) {
     if (exp < dim) return dp[exp];
 
-    T.assign(dim, vi(dim));
+    T.assign(dim, vector<ll>(dim));
     // TO DO: Preencher a Matriz que vai ser
     // exponenciada T[0][1] = 1; T[1][0] = 1;
     // T[1][1] = 1;
@@ -41,7 +41,7 @@ ll solve(ll exp, ll dim) {
     mat prod = T ^ exp;
 
     mat vec;
-    vec.assign(dim, vi(1));
+    vec.assign(dim, vector<ll>(1));
     for (int i = 0; i < dim; i++) vec[i][0] = dp[i]; // Valores iniciais
 
     mat ans = prod * vec;

@@ -33,7 +33,7 @@ int primitive_root(int p) {
 // if solution exists, then number of solutions = gcd(k, phi(m)).
 // here m is prime, but it will work for any integer which has a primitive root
 int discrete_root(int k, int a, int m) {
-    if (a == 0) return 1;
+    if (a == 0) return 0;
     int g = primitive_root(m);
     int phi = m - 1; // m is prime
     // run baby step-giant step
