@@ -10,10 +10,10 @@ struct eertree {
     inline int get(char c) { return c - norm; }
 
     void init(int n) {
-        memset(str, 0, sizeof(int) * (n + 1));
-        memset(len, 0, sizeof(int) * (n + 1));
-        memset(lnk, 0, sizeof(int) * (n + 1));
-        memset(cnt, 0, sizeof(int) * (n + 1));
+        memset(str, 0, sizeof(int) * (n + 2));
+        memset(len, 0, sizeof(int) * (n + 2));
+        memset(lnk, 0, sizeof(int) * (n + 2));
+        memset(cnt, 0, sizeof(int) * (n + 2));
         for (int i = 0; i <= n; i++)
             for (int j = 0; j < ALF; j++) to[i][j] = 0;
         node_cnt = 2, it = 1, last = 0, str[0] = -1;
@@ -47,7 +47,7 @@ struct eertree {
 
     void build_cnt() {
         ll ans = 0;
-        for (int i = it; i > 1; i--) {
+        for (int i = node_cnt - 1; i > 1; i--) {
             ans += cnt[i];
             cnt[lnk[i]] += cnt[i];
         }
