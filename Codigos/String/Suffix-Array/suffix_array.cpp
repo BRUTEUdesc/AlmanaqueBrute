@@ -24,6 +24,10 @@ struct suffix_array {
     }
     void build_lcp() {
         for (int i = 0, k = 0; i < n - 1; i++) {
+            if(ra[i] == 0){
+                k = 0;
+                continue;
+            }
             int j = sa[ra[i] - 1];
             while (s[i + k] == s[j + k]) k++;
             lcp[ra[i]] = k;
