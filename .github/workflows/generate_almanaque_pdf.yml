@@ -16,6 +16,16 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # A main exige o check "Formatting Check" para mergear. PRs abertos com o
+      # GITHUB_TOKEN não disparam workflows, então o PR do PDF nunca receberia
+      # esse check. Rodamos a verificação aqui e publicamos o status no commit do PR.
+      - name: Run clang-format style check for C++ programs
+        uses: jidicula/clang-format-action@v4.15.0
+        with:
+          clang-format-version: '20'
+          check-path: 'Codigos'
+          fallback-style: 'LLVM'
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
@@ -39,6 +49,7 @@ jobs:
         run: python3 ./.github/scripts/pdfer.py
 
       - name: Create Pull Request com o novo PDF
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore: Atualiza o PDF"
@@ -52,3 +63,14 @@ jobs:
           base: main
           delete-branch: true
           sign-commits: true
+
+      - name: Marca o "Formatting Check" como aprovado no PR do PDF
+        if: steps.cpr.outputs.pull-request-head-sha != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ steps.cpr.outputs.pull-request-head-sha }}
+        run: |
+          gh api "repos/${{ github.repository }}/statuses/$SHA" \
+            -f state=success \
+            -f context="Formatting Check" \
+            -f description="clang-format verificado no workflow de geração do PDF"
