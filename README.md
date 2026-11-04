@@ -128,6 +128,7 @@ O script regenera `LaTeX/main.tex`, compila `Almanaque.pdf` e atualiza o README 
 ### [Geometria](Codigos/Geometria)
 
 - [Convex Hull](Codigos/Geometria/Convex-Hull)
+- [grafo_planar](Codigos/Geometria/grafo_planar)
 ### [Grafos](Codigos/Grafos)
 
 - [2 SAT](Codigos/Grafos/2-SAT)
