@@ -31,15 +31,16 @@ namespace kosaraju {
         iota(root, root + n, 0);
         for (int i = n - 1; i >= 0; i--)
             if (!vis[topo[i]]) dfs(topo[i]);
+        for (int i = 0; i < n; i++) gc[i].clear();
         set<pair<int, int>> st;
         for (int u = 0; u < n; u++) {
             int ru = root[u];
             for (int v : adj[u]) {
                 int rv = root[v];
                 if (ru == rv) continue;
-                if (!st.count(ii(ru, rv))) {
+                if (!st.count({ru, rv})) {
                     gc[ru].emplace_back(rv);
-                    st.insert(ii(ru, rv));
+                    st.insert({ru, rv});
                 }
             }
         }

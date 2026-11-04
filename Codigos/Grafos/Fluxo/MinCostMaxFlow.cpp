@@ -1,4 +1,10 @@
 struct MinCostMaxFlow {
+    static constexpr ll INF = 1e18;
+    struct FlowEdge {
+        int u, v;
+        ll cap, cost, flow = 0;
+        FlowEdge(int u, int v, ll cap, ll cost) : u(u), v(v), cap(cap), cost(cost) { }
+    };
     int n, s, t, m = 0;
     ll maxflow = 0, mincost = 0;
     vector<FlowEdge> edges;

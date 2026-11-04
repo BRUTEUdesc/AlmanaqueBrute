@@ -50,9 +50,8 @@ node operator+(node a, node b) {
 struct SegBeats {
     vector<node> t;
     int n;
-    void build(int _n) { // pra construir com tamanho, mas vazia
-        n = _n;
-        t.assign(n * 4, node());
+    void build(int _n) { // pra construir com tamanho, mas vazia (zeros)
+        build(vector<ll>(_n, 0));
     }
     void build(const vector<ll> &v) { // pra construir com vector
         n = (int)v.size();

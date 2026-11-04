@@ -1,6 +1,6 @@
 template <typename T>
 vector<T> dirichlet(const vector<int> &f, const vector<int> &g) {
-    int n = int(max(f.size(), g.size()));
+    int n = int(min(f.size(), g.size())); // ans[i] so depende de f e g ate i
     vector<int> primes, spf(n, 1), cnt(n);
     vector<T> ans(n);
     ans[1] = (T)f[1] * g[1];

@@ -9,3 +9,5 @@ Complexidade de tempo:
 - Inserir reta: $\mathcal{O}(1)$ amortizado
 - Consultar $x$: $\mathcal{O}(\log(N))$
 - Consultar $x$ quando $x$ tem crescimento monotônico: $\mathcal{O}(1)$
+
+A implementação mantém o **máximo** e exige que as retas sejam inseridas com coeficiente angular não-decrescente. Para o mínimo, insira $(-a, -b)$ e negue a resposta.

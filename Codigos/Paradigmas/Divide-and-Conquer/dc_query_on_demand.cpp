@@ -1,7 +1,7 @@
 namespace DC {
     struct range { // eh preciso definir a forma
                    // de calcular o range
-        vi freq;
+        vector<int> freq;
         ll sum = 0;
         int l = 0, r = -1;
         void back_l(int v) { // Mover o 'l' do range
@@ -36,22 +36,22 @@ namespace DC {
         }
     } s;
 
-    vi dp_before, dp_cur;
+    vector<ll> dp_before, dp_cur;
     void compute(int l, int r, int optl, int optr) {
         if (l > r) return;
         int mid = (l + r) >> 1;
-        pair<ll, int> best = {0, -1}; // {INF, -1} se quiser minimizar
+        pair<ll, int> best = {LLONG_MAX, -1}; // {-INF, -1} e max() se quiser maximizar
 
         while (s.l < optl) s.advance_l(v[s.l]);
         while (s.l > optl) s.back_l(v[s.l - 1]);
         while (s.r < mid) s.advance_r(v[s.r + 1]);
         while (s.r > mid) s.back_r(v[s.r]);
 
-        vi removed;
+        vector<int> removed;
         for (int i = optl; i <= min(mid, optr); i++) {
             best =
                 min(best,
-                    {(i ? dp_before[i - 1] : 0) + s.sum, i}); // min() se quiser minimizar
+                    {(i ? dp_before[i - 1] : 0) + s.sum, i}); // max() se quiser maximizar
             removed.push_back(v[s.l]);
             s.advance_l(v[s.l]);
         }

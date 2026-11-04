@@ -60,17 +60,19 @@ struct Offline_DSU : BipartiteRollback_DSU {
     }
     vector<int> solve() {
         lazy.assign(4 * time, {});
-        map<pair<int, int>, int> edges;
+        map<pair<int, int>, vector<int>> edges; // tempos de insercao (multiarestas)
         for (int i = 0; i < time; i++) {
             auto [type, a, b] = queries[i];
             if (type == 3) {
-                edges[{a, b}] = i;
+                edges[{a, b}].push_back(i);
             } else if (type == 4) {
-                update(edges[{a, b}], i, {a, b}, 1, 0, time - 1);
-                edges.erase({a, b});
+                auto &v = edges[{a, b}];
+                update(v.back(), i, {a, b}, 1, 0, time - 1);
+                v.pop_back();
             }
         }
-        for (auto [k, v] : edges) update(v, time - 1, k, 1, 0, time - 1);
+        for (auto &[k, v] : edges)
+            for (int x : v) update(x, time - 1, k, 1, 0, time - 1);
         vector<int> ans;
         dfs(1, 0, time - 1, ans);
         return ans;

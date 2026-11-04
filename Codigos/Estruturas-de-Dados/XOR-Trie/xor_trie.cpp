@@ -2,7 +2,10 @@ struct XorTrie {
     const int bits = 30;
     vector<vector<int>> go;
     int root = 0, cnt = 1;
-    void build(int n) { go.assign((n + 1) * bits, vector<int>(2, -1)); }
+    void build(int n) {
+        go.assign((n + 1) * bits, vector<int>(2, -1));
+        cnt = 1;
+    }
     void insert(int x) {
         int v = root;
         for (int i = bits - 1; i >= 0; i--) {

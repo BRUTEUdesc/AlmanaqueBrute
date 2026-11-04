@@ -60,7 +60,7 @@ struct SegTree {
         else root = roots[root];
         update(new_root, root, MINL, MAXR, i, x, repl);
         roots.push_back(new_root);
-        return roots.back();
+        return (int)roots.size() - 1; // indice da nova versao
     }
     int sumUpdate(ll i, ll x, int root = -1) { return update(i, x, 0, root); }
     int setUpdate(ll i, ll x, int root = -1) { return update(i, x, 1, root); }

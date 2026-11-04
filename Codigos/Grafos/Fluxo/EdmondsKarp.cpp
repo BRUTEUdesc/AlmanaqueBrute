@@ -25,20 +25,21 @@ struct EdmondsKarp {
         m += 2;
     }
 
-    int bfs() {
+    long long bfs() {
         vistoken++;
         queue<int> fila;
         fila.push(s);
+        visto[s] = vistoken;
         vector<int> pego(n, -1);
         while (!fila.empty()) {
             int u = fila.front();
             if (u == t) break;
             fila.pop();
-            visto[u] = vistoken;
             for (int id : adj[u]) {
                 if (edges[id].cap - edges[id].flow < 1) continue;
                 int v = edges[id].v;
-                if (visto[v] == -1) continue;
+                if (visto[v] == vistoken) continue;
+                visto[v] = vistoken;
                 fila.push(v);
                 pego[v] = id;
             }

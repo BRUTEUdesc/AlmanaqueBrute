@@ -16,7 +16,7 @@ struct ITreap {
     using node = node_info *;
     node root = 0;
     inline int size(node t) { return t ? t->size : 0; }
-    inline T acc(node t) { return t ? t->acc : 0; }
+    inline T acc(node t) { return t ? t->acc : neutral; }
     inline bool rev(node t) { return t ? t->rev : false; }
     inline void push(node t) {
         if (!t) return;

@@ -2,7 +2,8 @@ struct SegTree {
     struct node {
         ll sum, pref, suf, ans;
     };
-    const node neutral = {0, 0, 0, 0};
+    static constexpr ll INF = 1e18;
+    const node neutral = {0, -INF, -INF, -INF};
     node merge(const node &a, const node &b) {
         return {
             a.sum + b.sum,
@@ -25,9 +26,8 @@ struct SegTree {
             t[p] = merge(t[lc(p)], t[rc(p)]);
         }
     }
-    void build(int _n) { // pra construir com tamanho, mas vazia
-        n = _n;
-        t.assign(n * 4, neutral);
+    void build(int _n) { // pra construir com tamanho, mas vazia (zeros)
+        build(vector<ll>(_n, 0));
     }
     void build(const vector<ll> &v) { // pra construir com vector
         n = int(v.size());

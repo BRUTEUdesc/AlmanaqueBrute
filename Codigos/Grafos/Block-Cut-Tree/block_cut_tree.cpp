@@ -5,7 +5,7 @@ struct Bct {
     int n, sz, m;
     void build(int _n, int _m) {
         n = _n, m = _m;
-        adj.resize(n);
+        adj.assign(n, {});
     }
     void add_edge(int u, int v) {
         adj[u].emplace_back(v);
@@ -39,15 +39,15 @@ struct Bct {
     void work() {
         T = sz = 0;
         stk.clear();
-        tin.resize(n, -1);
-        comp.resize(n);
-        low.resize(n);
+        tin.assign(n, -1);
+        comp.assign(n, {});
+        low.assign(n, 0);
         for (int i = 0; i < n; i++)
             if (tin[i] == -1) dfs(i, 0);
-        art.resize(sz + n + 1);
-        splits.resize(n + sz + 1, 1);
-        id.resize(n);
-        g.resize(sz + n + 1);
+        art.assign(sz + n + 1, 0);
+        splits.assign(n + sz + 1, 1);
+        id.assign(n, 0);
+        g.assign(sz + n + 1, {});
         for (int i = 0; i < n; i++) {
             if ((int)comp[i].size() > 1) {
                 id[i] = ++sz;
