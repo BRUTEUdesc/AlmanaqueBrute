@@ -128,7 +128,10 @@ O script regenera `LaTeX/main.tex`, compila `Almanaque.pdf` e atualiza o README 
 ### [Geometria](Codigos/Geometria)
 
 - [Convex Hull](Codigos/Geometria/Convex-Hull)
-- [grafo_planar](Codigos/Geometria/grafo_planar)
+- [Grafo Planar](Codigos/Geometria/Grafo-Planar)
+  - [Grafo e Pontos](Codigos/Geometria/Grafo-Planar/Grafo-e-Pontos)
+  - [Localizar Pontos](Codigos/Geometria/Grafo-Planar/Localizar-Pontos)
+  - [Segmento De Linha](Codigos/Geometria/Grafo-Planar/Segmento-De-Linha)
 ### [Grafos](Codigos/Grafos)
 
 - [2 SAT](Codigos/Grafos/2-SAT)
@@ -187,6 +190,8 @@ O script regenera `LaTeX/main.tex`, compila `Almanaque.pdf` e atualiza o README 
   - [Subset Convolution](Codigos/Matemática/Convolução/Subset-Convolution)
   - [XOR Convolution](Codigos/Matemática/Convolução/XOR-Convolution)
 - [Discrete Root](Codigos/Matemática/Discrete-Root)
+  - [Generico](Codigos/Matemática/Discrete-Root/Generico)
+  - [Raiz Quadrada](Codigos/Matemática/Discrete-Root/Raiz-Quadrada)
 - [Eliminação Gaussiana](Codigos/Matemática/Eliminação-Gaussiana)
   - [Gauss](Codigos/Matemática/Eliminação-Gaussiana/Gauss)
   - [Gauss Mod 2](Codigos/Matemática/Eliminação-Gaussiana/Gauss-Mod-2)
